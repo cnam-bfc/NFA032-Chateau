@@ -20,6 +20,10 @@ public class App {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            if (test == 66) {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
         }
 */
 

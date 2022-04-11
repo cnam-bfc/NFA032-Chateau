@@ -20,9 +20,9 @@ import com.sun.jna.ptr.IntByReference;
  * RawConsoleInput is a class to read a character from the console without
  * any echo or special character handling.
  * 
- * @author Christian d'Heureuse
+ * Source: https://www.source-code.biz/snippets/java/RawConsoleInput/
  * 
- *         Source: https://www.source-code.biz/snippets/java/RawConsoleInput/
+ * @author Christian d'Heureuse
  */
 public class RawConsoleInput {
     private static final boolean isWindows = System.getProperty("os.name").startsWith("Windows");
@@ -48,16 +48,16 @@ public class RawConsoleInput {
      *         Otherwise an Unicode character code within the range 0 to 0xFFFF.
      */
     public static int read(boolean wait) throws IOException {
-        int key;
         if (isWindows) {
-            key = readWindows(wait);
+            int key = readWindows(wait);
+            // Exit if the user presses Ctrl+C.
+            if (key == 3) {
+                System.exit(0);
+            }
+            return key;
         } else {
-            key = readUnix(wait);
+            return readUnix(wait);
         }
-        if (key == 3) {
-            System.exit(0);
-        }
-        return key;
     }
 
     /**
