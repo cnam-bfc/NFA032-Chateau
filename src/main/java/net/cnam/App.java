@@ -4,6 +4,14 @@ import java.io.IOException;
 
 public class App {
     public static void main(String[] args) {
+
+        
+        
+    }
+}
+
+//morceau de code test pour les flèches à voir plus tard
+/*
         int test = 0;
         while (test != 65) {
             try {
@@ -13,5 +21,4 @@ public class App {
                 e.printStackTrace();
             }
         }
-    }
-}
+*/
