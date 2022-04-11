@@ -1,7 +1,17 @@
 package net.cnam;
 
+import java.io.IOException;
+
 public class App {
     public static void main(String[] args) {
-        System.out.println("Test");
+        int test = 0;
+        while (test != 65) {
+            try {
+                test = RawConsoleInput.read(true);
+                System.out.println((char) test + " : " + test);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
