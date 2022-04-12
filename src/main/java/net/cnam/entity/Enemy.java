@@ -2,12 +2,6 @@ package net.cnam.entity;
 
 import net.cnam.object.Weapon;
 
-
-
-/**
- *
- * @author Rouault Alban <alban.rouault.auditeur@lecnam.net>
- */
 public class Enemy extends LivingEntity {
 
 //CHAMPS

@@ -2,27 +2,26 @@ package net.cnam.entity;
 
 import net.cnam.object.Weapon;
 
-/**
- *
- * @author Rouault Alban <alban.rouault.auditeur@lecnam.net>
- */
 public class Personage extends LivingEntity{
 
     
 //CHAMPS
-    private double strength;
-    private double accuracy;
-    private double speed;
+    private Statistic stats;
     private int resistance;
     private int health;
     private Weapon weapon;
+    private String nom;
+    private Sexe sexe;
     
 //CONSTRUCTEURS
-    public Personage(double strength, double accuracy, int resistance, int health, Weapon weapon) {
-        this.strength = strength;
-        this.accuracy = accuracy;
+    public Personage(Statistic stats, int resistance, int health, Weapon weapon, String nom, Sexe sexe) {
+        this.stats = stats;
         this.resistance = resistance;
         this.health = health;
         this.weapon = weapon;
+        this.nom = nom;
+        this.sexe = sexe;
     }
+
 }
+    

@@ -1,9 +1,11 @@
 package net.cnam.structure;
 
-/**
- *
- * @author Rouault Alban <alban.rouault.auditeur@lecnam.net>
- */
+import net.cnam.entity.LivingEntity;
+
 public class Passage extends Structure {
+    
+    private boolean verouiller;
+    private boolean pieger;
+    private LivingEntity sage; //à modifier le type quand on aura trouver
 
 }
