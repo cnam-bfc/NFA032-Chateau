@@ -25,5 +25,5 @@ jobs:
           branch: main
           clean: true
           folder: target/site/apidocs
-          target_folder: docs/nfa032/chateau/javadoc
+          target-folder: docs/nfa032/chateau/javadoc
           repository-name: cnam-bfc/cnam-bfc.github.io
