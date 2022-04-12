@@ -22,6 +22,7 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
           branch: main
           clean: true
           folder: target/site/apidocs
