@@ -42,24 +42,27 @@ public class Statistic {
     }
     
 //METHODES
+    /* a voir si on en a besoin
+    
     //méthode pour comparer la précision. RETOURNE VRAI Si la vitesse passé en paramètre est plus forte
     //renvoie vrai ou faux (1chance sur 2) si les vitesses sont égales
     public boolean compareAccuracy(Statistic accuracyTest){
-        if (this.accuracy == accuracyTest.getAccuracy()) return (Math.random() <= 0.50);
+        if (this.accuracy == accuracyTest.getAccuracy()) return (Math.random() < 0.50);
         return this.accuracy >= accuracyTest.getAccuracy();
     }
     
     //méthode pour comparer la force. RETOURNE VRAI Si la vitesse passé en paramètre est plus forte
     //renvoie vrai ou faux (1chance sur 2) si les vitesses sont égales
     public boolean compareStrength(Statistic strengthTest){
-        if (this.strength == strengthTest.getStrength()) return (Math.random() <= 0.50);
+        if (this.strength == strengthTest.getStrength()) return (Math.random() < 0.50);
         return this.strength >= strengthTest.getAccuracy();
     }
+*/
     
     //méthode pour comparer la vitesse. RETOURNE VRAI Si la vitesse passé en paramètre est plus forte
     //renvoie vrai ou faux (1chance sur 2) si les vitesses sont égales
     public boolean compareSpeed(Statistic speedTest){
-        if (this.speed == speedTest.getAccuracy()) return (Math.random() <= 0.50);
+        if (this.speed == speedTest.getAccuracy()) return (Math.random() < 0.50);
         return this.speed >= speedTest.getAccuracy();
     }
 }

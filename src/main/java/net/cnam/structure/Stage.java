@@ -9,10 +9,9 @@ public class Stage extends Structure {
     
 //CONSTRUCTEUR
 
-    public Stage(int length, int width, Room[] room) {
+    public Stage(int length, int width) {
         this.length = length;
         this.width = width;
-        this.room = room;
     }
     
 

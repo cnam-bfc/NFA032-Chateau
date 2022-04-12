@@ -6,7 +6,7 @@ public interface UsableObject {
     public void destroy();
     
     //utilise l'objet en réduisant sa durabilité
-    public void use();
+    public void wear();
     
     //répare l'objet et donc réaugmente sa durabilité
     public void repair();

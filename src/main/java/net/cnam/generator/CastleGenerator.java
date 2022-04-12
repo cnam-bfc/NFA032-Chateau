@@ -19,11 +19,17 @@ public class CastleGenerator {
         Stage [] result = new Stage[this.random.nextInt(3,5)];
         
         for (int i = 0 ; i < result.length ; i++){
-            result[i] = new Stage(random.nextInt(i, i), random.nextInt(i,i), new Room[0] ); // à modifier
+            result[i] = new Stage(random.nextInt(250, 350), random.nextInt(250,350));
+            result[i] = cutStage(result[i]);
         }
         
         return result;
         
+    }
+    
+    public Stage cutStage(Stage result){
+        
+        return result;
     }
     
     
