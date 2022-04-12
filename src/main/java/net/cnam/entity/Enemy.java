@@ -13,7 +13,8 @@ public class Enemy extends LivingEntity {
     private Weapon weapon;
     
 //CONSTRUCTEURS
-    public Enemy(double strength, double accuracy, int resistance, int health, Weapon weapon) {
+    public Enemy(double strength, double accuracy, int resistance, int health, Weapon weapon, char caracter) {
+        super(caracter);
         this.strength = strength;
         this.accuracy = accuracy;
         this.resistance = resistance;

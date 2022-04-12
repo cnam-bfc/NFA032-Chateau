@@ -14,7 +14,8 @@ public class Personage extends LivingEntity{
     private Sexe sexe;
     
 //CONSTRUCTEURS
-    public Personage(Statistic stats, int resistance, int health, Weapon weapon, String nom, Sexe sexe) {
+    public Personage(Statistic stats, int resistance, int health, Weapon weapon, String nom, Sexe sexe, char caracter) {
+        super(caracter);
         this.stats = stats;
         this.resistance = resistance;
         this.health = health;
