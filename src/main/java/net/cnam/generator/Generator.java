@@ -24,7 +24,10 @@ public class Generator {
         return result;
     }
 
-    //méthode pour récupérer la seed du chateau
+    /**
+     * Méthode permettant de récupérer la seed
+     * @return seed
+     */
     public long getSeed() {
         return seed;
     }
