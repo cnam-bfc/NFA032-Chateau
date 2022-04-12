@@ -59,8 +59,11 @@ public class Statistic {
     }
 */
     
-    //méthode pour comparer la vitesse. RETOURNE VRAI Si la vitesse passé en paramètre est plus forte
-    //renvoie vrai ou faux (1chance sur 2) si les vitesses sont égales
+    /**
+     * méthode pour comparer la vitesse. 
+     * @return si les vitesses sont égales, aléatoires
+     * sinon si la vitesse passé en paramètre est plus forte TRUE
+     */
     public boolean compareSpeed(Statistic speedTest){
         if (this.speed == speedTest.getAccuracy()) return (Math.random() < 0.50);
         return this.speed >= speedTest.getAccuracy();
