@@ -13,6 +13,7 @@ public class Enemy extends LivingEntity {
 //CHAMPS
     private double strength;
     private double accuracy;
+    private double speed;
     private int resistance;
     private int health;
     private Weapon weapon;
