@@ -8,7 +8,7 @@ public class Stage extends Structure {
     private int length;
     private int width;
     private Room[] room;
-    private Block[][] block;
+    private StageMap stageMap;
     
 //CONSTRUCTEUR
 
