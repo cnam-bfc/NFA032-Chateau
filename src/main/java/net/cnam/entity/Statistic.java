@@ -60,11 +60,11 @@ public class Statistic {
 */
     
     /**
-     * méthode pour comparer la vitesse. 
-     * @return si les vitesses sont égales, aléatoires
+     * méthode pour comparer la vitesse et définir le premier à attaquer lors d'un combat. 
+     * @return si les vitesses sont égales, aléatoires 1/2 chance
      * sinon si la vitesse passé en paramètre est plus forte TRUE
      */
-    public boolean compareSpeed(Statistic speedTest){
+    public boolean attackFirst(Statistic speedTest){
         if (this.speed == speedTest.getAccuracy()) return (Math.random() < 0.50);
         return this.speed >= speedTest.getAccuracy();
     }
