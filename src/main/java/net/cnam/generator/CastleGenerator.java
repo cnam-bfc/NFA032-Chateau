@@ -38,10 +38,10 @@ public class CastleGenerator {
     
     /*public Stage cutStage(Stage result){
         
+        
+        
         return result;
-    }
-    regarde quand t'as du temps alban*/
-    
+    }*/
     
 }
 
