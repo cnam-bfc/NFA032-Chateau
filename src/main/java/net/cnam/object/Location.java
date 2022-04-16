@@ -7,17 +7,17 @@ package net.cnam.object;
 public class Location {
     
     private int x;
-    private int z;
+    private int y;
 
     /**
      * Constructeur
      * 
      * @param x coordonnée X
-     * @param z coordonnée Z
+     * @param y coordonnée Y
      */
-    public Location(int x, int z) {
+    public Location(int x, int y) {
         this.x = x;
-        this.z = z;
+        this.y = y;
     }
 
     /**
@@ -39,21 +39,21 @@ public class Location {
     }
 
     /**
-     * Méthode permettant de récupérer la cordonnées Z sous forme d'entier
+     * Méthode permettant de récupérer la cordonnées Y sous forme d'entier
      * 
-     * @return un entier (coordonnée Z)
+     * @return un entier (coordonnée Y)
      */
-    public int getZ() {
-        return z;
+    public int getY() {
+        return y;
     }
 
     /**
-     * Méthode permettant de modifier/définir la cordonnées Z dans l'objet Location sous forme d'entier
+     * Méthode permettant de modifier/définir la cordonnées Y dans l'objet Location sous forme d'entier
      * 
-     * @param z entier (pour cordonnée Z)
+     * @param y entier (pour cordonnée Y)
      */
-    public void setZ(int z) {
-        this.z = z;
+    public void setY(int y) {
+        this.y = y;
     }
     
     
