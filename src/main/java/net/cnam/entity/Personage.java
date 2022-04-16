@@ -3,6 +3,10 @@ package net.cnam.entity;
 import net.cnam.object.Location;
 import net.cnam.object.Weapon;
 
+/**
+ * Classe d'un personnage.
+ * 
+ */
 public class Personage extends LivingEntity {
 
     private Weapon weapon;
