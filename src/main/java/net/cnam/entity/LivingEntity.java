@@ -23,4 +23,58 @@ public abstract class LivingEntity extends Entity {
         this.resistance = resistance;
         this.characteristics = characteristics;
     }
+
+    /**
+     * Méthode permettant de récupérer la santé de l'entité
+     *
+     * @return la santé
+     */
+    public int getHealth() {
+        return health;
+    }
+
+    /**
+     * Méthode permettant de définir la santé de l'entité
+     *
+     * @param health la nouvelle santé
+     */
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    /**
+     * Méthode permettant de récupérer la résistance de l'entité
+     *
+     * @return la résistance
+     */
+    public int getResistance() {
+        return resistance;
+    }
+
+    /**
+     * Méthode permettant de définir la résistance de l'entité
+     *
+     * @param resistance la nouvelle résistance
+     */
+    public void setResistance(int resistance) {
+        this.resistance = resistance;
+    }
+
+    /**
+     * Méthode permettant de récupérer les caractérisiques de l'entité
+     *
+     * @return les caractéristiques
+     */
+    public Characteristic getCharacteristics() {
+        return characteristics;
+    }
+
+    /**
+     * Méthode permettant de définir les caractéristiques de l'entité
+     *
+     * @param characteristics les nouvelles caractéristiques
+     */
+    public void setCharacteristics(Characteristic characteristics) {
+        this.characteristics = characteristics;
+    }
 }
