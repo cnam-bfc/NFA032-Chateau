@@ -2,6 +2,8 @@ package net.cnam.object;
 
 /**
  * Classe générique permettant de former un couple d'objet
+ * @param <A> Type de A
+ * @param <B> Type de B
  */
 public class Couple<A, B> {
 
@@ -31,7 +33,7 @@ public class Couple<A, B> {
     /**
      * Méthode pour définir l'élément deux dans le couple
      * 
-     * @param ElemTwo Objet un
+     * @param ElemOne Objet deux
      */
     public void setElemOne(A ElemOne) {
         this.ElemOne = ElemOne;
