@@ -1,14 +1,27 @@
 package net.cnam.structure;
 
-//OK
+/**
+ * Classe d'un chateau
+ */
 public class Castle {
-    private Stage[] stage;
 
-    public Castle(Stage[] stage) {
-        this.stage = stage;
+    private final Stage[] stages;
+
+    /**
+     * Constructeur
+     *
+     * @param stages Tableau des étages du chateau
+     */
+    public Castle(Stage[] stages) {
+        this.stages = stages;
     }
 
-    public Stage[] getStage() {
-        return stage;
+    /**
+     * Méthode pour récupérer les étages du chateau
+     *
+     * @return Les étages du chateau
+     */
+    public Stage[] getStages() {
+        return stages;
     }
 }

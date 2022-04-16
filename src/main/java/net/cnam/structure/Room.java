@@ -1,43 +1,47 @@
 package net.cnam.structure;
 
-import net.cnam.object.Location;
 import net.cnam.structure.block.Block;
 
+/**
+ * Classe d'une pièce
+ */
 public class Room {
 
-    private final Location origin;
-    private final Block[][] block;
+    private final Block[][] blocks;
 
-    public Room(Location origin, Block[][] block) {
-        this.origin = origin;
-        this.block = block;
+    /**
+     * Constructeur
+     *
+     * @param blocks Tableau des blocks de la pièce
+     */
+    public Room(Block[][] blocks) {
+        this.blocks = blocks;
     }
 
-    public Location getOrigin() {
-        return origin;
+    /**
+     * Méthode permettant de récupérer les blocks de la pièce
+     *
+     * @return
+     */
+    public Block[][] getBlocks() {
+        return blocks;
     }
 
-    public Block[][] getBlock() {
-        return block;
+    /**
+     * Méthode permettant de récupérer la longueur de la pièce
+     *
+     * @return Longueur de la pièce
+     */
+    public int getLength() {
+        return blocks.length;
     }
 
-    public int getX1() {
-        return origin.getX();
-    }
-
-    public int getY1() {
-        return origin.getY();
-    }
-
-    public int getX2() {
-        return origin.getX() + block.length;
-    }
-
-    public int getY2() {
-        return origin.getY() + block[0].length;
-    }
-
-    public boolean isInside(int x, int y) {
-        return x > this.getX1() && x < this.getX2() && y > this.getY1() && y < this.getY2();
+    /**
+     * Méthode permettant de récupérer la largeur de la pièce
+     *
+     * @return Largeur de la pièce
+     */
+    public int getWidth() {
+        return blocks[0].length;
     }
 }
