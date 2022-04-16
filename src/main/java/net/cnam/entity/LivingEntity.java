@@ -1,5 +1,7 @@
 package net.cnam.entity;
 
+import net.cnam.object.Location;
+
 /**
  * Classe abstraite d'une entité vivante
  */
@@ -16,9 +18,10 @@ public abstract class LivingEntity extends Entity {
      * @param resistance La résistance de l'entité vivante
      * @param characteristics Les caractéristiques de l'entité vivante
      * @param character Caractère utilisé lors de l'affichage de l'entité
+     * @param location Coordonnées de l'entité
      */
-    public LivingEntity(int health, int resistance, Characteristic characteristics, char character) {
-        super(character);
+    public LivingEntity(int health, int resistance, Characteristic characteristics, char character, Location location) {
+        super(character, location);
         this.health = health;
         this.resistance = resistance;
         this.characteristics = characteristics;

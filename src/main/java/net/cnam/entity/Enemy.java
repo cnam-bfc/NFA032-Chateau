@@ -1,5 +1,6 @@
 package net.cnam.entity;
 
+import net.cnam.object.Location;
 import net.cnam.object.Weapon;
 
 /**
@@ -16,10 +17,11 @@ public class Enemy extends LivingEntity {
      * @param resistance La résistance de l'entité vivante
      * @param characteristics Les caractéristiques de l'entité vivante
      * @param character Caractère utilisé lors de l'affichage de l'entité
+     * @param location Coordonnées de l'entité
      */
-    public Enemy(int health, int resistance, Characteristic characteristics, char character) {
+    public Enemy(int health, int resistance, Characteristic characteristics, char character, Location location) {
         // Weapon = null
-        this(null, health, resistance, characteristics, character);
+        this(null, health, resistance, characteristics, character, location);
     }
 
     /**
@@ -30,9 +32,10 @@ public class Enemy extends LivingEntity {
      * @param resistance La résistance de l'entité vivante
      * @param characteristics Les caractéristiques de l'entité vivante
      * @param character Caractère utilisé lors de l'affichage de l'entité
+     * @param location Coordonnées de l'entité
      */
-    public Enemy(Weapon weapon, int health, int resistance, Characteristic characteristics, char character) {
-        super(health, resistance, characteristics, character);
+    public Enemy(Weapon weapon, int health, int resistance, Characteristic characteristics, char character, Location location) {
+        super(health, resistance, characteristics, character, location);
         this.weapon = weapon;
     }
 
@@ -46,8 +49,8 @@ public class Enemy extends LivingEntity {
     }
 
     /**
-     * Méthode qui permet de définir l'arme possédé par l'ennemi.
-     * null est équivalent aux mains nues
+     * Méthode qui permet de définir l'arme possédé par l'ennemi. null est
+     * équivalent aux mains nues
      *
      * @param weapon la nouvelle arme
      */
