@@ -1,13 +1,15 @@
 package net.cnam.structure.block;
 
 /**
- *
- * @author Rouault Alban (alban.rouault.auditeur@lecnam.net)
+ * Class permettant de créer un block bordure (Border) pour la map.
  */
 public class Border extends Block {
 
-    public Border(char caracter) {
-        super(caracter);
+    /**
+     * Constructeur attribuant au block Bordure (Border) le caractère 'B' pour l'affichage sur la map
+     */
+    public Border() {
+        super('B');
     }
 
 }

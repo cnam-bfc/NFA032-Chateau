@@ -1,9 +1,15 @@
 package net.cnam.structure.block;
 
+/**
+ * Class permettant de créer un block Coffre (Chest) pour la map.
+ */
 public class Chest extends Block {
     
-    public Chest(char caracter) {
-        super(caracter);
+    /**
+     * Constructeur attribuant au block Chest le caractère 'C' pour l'affichage sur la map
+     */
+    public Chest() {
+        super('C');
     }
 
 }
