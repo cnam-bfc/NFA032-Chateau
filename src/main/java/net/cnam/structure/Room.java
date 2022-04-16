@@ -1,5 +1,6 @@
 package net.cnam.structure;
 
+import net.cnam.object.Location;
 import net.cnam.structure.block.Block;
 
 /**
@@ -7,15 +8,27 @@ import net.cnam.structure.block.Block;
  */
 public class Room {
 
+    private final Location location;
     private final Block[][] blocks;
 
     /**
      * Constructeur
      *
+     * @param location Coordonnées de la pièce
      * @param blocks Tableau des blocks de la pièce
      */
-    public Room(Block[][] blocks) {
+    public Room(Location location, Block[][] blocks) {
+        this.location = location;
         this.blocks = blocks;
+    }
+
+    /**
+     * Méthode permettant de récupérer les coordonnées de la pièce
+     *
+     * @return les coordonnées
+     */
+    public Location getLocation() {
+        return location;
     }
 
     /**

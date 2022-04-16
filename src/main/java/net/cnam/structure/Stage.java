@@ -9,7 +9,6 @@ import net.cnam.structure.block.Block;
 public class Stage {
 
     private final Room[] rooms;
-    private final Location[] roomsLocations;
     private final int length;
     private final int width;
 
@@ -17,13 +16,11 @@ public class Stage {
      * Constructeur
      *
      * @param rooms Tableau des pièces de l'étage
-     * @param roomsLocations Tableau des coordonnées des pièces dans l'étage
      * @param length La longueur de l'étage
      * @param width La largeur de l'étage
      */
-    public Stage(Room[] rooms, Location[] roomsLocations, int length, int width) {
+    public Stage(Room[] rooms, int length, int width) {
         this.rooms = rooms;
-        this.roomsLocations = roomsLocations;
         this.length = length;
         this.width = width;
     }
@@ -35,24 +32,6 @@ public class Stage {
      */
     public Room[] getRooms() {
         return rooms;
-    }
-
-    /**
-     * Méthode permettant de récupérer les coordonnées d'une pièce
-     *
-     * @param room La pièce
-     * @return Les coordonnées. retourne null si les coordonnées de la pièce
-     * sont introuvables
-     *
-     */
-    public Location getLocation(Room room) {
-        for (int i = 0; i < rooms.length; i++) {
-            if (room == rooms[i]) {
-                return roomsLocations[i];
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -98,7 +77,7 @@ public class Stage {
 
         for (int i = 0; i < rooms.length; i++) {
             Room room = rooms[i];
-            Location roomLocation = roomsLocations[i];
+            Location roomLocation = room.getLocation();
             // Si le block est dans la pièce
             if (x > roomLocation.getX() && x < roomLocation.getX() + room.getLength()
                     && y > roomLocation.getY() && y < roomLocation.getY() + room.getWidth()) {
