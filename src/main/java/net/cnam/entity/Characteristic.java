@@ -1,21 +1,18 @@
 package net.cnam.entity;
 
-public class Statistic {
-    
-//CHAMPS
+/**
+ * @TODO Faire JavaDoc
+ */
+public class Characteristic {
     private int strength;
     private int accuracy;
     private int speed;
 
-//CONSTRUCTEUR
-
-    public Statistic(int strength, int accuracy, int speed) {
+    public Characteristic(int strength, int accuracy, int speed) {
         this.strength = strength;
         this.accuracy = accuracy;
         this.speed = speed;
     }
-    
-//GETTERS AND SETTERS
 
     public int getStrength() {
         return strength;
@@ -40,20 +37,19 @@ public class Statistic {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-    
-//METHODES
+
     /* a voir si on en a besoin
     
     //méthode pour comparer la précision. RETOURNE VRAI Si la vitesse passé en paramètre est plus forte
     //renvoie vrai ou faux (1chance sur 2) si les vitesses sont égales
-    public boolean compareAccuracy(Statistic accuracyTest){
+    public boolean compareAccuracy(Characteristic accuracyTest){
         if (this.accuracy == accuracyTest.getAccuracy()) return (Math.random() < 0.50);
         return this.accuracy >= accuracyTest.getAccuracy();
     }
     
     //méthode pour comparer la force. RETOURNE VRAI Si la vitesse passé en paramètre est plus forte
     //renvoie vrai ou faux (1chance sur 2) si les vitesses sont égales
-    public boolean compareStrength(Statistic strengthTest){
+    public boolean compareStrength(Characteristic strengthTest){
         if (this.strength == strengthTest.getStrength()) return (Math.random() < 0.50);
         return this.strength >= strengthTest.getAccuracy();
     }
@@ -64,7 +60,7 @@ public class Statistic {
      * @return si les vitesses sont égales, aléatoires 1/2 chance
      * sinon si la vitesse passé en paramètre est plus forte TRUE
      */
-    public boolean attackFirst(Statistic speedTest){
+    public boolean attackFirst(Characteristic speedTest){
         if (this.speed == speedTest.getAccuracy()) return (Math.random() < 0.50);
         return this.speed >= speedTest.getAccuracy();
     }

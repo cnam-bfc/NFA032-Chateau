@@ -1,5 +1,8 @@
-package net.cnam.utils;
+package net.cnam.utils.array;
 
+/**
+ * Classe utilitaire permettant de manipuler des tableaux
+ */
 public class ArrayUtils {
 
     /**
@@ -38,7 +41,7 @@ public class ArrayUtils {
      * @param <T> Type des éléments des tableaux
      * @param from Tableau d'origine
      * @param to Tableau de destination
-     * @throws net.cnam.utils.ArrayTooSmallException Exception lorsque le
+     * @throws net.cnam.utils.array.ArrayTooSmallException Exception lorsque le
      * tableau de destination est trop petit
      */
     public static <T> void copyArray(T[] from, T[] to) throws ArrayTooSmallException {

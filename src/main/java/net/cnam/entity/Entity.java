@@ -1,22 +1,33 @@
 package net.cnam.entity;
 
-import net.cnam.structure.block.CaracterBlockEntity;
+import net.cnam.object.DisplayableObject;
 
-public class Entity implements CaracterBlockEntity{
-    
-//CHAMPS
-    private char caracter;
+/**
+ * Classe abstraite d'une entité
+ *
+ * @TODO Coordonnées de l'entité
+ */
+public abstract class Entity implements DisplayableObject {
 
-//CONSTRUCTEUR
-    public Entity(char caracter) {
-        this.caracter = caracter;
+    private final char character;
+
+    /**
+     * Constructeur
+     *
+     * @param character Caractère utilisé lors de l'affichage de l'entité
+     */
+    public Entity(char character) {
+        this.character = character;
     }
-    
-//METHODES
+
+    /**
+     * Méthode permettant de récupérer le caractère à afficher quand on veut
+     * afficher l'entité
+     *
+     * @return le caractère
+     */
     @Override
-    public char getCaracter() {  
-        return caracter ;  
+    public char getCharacter() {
+        return character;
     }
-    
-
 }

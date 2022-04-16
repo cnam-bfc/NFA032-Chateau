@@ -1,6 +1,8 @@
 package net.cnam.structure.block;
 
-public class Block implements CaracterBlockEntity {
+import net.cnam.object.DisplayableObject;
+
+public class Block implements DisplayableObject {
 
 //CHAMPS
     private char caracter;
@@ -16,7 +18,7 @@ public class Block implements CaracterBlockEntity {
      * @return caractère représentant le bloc ou l'entité
      */
     @Override
-    public char getCaracter() {
+    public char getCharacter() {
         return caracter;
     }
 
