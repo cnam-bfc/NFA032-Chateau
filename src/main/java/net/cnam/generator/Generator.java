@@ -7,7 +7,7 @@ import net.cnam.structure.block.Block;
 import static net.cnam.utils.array.ArrayUtils.extendArray;
 
 /**
- * Classe pour la génération de a map
+ * Classe pour la génération de la map
  */
 public class Generator {
 
