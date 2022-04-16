@@ -24,6 +24,12 @@
             "type": "shell",
             "command": "mvn clean compile exec:exec",
             "group": "test"
+        },
+        {
+            "label": "Generate JavaDoc",
+            "type": "shell",
+            "command": "mvn site",
+            "group": "build"
         }
     ]
 }

@@ -1,4 +1,4 @@
-package net.cnam.utils;
+package net.cnam.utils.console;
 
 import java.io.InputStream;
 import java.io.IOException;
