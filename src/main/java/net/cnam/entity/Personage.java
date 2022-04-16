@@ -29,56 +29,59 @@ public class Personage extends LivingEntity {
     }
 
     /**
-     * Méthode permettant de récupérer l'arme du personnage
-     *
-     * @return l'arme
+     * Méthode permettant de récupérer l'arme du personnage.
+     * 
+     * @return un objet weapon (arme)
      */
     public Weapon getWeapon() {
         return weapon;
     }
-
+    
     /**
-     * Méthode permettant de définir une arme au personnage
-     *
-     * @param weapon la nouvelle arme
+     * Méthode permettant de définir l'arme du personnage.
+     * 
+     * @param weapon Objet Weapon (arme)
      */
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
 
     /**
-     * Méthode permettant de récupérer le nom du personnage
-     *
-     * @return le nom
+     * Méthode permettant de récupérer le nom du personnage.
+     * 
+     * @return un string "nom"
      */
     public String getNom() {
         return nom;
     }
 
     /**
-     * Méthode permettant de définir le nom du personnage
-     *
-     * @param nom le nouveau nom
+     * Méthode permettant de définir le nom du personnage.
+     * 
+     * @param nom String "nom personnage"
      */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
     /**
-     * Méthode permettant de récupérer le sexe du personnage
-     *
-     * @return le sexe
+     * Méthode permettant de récupérer le sexe du personnage.
+     * 
+     * @return un String "sexe"
      */
     public Sexe getSexe() {
         return sexe;
     }
 
     /**
-     * Méthode permettant de définir le sexe du personnage
-     *
-     * @param sexe le nouveau sexe
+     * Méthode permettant de définir le sexe du personnage. 
+     * Les sexes sont dans l'énumération net.cnam.entity.Sexe.java
+     * 
+     * @param sexe String "sexe du personnage"
      */
     public void setSexe(Sexe sexe) {
         this.sexe = sexe;
     }
+    
+    
 }

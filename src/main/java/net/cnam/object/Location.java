@@ -32,6 +32,7 @@ public class Location {
     /**
      * Méthode permettant de modifier/définir la cordonnées X dans l'objet Location sous forme d'entier
      * 
+     * @param x entier (pour cordonnée X)
      */
     public void setX(int x) {
         this.x = x;
@@ -49,6 +50,7 @@ public class Location {
     /**
      * Méthode permettant de modifier/définir la cordonnées Z dans l'objet Location sous forme d'entier
      * 
+     * @param z entier (pour cordonnée Z)
      */
     public void setZ(int z) {
         this.z = z;

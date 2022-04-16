@@ -1,16 +1,18 @@
 package net.cnam.structure.block;
 
 import net.cnam.object.DisplayableObject;
+//import net.cnam.object.Location;
 
 /**
  * Class permettant de créer un block pour la map.
  */
 public class Block implements DisplayableObject {
 
-    private char caracter;
+    private final char character;
+    //private Location location; // à voir si on met des coordonnées ou si on gère tout avec le tab à 2 dim
 
-    public Block(char caracter) {
-        this.caracter = caracter;
+    public Block(char character) {
+        this.character = character;
     }
 
     /**
@@ -20,7 +22,7 @@ public class Block implements DisplayableObject {
      */
     @Override
     public char getCharacter() {
-        return caracter;
+        return character;
     }
 
 }
