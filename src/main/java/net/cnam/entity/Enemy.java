@@ -35,4 +35,23 @@ public class Enemy extends LivingEntity {
         super(health, resistance, characteristics, character);
         this.weapon = weapon;
     }
+
+    /**
+     * Méthode qui permet de récupérer l'arme possédé par l'ennemi
+     *
+     * @return l'arme
+     */
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    /**
+     * Méthode qui permet de définir l'arme possédé par l'ennemi.
+     * null est équivalent aux mains nues
+     *
+     * @param weapon la nouvelle arme
+     */
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
 }
