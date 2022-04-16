@@ -7,8 +7,7 @@ import net.cnam.structure.block.Block;
 import static net.cnam.utils.array.ArrayUtils.extendArray;
 
 /**
- * Class pour la génération du jeu
- *
+ * Classe pour la génération de a map
  */
 public class Generator {
 
@@ -17,10 +16,10 @@ public class Generator {
     private static final int MIN_STAGE = 3; //nombre mini d'étage
     private static final int MAX_STAGE = 5; //nombre maxi d'étage
     private static final int MIN_SIZE_ROOM = 10; //taille mini d'une pièce
-    private static final double NB_ITERATION = 3; //nombre de division minimum des étages
+    private static final int NB_ITERATION = 3; //nombre de division minimum des étages
 
-    private long seed;
-    private Random random;
+    private final long seed;
+    private final Random random;
 
     /**
      * Constructeur
@@ -33,17 +32,16 @@ public class Generator {
     }
 
     /**
-     * Méthode qui permet de définir le chateau.
+     * Méthode qui génère un chateau.
      *
-     * @return un objet Chateau qui correspond à la map du chateau
+     * @return un Chateau
      */
     public Castle generateCastle() {
-        Castle result = new Castle(this.generateStages());
-        return result;
+        return new Castle(this.generateStages());
     }
 
     /**
-     * Méthode qui permet de définir le nombre d'étage.
+     * Méthode qui génère des étages.
      *
      * @return un tableau d'étage
      */
@@ -57,28 +55,41 @@ public class Generator {
         return result;
     }
 
+    /**
+     * Méthode qui génère un étage.
+     *
+     * @return un étage
+     */
     public Stage generateStage() {
-        Room[] tabRoomStage = new Room[1];
-        Room divide = new Room(new Location(0, 0), new Block[this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE)][this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE)]);
-        tabRoomStage[0] = divide;
+        int stageLength = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE);
+        int stageWidth = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE);
 
+        Room[] rooms = new Room[1];
+        Room roomBase = new Room(new Location(0, 0), new Block[stageLength][stageWidth]);
+        rooms[0] = roomBase;
+
+        // Pour chaque itération
         for (int i = 0; i < NB_ITERATION; i++) {
-            for (int k = 0; k < tabRoomStage.length; k++) {
-                Room result = divideRoom(tabRoomStage[k]);
-                if (result == null) {
+            // Pour chaque pièce, on là divise
+            int nbRooms = rooms.length;
+            for (int j = 0; j < nbRooms; j++) {
+                Room roomDivided = divideRoom(rooms[j]);
+                // Si la pièce n'a pas pu être divisé
+                if (roomDivided == null) {
                     continue;
                 }
-                tabRoomStage = extendArray(tabRoomStage);
-                tabRoomStage[tabRoomStage.length - 1] = result;
+                rooms = extendArray(rooms);
+                rooms[rooms.length - 1] = roomDivided;
+
+                //TODO Redimentionner l'ancienne room
             }
         }
 
-        return new Stage(tabRoomStage);
-
+        return new Stage(rooms, stageLength, stageWidth);
     }
 
     public Room divideRoom(Room room) {
-
+        return null;
     }
 
     /**
