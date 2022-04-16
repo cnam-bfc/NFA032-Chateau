@@ -16,6 +16,7 @@
   </properties>
 
   <dependencies>
+    <!-- Bibliothèque pour lire la console nativament sous Windows et Linux -->
     <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
     <dependency>
       <groupId>net.java.dev.jna</groupId>
@@ -23,6 +24,7 @@
       <version>5.11.0</version>
     </dependency>
 
+    <!-- Bibliothèque pour faire des tests unitaires -->
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -79,6 +81,7 @@
     </pluginManagement>
   </build>
 
+  <!-- Permet de générer la javadoc avec la commande mvn site -->
   <reporting>
     <plugins>
       <plugin>
