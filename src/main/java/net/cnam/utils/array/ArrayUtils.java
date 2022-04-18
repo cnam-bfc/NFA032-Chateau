@@ -157,7 +157,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Méthode générique qui copie de contenu d'un tableau dans un autre tableau
+     * Méthode générique qui copie de contenu d'un tableau dans un autre tableau à partir d'un index
      *
      * @param <T> Type des éléments des tableaux
      * @param from Tableau d'origine
