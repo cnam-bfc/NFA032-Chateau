@@ -4,7 +4,7 @@ import java.util.Random;
 import net.cnam.object.Location;
 import net.cnam.structure.*;
 import net.cnam.structure.block.Block;
-import static net.cnam.utils.array.ArrayUtils.extendArray;
+import net.cnam.utils.array.ArrayUtils;
 
 /**
  * Classe pour la génération de la map
@@ -78,8 +78,7 @@ public class Generator {
                 if (roomDivided == null) {
                     continue;
                 }
-                rooms = extendArray(rooms);
-                rooms[rooms.length - 1] = roomDivided;
+                rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided);
 
                 //TODO Redimentionner l'ancienne room
             }
