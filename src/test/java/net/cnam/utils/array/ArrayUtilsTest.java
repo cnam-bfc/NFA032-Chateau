@@ -9,11 +9,39 @@ import org.junit.Test;
 public class ArrayUtilsTest {
 
     /**
+     * Test of addOnTopOfArray method, of class ArrayUtils.
+     */
+    @Test
+    public void testAddOnTopOfArray_multipleElements_1() {
+        System.out.println("testAddOnTopOfArray_multipleElements_1");
+        Integer[] table = new Integer[]{1, 2, 3};
+        Integer[] elements = new Integer[]{4};
+        Integer[] expResult = new Integer[]{4, 1, 2, 3};
+        Integer[] result = ArrayUtils.addOnTopOfArray(table, elements);
+        assertArrayEquals(expResult, result);
+        System.out.println("OK");
+    }
+
+    /**
+     * Test of addOnTopOfArray method, of class ArrayUtils.
+     */
+    @Test
+    public void testAddOnTopOfArray_multipleElements_2() {
+        System.out.println("testAddOnTopOfArray_multipleElements_2");
+        Integer[] table = new Integer[]{1, 2, 3};
+        Integer[] elements = new Integer[]{4, 5, 6, 7, 8};
+        Integer[] expResult = new Integer[]{4, 5, 6, 7, 8, 1, 2, 3};
+        Integer[] result = ArrayUtils.addOnTopOfArray(table, elements);
+        assertArrayEquals(expResult, result);
+        System.out.println("OK");
+    }
+
+    /**
      * Test of addOnBottomOfArray method, of class ArrayUtils.
      */
     @Test
     public void testAddOnBottomOfArray_multipleElements_1() {
-        System.out.println("addOnBottomOfArray");
+        System.out.println("testAddOnBottomOfArray_multipleElements_1");
         Integer[] table = new Integer[]{1, 2, 3};
         Integer[] elements = new Integer[]{4};
         Integer[] expResult = new Integer[]{1, 2, 3, 4};
@@ -27,7 +55,7 @@ public class ArrayUtilsTest {
      */
     @Test
     public void testAddOnBottomOfArray_multipleElements_2() {
-        System.out.println("addOnBottomOfArray");
+        System.out.println("testAddOnBottomOfArray_multipleElements_2");
         Integer[] table = new Integer[]{1, 2, 3};
         Integer[] elements = new Integer[]{4, 5, 6, 7, 8};
         Integer[] expResult = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8};
@@ -37,11 +65,25 @@ public class ArrayUtilsTest {
     }
 
     /**
+     * Test of addOnTopOfArray method, of class ArrayUtils.
+     */
+    @Test
+    public void testAddOnTopOfArray_oneElement() {
+        System.out.println("testAddOnTopOfArray_oneElement");
+        Integer[] table = new Integer[]{1, 2};
+        int element = 3;
+        Integer[] expResult = new Integer[]{3, 1, 2};
+        Integer[] result = ArrayUtils.addOnTopOfArray(table, element);
+        assertArrayEquals(expResult, result);
+        System.out.println("OK");
+    }
+
+    /**
      * Test of addOnBottomOfArray method, of class ArrayUtils.
      */
     @Test
     public void testAddOnBottomOfArray_oneElement() {
-        System.out.println("addOnBottomOfArray");
+        System.out.println("testAddOnBottomOfArray_oneElement");
         Integer[] table = new Integer[]{1, 2};
         int element = 3;
         Integer[] expResult = new Integer[]{1, 2, 3};
@@ -51,32 +93,63 @@ public class ArrayUtilsTest {
     }
 
     /**
-     * Test of extendArray method, of class ArrayUtils.
+     * Test of extendOnTopOfArray method, of class ArrayUtils.
      */
     @Test
-    public void testExtendArray_one() {
-        System.out.println("extendArray");
+    public void testExtendOnTopOfArray_one() {
+        System.out.println("testExtendOnTopOfArray_one");
         String[] table = new String[]{"A", "B"};
         String[] expResult = new String[table.length + 1];
-        expResult[0] = "A";
-        expResult[1] = "B";
-        String[] result = ArrayUtils.extendArray(table);
+        expResult[1] = "A";
+        expResult[2] = "B";
+        String[] result = ArrayUtils.extendOnTopOfArray(table);
         assertArrayEquals(expResult, result);
         System.out.println("OK");
     }
 
     /**
-     * Test of extendArray method, of class ArrayUtils.
+     * Test of extendOnBottomOfArray method, of class ArrayUtils.
      */
     @Test
-    public void testExtendArray_multiple() {
-        System.out.println("extendArray");
+    public void testExtendOnBottomOfArray_one() {
+        System.out.println("testExtendOnBottomOfArray_one");
+        String[] table = new String[]{"A", "B"};
+        String[] expResult = new String[table.length + 1];
+        expResult[0] = "A";
+        expResult[1] = "B";
+        String[] result = ArrayUtils.extendOnBottomOfArray(table);
+        assertArrayEquals(expResult, result);
+        System.out.println("OK");
+    }
+
+    /**
+     * Test of extendOnTopOfArray method, of class ArrayUtils.
+     */
+    @Test
+    public void testExtendOnTopOfArray_multiple() {
+        System.out.println("testExtendOnTopOfArray_multiple");
+        String[] table = new String[]{"A", "B"};
+        int extendedSize = 4;
+        String[] expResult = new String[6];
+        expResult[4] = "A";
+        expResult[5] = "B";
+        Object[] result = ArrayUtils.extendOnTopOfArray(table, extendedSize);
+        assertArrayEquals(expResult, result);
+        System.out.println("OK");
+    }
+
+    /**
+     * Test of extendOnBottomOfArray method, of class ArrayUtils.
+     */
+    @Test
+    public void testExtendOnBottomOfArray_multiple() {
+        System.out.println("testExtendOnBottomOfArray_multiple");
         String[] table = new String[]{"A", "B"};
         int extendedSize = 4;
         String[] expResult = new String[6];
         expResult[0] = "A";
         expResult[1] = "B";
-        Object[] result = ArrayUtils.extendArray(table, extendedSize);
+        Object[] result = ArrayUtils.extendOnBottomOfArray(table, extendedSize);
         assertArrayEquals(expResult, result);
         System.out.println("OK");
     }
@@ -86,7 +159,7 @@ public class ArrayUtilsTest {
      */
     @Test
     public void testCopyArray_simple() throws Exception {
-        System.out.println("copyArray");
+        System.out.println("testCopyArray_simple");
         String[] from = new String[]{"A", "B", "C"};
         String[] to = new String[3];
         ArrayUtils.copyArray(from, to);
@@ -99,7 +172,7 @@ public class ArrayUtilsTest {
      */
     @Test
     public void testCopyArray_complex() throws Exception {
-        System.out.println("copyArray");
+        System.out.println("testCopyArray_complex");
         String[] from = new String[]{"D", "E", "F"};
         String[] to = new String[6];
         to[0] = "A";
@@ -111,5 +184,4 @@ public class ArrayUtilsTest {
         assertArrayEquals(expResult, to);
         System.out.println("OK");
     }
-
 }
