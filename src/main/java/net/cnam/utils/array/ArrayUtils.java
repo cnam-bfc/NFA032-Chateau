@@ -1,11 +1,27 @@
 package net.cnam.utils.array;
 
 import java.lang.reflect.Array;
+import static net.cnam.utils.Utils.generateRandomInt;
 
 /**
  * Classe utilitaire permettant de manipuler des tableaux
  */
 public class ArrayUtils {
+
+    /**
+     * Méthode générique pour mélanger les éléments d'un tableau aléatoirement
+     *
+     * @param <T> Type des éléments du tableau
+     * @param table Tableau à mélanger
+     */
+    public static <T> void shuffleArray(T[] table) {
+        for (int i = 0; i < table.length; i++) {
+            int j = generateRandomInt(0, table.length - 1);
+            T temp = table[j];
+            table[j] = table[i];
+            table[i] = temp;
+        }
+    }
 
     /**
      * Méthode générique pour savoir si un élément est contenu dans le tableau

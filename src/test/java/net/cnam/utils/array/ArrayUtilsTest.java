@@ -1,6 +1,5 @@
 package net.cnam.utils.array;
 
-import java.util.Objects;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -8,6 +7,21 @@ import org.junit.Test;
  * Classe de test de ArrayUtils
  */
 public class ArrayUtilsTest {
+
+    /**
+     * Test of shuffleArray method, of class ArrayUtils.
+     */
+    @Test
+    public void testShuffleArray() {
+        System.out.println("testShuffleArray");
+        Integer one = 1;
+        Integer two = 2;
+        Integer three = 3;
+        Integer[] table = new Integer[]{one, two, three};
+        ArrayUtils.shuffleArray(table);
+        assertFalse(table[0].equals(one) && table[1].equals(two) && table[2].equals(three));
+        System.out.println("OK");
+    }
 
     /**
      * Test of isIncludedInArray method, of class ArrayUtils.
