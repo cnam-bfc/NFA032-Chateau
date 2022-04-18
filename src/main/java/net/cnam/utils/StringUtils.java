@@ -1,8 +1,9 @@
 package net.cnam.utils;
 
+/**
+ * Classe utilitaire permettant de manipuler des chaines de caractères
+ */
 public class StringUtils {
-    // Retourne la longueur maximal des chaines de caractères contenu dans le tableau
-
     /**
      * Méthode retournant la longueur maximale de chaines de caractères
      *
