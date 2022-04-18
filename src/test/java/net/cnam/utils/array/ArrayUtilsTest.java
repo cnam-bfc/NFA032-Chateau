@@ -1,5 +1,6 @@
 package net.cnam.utils.array;
 
+import java.util.Objects;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -7,6 +8,32 @@ import org.junit.Test;
  * Classe de test de ArrayUtils
  */
 public class ArrayUtilsTest {
+
+    /**
+     * Test of isIncludedInArray method, of class ArrayUtils.
+     */
+    @Test
+    public void testIsIncludedInArray_reference() {
+        System.out.println("testIsIncludedInArray_value");
+        TestObj element = new TestObj("A", 1);
+        TestObj[] table = new TestObj[]{element, new TestObj("B", 2), new TestObj("C", 3)};
+        boolean result = ArrayUtils.isIncludedInArray(table, element);
+        assertTrue(result);
+        System.out.println("OK");
+    }
+
+    /**
+     * Test of isIncludedInArray method, of class ArrayUtils.
+     */
+    @Test
+    public void testIsIncludedInArray_value() {
+        System.out.println("testIsIncludedInArray_value");
+        String[] table = new String[]{"A", "B", "C"};
+        String element = "B";
+        boolean result = ArrayUtils.isIncludedInArray(table, element);
+        assertTrue(result);
+        System.out.println("OK");
+    }
 
     /**
      * Test of addOnTopOfArray method, of class ArrayUtils.
@@ -183,5 +210,16 @@ public class ArrayUtilsTest {
         String[] expResult = new String[]{"A", "B", "C", "D", "E", "F"};
         assertArrayEquals(expResult, to);
         System.out.println("OK");
+    }
+
+    class TestObj {
+
+        private final String str;
+        private final int i;
+
+        public TestObj(String str, int i) {
+            this.str = str;
+            this.i = i;
+        }
     }
 }

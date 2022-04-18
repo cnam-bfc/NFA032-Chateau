@@ -8,9 +8,28 @@ import java.lang.reflect.Array;
 public class ArrayUtils {
 
     /**
+     * Méthode générique pour savoir si un élément est contenu dans le tableau
+     *
+     * @param <T> Type des éléments du tableau et de l'élément
+     * @param table Tableau où l'on souhaite vérifier si il existe un certain
+     * élément
+     * @param element Élément que l'on recherche dans le tableau
+     * @return Si l'élement est contenu dans le tableau ou pas
+     */
+    public static <T> boolean isIncludedInArray(T[] table, T element) {
+        for (T temp : table) {
+            if (temp.equals(element)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Méthode générique pour ajouter des éléments au début d'un tableau
      *
-     * @param <T> Type des éléments du tableau et de l'éléments
+     * @param <T> Type des éléments du tableau et des éléments
      * @param table Tableau où on ajoute les élements
      * @param elements Éléments à ajouter au tableau
      * @return Tableau avec les élements ajoutés au début
@@ -29,7 +48,7 @@ public class ArrayUtils {
     /**
      * Méthode générique pour ajouter des éléments à la fin d'un tableau
      *
-     * @param <T> Type des éléments du tableau et de l'éléments
+     * @param <T> Type des éléments du tableau et des éléments
      * @param table Tableau où on ajoute les élements
      * @param elements Éléments à ajouter au tableau
      * @return Tableau avec les élements ajoutés à la fin
@@ -157,7 +176,8 @@ public class ArrayUtils {
     }
 
     /**
-     * Méthode générique qui copie de contenu d'un tableau dans un autre tableau à partir d'un index
+     * Méthode générique qui copie de contenu d'un tableau dans un autre tableau
+     * à partir d'un index
      *
      * @param <T> Type des éléments des tableaux
      * @param from Tableau d'origine
