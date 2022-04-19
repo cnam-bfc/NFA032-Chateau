@@ -12,8 +12,8 @@ public class ArrayUtilsTest {
      * Test of isIncludedInArray method, of class ArrayUtils.
      */
     @Test
-    public void testIsIncludedInArray_reference() {
-        System.out.println("testIsIncludedInArray_value");
+    public void testIsIncludedInArray_reference_2() {
+        System.out.println("testIsIncludedInArray_reference_2");
         TestObj element = new TestObj("A", 1);
         TestObj[] table = new TestObj[]{element, new TestObj("B", 2), new TestObj("C", 3)};
         boolean result = ArrayUtils.isIncludedInArray(table, element);
@@ -25,12 +25,12 @@ public class ArrayUtilsTest {
      * Test of isIncludedInArray method, of class ArrayUtils.
      */
     @Test
-    public void testIsIncludedInArray_value() {
-        System.out.println("testIsIncludedInArray_value");
-        String[] table = new String[]{"A", "B", "C"};
-        String element = "B";
+    public void testIsIncludedInArray_reference_1() {
+        System.out.println("testIsIncludedInArray_reference_1");
+        TestObj[] table = new TestObj[]{new TestObj("A", 1), new TestObj("B", 2), new TestObj("C", 3)};
+        TestObj element = new TestObj("A", 1);
         boolean result = ArrayUtils.isIncludedInArray(table, element);
-        assertTrue(result);
+        assertFalse(result);
         System.out.println("OK");
     }
 

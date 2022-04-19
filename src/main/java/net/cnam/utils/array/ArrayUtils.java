@@ -34,7 +34,7 @@ public class ArrayUtils {
      */
     public static <T> boolean isIncludedInArray(T[] table, T element) {
         for (T temp : table) {
-            if (temp.equals(element)) {
+            if (temp == element) {
                 return true;
             }
         }
