@@ -12,10 +12,10 @@ public class ArrayUtilsTest {
      * Test of isIncludedInArray method, of class ArrayUtils.
      */
     @Test
-    public void testIsIncludedInArray_reference_2() {
-        System.out.println("testIsIncludedInArray_reference_2");
-        TestObj element = new TestObj("A", 1);
-        TestObj[] table = new TestObj[]{element, new TestObj("B", 2), new TestObj("C", 3)};
+    public void testIsIncludedInArray_reference() {
+        System.out.println("testIsIncludedInArray_reference");
+        Personne element = new Personne("A", 1);
+        Personne[] table = new Personne[]{element, new Personne("B", 2), new Personne("C", 3)};
         boolean result = ArrayUtils.isIncludedInArray(table, element);
         assertTrue(result);
         System.out.println("OK");
@@ -25,10 +25,10 @@ public class ArrayUtilsTest {
      * Test of isIncludedInArray method, of class ArrayUtils.
      */
     @Test
-    public void testIsIncludedInArray_reference_1() {
-        System.out.println("testIsIncludedInArray_reference_1");
-        TestObj[] table = new TestObj[]{new TestObj("A", 1), new TestObj("B", 2), new TestObj("C", 3)};
-        TestObj element = new TestObj("A", 1);
+    public void testIsIncludedInArray_value() {
+        System.out.println("testIsIncludedInArray_value");
+        Personne[] table = new Personne[]{new Personne("A", 1), new Personne("B", 2), new Personne("C", 3)};
+        Personne element = new Personne("A", 1);
         boolean result = ArrayUtils.isIncludedInArray(table, element);
         assertFalse(result);
         System.out.println("OK");
@@ -211,14 +211,38 @@ public class ArrayUtilsTest {
         System.out.println("OK");
     }
 
-    class TestObj {
+    /**
+     * Une classe Personne avec des getters pour le nom et l'âge et des méthodes
+     * equals.
+     */
+    class Personne {
 
-        private final String str;
-        private final int i;
+        private String nom;
+        private int age;
 
-        public TestObj(String str, int i) {
-            this.str = str;
-            this.i = i;
+        public Personne(String nom, int age) {
+            this.nom = nom;
+            this.age = age;
+        }
+
+        public String getNom() {
+            return nom;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof Personne)) {
+                return false;
+            }
+            Personne person = (Personne) obj;
+            return person.nom.equals(nom) && person.age == age;
         }
     }
 }
