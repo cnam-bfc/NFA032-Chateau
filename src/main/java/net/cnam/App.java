@@ -21,9 +21,9 @@ public class App {
 
     private static void debugGenerator() {
         Generator gene = new Generator(new Random().nextLong());
+        System.out.println("Seed: " + gene.getSeed());
         Castle castle = gene.generateCastle();
         Stage[] stages = castle.getStages();
-        System.out.println("Seed: " + gene.getSeed());
         for (int i = 1; i <= stages.length; i++) {
             Stage stage = stages[i - 1];
             System.out.println("-------------------------");
