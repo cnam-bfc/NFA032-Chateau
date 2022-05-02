@@ -16,7 +16,6 @@ public class App {
         // Console console = new Console();
         // console.adjustSize();
         // console.debugKeys();
-
         debugGenerator();
     }
 
@@ -33,8 +32,6 @@ public class App {
                 Room room = rooms[y - 1];
                 Location location = room.getLocation();
                 System.out.println("pièce " + y + " (x=" + location.getX() + " y=" + location.getY() + " length=" + room.getLength() + " width=" + room.getWidth() + ")");
-                System.out.println("Blocks 1ère dim = " + room.getBlocks().length);
-                System.out.println("Blocks 2ème dim = " + room.getBlocks()[0].length);
             }
         }
     }
