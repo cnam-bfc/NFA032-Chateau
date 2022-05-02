@@ -11,8 +11,6 @@ import net.cnam.structure.Stage;
 public class App {
 
     public static void main(String[] args) {
-        System.out.println("En développement...");
-
         // Console console = new Console();
         // console.adjustSize();
         // console.debugKeys();
