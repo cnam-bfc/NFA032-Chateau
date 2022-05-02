@@ -17,18 +17,22 @@ public class Console {
     private int length = MIN_LENGTH;
     private int height = MIN_HEIGHT;
 
+    private Window content;
+
     public void adjustSize() {
         while (true) {
             clear();
             System.out.println('┌' + "─".repeat(length - 2) + '┐');
             String line = '│' + " ".repeat(length - 2) + '│';
-            for (int i = 0; i < height / 2; i++) {
+            // Lignes de la console - lignes de texte au millieu (3) + la 1ère ligne (+1) + la dernière ligne (+1) = 5
+            int paddingHeight = height - 5;
+            for (int i = 0; i < paddingHeight / 2; i++) {
                 System.out.println(line);
             }
             System.out.println('│' + StringUtils.centerText("Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran", ' ', length - 2) + '│');
             System.out.println('│' + StringUtils.centerText("Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd", ' ', length - 2) + '│');
             System.out.println('│' + StringUtils.centerText("Appuyez sur \"Entrée\" pour valider", ' ', length - 2) + '│');
-            for (int i = 0; i < height / 2 + height % 2; i++) {
+            for (int i = 0; i < paddingHeight / 2 + paddingHeight % 2; i++) {
                 System.out.println(line);
             }
             System.out.println('└' + "─".repeat(length - 2) + '┘');
@@ -67,26 +71,6 @@ public class Console {
         }
     }
 
-    public int getLength() {
-        return length;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    // Méthode pour effacer la console
-    public static void clear() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    @Override
-    public String toString() {
-        return "";
-        // return StringUtils.convertStringArrayToString(render());
-    }
-
     public Direction parseDirection(int input) throws DirectionNotFoundException {
         switch (input) {
             // 57416 = Flèche haut ; 122 = z ; 90 = Z
@@ -110,6 +94,12 @@ public class Console {
         throw new DirectionNotFoundException("Le caractère n'est pas une direction valide !");
     }
 
+    // Méthode pour effacer la console
+    public static void clear() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
     public void debugKeys() {
         while (true) {
             try {
@@ -117,5 +107,41 @@ public class Console {
             } catch (IOException ex) {
             }
         }
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Window getContent() {
+        return content;
+    }
+
+    public void setContent(Window content) {
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        if (content != null) {
+            String[] lines = StringUtils.convertStringToStringArray(content.toString());
+            // Lignes de la console - lignes de texte au millieu
+            int paddingHeight = height - lines.length;
+            for (int i = 0; i < paddingHeight / 2; i++) {
+                result += "\n";
+            }
+            for (String line : lines) {
+                result += "\n" + StringUtils.centerText(line, ' ', length);
+            }
+            for (int i = 0; i < paddingHeight / 2 + paddingHeight % 2; i++) {
+                result += "\n";
+            }
+        }
+        return result.replaceFirst("\n", "");
     }
 }
