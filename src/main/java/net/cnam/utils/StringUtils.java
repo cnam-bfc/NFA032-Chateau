@@ -6,6 +6,55 @@ package net.cnam.utils;
 public class StringUtils {
 
     /**
+     * Retourne une chaine de caractères centré
+     *
+     * @param text Le texte initial
+     * @param spacer Caractère pour remplir la ligne
+     * @param length Longueur minimale de la chaine retournée
+     * @return La chaine de caractère centré
+     */
+    public static String centerText(String text, char spacer, int length) {
+        return centerText(text, spacer, spacer, length);
+    }
+
+    /**
+     * Retourne une chaine de caractères centré
+     *
+     * @param text Le texte initial
+     * @param spacer Caractère pour remplir la ligne
+     * @param separator Caractère de chaque côté du texte
+     * @param length Longueur minimale de la chaine retournée
+     * @return La chaine de caractère centré
+     */
+    public static String centerText(String text, char spacer, char separator, int length) {
+        String result = "";
+
+        // Longueur du text + 2 pour les 2 separator (qui doivent êtres retourne obligatoirement)
+        int minimumLength = text.length() + 2;
+        if (minimumLength > length) {
+            length = minimumLength;
+        }
+
+        // Bourage avec des spacer pour qu'il y ai au moins length caractères dans la ligne
+        // Longeur à retourner - La longueur du texte (text + les 2 separator) obligatoire à retourner
+        int paddingLength = length - text.length() - 2;
+        for (int i = 0; i < paddingLength / 2; i++) {
+            result += spacer;
+        }
+
+        result += separator;
+        result += text;
+        result += separator;
+
+        // Bourage avec des spacer pour qu'il y ai au moins length caractères dans la ligne + un si la division de paddingLength à un reste
+        for (int i = 0; i < paddingLength / 2 + paddingLength % 2; i++) {
+            result += spacer;
+        }
+
+        return result;
+    }
+
+    /**
      * Méthode retournant un tableau de chaines de caractères en séparant celle
      * passé en paramètre par les retours à la ligne
      *
