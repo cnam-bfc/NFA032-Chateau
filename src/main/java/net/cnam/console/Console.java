@@ -20,18 +20,18 @@ public class Console {
     public void adjustSize() {
         while (true) {
             clear();
-            System.out.println("┌" + "─".repeat(length - 2) + "┐");
-            String line = "│" + " ".repeat(length - 2) + "│";
+            System.out.println('┌' + "─".repeat(length - 2) + '┐');
+            String line = '│' + " ".repeat(length - 2) + '│';
             for (int i = 0; i < height / 2; i++) {
                 System.out.println(line);
             }
-            System.out.println("│" + StringUtils.centerText("Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran", ' ', length - 2) + "│");
-            System.out.println("│" + StringUtils.centerText("Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd", ' ', length - 2) + "│");
-            System.out.println("│" + StringUtils.centerText("Appuyez sur \"Entrée\" pour valider", ' ', length - 2) + "│");
+            System.out.println('│' + StringUtils.centerText("Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran", ' ', length - 2) + '│');
+            System.out.println('│' + StringUtils.centerText("Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd", ' ', length - 2) + '│');
+            System.out.println('│' + StringUtils.centerText("Appuyez sur \"Entrée\" pour valider", ' ', length - 2) + '│');
             for (int i = 0; i < height / 2 + height % 2; i++) {
                 System.out.println(line);
             }
-            System.out.println("└" + "─".repeat(length - 2) + "┘");
+            System.out.println('└' + "─".repeat(length - 2) + '┘');
 
             try {
                 int input = RawConsoleInput.read(true);
@@ -49,12 +49,12 @@ public class Console {
                     case RIGHT -> {
                         length++;
                     }
-                    case BOTTOM -> {
+                    case TOP -> {
                         if (height > MIN_HEIGHT) {
                             height--;
                         }
                     }
-                    case TOP -> {
+                    case BOTTOM -> {
                         height++;
                     }
                 }
