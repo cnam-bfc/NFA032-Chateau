@@ -10,14 +10,14 @@ import net.cnam.structure.Stage;
 
 public class App {
 
-    public static void main(String[] args) {
-        // Console console = new Console();
-        // console.adjustSize();
-        // console.debugKeys();
+    private final Console console = new Console();
+
+    public void start() {
+        console.adjustSize();
         debugGenerator();
     }
 
-    private static void debugGenerator() {
+    public void debugGenerator() {
         Generator gene = new Generator(2027015466020144793L); //new Random().nextLong()
         System.out.println("Seed: " + gene.getSeed());
         Castle castle = gene.generateCastle();
@@ -33,11 +33,5 @@ public class App {
                 System.out.println("pièce " + y + " (x=" + location.getX() + " y=" + location.getY() + " length=" + room.getLength() + " width=" + room.getWidth() + ")");
             }
         }
-    }
-
-    // Méthode pour effacer la console
-    public static void clearConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 }
