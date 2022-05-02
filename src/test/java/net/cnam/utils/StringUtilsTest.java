@@ -9,32 +9,32 @@ import static org.junit.Assert.*;
 public class StringUtilsTest {
 
     /**
-     * Test of centerText method, of class StringUtils.
+     * Test of centerString method, of class StringUtils.
      */
     @Test
-    public void testCenterText_1() {
-        System.out.println("testCenterText_1");
-        String text = "Menu";
+    public void testCenterString_1() {
+        System.out.println("testCenterString_1");
+        String input = "Menu";
         char spacer = ' ';
-        int length = 12;
+        int minLength = 12;
         String expResult = "    Menu    ";
-        String result = StringUtils.centerText(text, spacer, length);
+        String result = StringUtils.centerString(input, spacer, minLength);
         assertEquals(expResult, result);
         System.out.println("OK");
     }
 
     /**
-     * Test of centerText method, of class StringUtils.
+     * Test of centerString method, of class StringUtils.
      */
     @Test
-    public void testCenterText_2() {
-        System.out.println("testCenterText_2");
-        String text = "Menu";
+    public void testCenterString_2() {
+        System.out.println("testCenterString_2");
+        String input = "Menu";
         char spacer = '-';
         char separator = ' ';
-        int length = 12;
+        int minLength = 12;
         String expResult = "--- Menu ---";
-        String result = StringUtils.centerText(text, spacer, separator, length);
+        String result = StringUtils.centerString(input, spacer, separator, minLength);
         assertEquals(expResult, result);
         System.out.println("OK");
     }

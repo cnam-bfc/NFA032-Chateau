@@ -29,9 +29,9 @@ public class Console {
             for (int i = 0; i < paddingHeight / 2; i++) {
                 System.out.println(line);
             }
-            System.out.println('│' + StringUtils.centerText("Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran", ' ', length - 2) + '│');
-            System.out.println('│' + StringUtils.centerText("Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd", ' ', length - 2) + '│');
-            System.out.println('│' + StringUtils.centerText("Appuyez sur \"Entrée\" pour valider", ' ', length - 2) + '│');
+            System.out.println('│' + StringUtils.centerString("Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran", ' ', length - 2) + '│');
+            System.out.println('│' + StringUtils.centerString("Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd", ' ', length - 2) + '│');
+            System.out.println('│' + StringUtils.centerString("Appuyez sur \"Entrée\" pour valider", ' ', length - 2) + '│');
             for (int i = 0; i < paddingHeight / 2 + paddingHeight % 2; i++) {
                 System.out.println(line);
             }
@@ -136,7 +136,7 @@ public class Console {
                 result += "\n";
             }
             for (String line : lines) {
-                result += "\n" + StringUtils.centerText(line, ' ', length);
+                result += "\n" + StringUtils.centerString(line, ' ', length + 2).substring(1, length + 1);
             }
             for (int i = 0; i < paddingHeight / 2 + paddingHeight % 2; i++) {
                 result += "\n";

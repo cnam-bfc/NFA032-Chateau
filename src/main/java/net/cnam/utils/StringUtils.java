@@ -8,45 +8,45 @@ public class StringUtils {
     /**
      * Retourne une chaine de caractères centré
      *
-     * @param text Le texte initial
+     * @param input La chaine de caractères initiale
      * @param spacer Caractère pour remplir la ligne
-     * @param length Longueur minimale de la chaine retournée
+     * @param minLength Longueur minimale de la chaine retournée
      * @return La chaine de caractère centré
      */
-    public static String centerText(String text, char spacer, int length) {
-        return centerText(text, spacer, spacer, length);
+    public static String centerString(String input, char spacer, int minLength) {
+        return centerString(input, spacer, spacer, minLength);
     }
 
     /**
      * Retourne une chaine de caractères centré
      *
-     * @param text Le texte initial
+     * @param input La chaine de caractères initiale
      * @param spacer Caractère pour remplir la ligne
      * @param separator Caractère de chaque côté du texte
-     * @param length Longueur minimale de la chaine retournée
+     * @param minLength Longueur minimale de la chaine retournée
      * @return La chaine de caractère centré
      */
-    public static String centerText(String text, char spacer, char separator, int length) {
+    public static String centerString(String input, char spacer, char separator, int minLength) {
         String result = "";
 
-        // Longueur du text + 2 pour les 2 separator (qui doivent êtres retourne obligatoirement)
-        int minimumLength = text.length() + 2;
-        if (minimumLength > length) {
-            length = minimumLength;
+        // Longueur du input + 2 pour les 2 separator (qui doivent êtres retourne obligatoirement)
+        int minimumLength = input.length() + 2;
+        if (minimumLength > minLength) {
+            minLength = minimumLength;
         }
 
-        // Bourage avec des spacer pour qu'il y ai au moins length caractères dans la ligne
-        // Longeur à retourner - La longueur du texte (text + les 2 separator) obligatoire à retourner
-        int paddingLength = length - text.length() - 2;
+        // Bourage avec des spacer pour qu'il y ai au moins minLength caractères dans la ligne
+        // Longeur à retourner - La longueur du texte (input + les 2 separator) obligatoire à retourner
+        int paddingLength = minLength - input.length() - 2;
         for (int i = 0; i < paddingLength / 2; i++) {
             result += spacer;
         }
 
         result += separator;
-        result += text;
+        result += input;
         result += separator;
 
-        // Bourage avec des spacer pour qu'il y ai au moins length caractères dans la ligne + un si la division de paddingLength à un reste
+        // Bourage avec des spacer pour qu'il y ai au moins minLength caractères dans la ligne + un si la division de paddingLength à un reste
         for (int i = 0; i < paddingLength / 2 + paddingLength % 2; i++) {
             result += spacer;
         }
