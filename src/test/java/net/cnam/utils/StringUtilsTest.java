@@ -9,6 +9,37 @@ import static org.junit.Assert.*;
 public class StringUtilsTest {
 
     /**
+     * Test of centerText method, of class StringUtils.
+     */
+    @Test
+    public void testCenterText_1() {
+        System.out.println("testCenterText_1");
+        String text = "Menu";
+        char spacer = ' ';
+        int length = 12;
+        String expResult = "    Menu    ";
+        String result = StringUtils.centerText(text, spacer, length);
+        assertEquals(expResult, result);
+        System.out.println("OK");
+    }
+
+    /**
+     * Test of centerText method, of class StringUtils.
+     */
+    @Test
+    public void testCenterText_2() {
+        System.out.println("testCenterText_2");
+        String text = "Menu";
+        char spacer = '-';
+        char separator = ' ';
+        int length = 12;
+        String expResult = "--- Menu ---";
+        String result = StringUtils.centerText(text, spacer, separator, length);
+        assertEquals(expResult, result);
+        System.out.println("OK");
+    }
+
+    /**
      * Test of convertStringToStringArray method, of class StringUtils.
      */
     @Test
