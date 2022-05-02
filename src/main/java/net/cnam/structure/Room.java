@@ -9,7 +9,7 @@ import net.cnam.structure.block.Block;
 public class Room {
 
     private final Location location;
-    private final Block[][] blocks;
+    private Block[][] blocks;
 
     /**
      * Constructeur
@@ -57,4 +57,9 @@ public class Room {
     public int getWidth() {
         return blocks[0].length;
     }
+
+    public void setBlocks(Block[][] blocks) {
+        this.blocks = blocks;
+    }
+    
 }

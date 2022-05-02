@@ -1,6 +1,7 @@
 package net.cnam.generator;
 
 import java.util.Random;
+import net.cnam.object.Couple;
 import net.cnam.object.Location;
 import net.cnam.structure.*;
 import net.cnam.structure.block.Block;
@@ -65,20 +66,20 @@ public class Generator {
         int stageWidth = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE);
 
         Room[] rooms = new Room[1];
-        Room roomBase = new Room(new Location(0, 0), new Block[stageLength][stageWidth]);
-        rooms[0] = roomBase;
+        rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageWidth]); //room base
 
-        // Pour chaque itération
+        //fais un minimum d'itération de découpe des pièces
         for (int i = 0; i < NB_ITERATION; i++) {
             // Pour chaque pièce, on là divise
             int nbRooms = rooms.length;
             for (int j = 0; j < nbRooms; j++) {
-                Room roomDivided = divideRoom(rooms[j]);
+                Couple<Room, Room> roomDivided = divideRoom(rooms[j]);
                 // Si la pièce n'a pas pu être divisé
                 if (roomDivided == null) {
                     continue;
                 }
-                rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided);
+                rooms[j] = roomDivided.getElemOne();
+                rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided.getElemTwo());
 
                 //TODO Redimentionner l'ancienne room
             }
@@ -87,8 +88,45 @@ public class Generator {
         return new Stage(rooms, stageLength, stageWidth);
     }
 
-    public Room divideRoom(Room room) {
-        return null;
+    /**
+     * Méthode permettant de définir le sens de découpe.
+     * 
+     * @param room la pièce à découper
+     * @return un couple de pièce résultant de la pièce passé en paramètre
+     */
+    public Couple<Room, Room> divideRoom(Room room) {
+        if (this.random.nextBoolean()) return divideRoomLength(room);
+        return divideRoomWidth(room);
+    }
+    
+    /**
+     * Méthode pour diviser une pièce en deux pièces en découpant en longueur.
+     * Si renvoie null c'est que la taille de la pièce n'est pas suffisante pour être divisé
+     * @param room la pièce à diviser
+     * @return un couple de pièce résultant de la découpe de la pièce passé en paramètre
+     */
+    public Couple<Room, Room> divideRoomLength(Room room) {
+        if (room.getLength() / 2 + 1 < MIN_SIZE_ROOM) return null;
+        int cut = random.nextInt(MIN_SIZE_ROOM, room.getLength() - MIN_SIZE_ROOM - 1);
+        Block [][] block = room.getBlocks();
+        Room newRoom = new Room(new Location(room.getLocation().getX() + cut, room.getLocation().getY() + cut), new Block[cut][block[0].length]);
+        room.setBlocks(new Block[block.length - cut][block[0].length]);
+        return new Couple<Room, Room> (room, newRoom);
+    }
+    
+    /**
+     * Méthode pour diviser une pièce en deux pièces en découpant en largeur.
+     * Si renvoie null c'est que la taille de la pièce n'est pas suffisante pour être divisé
+     * @param room la pièce à diviser
+     * @return un couple de pièce résultant de la découpe de la pièce passé en paramètre
+     */
+    public Couple<Room, Room> divideRoomWidth(Room room) {
+        if (room.getWidth() / 2 < MIN_SIZE_ROOM) return null;
+        int cut = random.nextInt(MIN_SIZE_ROOM, room.getWidth() - MIN_SIZE_ROOM - 1);
+        Block [][] block = room.getBlocks();
+        Room newRoom = new Room(new Location(room.getLocation().getX() + cut, room.getLocation().getY() + cut), new Block[block.length][cut]);
+        room.setBlocks(new Block[block.length][block[0].length - cut]);
+        return new Couple<Room, Room> (room, newRoom);
     }
 
     /**
