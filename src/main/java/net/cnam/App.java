@@ -18,7 +18,7 @@ public class App {
     }
 
     private static void debugGenerator() {
-        Generator gene = new Generator(new Random().nextLong());
+        Generator gene = new Generator(2027015466020144793L); //new Random().nextLong()
         System.out.println("Seed: " + gene.getSeed());
         Castle castle = gene.generateCastle();
         Stage[] stages = castle.getStages();

@@ -27,7 +27,7 @@ public class Generator {
      *
      * @param seed long qui permet de générer la carte de façon procédural
      */
-    public Generator(long seed) {
+    public Generator(long seed) { //une seed bugé : 2027015466020144793
         this.seed = seed;
         this.random = new Random(seed);
     }
@@ -95,7 +95,11 @@ public class Generator {
      * @return un couple de pièce résultant de la pièce passé en paramètre
      */
     public Couple<Room, Room> divideRoom(Room room) {
-        if (this.random.nextBoolean()) return divideRoomLength(room);
+        if (this.random.nextBoolean()) {
+            System.out.println("longueur"); //test
+            return divideRoomLength(room);
+        }
+        System.out.println("largeur"); //test
         return divideRoomWidth(room);
     }
     
@@ -107,7 +111,7 @@ public class Generator {
      */
     public Couple<Room, Room> divideRoomLength(Room room) {
         if (room.getLength() / 2 + 1 < MIN_SIZE_ROOM) return null;
-        int cut = random.nextInt(MIN_SIZE_ROOM, room.getLength() - MIN_SIZE_ROOM - 1);
+        int cut = random.nextInt(MIN_SIZE_ROOM +1, room.getLength() - MIN_SIZE_ROOM +1); //+1 pour le mur entre les deux pièces
         Block [][] block = room.getBlocks();
         Room newRoom = new Room(new Location(room.getLocation().getX() + cut, room.getLocation().getY()), new Block[cut][block[0].length]);
         room.setBlocks(new Block[block.length - cut][block[0].length]);
@@ -122,7 +126,7 @@ public class Generator {
      */
     public Couple<Room, Room> divideRoomWidth(Room room) {
         if (room.getWidth() / 2 < MIN_SIZE_ROOM) return null;
-        int cut = random.nextInt(MIN_SIZE_ROOM, room.getWidth() - MIN_SIZE_ROOM - 1);
+        int cut = random.nextInt(MIN_SIZE_ROOM + 1, room.getWidth() - MIN_SIZE_ROOM + 1);
         Block [][] block = room.getBlocks();
         Room newRoom = new Room(new Location(room.getLocation().getX(), room.getLocation().getY() + cut), new Block[block.length][cut]);
         room.setBlocks(new Block[block.length][block[0].length - cut]);
