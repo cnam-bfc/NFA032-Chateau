@@ -23,6 +23,7 @@ public class App {
         Generator gene = new Generator(new Random().nextLong());
         Castle castle = gene.generateCastle();
         Stage[] stages = castle.getStages();
+        System.out.println("Seed: " + gene.getSeed());
         for (int i = 1; i <= stages.length; i++) {
             Stage stage = stages[i - 1];
             System.out.println("-------------------------");
