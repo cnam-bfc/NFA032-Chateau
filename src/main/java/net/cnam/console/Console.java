@@ -8,11 +8,14 @@ import net.cnam.utils.console.RawConsoleInput;
  *
  */
 public class Console {
+
     // ┌┐└┘├┤─│
+    private static final int MIN_LENGTH = 80;
+    private static final int MIN_HEIGHT = 25;
 
     // Dimensions par défaut
-    private int length = 80;
-    private int height = 25;
+    private int length = MIN_LENGTH;
+    private int height = MIN_HEIGHT;
 
     public void adjustSize() {
         while (true) {
@@ -38,21 +41,21 @@ public class Console {
                 }
                 Direction direction = parseDirection(input);
                 switch (direction) {
-                    case BOTTOM -> {
-                        if (height > 25) {
-                            height--;
-                        }
-                    }
-                    case TOP -> {
-                        height++;
-                    }
                     case LEFT -> {
-                        if (length > 80) {
+                        if (length > MIN_LENGTH) {
                             length--;
                         }
                     }
                     case RIGHT -> {
                         length++;
+                    }
+                    case BOTTOM -> {
+                        if (height > MIN_HEIGHT) {
+                            height--;
+                        }
+                    }
+                    case TOP -> {
+                        height++;
                     }
                 }
             } catch (IOException ex) {
