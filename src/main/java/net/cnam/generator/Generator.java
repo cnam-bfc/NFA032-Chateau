@@ -109,7 +109,7 @@ public class Generator {
         if (room.getLength() / 2 + 1 < MIN_SIZE_ROOM) return null;
         int cut = random.nextInt(MIN_SIZE_ROOM, room.getLength() - MIN_SIZE_ROOM - 1);
         Block [][] block = room.getBlocks();
-        Room newRoom = new Room(new Location(room.getLocation().getX() + cut, room.getLocation().getY() + cut), new Block[cut][block[0].length]);
+        Room newRoom = new Room(new Location(room.getLocation().getX() + cut, room.getLocation().getY()), new Block[cut][block[0].length]);
         room.setBlocks(new Block[block.length - cut][block[0].length]);
         return new Couple<Room, Room> (room, newRoom);
     }
@@ -124,7 +124,7 @@ public class Generator {
         if (room.getWidth() / 2 < MIN_SIZE_ROOM) return null;
         int cut = random.nextInt(MIN_SIZE_ROOM, room.getWidth() - MIN_SIZE_ROOM - 1);
         Block [][] block = room.getBlocks();
-        Room newRoom = new Room(new Location(room.getLocation().getX() + cut, room.getLocation().getY() + cut), new Block[block.length][cut]);
+        Room newRoom = new Room(new Location(room.getLocation().getX(), room.getLocation().getY() + cut), new Block[block.length][cut]);
         room.setBlocks(new Block[block.length][block[0].length - cut]);
         return new Couple<Room, Room> (room, newRoom);
     }
