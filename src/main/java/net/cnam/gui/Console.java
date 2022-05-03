@@ -7,10 +7,11 @@ import java.util.Arrays;
 import net.cnam.gui.component.CComponent;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;
+import net.cnam.gui.component.CPanel;
 import net.cnam.utils.console.RawConsoleInput;
 import net.cnam.utils.direction.DirectionUtils;
 
-public class Console extends CComponent {
+public class Console extends CPanel {
 
     private static final int MIN_LENGTH = 80;
     private static final int MIN_HEIGHT = 25;
@@ -28,8 +29,8 @@ public class Console extends CComponent {
             "Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd"});
         CLabel instructions_2 = new CLabel("Appuyez sur \"Entrée\" pour valider");
 
-        adjustingWindow.add(instructions_1);
-        adjustingWindow.add(instructions_2);
+        adjustingWindow.getContent().add(instructions_1);
+        adjustingWindow.getContent().add(instructions_2);
         adjustingWindow.setSize(this.getLength(), this.getHeight());
 
         this.add(adjustingWindow);

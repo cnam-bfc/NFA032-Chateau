@@ -1,15 +1,13 @@
 package net.cnam.gui.component;
 
 // ┌┐└┘├┤─│
-import java.util.List;
-
 public class CFrame extends CComponent {
 
     private static final int DEFAULT_LENGTH = 50;
     private static final int DEFAULT_HEIGHT = 5;
 
     private CLabel title;
-    private final CPanel content;
+    private CPanel content;
 
     public CFrame() {
         this(null);
@@ -56,21 +54,6 @@ public class CFrame extends CComponent {
         return result;
     }
 
-    @Override
-    public void add(CComponent component) {
-        this.content.add(component);
-    }
-
-    @Override
-    public void remove(CComponent component) {
-        this.content.remove(component);
-    }
-
-    @Override
-    public List<CComponent> getContent() {
-        return this.content.getContent();
-    }
-
     public boolean hasTitle() {
         return title != null;
     }
@@ -81,7 +64,27 @@ public class CFrame extends CComponent {
 
     public void setTitle(CLabel title) {
         this.title = title;
-        this.title.setLength(this.getLength() - 2);
+        if (this.title != null) {
+            this.title.setLength(this.getLength() - 2);
+        }
+    }
+
+    public CPanel getContent() {
+        return content;
+    }
+
+    public void setContent(CPanel content) {
+        this.content = content;
+        int panelHeight = this.getHeight() - 2;
+        if (title != null) {
+            panelHeight -= title.getHeight();
+            panelHeight--;
+        }
+        if (this.content == null) {
+            this.content = new CPanel(this.getLength() - 2, panelHeight);
+        } else {
+            this.content.setSize(this.getLength() - 2, panelHeight);
+        }
     }
 
     @Override
