@@ -69,7 +69,7 @@ public class Generator {
         rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageWidth]); //room base
 
         //fais un minimum d'itération de découpe des pièces
-        for (int i = 0; i < NB_ITERATION; i++) {
+        for (int i = 0; i < 1; i++) {
             // Pour chaque pièce, on là divise
             int nbRooms = rooms.length;
             for (int j = 0; j < nbRooms; j++) {
@@ -111,11 +111,11 @@ public class Generator {
      */
     public Couple<Room, Room> divideRoomLength(Room room) {
         if (room.getLength() / 2 + 1 < MIN_SIZE_ROOM) return null;
-        int cut = random.nextInt(MIN_SIZE_ROOM +1, room.getLength() - MIN_SIZE_ROOM +1); //+1 pour le mur entre les deux pièces
+        int cut = random.nextInt(MIN_SIZE_ROOM, room.getLength() - MIN_SIZE_ROOM )+1; //+1 pour le mur entre les deux pièces
         Block [][] block = room.getBlocks();
-        Room newRoom = new Room(new Location(room.getLocation().getX() + cut, room.getLocation().getY()), new Block[cut][block[0].length]);
-        room.setBlocks(new Block[block.length - cut][block[0].length]);
-        return new Couple<Room, Room> (room, newRoom);
+        Room newRoom = new Room(new Location(room.getLocation().getX() + cut, room.getLocation().getY()), new Block[block.length - cut +1][block[0].length]);
+        room.setBlocks(new Block[cut][block[0].length]);
+        return new Couple<> (room, newRoom);
     }
     
     /**
@@ -125,12 +125,12 @@ public class Generator {
      * @return un couple de pièce résultant de la découpe de la pièce passé en paramètre
      */
     public Couple<Room, Room> divideRoomWidth(Room room) {
-        if (room.getWidth() / 2 < MIN_SIZE_ROOM) return null;
-        int cut = random.nextInt(MIN_SIZE_ROOM + 1, room.getWidth() - MIN_SIZE_ROOM + 1);
+        if (room.getWidth() / 2 + 1 < MIN_SIZE_ROOM) return null;
+        int cut = random.nextInt(MIN_SIZE_ROOM , room.getWidth() - MIN_SIZE_ROOM )+1;
         Block [][] block = room.getBlocks();
-        Room newRoom = new Room(new Location(room.getLocation().getX(), room.getLocation().getY() + cut), new Block[block.length][cut]);
-        room.setBlocks(new Block[block.length][block[0].length - cut]);
-        return new Couple<Room, Room> (room, newRoom);
+        Room newRoom = new Room(new Location(room.getLocation().getX(), room.getLocation().getY() + cut), new Block[block.length][block[0].length - cut+1]);
+        room.setBlocks(new Block[block.length][cut]);
+        return new Couple<> (room, newRoom);
     }
 
     /**
