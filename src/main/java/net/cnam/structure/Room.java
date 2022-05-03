@@ -1,12 +1,13 @@
 package net.cnam.structure;
 
+import net.cnam.gui.component.CComponent;
 import net.cnam.object.Location;
 import net.cnam.structure.block.Block;
 
 /**
  * Classe d'une pièce
  */
-public class Room {
+public class Room extends CComponent {
 
     private final Location location;
     private Block[][] blocks;
@@ -18,6 +19,8 @@ public class Room {
      * @param blocks Tableau des blocks de la pièce
      */
     public Room(Location location, Block[][] blocks) {
+        super(blocks.length, blocks[0].length);
+
         this.location = location;
         this.blocks = blocks;
     }
@@ -40,41 +43,28 @@ public class Room {
         return blocks;
     }
 
-    /**
-     * Méthode permettant de récupérer la longueur de la pièce
-     *
-     * @return Longueur de la pièce
-     */
-    public int getLength() {
-        return blocks.length;
-    }
-
-    /**
-     * Méthode permettant de récupérer la largeur de la pièce
-     *
-     * @return Largeur de la pièce
-     */
-    public int getWidth() {
-        return blocks[0].length;
-    }
-
     public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;
+        this.setSize(blocks.length, blocks[0].length);
     }
 
     @Override
-    public String toString() {
-        String result ="";
-        
-        for (int x = 0; x < this.blocks.length; x++) {
-            for (int y = 0; y < this.blocks[x].length; y++) {
-                System.out.println(this.blocks[x].length);
-                if (this.blocks[x][y] == null) result += " ";
-                else result += this.blocks[x][y].getCharacter();
-                }
-            result += "\n";
-            }
-        return result;
-    }   
+    public String[] render() {
+        String[] result = new String[this.getHeight()];
 
+        for (int y = 0; y < blocks[0].length; y++) {
+            String line = "";
+            for (int x = 0; x < blocks.length; x++) {
+                Block block = blocks[x][y];
+                if (block != null) {
+                    line += block.getCharacter();
+                } else {
+                    line += ' ';
+                }
+            }
+            result[y] = line;
+        }
+
+        return result;
+    }
 }

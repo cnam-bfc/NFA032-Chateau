@@ -12,11 +12,11 @@ import net.cnam.utils.array.ArrayUtils;
  */
 public class Generator {
 
-    private static final int MIN_SIZE_STAGE = 70; //taille mini d'un étage
-    private static final int MAX_SIZE_STAGE = 80; //taille maxi d'un étage
+    private static final int MIN_SIZE_STAGE = 40; //taille mini d'un étage
+    private static final int MAX_SIZE_STAGE = 60; //taille maxi d'un étage
     private static final int MIN_STAGE = 3; //nombre mini d'étage
     private static final int MAX_STAGE = 5; //nombre maxi d'étage
-    private static final int MIN_SIZE_ROOM = 10; //taille mini d'une pièce
+    private static final int MIN_SIZE_ROOM = 6; //taille mini d'une pièce
     private static final int NB_ITERATION_MIN = 3; //nombre de division minimum des étages
     private static final int NB_ITERATION_MAX = 5; //nombre de division maximum supplémentaire des étages
     private static final int CHOICE_DIVIDE = 35; //ajusteur de choix de la division hauteur/longeur
@@ -107,9 +107,9 @@ public class Generator {
     public Couple<Room, Room> divideRoom(Room room) {
 
         int chooseDivideModificator;
-        if (room.getLength() < room.getWidth()) {
+        if (room.getLength() < room.getHeight()) {
             chooseDivideModificator = CHOICE_DIVIDE;
-        } else if (room.getLength() > room.getWidth()) {
+        } else if (room.getLength() > room.getHeight()) {
             chooseDivideModificator = -CHOICE_DIVIDE;
         } else {
             chooseDivideModificator = 0;
@@ -153,10 +153,10 @@ public class Generator {
      * paramètre
      */
     public Couple<Room, Room> divideRoomWidth(Room room) {
-        if (room.getWidth() / 2 <= MIN_SIZE_ROOM) {
+        if (room.getHeight() / 2 <= MIN_SIZE_ROOM) {
             return null;
         }
-        int cut = random.nextInt(MIN_SIZE_ROOM, room.getWidth() - MIN_SIZE_ROOM) + 1;
+        int cut = random.nextInt(MIN_SIZE_ROOM, room.getHeight() - MIN_SIZE_ROOM) + 1;
         Block[][] block = room.getBlocks();
         Room newRoom = new Room(new Location(room.getLocation().getX(), room.getLocation().getY() + cut), new Block[block.length][block[0].length - cut + 1]);
         room.setBlocks(new Block[block.length][cut]);
@@ -189,9 +189,9 @@ public class Generator {
                 }
             }
         }
-        
+
         room.setBlocks(tabBlock);
-        
+
         return room;
     }
 
@@ -203,5 +203,4 @@ public class Generator {
     public long getSeed() {
         return seed;
     }
-
 }

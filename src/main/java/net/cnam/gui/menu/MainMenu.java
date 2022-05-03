@@ -1,6 +1,7 @@
 package net.cnam.gui.menu;
 
 import java.io.IOException;
+import net.cnam.App;
 import net.cnam.gui.Console;
 import net.cnam.gui.component.CButton;
 import net.cnam.gui.component.CFrame;
@@ -29,7 +30,8 @@ public class MainMenu extends CFrame {
         this.getContent().getContent().add(quitButton);
     }
 
-    public void show(Console console) {
+    public void show(App app) {
+        Console console = app.getConsole();
         this.setSize(console.getLength(), console.getHeight());
         if (!console.getContent().contains(this)) {
             console.getContent().add(this);
@@ -45,7 +47,9 @@ public class MainMenu extends CFrame {
                     } else if (settingsButton.isSelected()) {
                         // TODO Faire le menu settings
                     } else if (playButton.isSelected()) {
-                        // TODO Faire le menu jouer
+                        console.getContent().remove(this);
+                        app.startGame();
+                        console.getContent().add(this);
                     }
                 }
                 Direction direction = DirectionUtils.parseDirection(input);

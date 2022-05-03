@@ -1,16 +1,17 @@
 package net.cnam.structure;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.cnam.gui.component.CComponent;
 import net.cnam.object.Location;
 import net.cnam.structure.block.Block;
 
 /**
  * Classe d'un étage
  */
-public class Stage {
+public class Stage extends CComponent {
 
     private Room[] rooms;
-    private final int length;
-    private final int width;
 
     /**
      * Constructeur
@@ -20,9 +21,9 @@ public class Stage {
      * @param width La largeur de l'étage
      */
     public Stage(Room[] rooms, int length, int width) {
+        super(length, width);
+
         this.rooms = rooms;
-        this.length = length;
-        this.width = width;
     }
 
     /**
@@ -32,24 +33,6 @@ public class Stage {
      */
     public Room[] getRooms() {
         return rooms;
-    }
-
-    /**
-     * Méthode permettant de récupérer la longueur de l'étage
-     *
-     * @return Longueur de l'étage
-     */
-    public int getLength() {
-        return length;
-    }
-
-    /**
-     * Méthode permettant de récupérer la largeur de l'étage
-     *
-     * @return Largeur de l'étage
-     */
-    public int getWidth() {
-        return width;
     }
 
     /**
@@ -71,8 +54,8 @@ public class Stage {
         if (x > this.getLength()) {
             throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
         }
-        if (y > this.getWidth()) {
-            throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getWidth() + " (" + y + ")");
+        if (y > this.getHeight()) {
+            throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
         }
 
         for (int i = 0; i < rooms.length; i++) {
@@ -80,7 +63,7 @@ public class Stage {
             Location roomLocation = room.getLocation();
             // Si le block est dans la pièce
             if (x > roomLocation.getX() && x < roomLocation.getX() + room.getLength()
-                    && y > roomLocation.getY() && y < roomLocation.getY() + room.getWidth()) {
+                    && y > roomLocation.getY() && y < roomLocation.getY() + room.getHeight()) {
                 // On récupère le bloc en calculant ses coordonnées relatives par rapport à la pièce
                 return room.getBlocks()[x - roomLocation.getX()][y - roomLocation.getY()];
             }
@@ -92,5 +75,28 @@ public class Stage {
     public void setRooms(Room[] rooms) {
         this.rooms = rooms;
     }
-    
+
+    @Override
+    public String[] render() {
+        String[] result = new String[this.getHeight()];
+
+        for (int y = 0; y < this.getHeight(); y++) {
+            String line = "";
+            for (int x = 0; x < this.getLength(); x++) {
+                try {
+                    Block block = getBlock(x, y);
+                    if (block != null) {
+                        line += block.getCharacter();
+                    } else {
+                        line += ' ';
+                    }
+                } catch (CoordinatesOutOfBoundsException ex) {
+                }
+            }
+            result[y] = line;
+        }
+
+        return result;
+    }
+
 }
