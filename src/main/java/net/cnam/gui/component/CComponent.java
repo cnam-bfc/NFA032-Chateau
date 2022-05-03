@@ -28,7 +28,7 @@ public abstract class CComponent {
             return linePointer;
         }
 
-        lines[linePointer] = line.substring(0, length);
+        lines[linePointer] = line;
         return ++linePointer;
     }
 

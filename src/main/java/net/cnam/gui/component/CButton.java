@@ -36,7 +36,21 @@ public class CButton extends CLabel {
             line = this.renderAddLine(result, line, emptyLine);
         }
         for (String textLine : textLines) {
-            line = this.renderAddLine(result, line, StringUtils.centerString("\u001b[7m" + textLine + "\u001b[27m", ' ', this.getLength()));
+            if (textLine.length() > this.getLength()) {
+                if (selected) {
+                    textLine = "\u001b[7m" + textLine.substring(0, this.getLength()) + "\u001b[27m";
+                } else {
+                    textLine = textLine.substring(0, this.getLength());
+                }
+            } else if (textLine.length() < this.getLength()) {
+                if (selected) {
+                    int newLength = this.getLength() + "\u001b[7m".length() + "\u001b[27m".length();
+                    textLine = StringUtils.centerString("\u001b[7m" + textLine + "\u001b[27m", ' ', newLength);
+                } else {
+                    textLine = StringUtils.centerString(textLine, ' ', this.getLength());
+                }
+            }
+            line = this.renderAddLine(result, line, textLine);
         }
 
         // Bourage à la fin

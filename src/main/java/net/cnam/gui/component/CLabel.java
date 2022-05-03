@@ -35,7 +35,12 @@ public class CLabel extends CComponent {
             line = this.renderAddLine(result, line, emptyLine);
         }
         for (String textLine : textLines) {
-            line = this.renderAddLine(result, line, StringUtils.centerString(textLine, ' ', this.getLength()));
+            if (textLine.length() > this.getLength()) {
+                textLine = textLine.substring(0, this.getLength());
+            } else if (textLine.length() < this.getLength()) {
+                textLine = StringUtils.centerString(textLine, ' ', this.getLength());
+            }
+            line = this.renderAddLine(result, line, textLine);
         }
 
         // Bourage à la fin
