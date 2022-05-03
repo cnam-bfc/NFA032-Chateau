@@ -1,7 +1,5 @@
 package net.cnam.structure;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.cnam.gui.component.CComponent;
 import net.cnam.object.Location;
 import net.cnam.structure.block.Block;
@@ -58,12 +56,11 @@ public class Stage extends CComponent {
             throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
         }
 
-        for (int i = 0; i < rooms.length; i++) {
-            Room room = rooms[i];
+        for (Room room : rooms) {
             Location roomLocation = room.getLocation();
             // Si le block est dans la pièce
-            if (x > roomLocation.getX() && x < roomLocation.getX() + room.getLength()
-                    && y > roomLocation.getY() && y < roomLocation.getY() + room.getHeight()) {
+            if (x >= roomLocation.getX() && x < roomLocation.getX() + room.getLength()
+                    && y >= roomLocation.getY() && y < roomLocation.getY() + room.getHeight()) {
                 // On récupère le bloc en calculant ses coordonnées relatives par rapport à la pièce
                 return room.getBlocks()[x - roomLocation.getX()][y - roomLocation.getY()];
             }
@@ -98,5 +95,4 @@ public class Stage extends CComponent {
 
         return result;
     }
-
 }

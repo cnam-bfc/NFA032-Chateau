@@ -52,13 +52,13 @@ public class App {
             System.out.println("-------------------------");
             System.out.println("étage " + i + " (" + stage.getRooms().length + " pièces)");
             System.out.println(stage);
-            Room[] rooms = stage.getRooms();
-            for (int y = 1; y <= rooms.length; y++) {
-                Room room = rooms[y - 1];
-                Location location = room.getLocation();
-                System.out.println("pièce " + y + " (x=" + location.getX() + " y=" + location.getY() + " length=" + room.getLength() + " height=" + room.getHeight() + ")");
-                System.out.println(room);
-            }
+//            Room[] rooms = stage.getRooms();
+//            for (int y = 1; y <= rooms.length; y++) {
+//                Room room = rooms[y - 1];
+//                Location location = room.getLocation();
+//                System.out.println("pièce " + y + " (x=" + location.getX() + " y=" + location.getY() + " length=" + room.getLength() + " height=" + room.getHeight() + ")");
+//                System.out.println(room);
+//            }
         }
     }
 
