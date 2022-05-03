@@ -4,6 +4,9 @@ import net.cnam.utils.direction.Direction;
 import net.cnam.utils.direction.DirectionNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
+import net.cnam.gui.component.CComponent;
+import net.cnam.gui.component.CFrame;
+import net.cnam.gui.component.CLabel;
 import net.cnam.utils.console.RawConsoleInput;
 import net.cnam.utils.direction.DirectionUtils;
 
@@ -27,8 +30,7 @@ public class Console extends CComponent {
 
         adjustingWindow.add(instructions_1);
         adjustingWindow.add(instructions_2);
-        adjustingWindow.setHeight(this.getHeight());
-        adjustingWindow.setLength(this.getLength());
+        adjustingWindow.setSize(this.getLength(), this.getHeight());
 
         this.add(adjustingWindow);
 
@@ -61,10 +63,8 @@ public class Console extends CComponent {
                         newHeight++;
                     }
                 }
-                this.setHeight(newHeight);
-                this.setLength(newLength);
-                adjustingWindow.setHeight(newHeight);
-                adjustingWindow.setLength(newLength);
+                this.setSize(newLength, newHeight);
+                adjustingWindow.setSize(newLength, newHeight);
             } catch (IOException ex) {
                 System.out.println("ERREUR");
                 System.exit(1);

@@ -1,4 +1,4 @@
-package net.cnam.gui;
+package net.cnam.gui.component;
 
 // ┌┐└┘├┤─│
 import java.util.List;

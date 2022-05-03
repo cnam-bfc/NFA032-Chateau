@@ -1,4 +1,4 @@
-package net.cnam.gui;
+package net.cnam.gui.component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +75,11 @@ public abstract class CComponent {
 
     public void remove(CComponent component) {
         content.remove(component);
+    }
+
+    public void setSize(int length, int height) {
+        this.setLength(length);
+        this.setHeight(height);
     }
 
     public List<CComponent> getContent() {
