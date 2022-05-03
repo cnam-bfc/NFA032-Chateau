@@ -4,7 +4,7 @@ import java.util.Random;
 import net.cnam.object.Couple;
 import net.cnam.object.Location;
 import net.cnam.structure.*;
-import net.cnam.structure.block.Block;
+import net.cnam.structure.block.*;
 import net.cnam.utils.array.ArrayUtils;
 
 /**
@@ -72,13 +72,17 @@ public class Generator {
         rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageWidth]); //room base
 
         //fais un minimum d'itération de découpe des pièces
-        int pourcentage = 0 ;
+        int pourcentage = 0;
         for (int i = 0; i < NB_ITERATION_MAX; i++) {
             // Pour chaque pièce, on là divise
-            if (i >= NB_ITERATION_MIN) pourcentage += POURCENT_DIVIDE;
+            if (i >= NB_ITERATION_MIN) {
+                pourcentage += POURCENT_DIVIDE;
+            }
             int nbRooms = rooms.length;
             for (int j = 0; j < nbRooms; j++) {
-                if (pourcentage != 0 && this.random.nextInt(1 , 100) + pourcentage > 50) continue;
+                if (pourcentage != 0 && this.random.nextInt(1, 100) + pourcentage > 50) {
+                    continue;
+                }
                 Couple<Room, Room> roomDivided = divideRoom(rooms[j]);
                 // Si la pièce n'a pas pu être divisé
                 if (roomDivided == null) {
@@ -110,8 +114,8 @@ public class Generator {
         } else {
             chooseDivideModificator = 0;
         }
-        
-        if (this.random.nextInt(1,100) + chooseDivideModificator > 50) {
+
+        if (this.random.nextInt(1, 100) + chooseDivideModificator > 50) {
             System.out.println("longueur"); //test
             return divideRoomLength(room);
         }
@@ -158,33 +162,31 @@ public class Generator {
         room.setBlocks(new Block[block.length][cut]);
         return new Couple<>(room, newRoom);
     }
-    
-    public Stage[] generateRooms (Stage[] stage){
-        
+
+    public Stage[] generateRooms(Stage[] stage) {
+
         Room[] tabRoom;
-        for (int i = 0 ; i < stage.length ; i++)
-        {
+        for (int i = 0; i < stage.length; i++) {
             tabRoom = stage[i].getRooms();
-            
-            for (int j = 0 ; j < tabRoom ; j++)
-            {
+
+            for (int j = 0; j < tabRoom.length; j++) {
                 generateRoomBorder(tabRoom[i]);
             }
-            
+
         }
-        
+
         return stage;
     }
-    
-    public void generateRoomBorder (Room room){
-        
+
+    public void generateRoomBorder(Room room) {
+
         Block[][] tabBlock = room.getBlocks();
-        
-        for (int x = 0 ; x < tabBlock.length ; x++)
-        {
-            for (int y = 0 ; x < tabBlock[i].length ; y++ )
-            {
-                if (x == 0 || x == tabBlock.length -1 || y == 0 || y == tabBlock[i].length - 1) tabBlock[x][y] = new Wall();
+
+        for (int x = 0; x < tabBlock.length; x++) {
+            for (int y = 0; y < tabBlock[x].length; y++) {
+                if (x == 0 || x == tabBlock.length - 1 || y == 0 || y == tabBlock[x].length - 1) {
+                    tabBlock[x][y] = new Wall();
+                }
             }
         }
     }

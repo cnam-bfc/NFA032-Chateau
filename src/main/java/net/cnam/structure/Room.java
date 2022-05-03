@@ -61,5 +61,14 @@ public class Room {
     public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;
     }
+
+    @Override
+    public String toString() {
+        String result ="";
+        
+        return result;
+    }
+
     
+
 }
