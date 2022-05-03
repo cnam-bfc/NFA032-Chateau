@@ -53,10 +53,14 @@ public class Generator {
         Stage[] result = new Stage[this.random.nextInt(MIN_STAGE, MAX_STAGE)];
 
         for (int i = 0; i < result.length; i++) {
-            result[i] = generateStage();
+            Stage stage = generateStage();
+            for (Room room : stage.getRooms()) {
+                generateRoom(room);
+            }
+            result[i] = stage;
         }
 
-        return generateRooms(result);
+        return result;
     }
 
     /**
@@ -163,9 +167,8 @@ public class Generator {
         return new Couple<>(room, newRoom);
     }
 
-    public Stage[] generateRooms(Stage[] stage) {
-
-        Room[] tabRoom;
+    public void generateRoom(Room room) {
+        /* Room[] tabRoom;
         for (int i = 0; i < stage.length; i++) {
             tabRoom = stage[i].getRooms();
 
@@ -175,11 +178,12 @@ public class Generator {
             stage[i].setRooms(tabRoom);
         }
 
-        return stage;
+        return stage;*/
+        generateRoomBorder(room);
+        // populateRoom();
     }
 
-    public Room generateRoomBorder(Room room) {
-
+    public void generateRoomBorder(Room room) {
         Block[][] tabBlock = room.getBlocks();
 
         for (int x = 0; x < tabBlock.length; x++) {
@@ -191,8 +195,6 @@ public class Generator {
         }
 
         room.setBlocks(tabBlock);
-
-        return room;
     }
 
     /**
