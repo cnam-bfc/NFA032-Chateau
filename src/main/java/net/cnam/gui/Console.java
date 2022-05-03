@@ -20,7 +20,7 @@ public class Console extends CComponent {
         CComponent[] save = this.getContent().toArray(new CComponent[this.getContent().size()]);
         this.getContent().clear();
 
-        CWindow adjustingWindow = new CWindow(new CLabel("Réglage des dimensions de la console"));
+        CFrame adjustingWindow = new CFrame(new CLabel("Réglage des dimensions de la console"));
         CLabel instructions_1 = new CLabel(new String[]{"Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran",
             "Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd"});
         CLabel instructions_2 = new CLabel("Appuyez sur \"Entrée\" pour valider");

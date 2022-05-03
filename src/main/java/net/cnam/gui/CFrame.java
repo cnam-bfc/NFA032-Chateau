@@ -3,7 +3,7 @@ package net.cnam.gui;
 // ┌┐└┘├┤─│
 import java.util.List;
 
-public class CWindow extends CComponent {
+public class CFrame extends CComponent {
 
     private static final int DEFAULT_LENGTH = 50;
     private static final int DEFAULT_HEIGHT = 5;
@@ -11,19 +11,19 @@ public class CWindow extends CComponent {
     private CLabel title;
     private final CPanel content;
 
-    public CWindow() {
+    public CFrame() {
         this(null);
     }
 
-    public CWindow(CLabel title) {
+    public CFrame(CLabel title) {
         this(title, DEFAULT_LENGTH, DEFAULT_HEIGHT);
     }
 
-    public CWindow(int length, int height) {
+    public CFrame(int length, int height) {
         this(null, length, height);
     }
 
-    public CWindow(CLabel title, int length, int height) {
+    public CFrame(CLabel title, int length, int height) {
         super(length, height);
 
         this.title = title;
