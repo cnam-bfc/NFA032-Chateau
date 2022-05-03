@@ -1,5 +1,6 @@
 package net.cnam;
 
+import java.util.Random;
 import net.cnam.gui.Console;
 import net.cnam.generator.Generator;
 import net.cnam.object.Location;
@@ -17,7 +18,7 @@ public class App {
     }
 
     public void debugGenerator() {
-        Generator gene = new Generator(2027015466020144793L); //new Random().nextLong()
+        Generator gene = new Generator(new Random().nextLong()); //new Random().nextLong() //2027015466020144793L
         System.out.println("Seed: " + gene.getSeed());
         Castle castle = gene.generateCastle();
         Stage[] stages = castle.getStages();

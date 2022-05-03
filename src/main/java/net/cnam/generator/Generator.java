@@ -56,7 +56,7 @@ public class Generator {
             result[i] = generateStage();
         }
 
-        return result;
+        return result; //return generateRooms(result);
     }
 
     /**
@@ -157,6 +157,14 @@ public class Generator {
         Room newRoom = new Room(new Location(room.getLocation().getX(), room.getLocation().getY() + cut), new Block[block.length][block[0].length - cut + 1]);
         room.setBlocks(new Block[block.length][cut]);
         return new Couple<>(room, newRoom);
+    }
+    
+    public Stage[] generateRooms (Stage[] Stage){
+        return null;
+    }
+    
+    public Stage[] generateRoomsBorder (Stage[] Stage){
+        return null;
     }
 
     /**
