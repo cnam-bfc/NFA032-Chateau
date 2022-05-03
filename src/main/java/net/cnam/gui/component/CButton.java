@@ -49,6 +49,10 @@ public class CButton extends CLabel {
                 } else {
                     textLine = StringUtils.centerString(textLine, ' ', this.getLength());
                 }
+            } else {
+                if (selected) {
+                    textLine = "\u001b[7m" + textLine + "\u001b[27m";
+                }
             }
             line = this.renderAddLine(result, line, textLine);
         }
