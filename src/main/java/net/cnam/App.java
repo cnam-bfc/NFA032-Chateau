@@ -36,5 +36,8 @@ public class App {
                 System.out.println("pièce " + y + " (x=" + location.getX() + " y=" + location.getY() + " length=" + room.getLength() + " width=" + room.getWidth() + ")");
             }
         }
+        Room[] test= stages[0].getRooms();
+        Room test2 = test[0];
+        System.out.println(test2);
     }
 }

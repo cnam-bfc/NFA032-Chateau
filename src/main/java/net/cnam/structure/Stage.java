@@ -8,7 +8,7 @@ import net.cnam.structure.block.Block;
  */
 public class Stage {
 
-    private final Room[] rooms;
+    private Room[] rooms;
     private final int length;
     private final int width;
 
@@ -88,4 +88,9 @@ public class Stage {
 
         return null;
     }
+
+    public void setRooms(Room[] rooms) {
+        this.rooms = rooms;
+    }
+    
 }

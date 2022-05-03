@@ -66,9 +66,15 @@ public class Room {
     public String toString() {
         String result ="";
         
+        for (int x = 0; x < this.blocks.length; x++) {
+            for (int y = 0; y < this.blocks[x].length; y++) {
+                System.out.println(this.blocks[x].length);
+                if (this.blocks[x][y] == null) result += " ";
+                else result += this.blocks[x][y].getCharacter();
+                }
+            result += "\n";
+            }
         return result;
-    }
-
-    
+    }   
 
 }

@@ -56,7 +56,7 @@ public class Generator {
             result[i] = generateStage();
         }
 
-        return result; //return generateRooms(result);
+        return generateRooms(result);
     }
 
     /**
@@ -170,15 +170,15 @@ public class Generator {
             tabRoom = stage[i].getRooms();
 
             for (int j = 0; j < tabRoom.length; j++) {
-                generateRoomBorder(tabRoom[i]);
+                tabRoom[i] = generateRoomBorder(tabRoom[i]);
             }
-
+            stage[i].setRooms(tabRoom);
         }
 
         return stage;
     }
 
-    public void generateRoomBorder(Room room) {
+    public Room generateRoomBorder(Room room) {
 
         Block[][] tabBlock = room.getBlocks();
 
@@ -189,6 +189,10 @@ public class Generator {
                 }
             }
         }
+        
+        room.setBlocks(tabBlock);
+        
+        return room;
     }
 
     /**
