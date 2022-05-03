@@ -159,12 +159,34 @@ public class Generator {
         return new Couple<>(room, newRoom);
     }
     
-    public Stage[] generateRooms (Stage[] Stage){
-        return null;
+    public Stage[] generateRooms (Stage[] stage){
+        
+        Room[] tabRoom;
+        for (int i = 0 ; i < stage.length ; i++)
+        {
+            tabRoom = stage[i].getRooms();
+            
+            for (int j = 0 ; j < tabRoom ; j++)
+            {
+                generateRoomBorder(tabRoom[i]);
+            }
+            
+        }
+        
+        return stage;
     }
     
-    public Stage[] generateRoomsBorder (Stage[] Stage){
-        return null;
+    public void generateRoomBorder (Room room){
+        
+        Block[][] tabBlock = room.getBlocks();
+        
+        for (int x = 0 ; x < tabBlock.length ; x++)
+        {
+            for (int y = 0 ; x < tabBlock[i].length ; y++ )
+            {
+                if (x == 0 || x == tabBlock.length -1 || y == 0 || y == tabBlock[i].length - 1) tabBlock[x][y] = new Wall();
+            }
+        }
     }
 
     /**
