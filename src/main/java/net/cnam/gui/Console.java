@@ -30,14 +30,11 @@ public class Console extends CPanel {
             "Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd"});
         CLabel instructions_2 = new CLabel("Appuyez sur \"Entrée\" pour valider");
 
-        adjustingWindow.getContent().add(instructions_1);
-        adjustingWindow.getContent().add(instructions_2);
-        CButton test = new CButton("1. Jouer");
-        test.setSelected(true);
-        adjustingWindow.getContent().add(test);
+        adjustingWindow.getContent().getContent().add(instructions_1);
+        adjustingWindow.getContent().getContent().add(instructions_2);
         adjustingWindow.setSize(this.getLength(), this.getHeight());
 
-        this.add(adjustingWindow);
+        this.getContent().add(adjustingWindow);
 
         while (true) {
             print();

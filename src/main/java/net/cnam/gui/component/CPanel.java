@@ -48,14 +48,6 @@ public class CPanel extends CComponent {
         return result;
     }
 
-    public void add(CComponent component) {
-        content.add(component);
-    }
-
-    public void remove(CComponent component) {
-        content.remove(component);
-    }
-
     public List<CComponent> getContent() {
         return content;
     }

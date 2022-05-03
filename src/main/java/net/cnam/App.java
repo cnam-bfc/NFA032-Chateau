@@ -3,6 +3,7 @@ package net.cnam;
 import java.util.Random;
 import net.cnam.gui.Console;
 import net.cnam.generator.Generator;
+import net.cnam.gui.menu.MainMenu;
 import net.cnam.object.Location;
 import net.cnam.structure.Castle;
 import net.cnam.structure.Room;
@@ -11,9 +12,11 @@ import net.cnam.structure.Stage;
 public class App {
 
     private final Console console = new Console();
+    private final MainMenu mainMenu = new MainMenu();
 
     public void start() {
         console.adjustSize();
+        mainMenu.show(console);
         debugGenerator();
     }
 
