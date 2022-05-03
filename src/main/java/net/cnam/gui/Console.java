@@ -4,7 +4,6 @@ import net.cnam.utils.direction.Direction;
 import net.cnam.utils.direction.DirectionNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import net.cnam.utils.console.RawConsoleInput;
 import net.cnam.utils.direction.DirectionUtils;
 
@@ -21,7 +20,7 @@ public class Console extends CComponent {
         CComponent[] save = this.getContent().toArray(new CComponent[this.getContent().size()]);
         this.getContent().clear();
 
-        CWindow adjustingWindow = new CWindow(new CLabel("Ajustement"));
+        CWindow adjustingWindow = new CWindow(new CLabel("Réglage des dimensions de la console"));
         CLabel instructions_1 = new CLabel(new String[]{"Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran",
             "Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd"});
         CLabel instructions_2 = new CLabel("Appuyez sur \"Entrée\" pour valider");
