@@ -1,7 +1,6 @@
 package net.cnam;
 
-import java.util.Random;
-import net.cnam.console.Console;
+import net.cnam.gui.Console;
 import net.cnam.generator.Generator;
 import net.cnam.object.Location;
 import net.cnam.structure.Castle;

@@ -1,5 +1,6 @@
 package net.cnam.utils.array;
 
+import net.cnam.utils.array.ArrayUtils;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

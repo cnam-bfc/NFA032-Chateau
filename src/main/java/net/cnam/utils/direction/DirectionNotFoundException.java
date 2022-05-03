@@ -1,4 +1,4 @@
-package net.cnam.console;
+package net.cnam.utils.direction;
 
 /**
  * Exception levé lorsqu'une direction ne peux pas être trouvée

@@ -14,7 +14,7 @@ public class StringUtils {
      * @return La chaine de caractère centré
      */
     public static String centerString(String input, char spacer, int minLength) {
-        return centerString(input, spacer, spacer, minLength);
+        return centerString(input, spacer, Character.MIN_VALUE, minLength);
     }
 
     /**
@@ -29,22 +29,34 @@ public class StringUtils {
     public static String centerString(String input, char spacer, char separator, int minLength) {
         String result = "";
 
-        // Longueur du input + 2 pour les 2 separator (qui doivent êtres retourne obligatoirement)
-        int minimumLength = input.length() + 2;
+        // Longueur du input
+        int minimumLength = input.length();
+        if (separator != Character.MIN_VALUE) {
+            // + 2 pour les 2 separator (qui doivent êtres retourne obligatoirement)
+            minimumLength += 2;
+        }
         if (minimumLength > minLength) {
             minLength = minimumLength;
         }
 
         // Bourage avec des spacer pour qu'il y ai au moins minLength caractères dans la ligne
-        // Longeur à retourner - La longueur du texte (input + les 2 separator) obligatoire à retourner
-        int paddingLength = minLength - input.length() - 2;
+        // Longeur à retourner - La longueur du texte (input)
+        int paddingLength = minLength - input.length();
+        if (separator != Character.MIN_VALUE) {
+            // - 2 pour les 2 separator (qui doivent êtres retourne obligatoirement)
+            paddingLength -= 2;
+        }
         for (int i = 0; i < paddingLength / 2; i++) {
             result += spacer;
         }
 
-        result += separator;
+        if (separator != Character.MIN_VALUE) {
+            result += separator;
+        }
         result += input;
-        result += separator;
+        if (separator != Character.MIN_VALUE) {
+            result += separator;
+        }
 
         // Bourage avec des spacer pour qu'il y ai au moins minLength caractères dans la ligne + un si la division de paddingLength à un reste
         for (int i = 0; i < paddingLength / 2 + paddingLength % 2; i++) {

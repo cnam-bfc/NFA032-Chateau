@@ -1,4 +1,4 @@
-package net.cnam.console;
+package net.cnam.utils.direction;
 
 /**
  * Énumération des différentes directions possibles
