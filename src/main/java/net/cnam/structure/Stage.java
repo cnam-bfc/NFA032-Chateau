@@ -19,7 +19,7 @@ public class Stage extends CComponent {
      * @param width La largeur de l'étage
      */
     public Stage(Room[] rooms, int length, int width) {
-        super(length, width);
+        super(length * 2 - 1, width);
 
         this.rooms = rooms;
     }
@@ -49,8 +49,8 @@ public class Stage extends CComponent {
         if (y < 0) {
             throw new CoordinatesOutOfBoundsException("y doit être positif");
         }
-        if (x > this.getLength()) {
-            throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
+        if (x > this.getLength() / 2 + 1) {
+            throw new CoordinatesOutOfBoundsException("x doit inférieur à " + (this.getLength() / 2 + 1) + " (" + x + ")");
         }
         if (y > this.getHeight()) {
             throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
@@ -79,9 +79,10 @@ public class Stage extends CComponent {
 
         for (int y = 0; y < this.getHeight(); y++) {
             String line = "";
-            for (int x = 0; x < this.getLength(); x++) {
+            for (int x = 0; x < this.getLength() / 2 + 1; x++) {
                 try {
                     Block block = getBlock(x, y);
+                    line += ' ';
                     if (block != null) {
                         line += block.getCharacter();
                     } else {
@@ -90,7 +91,7 @@ public class Stage extends CComponent {
                 } catch (CoordinatesOutOfBoundsException ex) {
                 }
             }
-            result[y] = line;
+            result[y] = line.replaceFirst(" ", "");
         }
 
         return result;
