@@ -26,13 +26,13 @@ public class CLabel extends CComponent {
     @Override
     public String[] render() {
         String[] result = new String[this.getHeight()];
-        int line = 0;
+        int linePointer = 0;
         String emptyLine = " ".repeat(this.getLength());
 
         // Lignes de la console - lignes de texte au millieu
         int paddingHeight = this.getHeight() - textLines.length;
         for (int i = 0; i < paddingHeight / 2; i++) {
-            line = this.renderAddLine(result, line, emptyLine);
+            linePointer = this.renderAddLine(result, linePointer, emptyLine);
         }
         for (String textLine : textLines) {
             if (textLine.length() > this.getLength()) {
@@ -40,12 +40,12 @@ public class CLabel extends CComponent {
             } else if (textLine.length() < this.getLength()) {
                 textLine = StringUtils.centerString(textLine, ' ', this.getLength());
             }
-            line = this.renderAddLine(result, line, textLine);
+            linePointer = this.renderAddLine(result, linePointer, textLine);
         }
 
         // Bourage à la fin
-        for (; line < result.length;) {
-            line = renderAddLine(result, line, emptyLine);
+        for (; linePointer < result.length;) {
+            linePointer = renderAddLine(result, linePointer, emptyLine);
         }
 
         return result;

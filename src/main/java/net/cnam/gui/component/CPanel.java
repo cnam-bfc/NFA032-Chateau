@@ -2,7 +2,6 @@ package net.cnam.gui.component;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.cnam.utils.StringUtils;
 
 public class CPanel extends CComponent {
 
@@ -15,34 +14,42 @@ public class CPanel extends CComponent {
     @Override
     public String[] render() {
         String[] result = new String[this.getHeight()];
-        int line = 0;
+        int linePointer = 0;
         String emptyLine = " ".repeat(this.getLength());
 
-        int nbLinesToRender = 0;
-        int nbComponentsToRender = content.size();
-        String[][] componentsLines = new String[nbComponentsToRender][];
-        for (int i = 0; i < content.size(); i++) {
-            componentsLines[i] = content.get(i).render();
-            nbLinesToRender += componentsLines[i].length;
+        int contentLines = 0;
+        for (CComponent component : this.getContent()) {
+            contentLines += component.getHeight();
         }
 
         // Lignes de la console - lignes de texte au millieu
-        int paddingHeight = this.getHeight() - nbLinesToRender;
+        int paddingHeight = this.getHeight() - contentLines;
 
-        for (int i = 0; i < nbComponentsToRender; i++) {
+        for (CComponent component : this.getContent()) {
+            // Espace de padding
             // + 1 pour le padding automatique (bourage) de fin
-            for (int j = 0; j < paddingHeight / (nbComponentsToRender + 1); j++) {
-                line = renderAddLine(result, line, emptyLine);
+            for (int j = 0; j < paddingHeight / (this.getContent().size() + 1); j++) {
+                linePointer = renderAddLine(result, linePointer, emptyLine);
             }
 
-            for (String componentsLine : componentsLines[i]) {
-                line = renderAddLine(result, line, StringUtils.centerString(componentsLine, ' ', this.getLength()));
+            // Rendu du composant
+            for (String componentLine : component.render()) {
+                int paddingLength = this.getLength() - component.getLength();
+                String line = "";
+                if (paddingLength > 0) {
+                    line += " ".repeat(paddingLength / 2);
+                }
+                line += componentLine;
+                if (paddingLength > 0) {
+                    line += " ".repeat(paddingLength / 2 + paddingLength % 2);
+                }
+                linePointer = renderAddLine(result, linePointer, line);
             }
         }
 
         // Bourage à la fin
-        for (; line < result.length;) {
-            line = renderAddLine(result, line, emptyLine);
+        for (; linePointer < result.length;) {
+            linePointer = renderAddLine(result, linePointer, emptyLine);
         }
 
         return result;

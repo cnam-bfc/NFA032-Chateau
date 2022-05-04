@@ -5,8 +5,6 @@ package net.cnam.utils;
  */
 public class StringUtils {
 
-    private static final String[] TO_EXCLUDE = new String[]{"\u001b[7m", "\u001b[27m"};
-
     /**
      * Retourne une chaine de caractères centré
      *
@@ -32,7 +30,7 @@ public class StringUtils {
         String result = "";
 
         // Longueur du input
-        int minimumLength = length(input);
+        int minimumLength = input.length();
         if (separator != Character.MIN_VALUE) {
             // + 2 pour les 2 separator (qui doivent êtres retourne obligatoirement)
             minimumLength += 2;
@@ -43,7 +41,7 @@ public class StringUtils {
 
         // Bourage avec des spacer pour qu'il y ai au moins minLength caractères dans la ligne
         // Longeur à retourner - La longueur du texte (input)
-        int paddingLength = minLength - length(input);
+        int paddingLength = minLength - input.length();
         if (separator != Character.MIN_VALUE) {
             // - 2 pour les 2 separator (qui doivent êtres retourne obligatoirement)
             paddingLength -= 2;
@@ -112,19 +110,11 @@ public class StringUtils {
         int max = 0;
 
         for (String str : table) {
-            if (length(str) > max) {
-                max = length(str);
+            if (str.length() > max) {
+                max = str.length();
             }
         }
 
         return max;
-    }
-
-    private static int length(String str) {
-        for (String exclude : TO_EXCLUDE) {
-            str = str.replace(exclude, "");
-        }
-
-        return str.length();
     }
 }

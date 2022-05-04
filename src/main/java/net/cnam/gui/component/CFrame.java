@@ -37,19 +37,19 @@ public class CFrame extends CComponent {
     @Override
     public String[] render() {
         String[] result = new String[this.getHeight()];
-        int line = 0;
+        int linePointer = 0;
 
-        line = this.renderAddLine(result, line, '┌' + "─".repeat(this.getLength() - 2) + '┐');
+        linePointer = this.renderAddLine(result, linePointer, '┌' + "─".repeat(this.getLength() - 2) + '┐');
         if (title != null) {
             for (String str : title.render()) {
-                line = this.renderAddLine(result, line, '│' + str + '│');
+                linePointer = this.renderAddLine(result, linePointer, '│' + str + '│');
             }
-            line = this.renderAddLine(result, line, '├' + "─".repeat(this.getLength() - 2) + '┤');
+            linePointer = this.renderAddLine(result, linePointer, '├' + "─".repeat(this.getLength() - 2) + '┤');
         }
         for (String str : content.render()) {
-            line = this.renderAddLine(result, line, '│' + str + '│');
+            linePointer = this.renderAddLine(result, linePointer, '│' + str + '│');
         }
-        this.renderAddLine(result, line, '└' + "─".repeat(this.getLength() - 2) + '┘');
+        this.renderAddLine(result, linePointer, '└' + "─".repeat(this.getLength() - 2) + '┘');
 
         return result;
     }

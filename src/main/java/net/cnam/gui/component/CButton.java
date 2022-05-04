@@ -5,7 +5,12 @@ import net.cnam.utils.StringUtils;
 public class CButton extends CLabel {
 
     private boolean selected = false;
-    private boolean disabled = false;
+    private Runnable run = new Runnable() {
+        @Override
+        public void run() {
+
+        }
+    };
 
     public CButton(String text) {
         super(text);
@@ -26,14 +31,14 @@ public class CButton extends CLabel {
     @Override
     public String[] render() {
         String[] result = new String[this.getHeight()];
-        int line = 0;
+        int linePointer = 0;
         String emptyLine = " ".repeat(this.getLength());
 
         String[] textLines = StringUtils.convertStringToStringArray(this.getText());
         // Lignes de la console - lignes de texte au millieu
         int paddingHeight = this.getHeight() - textLines.length;
         for (int i = 0; i < paddingHeight / 2; i++) {
-            line = this.renderAddLine(result, line, emptyLine);
+            linePointer = this.renderAddLine(result, linePointer, emptyLine);
         }
         for (String textLine : textLines) {
             if (textLine.length() > this.getLength()) {
@@ -54,12 +59,12 @@ public class CButton extends CLabel {
                     textLine = "\u001b[7m" + textLine + "\u001b[27m";
                 }
             }
-            line = this.renderAddLine(result, line, textLine);
+            linePointer = this.renderAddLine(result, linePointer, textLine);
         }
 
         // Bourage à la fin
-        for (; line < result.length;) {
-            line = renderAddLine(result, line, emptyLine);
+        for (; linePointer < result.length;) {
+            linePointer = renderAddLine(result, linePointer, emptyLine);
         }
 
         return result;
@@ -73,11 +78,11 @@ public class CButton extends CLabel {
         this.selected = selected;
     }
 
-    public boolean isDisabled() {
-        return disabled;
+    public void setRun(Runnable run) {
+        this.run = run;
     }
 
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
+    public void execute() {
+        this.run.run();
     }
 }

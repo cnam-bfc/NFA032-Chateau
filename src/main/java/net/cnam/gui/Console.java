@@ -4,7 +4,6 @@ import net.cnam.utils.direction.Direction;
 import net.cnam.utils.direction.DirectionNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
-import net.cnam.gui.component.CButton;
 import net.cnam.gui.component.CComponent;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;

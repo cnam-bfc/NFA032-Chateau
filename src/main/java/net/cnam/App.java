@@ -7,13 +7,22 @@ import java.util.logging.Logger;
 import net.cnam.gui.Console;
 import net.cnam.generator.Generator;
 import net.cnam.gui.menu.MainMenu;
-import net.cnam.object.Location;
 import net.cnam.structure.Castle;
 import net.cnam.structure.Room;
 import net.cnam.structure.Stage;
 import net.cnam.utils.console.RawConsoleInput;
 
 public class App {
+
+    private static App instance;
+
+    public static App getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(App instance) {
+        App.instance = instance;
+    }
 
     private final Console console = new Console();
     private final MainMenu mainMenu = new MainMenu();
