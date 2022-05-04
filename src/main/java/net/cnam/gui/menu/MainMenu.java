@@ -9,7 +9,7 @@ import net.cnam.gui.component.CButtonsChoices;
 
 public class MainMenu extends CFrame {
 
-    private final CButtonsChoices menu;
+    private final CButtonsChoices buttonsChoices;
 
     public MainMenu() {
         super(new CLabel("Menu principal"));
@@ -26,9 +26,9 @@ public class MainMenu extends CFrame {
         });
         CButton settingsButton = new CButton("2. Paramètres");
         CButton quitButton = new CButton("3. Quitter");
-        this.menu = new CButtonsChoices(new CButton[]{playButton, settingsButton, quitButton}, 1);
+        this.buttonsChoices = new CButtonsChoices(new CButton[]{playButton, settingsButton, quitButton}, 1);
 
-        this.getContent().getContent().add(menu);
+        this.getContent().getContent().add(buttonsChoices);
     }
 
     public void show(App app) {
@@ -37,7 +37,7 @@ public class MainMenu extends CFrame {
         if (!console.getContent().contains(this)) {
             console.getContent().add(this);
         }
-        menu.askKeyboard(console);
+        buttonsChoices.askKeyboard(console);
         console.getContent().remove(this);
     }
 }
