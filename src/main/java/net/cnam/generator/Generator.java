@@ -19,7 +19,6 @@ public class Generator {
     private static final int MIN_SIZE_ROOM = 6; //taille mini d'une pièce
     private static final int NB_ITERATION_MIN = 3; //nombre de division minimum des étages
     private static final int NB_ITERATION_MAX = 5; //nombre de division maximum supplémentaire des étages
-    private static final int CHOICE_DIVIDE = 35; //ajusteur de choix de la division hauteur/longeur
     private static final int POURCENT_DIVIDE = 10; //ajusteur pour savoir si une pièce se re divise dans la deuxième phase de division
 
     private final long seed;
@@ -30,13 +29,14 @@ public class Generator {
      *
      * @param seed long qui permet de générer la carte de façon procédural
      */
-    public Generator(long seed) { //une seed bugé : 2027015466020144793
+    public Generator(long seed) {
         this.seed = seed;
         this.random = new Random(seed);
     }
 
     /**
-     * Méthode qui génère un chateau.
+     * Méthode qui génère un chateau de A à Z.
+     * Appelle la méthode qui génère des étages
      *
      * @return un Chateau
      */
@@ -46,6 +46,7 @@ public class Generator {
 
     /**
      * Méthode qui génère des étages.
+     * Appelle la méthode qui génère un étage
      *
      * @return un tableau d'étage
      */
@@ -94,8 +95,6 @@ public class Generator {
                 }
                 rooms[j] = roomDivided.getElemOne();
                 rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided.getElemTwo());
-
-                //TODO Redimentionner l'ancienne room
             }
         }
 
@@ -104,27 +103,17 @@ public class Generator {
 
     /**
      * Méthode permettant de définir le sens de découpe.
-     *
+     * Découpe dans le sens ou la pièce est la plus longue
+     * Si longueur = largeur : découpe random
+     * 
      * @param room la pièce à découper
      * @return un couple de pièce résultant de la pièce passé en paramètre
      */
     public Couple<Room, Room> divideRoom(Room room) {
-
-        int chooseDivideModificator;
-        if (room.getLength() < room.getHeight()) {
-            chooseDivideModificator = CHOICE_DIVIDE;
-        } else if (room.getLength() > room.getHeight()) {
-            chooseDivideModificator = -CHOICE_DIVIDE;
-        } else {
-            chooseDivideModificator = 0;
-        }
-
-        if (this.random.nextInt(1, 100) + chooseDivideModificator > 50) {
-            System.out.println("longueur"); //test
-            return divideRoomLength(room);
-        }
-        System.out.println("largeur"); //test
-        return divideRoomWidth(room);
+        if (room.getLength() > room.getHeight()) return divideRoomLength(room);
+        if (room.getLength() < room.getHeight()) return divideRoomWidth(room);
+        if (this.random.nextBoolean()) return divideRoomLength(room);
+        return divideRoomWidth(room);   
     }
 
     /**
@@ -168,17 +157,6 @@ public class Generator {
     }
 
     public void generateRoom(Room room) {
-        /* Room[] tabRoom;
-        for (int i = 0; i < stage.length; i++) {
-            tabRoom = stage[i].getRooms();
-
-            for (int j = 0; j < tabRoom.length; j++) {
-                tabRoom[i] = generateRoomBorder(tabRoom[i]);
-            }
-            stage[i].setRooms(tabRoom);
-        }
-
-        return stage;*/
         generateRoomBorder(room);
         // populateRoom();
     }
@@ -193,7 +171,6 @@ public class Generator {
                 }
             }
         }
-
         room.setBlocks(tabBlock);
     }
 
@@ -206,3 +183,23 @@ public class Generator {
         return seed;
     }
 }
+
+//DECHETS
+/*
+ méthode : divide room
+        int chooseDivideModificator;
+        if (room.getLength() < room.getHeight()) {
+            chooseDivideModificator = CHOICE_DIVIDE;
+        } else if (room.getLength() > room.getHeight()) {
+            chooseDivideModificator = -CHOICE_DIVIDE;
+        } else {
+            chooseDivideModificator = 0;
+        }
+
+        if (this.random.nextInt(1, 100) + chooseDivideModificator > 50) {
+            System.out.println("longueur"); //test
+            return divideRoomLength(room);
+        }
+        System.out.println("largeur"); //test
+        return divideRoomWidth(room);
+*/
