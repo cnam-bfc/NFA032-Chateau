@@ -15,11 +15,14 @@ public class MainMenu extends CFrame {
         super(new CLabel("Menu principal"));
 
         CButton playButton = new CButton("1. Jouer");
-        playButton.setRun(() -> {
-            App app = App.getInstance();
-            app.getConsole().getContent().remove(app.getMainMenu());
-            app.startGame();
-            app.getConsole().getContent().add(app.getMainMenu());
+        playButton.setRun(new Runnable() {
+            @Override
+            public void run() {
+                App app = App.getInstance();
+                app.getConsole().getContent().remove(app.getMainMenu());
+                app.startGame();
+                app.getConsole().getContent().add(app.getMainMenu());
+            }
         });
         CButton settingsButton = new CButton("2. Paramètres");
         CButton quitButton = new CButton("3. Quitter");
