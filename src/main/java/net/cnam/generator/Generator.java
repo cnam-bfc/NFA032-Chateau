@@ -35,8 +35,8 @@ public class Generator {
     }
 
     /**
-     * Méthode qui génère un chateau de A à Z.
-     * Appelle la méthode qui génère des étages
+     * Méthode qui génère un chateau de A à Z. Appelle la méthode qui génère des
+     * étages
      *
      * @return un Chateau
      */
@@ -45,8 +45,7 @@ public class Generator {
     }
 
     /**
-     * Méthode qui génère des étages.
-     * Appelle la méthode qui génère un étage
+     * Méthode qui génère des étages. Appelle la méthode qui génère un étage
      *
      * @return un tableau d'étage
      */
@@ -102,18 +101,23 @@ public class Generator {
     }
 
     /**
-     * Méthode permettant de définir le sens de découpe.
-     * Découpe dans le sens ou la pièce est la plus longue
-     * Si longueur = largeur : découpe random
-     * 
+     * Méthode permettant de définir le sens de découpe. Découpe dans le sens ou
+     * la pièce est la plus longue Si longueur = largeur : découpe random
+     *
      * @param room la pièce à découper
      * @return un couple de pièce résultant de la pièce passé en paramètre
      */
     public Couple<Room, Room> divideRoom(Room room) {
-        if (room.getLength() > room.getHeight()) return divideRoomLength(room);
-        if (room.getLength() < room.getHeight()) return divideRoomWidth(room);
-        if (this.random.nextBoolean()) return divideRoomLength(room);
-        return divideRoomWidth(room);   
+        if (room.getLength() > room.getHeight()) {
+            return divideRoomLength(room);
+        }
+        if (room.getLength() < room.getHeight()) {
+            return divideRoomWidth(room);
+        }
+        if (this.random.nextBoolean()) {
+            return divideRoomLength(room);
+        }
+        return divideRoomWidth(room);
     }
 
     /**
@@ -202,4 +206,4 @@ public class Generator {
         }
         System.out.println("largeur"); //test
         return divideRoomWidth(room);
-*/
+ */
