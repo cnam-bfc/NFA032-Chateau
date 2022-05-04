@@ -13,7 +13,7 @@ import net.cnam.utils.array.ArrayUtils;
 public class Generator {
 
     private static final int MIN_SIZE_STAGE = 40; //taille mini d'un étage
-    private static final int MAX_SIZE_STAGE = 60; //taille maxi d'un étage
+    private static final int MAX_SIZE_STAGE = 50; //taille maxi d'un étage
     private static final int MIN_STAGE = 3; //nombre mini d'étage
     private static final int MAX_STAGE = 5; //nombre maxi d'étage
     private static final int MIN_SIZE_ROOM = 6; //taille mini d'une pièce
@@ -129,10 +129,10 @@ public class Generator {
         if (room.getLength() / 2 <= MIN_SIZE_ROOM) {
             return null;
         }
-        int cut = random.nextInt(MIN_SIZE_ROOM, room.getLength() - MIN_SIZE_ROOM) + 1; //+1 pour le mur entre les deux pièces
-        Block[][] block = room.getBlocks();
-        Room newRoom = new Room(new Location(room.getLocation().getX() + cut, room.getLocation().getY()), new Block[block.length - cut + 1][block[0].length]);
-        room.setBlocks(new Block[cut][block[0].length]);
+        int cut = random.nextInt(MIN_SIZE_ROOM, room.getLength() - MIN_SIZE_ROOM);
+        Block[][] blocks = room.getBlocks();
+        Room newRoom = new Room(new Location(room.getLocation().getX() + cut - 1, room.getLocation().getY()), new Block[blocks.length - cut + 1][blocks[0].length]);
+        room.setBlocks(new Block[cut][blocks[0].length]);
         return new Couple<>(room, newRoom);
     }
 
@@ -149,16 +149,16 @@ public class Generator {
         if (room.getHeight() / 2 <= MIN_SIZE_ROOM) {
             return null;
         }
-        int cut = random.nextInt(MIN_SIZE_ROOM, room.getHeight() - MIN_SIZE_ROOM) + 1;
-        Block[][] block = room.getBlocks();
-        Room newRoom = new Room(new Location(room.getLocation().getX(), room.getLocation().getY() + cut), new Block[block.length][block[0].length - cut + 1]);
-        room.setBlocks(new Block[block.length][cut]);
+        int cut = random.nextInt(MIN_SIZE_ROOM, room.getHeight() - MIN_SIZE_ROOM);
+        Block[][] blocks = room.getBlocks();
+        Room newRoom = new Room(new Location(room.getLocation().getX(), room.getLocation().getY() + cut - 1), new Block[blocks.length][blocks[0].length - cut + 1]);
+        room.setBlocks(new Block[blocks.length][cut]);
         return new Couple<>(room, newRoom);
     }
 
     public void generateRoom(Room room) {
         generateRoomBorder(room);
-        // populateRoom();
+        // populateRoom(room);
     }
 
     public void generateRoomBorder(Room room) {
