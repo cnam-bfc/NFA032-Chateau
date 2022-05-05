@@ -5,12 +5,7 @@ import net.cnam.utils.StringUtils;
 public class CButton extends CLabel {
 
     private boolean selected = false;
-    private Runnable run = new Runnable() {
-        @Override
-        public void run() {
-
-        }
-    };
+    private Runnable executeCode;
 
     public CButton(String text) {
         super(text);
@@ -78,11 +73,13 @@ public class CButton extends CLabel {
         this.selected = selected;
     }
 
-    public void setRun(Runnable run) {
-        this.run = run;
+    public void setExecuteCode(Runnable executeCode) {
+        this.executeCode = executeCode;
     }
 
     public void execute() {
-        this.run.run();
+        if (this.executeCode != null) {
+            this.executeCode.run();
+        }
     }
 }

@@ -16,30 +16,21 @@ public class MainMenu extends CFrame {
         super(new CLabel("Menu principal"));
 
         CButton playButton = new CButton("1. Jouer");
-        playButton.setRun(new Runnable() {
-            @Override
-            public void run() {
-                app.getConsole().getContent().remove(MainMenu.this);
-                app.startGame();
-                app.getConsole().getContent().add(MainMenu.this);
-            }
+        playButton.setExecuteCode(() -> {
+            app.getConsole().getContent().remove(MainMenu.this);
+            app.startGame();
+            app.getConsole().getContent().add(MainMenu.this);
         });
         CButton settingsButton = new CButton("2. Paramètres");
-        settingsButton.setRun(new Runnable() {
-            @Override
-            public void run() {
-                app.getConsole().getContent().remove(MainMenu.this);
-                app.getConsole().adjustSize();
-                MainMenu.this.setSize(app.getConsole().getLength(), app.getConsole().getHeight());
-                app.getConsole().getContent().add(MainMenu.this);
-            }
+        settingsButton.setExecuteCode(() -> {
+            app.getConsole().getContent().remove(MainMenu.this);
+            app.getConsole().adjustSize();
+            MainMenu.this.setSize(app.getConsole().getLength(), app.getConsole().getHeight());
+            app.getConsole().getContent().add(MainMenu.this);
         });
         CButton quitButton = new CButton("3. Quitter");
-        quitButton.setRun(new Runnable() {
-            @Override
-            public void run() {
-                MainMenu.this.show = false;
-            }
+        quitButton.setExecuteCode(() -> {
+            MainMenu.this.show = false;
         });
         this.buttonsChoices = new CButtonsChoices(new CButton[]{playButton, settingsButton, quitButton}, 1);
 
