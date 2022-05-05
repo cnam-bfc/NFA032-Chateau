@@ -7,8 +7,16 @@ public class CPanel extends CComponent {
 
     private final List<CComponent> content = new ArrayList<>();
 
+    private boolean renderMainPadding;
+
     public CPanel(int length, int height) {
+        this(length, height, true);
+    }
+
+    public CPanel(int length, int height, boolean renderMainPadding) {
         super(length, height);
+
+        this.renderMainPadding = renderMainPadding;
     }
 
     @Override
@@ -24,12 +32,20 @@ public class CPanel extends CComponent {
 
         // Lignes de la console - lignes de texte au millieu
         int paddingHeight = this.getHeight() - contentLines;
+        int paddingNb = this.getContent().size() - 1;
+        if (renderMainPadding) {
+            paddingNb += 2;
+        }
 
-        for (CComponent component : this.getContent()) {
+        for (int i = 0; i < this.getContent().size(); i++) {
+            CComponent component = this.getContent().get(i);
+
             // Espace de padding
             // + 1 pour le padding automatique (bourage) de fin
-            for (int j = 0; j < paddingHeight / (this.getContent().size() + 1); j++) {
-                linePointer = renderAddLine(result, linePointer, emptyLine);
+            if (i != 0 || renderMainPadding) {
+                for (int j = 0; j < paddingHeight / paddingNb; j++) {
+                    linePointer = renderAddLine(result, linePointer, emptyLine);
+                }
             }
 
             // Rendu du composant
@@ -57,5 +73,13 @@ public class CPanel extends CComponent {
 
     public List<CComponent> getContent() {
         return content;
+    }
+
+    public boolean isRenderingMainPadding() {
+        return renderMainPadding;
+    }
+
+    public void setRenderingMainPadding(boolean renderMainPadding) {
+        this.renderMainPadding = renderMainPadding;
     }
 }

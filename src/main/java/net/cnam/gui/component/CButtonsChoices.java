@@ -9,7 +9,7 @@ import net.cnam.utils.direction.Direction;
 import net.cnam.utils.direction.DirectionNotFoundException;
 import net.cnam.utils.direction.DirectionUtils;
 
-public class CButtonsChoices extends CFrame {
+public class CButtonsChoices extends CPanel {
 
     private final List<CButton> buttons = new ArrayList<>();
     private final int spacing;
@@ -19,7 +19,7 @@ public class CButtonsChoices extends CFrame {
     }
 
     public CButtonsChoices(CButton[] buttons, int spacing) {
-        super(0, 0);
+        super(0, 0, false);
 
         this.spacing = spacing;
         for (int i = 0; i < buttons.length; i++) {
@@ -37,12 +37,8 @@ public class CButtonsChoices extends CFrame {
             }
             this.setHeight(this.getHeight() + button.getHeight());
             this.buttons.add(button);
-            this.getContent().getContent().add(button);
+            this.getContent().add(button);
         }
-        //TODO REMOVE
-        this.setLength(this.getLength() + 2);
-        this.setHeight(this.getHeight() + 2);
-        this.setHeight(this.getHeight() + 2);
     }
 
     public void askKeyboard(Console console) {
