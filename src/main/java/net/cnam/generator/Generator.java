@@ -88,13 +88,12 @@ public class Generator {
                 if (pourcentage != 0 && this.random.nextInt(1, 100) + pourcentage > 50) {
                     continue;
                 }
-                Couple<Room, Room> roomDivided = divideRoom(rooms[j]);
+                Room roomDivided = divideRoom(rooms[j]);
                 // Si la pièce n'a pas pu être divisé
                 if (roomDivided == null) {
                     continue;
                 }
-                rooms[j] = roomDivided.getElemOne();
-                rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided.getElemTwo());
+                rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided);
             }
         }
 
@@ -108,7 +107,7 @@ public class Generator {
      * @param room la pièce à découper
      * @return un couple de pièce résultant de la pièce passé en paramètre
      */
-    public Couple<Room, Room> divideRoom(Room room) {
+    public Room divideRoom(Room room) {
         if (room.getLength() > room.getHeight()) {
             return divideRoomLength(room);
         }
@@ -126,39 +125,41 @@ public class Generator {
      * Si renvoie null c'est que la taille de la pièce n'est pas suffisante pour
      * être divisé
      *
-     * @param roomLeft la pièce à diviser
-     * @return un couple de pièce résultant de la découpe de la pièce passé en
-     * paramètre
+     * @param roomLeft la pièce à diviser, qui va devenir la pièce de gauche
+     * @return roomRight la pièce pièce de droite
      */
-    public Couple<Room, Room> divideRoomLength(Room roomLeft) {
+    public Room divideRoomLength(Room roomLeft) {
         if (roomLeft.getLength() / 2 <= MIN_SIZE_ROOM) {
             return null;
         }
         int cut = random.nextInt(MIN_SIZE_ROOM, roomLeft.getLength() - MIN_SIZE_ROOM);
 
-        Block[][] tabRoomRight = new Block[roomLeft.getLength() - cut + 1][roomLeft.getHeight()];
-        Block[][] tabRoomTransition = roomLeft.getBlocks();
-        Block[][] tabRoomLeft = new Block[roomLeft.getLength() - tabRoomRight.length + 1][tabRoomRight[0].length];
+        Block[][] oldBlocks = roomLeft.getBlocks();
+        
+        for (int y = 1 ; y < oldBlocks[0].length - 1 ; y++){
+            oldBlocks[cut][y] = new Wall();
+        }
+        
+        // Nouvelle pièce à gauche
+        Block[][] newBlocksRoomLeft = new Block[cut + 1][roomLeft.getHeight()];
+        // Nouvelle pièce à droite
+        Block[][] newBlocksRoomRight = new Block[roomLeft.getLength() - cut][roomLeft.getHeight()];
 
-        for (int x = 0; x < tabRoomTransition.length; x++) {
-            for (int y = 0; y < tabRoomTransition[0].length; y++) {
-                if (x < tabRoomTransition.length - cut) {
-                    tabRoomLeft[x][y] = tabRoomTransition[x][y];
-                } else if (x > tabRoomTransition.length - cut) {
-                    tabRoomRight[x - tabRoomRight.length][y] = tabRoomTransition[x][y];
-                } else {
-                    tabRoomRight[x - tabRoomRight.length][y] = tabRoomLeft[x][y] = tabRoomTransition[x][y];
+        for (int x = 0; x < oldBlocks.length; x++) {
+            for (int y = 0; y < oldBlocks[0].length; y++) {
+                if (x <= cut) {
+                    newBlocksRoomLeft[x][y] = oldBlocks[x][y];
+                }
+                if (x >= cut) {
+                    newBlocksRoomRight[x - cut][y] = oldBlocks[x][y];
                 }
             }
         }
 
-        Room roomRight = new Room(new Location(roomLeft.getLocation().getX() + cut - 1, roomLeft.getLocation().getY()), tabRoomRight);
-        roomLeft.setBlocks(tabRoomLeft);
+        Room roomRight = new Room(new Location(roomLeft.getLocation().getX() + cut, roomLeft.getLocation().getY()), newBlocksRoomRight);
+        roomLeft.setBlocks(newBlocksRoomLeft);
 
-        generateRoomBorder(roomLeft);
-        generateRoomBorder(roomRight);
-
-        return new Couple<>(roomLeft, roomRight);
+        return roomRight;
     }
 
     /**
@@ -170,35 +171,38 @@ public class Generator {
      * @return un couple de pièce résultant de la découpe de la pièce passé en
      * paramètre
      */
-    public Couple<Room, Room> divideRoomWidth(Room roomTop) {
+    public Room divideRoomWidth(Room roomTop) {
         if (roomTop.getHeight() / 2 <= MIN_SIZE_ROOM) {
             return null;
         }
         int cut = random.nextInt(MIN_SIZE_ROOM, roomTop.getHeight() - MIN_SIZE_ROOM);
         
-        Block[][] tabRoomBot = new Block[roomTop.getLength()][roomTop.getHeight() - cut + 1];
-        Block[][] tabRoomTransition = roomTop.getBlocks();
-        Block[][] tabRoomTop = new Block[tabRoomBot.length][roomTop.getHeight() - tabRoomBot[0].length + 1];
+        Block[][] oldBlocks = roomTop.getBlocks();
         
-        for (int x = 0; x < tabRoomTransition.length; x++) {
-            for (int y = 0; y < tabRoomTransition[0].length; y++) {
-                if (y < tabRoomTransition[0].length - cut) {
-                    tabRoomTop[x][y] = tabRoomTransition[x][y];
-                } else if (y > tabRoomTransition[0].length - cut) {
-                    tabRoomBot[x][y - tabRoomBot.length] = tabRoomTransition[x][y];
-                } else {
-                    tabRoomBot[x][y - tabRoomBot.length] = tabRoomTop[x][y] = tabRoomTransition[x][y];
+        for (int x = 1 ; x < oldBlocks.length - 1 ; x++){
+            if (oldBlocks != null) oldBlocks[x][cut] = new Wall(); //if de sécurité
+        }
+
+        // Nouvelle pièce en haut
+        Block[][] newBlocksRoomTop = new Block[roomTop.getLength()][cut +1];
+        // Nouvelle pièce en bas
+        Block[][] newBlocksRoomBot = new Block[roomTop.getLength()][oldBlocks[0].length - cut];
+
+        for (int x = 0; x < oldBlocks.length; x++) {
+            for (int y = 0; y < oldBlocks[0].length; y++) {
+                if (y <= cut) {
+                    newBlocksRoomTop[x][y] = oldBlocks[x][y];
+                }
+                if (y >= cut) {
+                    newBlocksRoomBot[x][y-cut] = oldBlocks[x][y];
                 }
             }
         }
-        
-        Room roomBot = new Room(new Location(roomTop.getLocation().getX(), roomTop.getLocation().getY() + cut - 1), tabRoomBot);
-        roomTop.setBlocks(tabRoomTop);
-        
-        generateRoomBorder(roomTop);
-        generateRoomBorder(roomBot);
-        
-        return new Couple<>(roomTop, roomBot);
+
+        Room roomBot = new Room(new Location(roomTop.getLocation().getX(), roomTop.getLocation().getY() + cut), newBlocksRoomBot);
+        roomTop.setBlocks(newBlocksRoomTop);
+
+        return roomBot;
     }
 
     public void generateRoom(Room room) {
