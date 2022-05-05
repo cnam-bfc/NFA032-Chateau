@@ -14,18 +14,13 @@ import net.cnam.utils.console.RawConsoleInput;
 
 public class App {
 
-    private static App instance;
+    private final Console console;
+    private final MainMenu mainMenu;
 
-    public static App getInstance() {
-        return instance;
+    public App() {
+        console = new Console();
+        mainMenu = new MainMenu(this);
     }
-
-    public static void setInstance(App instance) {
-        App.instance = instance;
-    }
-
-    private final Console console = new Console();
-    private final MainMenu mainMenu = new MainMenu();
 
     public void start() {
         console.adjustSize();
