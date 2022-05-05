@@ -145,9 +145,9 @@ public class Generator {
                 if (x < tabRoomTransition.length - cut) {
                     tabRoomLeft[x][y] = tabRoomTransition[x][y];
                 } else if (x > tabRoomTransition.length - cut) {
-                    tabRoomRight[x][y] = tabRoomTransition[x][y];
+                    tabRoomRight[x - tabRoomRight.length][y] = tabRoomTransition[x][y];
                 } else {
-                    tabRoomRight[x][y] = tabRoomLeft[x][y] = tabRoomTransition[x][y];
+                    tabRoomRight[x - tabRoomRight.length][y] = tabRoomLeft[x][y] = tabRoomTransition[x][y];
                 }
             }
         }
@@ -182,12 +182,12 @@ public class Generator {
         
         for (int x = 0; x < tabRoomTransition.length; x++) {
             for (int y = 0; y < tabRoomTransition[0].length; y++) {
-                if (x < tabRoomTransition.length - cut) {
+                if (y < tabRoomTransition[0].length - cut) {
                     tabRoomTop[x][y] = tabRoomTransition[x][y];
-                } else if (x > tabRoomTransition.length - cut) {
-                    tabRoomBot[x][y] = tabRoomTransition[x][y];
+                } else if (y > tabRoomTransition[0].length - cut) {
+                    tabRoomBot[x][y - tabRoomBot.length] = tabRoomTransition[x][y];
                 } else {
-                    tabRoomBot[x][y] = tabRoomTop[x][y] = tabRoomTransition[x][y];
+                    tabRoomBot[x][y - tabRoomBot.length] = tabRoomTop[x][y] = tabRoomTransition[x][y];
                 }
             }
         }
