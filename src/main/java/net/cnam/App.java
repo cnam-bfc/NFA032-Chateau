@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.cnam.gui.Console;
 import net.cnam.generator.Generator;
-import net.cnam.gui.menu.MainMenu;
+import net.cnam.gui.menu.mainmenu.MainMenu;
 import net.cnam.structure.Castle;
 import net.cnam.structure.Room;
 import net.cnam.structure.Stage;
