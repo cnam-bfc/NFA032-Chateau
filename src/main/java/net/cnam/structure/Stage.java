@@ -19,7 +19,7 @@ public class Stage extends CComponent {
      * @param width La largeur de l'étage
      */
     public Stage(Room[] rooms, int length, int width) {
-        super(length * 2 - 1, width);
+        super(length, width);
 
         this.rooms = rooms;
     }
@@ -49,8 +49,8 @@ public class Stage extends CComponent {
         if (y < 0) {
             throw new CoordinatesOutOfBoundsException("y doit être positif");
         }
-        if (x > this.getLength() / 2 + 1) {
-            throw new CoordinatesOutOfBoundsException("x doit inférieur à " + (this.getLength() / 2 + 1) + " (" + x + ")");
+        if (x > this.getLength()) {
+            throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
         }
         if (y > this.getHeight()) {
             throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
@@ -69,6 +69,40 @@ public class Stage extends CComponent {
         return null;
     }
 
+    /**
+     * Méthode pour définir un block aux coordonnées passé en paramètres.
+     *
+     * @param x Coordonnée x
+     * @param y Coordonnée y
+     * @param block Le bloc aux coordonnées spécifiés
+     * @throws net.cnam.structure.CoordinatesOutOfBoundsException Exception
+     * lorsque les coordonnées ne sont pas contenu dans la taille de l'étage
+     */
+    public void setBlock(int x, int y, Block block) throws CoordinatesOutOfBoundsException {
+        if (x < 0) {
+            throw new CoordinatesOutOfBoundsException("x doit être positif");
+        }
+        if (y < 0) {
+            throw new CoordinatesOutOfBoundsException("y doit être positif");
+        }
+        if (x > this.getLength()) {
+            throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
+        }
+        if (y > this.getHeight()) {
+            throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
+        }
+
+        for (Room room : rooms) {
+            Location roomLocation = room.getLocation();
+            // Si les coordonnées sont dans la pièce
+            if (x >= roomLocation.getX() && x < roomLocation.getX() + room.getLength()
+                    && y >= roomLocation.getY() && y < roomLocation.getY() + room.getHeight()) {
+                // On défini le bloc en calculant ses coordonnées relatives par rapport à la pièce
+                room.getBlocks()[x - roomLocation.getX()][y - roomLocation.getY()] = block;
+            }
+        }
+    }
+
     public void setRooms(Room[] rooms) {
         this.rooms = rooms;
     }
@@ -79,10 +113,9 @@ public class Stage extends CComponent {
 
         for (int y = 0; y < this.getHeight(); y++) {
             String line = "";
-            for (int x = 0; x < this.getLength() / 2 + 1; x++) {
+            for (int x = 0; x < this.getLength(); x++) {
                 try {
                     Block block = getBlock(x, y);
-                    line += ' ';
                     if (block != null) {
                         line += block.getCharacter();
                     } else {
@@ -91,7 +124,7 @@ public class Stage extends CComponent {
                 } catch (CoordinatesOutOfBoundsException ex) {
                 }
             }
-            result[y] = line.replaceFirst(" ", "");
+            result[y] = line;
         }
 
         return result;

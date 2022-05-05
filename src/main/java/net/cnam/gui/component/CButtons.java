@@ -9,16 +9,16 @@ import net.cnam.utils.direction.Direction;
 import net.cnam.utils.direction.DirectionNotFoundException;
 import net.cnam.utils.direction.DirectionUtils;
 
-public class CButtonsChoices extends CPanel {
+public class CButtons extends CPanel {
 
     private final List<CButton> buttons = new ArrayList<>();
     private final int spacing;
 
-    public CButtonsChoices(CButton[] buttons) {
+    public CButtons(CButton[] buttons) {
         this(buttons, 0);
     }
 
-    public CButtonsChoices(CButton[] buttons, int spacing) {
+    public CButtons(CButton[] buttons, int spacing) {
         super(0, 0, false);
 
         this.spacing = spacing;

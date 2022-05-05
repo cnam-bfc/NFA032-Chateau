@@ -41,7 +41,7 @@ public class Generator {
      * @return un Chateau
      */
     public Castle generateCastle() {
-        return new Castle(this.generateStages());
+        return new Castle(this.generateStages(), seed);
     }
 
     /**
@@ -175,11 +175,11 @@ public class Generator {
             return null;
         }
         int cut = random.nextInt(MIN_SIZE_ROOM, roomTop.getHeight() - MIN_SIZE_ROOM);
-        
+
         Block[][] tabRoomBot = new Block[roomTop.getLength()][roomTop.getHeight() - cut + 1];
         Block[][] tabRoomTransition = roomTop.getBlocks();
         Block[][] tabRoomTop = new Block[tabRoomBot.length][roomTop.getHeight() - tabRoomBot[0].length + 1];
-        
+
         for (int x = 0; x < tabRoomTransition.length; x++) {
             for (int y = 0; y < tabRoomTransition[0].length; y++) {
                 if (x < tabRoomTransition.length - cut) {
@@ -191,13 +191,13 @@ public class Generator {
                 }
             }
         }
-        
+
         Room roomBot = new Room(new Location(roomTop.getLocation().getX(), roomTop.getLocation().getY() + cut - 1), tabRoomBot);
         roomTop.setBlocks(tabRoomTop);
-        
+
         generateRoomBorder(roomTop);
         generateRoomBorder(roomBot);
-        
+
         return new Couple<>(roomTop, roomBot);
     }
 

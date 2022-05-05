@@ -8,6 +8,7 @@ import net.cnam.gui.Console;
 import net.cnam.generator.Generator;
 import net.cnam.gui.menu.mainmenu.MainMenu;
 import net.cnam.structure.Castle;
+import net.cnam.structure.Game;
 import net.cnam.structure.Room;
 import net.cnam.structure.Stage;
 import net.cnam.utils.console.RawConsoleInput;
@@ -16,6 +17,7 @@ public class App {
 
     private final Console console;
     private final MainMenu mainMenu;
+    private Game currentGame;
 
     public App() {
         console = new Console();
@@ -25,27 +27,11 @@ public class App {
     public void start() {
         console.adjustSize();
         mainMenu.show(this);
+        //TODO REMOVE THIS
         debugGenerator();
     }
 
-    public void startGame() {
-        Generator gene = new Generator(new Random().nextLong());
-        Castle castle = gene.generateCastle();
-        Stage[] stages = castle.getStages();
-        for (int i = 0; i < stages.length; i++) {
-            try {
-                Stage stage = stages[i];
-                Room room = stage.getRooms()[0];
-                console.getContent().add(stage);
-                console.print();
-                RawConsoleInput.read(true);
-                console.getContent().remove(stage);
-            } catch (IOException ex) {
-                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
+    // TODO REMOVE THIS
     public void debugGenerator() {
         Generator gene = new Generator(new Random().nextLong()); //new Random().nextLong() //2027015466020144793L
         System.out.println("Seed: " + gene.getSeed());
@@ -72,5 +58,13 @@ public class App {
 
     public MainMenu getMainMenu() {
         return mainMenu;
+    }
+
+    public Game getCurrentGame() {
+        return currentGame;
+    }
+
+    public void setCurrentGame(Game currentGame) {
+        this.currentGame = currentGame;
     }
 }

@@ -5,17 +5,17 @@ import net.cnam.gui.Console;
 import net.cnam.gui.component.CButton;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;
-import net.cnam.gui.component.CButtonsChoices;
+import net.cnam.gui.component.CButtons;
 
 public class MainMenu extends CFrame {
 
-    private final CButtonsChoices buttonsChoices;
+    private final CButtons buttonsChoices;
     private boolean show = false;
 
     public MainMenu(App app) {
         super(new CLabel("Menu principal"));
 
-        this.buttonsChoices = new CButtonsChoices(new CButton[]{new PlayButton(app), new SettingsButton(app), new QuitButton(app)}, 1);
+        this.buttonsChoices = new CButtons(new CButton[]{new PlayButton(app), new SettingsButton(app), new QuitButton(app)}, 1);
 
         this.getContent().getContent().add(buttonsChoices);
     }
