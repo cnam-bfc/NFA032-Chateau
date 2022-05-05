@@ -1,5 +1,6 @@
 package net.cnam.structure;
 
+import net.cnam.entity.LivingEntity;
 import net.cnam.gui.component.CComponent;
 import net.cnam.object.Location;
 import net.cnam.structure.block.Block;
@@ -27,8 +28,11 @@ public class Map extends CComponent {
             for (int x = 0; x < stage.getLength(); x++) {
                 try {
                     Block block = stage.getBlock(x, y);
+                    LivingEntity entity = stage.getEntity(x, y);
                     line += ' ';
-                    if (block != null) {
+                    if (entity != null) {
+                        line += entity.getCharacter();
+                    } else if (block != null) {
                         line += block.getCharacter();
                     } else {
                         line += ' ';
