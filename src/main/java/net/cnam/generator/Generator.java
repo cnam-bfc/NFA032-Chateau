@@ -73,7 +73,8 @@ public class Generator {
         int stageWidth = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE);
 
         Room[] rooms = new Room[1];
-        rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageWidth]); //room base
+        rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageWidth]); //room de base
+        generateRoomBorder(rooms[0]); //création de la bordure de la room de base
 
         //fais un minimum d'itération de découpe des pièces
         int pourcentage = 0;
@@ -125,19 +126,39 @@ public class Generator {
      * Si renvoie null c'est que la taille de la pièce n'est pas suffisante pour
      * être divisé
      *
-     * @param room la pièce à diviser
+     * @param roomLeft la pièce à diviser
      * @return un couple de pièce résultant de la découpe de la pièce passé en
      * paramètre
      */
-    public Couple<Room, Room> divideRoomLength(Room room) {
-        if (room.getLength() / 2 <= MIN_SIZE_ROOM) {
+    public Couple<Room, Room> divideRoomLength(Room roomLeft) {
+        if (roomLeft.getLength() / 2 <= MIN_SIZE_ROOM) {
             return null;
         }
-        int cut = random.nextInt(MIN_SIZE_ROOM, room.getLength() - MIN_SIZE_ROOM);
-        Block[][] blocks = room.getBlocks();
-        Room newRoom = new Room(new Location(room.getLocation().getX() + cut - 1, room.getLocation().getY()), new Block[blocks.length - cut + 1][blocks[0].length]);
-        room.setBlocks(new Block[cut][blocks[0].length]);
-        return new Couple<>(room, newRoom);
+        int cut = random.nextInt(MIN_SIZE_ROOM, roomLeft.getLength() - MIN_SIZE_ROOM);
+
+        Block[][] tabRoomRight = new Block[roomLeft.getLength() - cut + 1][roomLeft.getHeight()];
+        Block[][] tabRoomTransition = roomLeft.getBlocks();
+        Block[][] tabRoomLeft = new Block[roomLeft.getLength() - tabRoomRight.length + 1][tabRoomRight[0].length];
+
+        for (int x = 0; x < tabRoomTransition.length; x++) {
+            for (int y = 0; y < tabRoomTransition[0].length; y++) {
+                if (x < tabRoomTransition.length - cut) {
+                    tabRoomLeft[x][y] = tabRoomTransition[x][y];
+                } else if (x > tabRoomTransition.length - cut) {
+                    tabRoomRight[x][y] = tabRoomTransition[x][y];
+                } else {
+                    tabRoomRight[x][y] = tabRoomLeft[x][y] = tabRoomTransition[x][y];
+                }
+            }
+        }
+
+        Room roomRight = new Room(new Location(roomLeft.getLocation().getX() + cut - 1, roomLeft.getLocation().getY()), tabRoomRight);
+        roomLeft.setBlocks(tabRoomLeft);
+
+        generateRoomBorder(roomLeft);
+        generateRoomBorder(roomRight);
+
+        return new Couple<>(roomLeft, roomRight);
     }
 
     /**
@@ -170,7 +191,7 @@ public class Generator {
 
         for (int x = 0; x < tabBlock.length; x++) {
             for (int y = 0; y < tabBlock[x].length; y++) {
-                if (x == 0 || x == tabBlock.length - 1 || y == 0 || y == tabBlock[x].length - 1) {
+                if ((x == 0 || x == tabBlock.length - 1 || y == 0 || y == tabBlock[x].length - 1) && tabBlock[x][y] == null) {
                     tabBlock[x][y] = new Wall();
                 }
             }
@@ -186,23 +207,3 @@ public class Generator {
         return seed;
     }
 }
-
-//DECHETS
-/*
- méthode : divide room
-        int chooseDivideModificator;
-        if (room.getLength() < room.getHeight()) {
-            chooseDivideModificator = CHOICE_DIVIDE;
-        } else if (room.getLength() > room.getHeight()) {
-            chooseDivideModificator = -CHOICE_DIVIDE;
-        } else {
-            chooseDivideModificator = 0;
-        }
-
-        if (this.random.nextInt(1, 100) + chooseDivideModificator > 50) {
-            System.out.println("longueur"); //test
-            return divideRoomLength(room);
-        }
-        System.out.println("largeur"); //test
-        return divideRoomWidth(room);
- */
