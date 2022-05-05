@@ -175,7 +175,6 @@ public class Generator {
                 }
             }
         }
-        room.setBlocks(tabBlock);
     }
 
     /**
