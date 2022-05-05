@@ -2,15 +2,9 @@ package net.cnam.gui.component;
 
 import net.cnam.utils.StringUtils;
 
-public class CButton extends CLabel {
+public abstract class CButton extends CLabel {
 
     private boolean selected = false;
-    private Runnable run = new Runnable() {
-        @Override
-        public void run() {
-
-        }
-    };
 
     public CButton(String text) {
         super(text);
@@ -27,6 +21,8 @@ public class CButton extends CLabel {
     public CButton(String[] lines, int length, int height) {
         super(lines, length, height);
     }
+
+    public abstract void execute();
 
     @Override
     public String[] render() {
@@ -76,13 +72,5 @@ public class CButton extends CLabel {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
-    }
-
-    public void setRun(Runnable run) {
-        this.run = run;
-    }
-
-    public void execute() {
-        this.run.run();
     }
 }
