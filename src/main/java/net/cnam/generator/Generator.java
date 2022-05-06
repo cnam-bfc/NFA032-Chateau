@@ -130,13 +130,16 @@ public class Generator {
                 }
             }
         }
-        
+
         // On fait un trou dans chaque mur de chaque pièce
         // TODO Faire l'algorithme au lieu de ce truc de test débile
         for (GeneratorWallRoom genRoom : genRooms) {
             for (GeneratorWall roomWall : genRoom.getOwnWall()) {
                 for (GeneratorWall otherRoomWall : genRoom.getBoundWall()) {
-                    roomWall.breakWall(otherRoomWall, random);
+                    if (roomWall.overlapWall(otherRoomWall)) {
+                        roomWall.breakWall(otherRoomWall, random);
+                        break;
+                    }
                 }
             }
         }

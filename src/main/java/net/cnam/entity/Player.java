@@ -9,4 +9,8 @@ public class Player extends Personage {
         super(weapon, nom, sexe, health, resistance, characteristics, location);
     }
 
+//    @Override
+//    public String getCharacter() {
+//        return "\u001b[32m" + super.getCharacter() + "\u001b[39m";
+//    }
 }

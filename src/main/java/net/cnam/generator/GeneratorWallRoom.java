@@ -31,13 +31,13 @@ public class GeneratorWallRoom {
         // Mur de droite
         // Si il n'est pas sur la bordure droite de l'étage
         if (roomLocation.getX() + room.getLength() != stage.getLength()) {
-            Location wallLocation = new Location(roomLocation.getX() + room.getLength(), roomLocation.getY() + 1);
+            Location wallLocation = new Location(roomLocation.getX() + room.getLength() - 1, roomLocation.getY() + 1);
             ownWall.add(new GeneratorWall(wallLocation, Orientation.VERTICAL, room.getHeight() - 2, room));
         }
         // Mur du bas
         // Si il n'est pas sur la bordure basse de l'étage
         if (roomLocation.getY() + room.getHeight() != stage.getHeight()) {
-            Location wallLocation = new Location(roomLocation.getX() + 1, roomLocation.getY() + room.getHeight());
+            Location wallLocation = new Location(roomLocation.getX() + 1, roomLocation.getY() + room.getHeight() - 1);
             ownWall.add(new GeneratorWall(wallLocation, Orientation.HORIZONTAL, room.getLength() - 2, room));
         }
     }
