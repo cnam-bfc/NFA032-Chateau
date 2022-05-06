@@ -23,6 +23,7 @@ public class Map extends CComponent {
         String[] result = new String[this.getHeight()];
         int linePointer = 0;
 
+        // TODO Déplacer la map en fonction de la position du joueur
         for (int y = 0; y < stage.getHeight(); y++) {
             String line = "";
             for (int x = 0; x < stage.getLength(); x++) {
