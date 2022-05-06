@@ -1,11 +1,11 @@
 package net.cnam.gui.component;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CPanel extends CComponent {
 
-    private final List<CComponent> content = new ArrayList<>();
+    private final List<CComponent> content = new LinkedList<>();
 
     private boolean renderMainPadding;
 

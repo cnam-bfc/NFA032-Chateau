@@ -7,7 +7,13 @@ public class CLabel extends CComponent {
     private String[] textLines;
 
     public CLabel(String text) {
-        this(text, text.length(), 1);
+        this(
+                // String[] lines
+                StringUtils.convertStringToStringArray(text),
+                // length
+                StringUtils.getMaximumLength(StringUtils.convertStringToStringArray(text)),
+                // height
+                StringUtils.convertStringToStringArray(text).length);
     }
 
     public CLabel(String text, int length, int height) {
@@ -32,7 +38,7 @@ public class CLabel extends CComponent {
         // Lignes de la console - lignes de texte au millieu
         int paddingHeight = this.getHeight() - textLines.length;
         for (int i = 0; i < paddingHeight / 2; i++) {
-            linePointer = this.renderAddLine(result, linePointer, emptyLine);
+            linePointer = CComponent.renderAddLine(result, linePointer, emptyLine);
         }
         for (String textLine : textLines) {
             if (textLine.length() > this.getLength()) {
@@ -40,7 +46,7 @@ public class CLabel extends CComponent {
             } else if (textLine.length() < this.getLength()) {
                 textLine = StringUtils.centerString(textLine, ' ', this.getLength());
             }
-            linePointer = this.renderAddLine(result, linePointer, textLine);
+            linePointer = CComponent.renderAddLine(result, linePointer, textLine);
         }
 
         // Bourage à la fin
