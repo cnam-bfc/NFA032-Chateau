@@ -21,7 +21,7 @@ public class App {
 
     public void start() {
         console.adjustSize();
-        mainMenu.show(this);
+        mainMenu.show();
         //TODO REMOVE THIS
         debugGenerator();
     }
