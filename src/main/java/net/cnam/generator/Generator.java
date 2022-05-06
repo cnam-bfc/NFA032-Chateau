@@ -75,7 +75,16 @@ public class Generator {
 
         Room[] rooms = new Room[1];
         rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageWidth]); //room de base
-        generateRoomBorder(rooms[0]); //création de la bordure de la room de base
+        Block[][] blocksMainRoom = rooms[0].getBlocks();
+
+        // On génère les murs de la pièce
+        for (int x = 0; x < blocksMainRoom.length; x++) {
+            for (int y = 0; y < blocksMainRoom[x].length; y++) {
+                if ((x == 0 || x == blocksMainRoom.length - 1 || y == 0 || y == blocksMainRoom[x].length - 1) && blocksMainRoom[x][y] == null) {
+                    blocksMainRoom[x][y] = new Wall();
+                }
+            }
+        }
 
         //fais un minimum d'itération de découpe des pièces
         int pourcentage = 0;
@@ -109,8 +118,10 @@ public class Generator {
             genRooms.add(genRoom);
             genWalls.addAll(genRoom.getOwnWall());
         }
+
         // On ajoute les murs qui ont des blocs en communs
         for (GeneratorWallRoom genRoom : genRooms) {
+            // En gros, on prend les murs commun avec les pièces d'a côté
             for (GeneratorWall roomWall : genRoom.getOwnWall()) {
                 for (GeneratorWall wall : genWalls) {
                     if (roomWall.overlapWall(wall)) {
@@ -119,6 +130,7 @@ public class Generator {
                 }
             }
         }
+        
         // On fait un trou dans chaque mur de chaque pièce
         // TODO Faire l'algorithme au lieu de ce truc de test débile
         for (GeneratorWallRoom genRoom : genRooms) {
@@ -251,20 +263,8 @@ public class Generator {
         return roomBot;
     }
 
+    // TODO Remplir la pièce avec des objets à la con
     public void generateRoom(Room room) {
-        // populateRoom(room);
-    }
-
-    public void generateRoomBorder(Room room) {
-        Block[][] tabBlock = room.getBlocks();
-
-        for (int x = 0; x < tabBlock.length; x++) {
-            for (int y = 0; y < tabBlock[x].length; y++) {
-                if ((x == 0 || x == tabBlock.length - 1 || y == 0 || y == tabBlock[x].length - 1) && tabBlock[x][y] == null) {
-                    tabBlock[x][y] = new Wall();
-                }
-            }
-        }
     }
 
     /**
