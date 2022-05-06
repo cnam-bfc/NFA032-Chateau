@@ -2,13 +2,10 @@ package net.cnam.structure;
 
 import java.io.IOException;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.cnam.entity.Personage;
 import net.cnam.entity.Player;
 import net.cnam.generator.Generator;
 import net.cnam.gui.Console;
-import net.cnam.gui.component.CButton;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;
 import net.cnam.utils.console.RawConsoleInput;
@@ -39,7 +36,7 @@ public class Game extends CFrame {
 
         this.getContent().getContent().add(map);
 
-        this.setTitle(new CLabel("Jeu (seed: " + this.castle.getSeed() + ")"));
+        this.setTitle(new CLabel("Jeu\n(seed: " + this.castle.getSeed() + ")"));
     }
 
     public void start(Console console) {
