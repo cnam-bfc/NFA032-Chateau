@@ -9,18 +9,20 @@ import net.cnam.gui.component.CButtons;
 
 public class MainMenu extends CFrame {
 
+    private final App app;
     private final CButtons buttonsChoices;
     private boolean show = false;
 
     public MainMenu(App app) {
         super(new CLabel("Menu principal"));
 
+        this.app = app;
         this.buttonsChoices = new CButtons(new CButton[]{new PlayButton(app), new SettingsButton(app), new QuitButton(app)}, 1);
 
         this.getContent().getContent().add(buttonsChoices);
     }
 
-    public void show(App app) {
+    public void show() {
         Console console = app.getConsole();
         this.setSize(console.getLength(), console.getHeight());
         if (!console.getContent().contains(this)) {
@@ -30,10 +32,11 @@ public class MainMenu extends CFrame {
         while (show) {
             buttonsChoices.askKeyboard(console);
         }
-        console.getContent().remove(this);
     }
 
     public void stopShowing() {
         this.show = false;
+        Console console = app.getConsole();
+        console.getContent().remove(this);
     }
 }

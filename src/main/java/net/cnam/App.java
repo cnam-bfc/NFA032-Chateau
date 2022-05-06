@@ -1,17 +1,12 @@
 package net.cnam;
 
-import java.io.IOException;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.cnam.gui.Console;
 import net.cnam.generator.Generator;
 import net.cnam.gui.menu.mainmenu.MainMenu;
 import net.cnam.structure.Castle;
 import net.cnam.structure.Game;
-import net.cnam.structure.Room;
 import net.cnam.structure.Stage;
-import net.cnam.utils.console.RawConsoleInput;
 
 public class App {
 
@@ -26,7 +21,7 @@ public class App {
 
     public void start() {
         console.adjustSize();
-        mainMenu.show(this);
+        mainMenu.show();
         //TODO REMOVE THIS
         debugGenerator();
     }
