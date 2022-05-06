@@ -137,7 +137,7 @@ public class Generator {
             for (GeneratorWall roomWall : genRoom.getOwnWall()) {
                 for (GeneratorWall otherRoomWall : genRoom.getBoundWall()) {
                     if (roomWall.overlapWall(otherRoomWall)) {
-                        roomWall.breakWall(otherRoomWall, random);
+                        roomWall.breakWall(otherRoomWall, generatedStage, random);
                         break;
                     }
                 }

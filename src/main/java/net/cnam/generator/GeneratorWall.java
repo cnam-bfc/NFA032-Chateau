@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import net.cnam.object.Location;
+import net.cnam.structure.CoordinatesOutOfBoundsException;
 import net.cnam.structure.Room;
+import net.cnam.structure.Stage;
 import net.cnam.utils.direction.Orientation;
 
 public class GeneratorWall {
@@ -56,7 +58,7 @@ public class GeneratorWall {
         return true;
     }
 
-    public void breakWall(GeneratorWall wall, Random rnd) {
+    public void breakWall(GeneratorWall wall, Stage stage, Random rnd) {
         if (!overlapWall(wall)) {
             return;
         }
@@ -73,7 +75,16 @@ public class GeneratorWall {
                     max = wall.location.getX() + wall.length;
                 }
                 for (int i = min; i < max; i++) {
-                    possibleBreakPoints.add(new Location(i, this.location.getY()));
+                    try {
+                        Location location = new Location(i, this.location.getY());
+                        // Si les blocks au dessus et en dessous sont inexistants
+                        if (stage.getBlock(i, this.location.getY() - 1) == null
+                                && stage.getBlock(i, this.location.getY() + 1) == null
+                                && !possibleBreakPoints.contains(location)) {
+                            possibleBreakPoints.add(location);
+                        }
+                    } catch (CoordinatesOutOfBoundsException ex) {
+                    }
                 }
             }
             case VERTICAL -> {
@@ -86,13 +97,19 @@ public class GeneratorWall {
                     max = wall.location.getY() + wall.length;
                 }
                 for (int i = min; i < max; i++) {
-                    possibleBreakPoints.add(new Location(this.location.getX(), i));
+                    try {
+                        Location location = new Location(this.location.getX(), i);
+                        // Si les blocks à gauche et à droite sont inexistants
+                        if (stage.getBlock(this.location.getX() - 1, i) == null
+                                && stage.getBlock(this.location.getX() + 1, i) == null
+                                && !possibleBreakPoints.contains(location)) {
+                            possibleBreakPoints.add(location);
+                        }
+                    } catch (CoordinatesOutOfBoundsException ex) {
+                    }
                 }
             }
         }
-
-        // On enlève ceux qui sont déjà des passages
-        possibleBreakPoints.removeAll(passages);
 
         // Si il n'y a pas de positions en commun, on peu pas créer de passage donc on abandonne
         if (possibleBreakPoints.isEmpty()) {
