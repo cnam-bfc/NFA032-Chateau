@@ -169,7 +169,6 @@ public class Stage extends CComponent {
                 try {
                     Block block = getBlock(x, y);
                     LivingEntity entity = getEntity(x, y);
-                    line += ' ';
                     if (entity != null) {
                         line += entity.getCharacter();
                     } else if (block != null) {
