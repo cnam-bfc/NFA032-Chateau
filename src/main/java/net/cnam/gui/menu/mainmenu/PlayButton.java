@@ -22,7 +22,7 @@ public class PlayButton extends CButton {
     public void execute() {
         MainMenu mainMenu = app.getMainMenu();
         app.getConsole().getContent().remove(mainMenu);
-        app.setCurrentGame(new Game(new Player(null, "", Sexe.MASCULIN, 100, 100, new Characteristic(100, 100, 100), 'P', new Location(1, 1))));
+        app.setCurrentGame(new Game(new Player(null, "", Sexe.MASCULIN, 100, 100, new Characteristic(100, 100, 100), new Location(1, 1))));
         app.getCurrentGame().start(app.getConsole());
         app.getConsole().getContent().add(mainMenu);
     }

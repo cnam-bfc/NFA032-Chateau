@@ -17,11 +17,10 @@ public abstract class LivingEntity extends Entity {
      * @param health La santé de l'entité vivante
      * @param resistance La résistance de l'entité vivante
      * @param characteristics Les caractéristiques de l'entité vivante
-     * @param character Caractère utilisé lors de l'affichage de l'entité
      * @param location Coordonnées de l'entité
      */
-    public LivingEntity(int health, int resistance, Characteristic characteristics, char character, Location location) {
-        super(character, location);
+    public LivingEntity(int health, int resistance, Characteristic characteristics, Location location) {
+        super(location);
         this.health = health;
         this.resistance = resistance;
         this.characteristics = characteristics;

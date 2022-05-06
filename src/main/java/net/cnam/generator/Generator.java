@@ -1,7 +1,8 @@
 package net.cnam.generator;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import net.cnam.object.Location;
 import net.cnam.structure.*;
 import net.cnam.structure.block.*;
@@ -96,11 +97,51 @@ public class Generator {
                 rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided);
             }
         }
-        
-        LinkedList<GeneratorWall> walls = new LinkedList<>();
-        
 
-        return new Stage(rooms, stageLength, stageWidth);
+        Stage generatedStage = new Stage(rooms, stageLength, stageWidth);
+
+        // Génération des murs
+        Set<GeneratorWallRoom> genRooms = new HashSet<>();
+        Set<GeneratorWall> genWalls = new HashSet<>(); // Contient tout les murs de toutes les pièces
+        // On génère les murs des pièces
+        for (Room room : rooms) {
+            GeneratorWallRoom genRoom = new GeneratorWallRoom(room, generatedStage);
+            genRooms.add(genRoom);
+            genWalls.addAll(genRoom.getOwnWall());
+        }
+        // On ajoute les murs qui ont des blocs en communs
+        for (GeneratorWallRoom genRoom : genRooms) {
+            for (GeneratorWall roomWall : genRoom.getOwnWall()) {
+                for (GeneratorWall wall : genWalls) {
+                    if (roomWall.overlapWall(wall)) {
+                        genRoom.getBoundWall().add(wall);
+                    }
+                }
+            }
+        }
+        // On fait un trou dans chaque mur de chaque pièce
+        // TODO Faire l'algorithme au lieu de ce truc de test débile
+        for (GeneratorWallRoom genRoom : genRooms) {
+            for (GeneratorWall roomWall : genRoom.getOwnWall()) {
+                for (GeneratorWall otherRoomWall : genRoom.getBoundWall()) {
+                    roomWall.breakWall(otherRoomWall, random);
+                }
+            }
+        }
+
+        // On met des portes où il y a des passage
+        for (GeneratorWallRoom genRoom : genRooms) {
+            for (GeneratorWall roomWall : genRoom.getOwnWall()) {
+                for (Location location : roomWall.getPassages()) {
+                    try {
+                        generatedStage.setBlock(location.getX(), location.getY(), new Door());
+                    } catch (CoordinatesOutOfBoundsException ex) {
+                    }
+                }
+            }
+        }
+
+        return generatedStage;
     }
 
     /**
@@ -138,11 +179,11 @@ public class Generator {
         int cut = random.nextInt(MIN_SIZE_ROOM, roomLeft.getLength() - MIN_SIZE_ROOM);
 
         Block[][] oldBlocks = roomLeft.getBlocks();
-        
-        for (int y = 1 ; y < oldBlocks[0].length - 1 ; y++){
+
+        for (int y = 1; y < oldBlocks[0].length - 1; y++) {
             oldBlocks[cut][y] = new Wall();
         }
-        
+
         // Nouvelle pièce à gauche
         Block[][] newBlocksRoomLeft = new Block[cut + 1][roomLeft.getHeight()];
         // Nouvelle pièce à droite
@@ -179,15 +220,17 @@ public class Generator {
             return null;
         }
         int cut = random.nextInt(MIN_SIZE_ROOM, roomTop.getHeight() - MIN_SIZE_ROOM);
-        
+
         Block[][] oldBlocks = roomTop.getBlocks();
-        
-        for (int x = 1 ; x < oldBlocks.length - 1 ; x++){
-            if (oldBlocks != null) oldBlocks[x][cut] = new Wall(); //if de sécurité
+
+        for (int x = 1; x < oldBlocks.length - 1; x++) {
+            if (oldBlocks != null) {
+                oldBlocks[x][cut] = new Wall(); //if de sécurité
+            }
         }
 
         // Nouvelle pièce en haut
-        Block[][] newBlocksRoomTop = new Block[roomTop.getLength()][cut +1];
+        Block[][] newBlocksRoomTop = new Block[roomTop.getLength()][cut + 1];
         // Nouvelle pièce en bas
         Block[][] newBlocksRoomBot = new Block[roomTop.getLength()][oldBlocks[0].length - cut];
 
@@ -197,7 +240,7 @@ public class Generator {
                     newBlocksRoomTop[x][y] = oldBlocks[x][y];
                 }
                 if (y >= cut) {
-                    newBlocksRoomBot[x][y-cut] = oldBlocks[x][y];
+                    newBlocksRoomBot[x][y - cut] = oldBlocks[x][y];
                 }
             }
         }

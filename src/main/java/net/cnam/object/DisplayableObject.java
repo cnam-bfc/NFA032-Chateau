@@ -10,5 +10,5 @@ public interface DisplayableObject {
      *
      * @return le caractère
      */
-    public char getCharacter();
+    public String getCharacter();
 }

@@ -5,11 +5,13 @@ package net.cnam.structure.block;
  */
 public class Wall extends Block {
 
-    /**
-     * Constructeur attribuant au block Mur (Wall). Le caractère '#0' pour l'affichage sur la map
-    */
-    public Wall() {
-        super('#');
+    @Override
+    public boolean isTransparent() {
+        return false;
     }
 
+    @Override
+    public String getCharacter() {
+        return "#";
+    }
 }

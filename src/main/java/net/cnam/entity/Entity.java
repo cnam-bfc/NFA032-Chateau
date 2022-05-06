@@ -8,29 +8,15 @@ import net.cnam.object.Location;
  */
 public abstract class Entity implements DisplayableObject {
 
-    private final char character;
     private Location location;
 
     /**
      * Constructeur
      *
-     * @param character Caractère utilisé lors de l'affichage de l'entité
      * @param location Coordonnées de l'entité
      */
-    public Entity(char character, Location location) {
-        this.character = character;
+    public Entity(Location location) {
         this.location = location;
-    }
-
-    /**
-     * Méthode permettant de récupérer le caractère à afficher quand on veut
-     * afficher l'entité
-     *
-     * @return le caractère
-     */
-    @Override
-    public char getCharacter() {
-        return character;
     }
 
     /**

@@ -13,7 +13,7 @@ public abstract class CComponent {
     }
 
     public abstract String[] render();
-
+    
     public void setSize(int length, int height) {
         this.setLength(length);
         this.setHeight(height);

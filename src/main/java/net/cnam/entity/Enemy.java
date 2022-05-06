@@ -6,7 +6,7 @@ import net.cnam.object.Weapon;
 /**
  * Classe d'un ennemi
  */
-public class Enemy extends LivingEntity {
+public abstract class Enemy extends LivingEntity {
 
     private Weapon weapon;
 
@@ -16,12 +16,11 @@ public class Enemy extends LivingEntity {
      * @param health La santé de l'entité vivante
      * @param resistance La résistance de l'entité vivante
      * @param characteristics Les caractéristiques de l'entité vivante
-     * @param character Caractère utilisé lors de l'affichage de l'entité
      * @param location Coordonnées de l'entité
      */
-    public Enemy(int health, int resistance, Characteristic characteristics, char character, Location location) {
+    public Enemy(int health, int resistance, Characteristic characteristics, Location location) {
         // Weapon = null
-        this(null, health, resistance, characteristics, character, location);
+        this(null, health, resistance, characteristics, location);
     }
 
     /**
@@ -31,11 +30,10 @@ public class Enemy extends LivingEntity {
      * @param health La santé de l'entité vivante
      * @param resistance La résistance de l'entité vivante
      * @param characteristics Les caractéristiques de l'entité vivante
-     * @param character Caractère utilisé lors de l'affichage de l'entité
      * @param location Coordonnées de l'entité
      */
-    public Enemy(Weapon weapon, int health, int resistance, Characteristic characteristics, char character, Location location) {
-        super(health, resistance, characteristics, character, location);
+    public Enemy(Weapon weapon, int health, int resistance, Characteristic characteristics, Location location) {
+        super(health, resistance, characteristics, location);
         this.weapon = weapon;
     }
 

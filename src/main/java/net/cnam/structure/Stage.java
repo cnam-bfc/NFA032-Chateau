@@ -1,6 +1,7 @@
 package net.cnam.structure;
 
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Set;
 import net.cnam.entity.LivingEntity;
 import net.cnam.gui.component.CComponent;
 import net.cnam.object.Location;
@@ -12,7 +13,7 @@ import net.cnam.structure.block.Block;
 public class Stage extends CComponent {
 
     private Room[] rooms;
-    private LinkedList<LivingEntity> entities = new LinkedList<>();
+    private final Set<LivingEntity> entities = new HashSet<>();
 
     /**
      * Constructeur
@@ -149,7 +150,7 @@ public class Stage extends CComponent {
                     throw new CoordinatesOutOfBoundsException("L'entité ne peut pas sortir de l'étage!");
                 }
                 Block block = this.getBlock(newX, newY);
-                if (block != null) {
+                if (block != null && !block.isTransparent()) {
                     return;
                 }
                 // TODO Vérifier qu'il va pas sur un block non translucide
@@ -206,9 +207,9 @@ public class Stage extends CComponent {
     /**
      * Méthode permettant de récupérer les entités dans l'étage
      *
-     * @return La liste des entités
+     * @return Les entités
      */
-    public LinkedList<LivingEntity> getEntities() {
+    public Set<LivingEntity> getEntities() {
         return entities;
     }
 }
