@@ -1,7 +1,7 @@
 package net.cnam.generator;
 
+import java.util.LinkedList;
 import java.util.Random;
-import net.cnam.object.Couple;
 import net.cnam.object.Location;
 import net.cnam.structure.*;
 import net.cnam.structure.block.*;
@@ -96,6 +96,9 @@ public class Generator {
                 rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided);
             }
         }
+        
+        LinkedList<GeneratorWall> walls = new LinkedList<>();
+        
 
         return new Stage(rooms, stageLength, stageWidth);
     }
