@@ -1,6 +1,6 @@
 package net.cnam.object;
 
-public class Weapon extends Object {
+public class Weapon {
 
 //CHAMPS
     private int durability;
@@ -13,7 +13,4 @@ public class Weapon extends Object {
         this.power = power;
         this.malusAccuracy = malusAccuracy;
     }
-    
-    
-    
 }
