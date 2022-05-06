@@ -7,7 +7,13 @@ public class CLabel extends CComponent {
     private String[] textLines;
 
     public CLabel(String text) {
-        this(text, text.length(), 1);
+        this(
+                // String[] lines
+                StringUtils.convertStringToStringArray(text),
+                // length
+                StringUtils.getMaximumLength(StringUtils.convertStringToStringArray(text)),
+                // height
+                StringUtils.convertStringToStringArray(text).length);
     }
 
     public CLabel(String text, int length, int height) {
