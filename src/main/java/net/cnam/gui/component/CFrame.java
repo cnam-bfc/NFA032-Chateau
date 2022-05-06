@@ -39,17 +39,22 @@ public class CFrame extends CComponent {
         String[] result = new String[this.getHeight()];
         int linePointer = 0;
 
-        linePointer = this.renderAddLine(result, linePointer, '┌' + "─".repeat(this.getLength() - 2) + '┐');
+        linePointer = CComponent.renderAddLine(result, linePointer, '┌' + "─".repeat(this.getLength() - 2) + '┐');
         if (title != null) {
-            for (String str : title.render()) {
-                linePointer = this.renderAddLine(result, linePointer, '│' + str + '│');
+            String[] titleRender = title.render();
+            for (int i = 0; i < title.getHeight(); i++) {
+                if (i < titleRender.length) {
+                    linePointer = CComponent.renderAddLine(result, linePointer, '│' + titleRender[i] + '│');
+                } else {
+                    linePointer = CComponent.renderAddLine(result, linePointer, '│' + " ".repeat(this.getLength() - 2) + '│');
+                }
             }
-            linePointer = this.renderAddLine(result, linePointer, '├' + "─".repeat(this.getLength() - 2) + '┤');
+            linePointer = CComponent.renderAddLine(result, linePointer, '├' + "─".repeat(this.getLength() - 2) + '┤');
         }
         for (String str : content.render()) {
-            linePointer = this.renderAddLine(result, linePointer, '│' + str + '│');
+            linePointer = CComponent.renderAddLine(result, linePointer, '│' + str + '│');
         }
-        this.renderAddLine(result, linePointer, '└' + "─".repeat(this.getLength() - 2) + '┘');
+        CComponent.renderAddLine(result, linePointer, '└' + "─".repeat(this.getLength() - 2) + '┘');
 
         return result;
     }
@@ -64,9 +69,13 @@ public class CFrame extends CComponent {
 
     public void setTitle(CLabel title) {
         this.title = title;
+        int panelHeight = this.getHeight() - 2;
         if (this.title != null) {
             this.title.setLength(this.getLength() - 2);
+            panelHeight -= this.title.getHeight();
+            panelHeight--;
         }
+        this.content.setHeight(panelHeight);
     }
 
     public CPanel getContent() {
