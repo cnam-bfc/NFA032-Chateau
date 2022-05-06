@@ -7,5 +7,5 @@ import net.cnam.object.DisplayableObject;
  */
 public abstract class Block implements DisplayableObject {
 
-    public abstract boolean isTransparent();
+    public abstract boolean isSolid();
 }

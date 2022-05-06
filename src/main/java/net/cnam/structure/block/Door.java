@@ -8,12 +8,20 @@ public class Door extends Block {
     private boolean locked = false;
 
     @Override
-    public boolean isTransparent() {
+    public boolean isSolid() {
         return !locked;
     }
 
     @Override
     public String getCharacter() {
         return "D";
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 }

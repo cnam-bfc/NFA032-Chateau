@@ -6,7 +6,7 @@ package net.cnam.structure.block;
 public class Wall extends Block {
 
     @Override
-    public boolean isTransparent() {
+    public boolean isSolid() {
         return false;
     }
 
