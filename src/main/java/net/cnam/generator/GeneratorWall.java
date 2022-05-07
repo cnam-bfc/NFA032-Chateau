@@ -1,14 +1,10 @@
 package net.cnam.generator;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import net.cnam.object.Location;
-import net.cnam.structure.CoordinatesOutOfBoundsException;
 import net.cnam.structure.Room;
-import net.cnam.structure.Stage;
 import net.cnam.utils.direction.Orientation;
 
 public class GeneratorWall {
@@ -17,7 +13,7 @@ public class GeneratorWall {
     private final Orientation orientation;
     private final int length;
     private final Room room;
-    private final Set<Location> passages = new HashSet<>();
+    private final List<Location> passages = new LinkedList<>();
 
     public GeneratorWall(Location location, Orientation orientation, int length, Room room) {
         this.location = location;
@@ -66,28 +62,38 @@ public class GeneratorWall {
         List<Location> possibleBreakPoints = new LinkedList<>();
         switch (this.orientation) {
             case HORIZONTAL -> {
+                // Minimum
                 int min = this.location.getX();
-                if (wall.location.getX() > min) {
-                    min = wall.location.getX();
+                int minWall = wall.location.getX();
+                if (minWall > min) {
+                    min = minWall;
                 }
-                int max = this.location.getX() + this.length;
-                if (max > wall.location.getX() + wall.length) {
-                    max = wall.location.getX() + wall.length;
+                // Maximum
+                int max = this.location.getX() + this.length - 1;
+                int maxWall = wall.location.getX() + wall.length - 1;
+                if (max > maxWall) {
+                    max = maxWall;
                 }
-                for (int i = min; i < max; i++) {
+                // Positions possibles
+                for (int i = min; i <= max; i++) {
                     possibleBreakPoints.add(new Location(i, this.location.getY()));
                 }
             }
             case VERTICAL -> {
+                // Minimum
                 int min = this.location.getY();
-                if (wall.location.getY() > min) {
-                    min = wall.location.getY();
+                int minWall = wall.location.getY();
+                if (minWall > min) {
+                    min = minWall;
                 }
-                int max = this.location.getY() + this.length;
-                if (max > wall.location.getY() + wall.length) {
-                    max = wall.location.getY() + wall.length;
+                // Maximum
+                int max = this.location.getY() + this.length - 1;
+                int maxWall = wall.location.getY() + wall.length - 1;
+                if (max > maxWall) {
+                    max = maxWall;
                 }
-                for (int i = min; i < max; i++) {
+                // Positions possibles
+                for (int i = min; i <= max; i++) {
                     possibleBreakPoints.add(new Location(this.location.getX(), i));
                 }
             }
@@ -122,7 +128,7 @@ public class GeneratorWall {
         return room;
     }
 
-    public Set<Location> getPassages() {
+    public List<Location> getPassages() {
         return passages;
     }
 }
