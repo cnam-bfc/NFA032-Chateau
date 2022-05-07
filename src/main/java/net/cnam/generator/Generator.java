@@ -110,17 +110,17 @@ public class Generator {
         Stage generatedStage = new Stage(rooms, stageLength, stageWidth);
 
         // Génération des murs
-        Set<GeneratorWallRoom> genRooms = new HashSet<>();
+        Set<GeneratorRoom> genRooms = new HashSet<>();
         Set<GeneratorWall> genWalls = new HashSet<>(); // Contient tout les murs de toutes les pièces
         // On génère les murs des pièces
         for (Room room : rooms) {
-            GeneratorWallRoom genRoom = new GeneratorWallRoom(room, generatedStage);
+            GeneratorRoom genRoom = new GeneratorRoom(room, generatedStage);
             genRooms.add(genRoom);
             genWalls.addAll(genRoom.getOwnWall());
         }
 
         // On ajoute les murs qui ont des blocs en communs
-        for (GeneratorWallRoom genRoom : genRooms) {
+        for (GeneratorRoom genRoom : genRooms) {
             // En gros, on prend les murs commun avec les pièces d'a côté
             for (GeneratorWall roomWall : genRoom.getOwnWall()) {
                 for (GeneratorWall wall : genWalls) {
@@ -133,11 +133,11 @@ public class Generator {
 
         // On fait un trou dans chaque mur de chaque pièce
         // TODO Faire l'algorithme au lieu de ce truc de test débile
-        for (GeneratorWallRoom genRoom : genRooms) {
+        for (GeneratorRoom genRoom : genRooms) {
             for (GeneratorWall roomWall : genRoom.getOwnWall()) {
                 for (GeneratorWall otherRoomWall : genRoom.getBoundWall()) {
                     if (roomWall.overlapWall(otherRoomWall)) {
-                        roomWall.breakWall(otherRoomWall, generatedStage, random);
+                        roomWall.breakWall(otherRoomWall, random);
                         break;
                     }
                 }
@@ -145,7 +145,7 @@ public class Generator {
         }
 
         // On met des portes où il y a des passage
-        for (GeneratorWallRoom genRoom : genRooms) {
+        for (GeneratorRoom genRoom : genRooms) {
             for (GeneratorWall roomWall : genRoom.getOwnWall()) {
                 for (Location location : roomWall.getPassages()) {
                     try {

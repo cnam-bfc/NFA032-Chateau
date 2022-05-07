@@ -7,12 +7,12 @@ import net.cnam.structure.Room;
 import net.cnam.structure.Stage;
 import net.cnam.utils.direction.Orientation;
 
-public class GeneratorWallRoom {
+public class GeneratorRoom {
 
     private final Set<GeneratorWall> ownWall = new HashSet<>();
     private final Set<GeneratorWall> boundWall = new HashSet<>();
 
-    public GeneratorWallRoom(Room room, Stage stage) {
+    public GeneratorRoom(Room room, Stage stage) {
         Location roomLocation = room.getLocation();
 
         // Génération des murs de la pièce
