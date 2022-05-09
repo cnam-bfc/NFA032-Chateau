@@ -1,8 +1,8 @@
 package net.cnam.structure.block.decorative;
 
-public class Table extends DecorativeBlock {
+public class Wardrobe extends DecorativeBlock {
 
-    public Table(Object object) {
+    public Wardrobe(Object object) {
         super(object);
     }
 
@@ -13,6 +13,6 @@ public class Table extends DecorativeBlock {
 
     @Override
     public String getCharacter() {
-        return "T";
+        return "W";
     }
 }
