@@ -1,6 +1,7 @@
 package net.cnam.gui.component;
 
 import net.cnam.utils.StringUtils;
+import net.cnam.utils.console.CGraphics;
 
 public abstract class CButton extends CLabel {
 
@@ -34,7 +35,7 @@ public abstract class CButton extends CLabel {
         // Lignes de la console - lignes de texte au millieu
         int paddingHeight = this.getHeight() - textLines.length;
         for (int i = 0; i < paddingHeight / 2; i++) {
-            linePointer = this.renderAddLine(result, linePointer, emptyLine);
+            linePointer = CGraphics.renderAddLine(result, linePointer, emptyLine);
         }
         for (String textLine : textLines) {
             if (textLine.length() > this.getLength()) {
@@ -55,15 +56,25 @@ public abstract class CButton extends CLabel {
                     textLine = "\u001b[7m" + textLine + "\u001b[27m";
                 }
             }
-            linePointer = this.renderAddLine(result, linePointer, textLine);
+            linePointer = CGraphics.renderAddLine(result, linePointer, textLine);
         }
 
         // Bourage à la fin
         for (; linePointer < result.length;) {
-            linePointer = renderAddLine(result, linePointer, emptyLine);
+            linePointer = CGraphics.renderAddLine(result, linePointer, emptyLine);
         }
 
         return result;
+    }
+
+    @Override
+    public void keyPressed(int key) {
+        super.keyPressed(key);
+
+        // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal
+        if (this.isSelected() && (key == 10 || key == 13)) {
+            this.execute();
+        }
     }
 
     public boolean isSelected() {

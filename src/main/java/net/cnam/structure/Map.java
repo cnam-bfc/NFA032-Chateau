@@ -5,6 +5,7 @@ import net.cnam.gui.component.CComponent;
 import net.cnam.object.Location;
 import net.cnam.structure.block.Block;
 import net.cnam.utils.StringUtils;
+import net.cnam.utils.console.CGraphics;
 
 public class Map extends CComponent {
 
@@ -47,10 +48,14 @@ public class Map extends CComponent {
             } else {
                 line = StringUtils.centerString(line, ' ', this.getLength());
             }
-            linePointer = this.renderAddLine(result, linePointer, line);
+            linePointer = CGraphics.renderAddLine(result, linePointer, line);
         }
 
         return result;
+    }
+
+    @Override
+    public void keyPressed(int key) {
     }
 
     public Stage getStage() {

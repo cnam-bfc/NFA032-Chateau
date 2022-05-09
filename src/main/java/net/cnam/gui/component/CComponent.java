@@ -13,7 +13,9 @@ public abstract class CComponent {
     }
 
     public abstract String[] render();
-    
+
+    public abstract void keyPressed(int key);
+
     public void setSize(int length, int height) {
         this.setLength(length);
         this.setHeight(height);
@@ -38,23 +40,5 @@ public abstract class CComponent {
     @Override
     public String toString() {
         return StringUtils.convertStringArrayToString(render());
-    }
-
-    /**
-     * Ajoute une ligne au rendu du composant graphique
-     *
-     * @param lines Tableau des lignes à rendre
-     * @param linePointer Index où la ligne doit être ajouté
-     * @param line Ligne à ajouter
-     * @return L'index de la ligne suivante à ajouter
-     */
-    protected static int renderAddLine(String[] lines, int linePointer, String line) {
-        // On ne dépasse pas la hauteur maximale même si il reste des lignes à rendre (tant pis)
-        if (linePointer == lines.length) {
-            return linePointer;
-        }
-
-        lines[linePointer] = line;
-        return ++linePointer;
     }
 }

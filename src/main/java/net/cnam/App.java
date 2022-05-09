@@ -1,5 +1,6 @@
 package net.cnam;
 
+import java.io.IOException;
 import java.util.Random;
 import net.cnam.gui.Console;
 import net.cnam.generator.Generator;
@@ -7,23 +8,53 @@ import net.cnam.gui.menu.mainmenu.MainMenu;
 import net.cnam.structure.Castle;
 import net.cnam.structure.Game;
 import net.cnam.structure.Stage;
+import net.cnam.utils.console.RawConsoleInput;
 
 public class App {
 
     private final Console console;
     private final MainMenu mainMenu;
     private Game currentGame;
+    private boolean running;
 
     public App() {
-        console = new Console();
-        mainMenu = new MainMenu(this);
+        this.running = false;
+        this.console = new Console();
+        this.mainMenu = new MainMenu(this);
     }
 
     public void start() {
-        console.adjustSize();
-        mainMenu.show();
+        if (running) {
+            return;
+        }
+
+        running = true;
+        console.adjustSize(this);
+
+        mainMenu.setSize(console.getLength(), console.getHeight());
+        console.getContent().add(mainMenu);
+
+        while (running) {
+            console.print();
+            try {
+                int input = RawConsoleInput.read(true);
+                console.keyPressed(input);
+            } catch (IOException ex) {
+                System.out.println("ERREUR");
+                System.exit(1);
+            }
+        }
+
         //TODO REMOVE THIS
         debugGenerator();
+    }
+
+    public void stop() {
+        if (!running) {
+            return;
+        }
+
+        running = false;
     }
 
     // TODO REMOVE THIS
@@ -61,5 +92,9 @@ public class App {
 
     public void setCurrentGame(Game currentGame) {
         this.currentGame = currentGame;
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

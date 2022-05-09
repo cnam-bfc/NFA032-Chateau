@@ -67,4 +67,8 @@ public class Room extends CComponent {
 
         return result;
     }
+
+    @Override
+    public void keyPressed(int key) {
+    }
 }

@@ -1,6 +1,7 @@
 package net.cnam.gui.menu.mainmenu;
 
 import net.cnam.App;
+import net.cnam.gui.Console;
 import net.cnam.gui.component.CButton;
 
 public class SettingsButton extends CButton {
@@ -15,10 +16,8 @@ public class SettingsButton extends CButton {
 
     @Override
     public void execute() {
-        MainMenu mainMenu = app.getMainMenu();
-        app.getConsole().getContent().remove(mainMenu);
-        app.getConsole().adjustSize();
-        mainMenu.setSize(app.getConsole().getLength(), app.getConsole().getHeight());
-        app.getConsole().getContent().add(mainMenu);
+        Console console = app.getConsole();
+        console.adjustSize(app);
+        app.getMainMenu().setSize(console.getLength(), console.getHeight());
     }
 }

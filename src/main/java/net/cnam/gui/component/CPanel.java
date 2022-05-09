@@ -2,6 +2,7 @@ package net.cnam.gui.component;
 
 import java.util.LinkedList;
 import java.util.List;
+import net.cnam.utils.console.CGraphics;
 
 public class CPanel extends CComponent {
 
@@ -44,7 +45,7 @@ public class CPanel extends CComponent {
             // + 1 pour le padding automatique (bourage) de fin
             if (i != 0 || renderMainPadding) {
                 for (int j = 0; j < paddingHeight / paddingNb; j++) {
-                    linePointer = renderAddLine(result, linePointer, emptyLine);
+                    linePointer = CGraphics.renderAddLine(result, linePointer, emptyLine);
                 }
             }
 
@@ -59,16 +60,23 @@ public class CPanel extends CComponent {
                 if (paddingLength > 0) {
                     line += " ".repeat(paddingLength / 2 + paddingLength % 2);
                 }
-                linePointer = renderAddLine(result, linePointer, line);
+                linePointer = CGraphics.renderAddLine(result, linePointer, line);
             }
         }
 
         // Bourage à la fin
         for (; linePointer < result.length;) {
-            linePointer = renderAddLine(result, linePointer, emptyLine);
+            linePointer = CGraphics.renderAddLine(result, linePointer, emptyLine);
         }
 
         return result;
+    }
+
+    @Override
+    public void keyPressed(int key) {
+        for (CComponent component : content) {
+            component.keyPressed(key);
+        }
     }
 
     public List<CComponent> getContent() {

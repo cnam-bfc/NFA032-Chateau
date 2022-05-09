@@ -1,81 +1,44 @@
 package net.cnam.gui;
 
-import net.cnam.utils.direction.Direction;
-import net.cnam.utils.direction.DirectionNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import net.cnam.App;
 import net.cnam.gui.component.CComponent;
-import net.cnam.gui.component.CFrame;
-import net.cnam.gui.component.CLabel;
 import net.cnam.gui.component.CPanel;
 import net.cnam.utils.console.RawConsoleInput;
-import net.cnam.utils.direction.DirectionUtils;
 
 public class Console extends CPanel {
 
-    private static final int MIN_LENGTH = 80;
-    private static final int MIN_HEIGHT = 25;
+    public static final int MIN_LENGTH = 80;
+    public static final int MIN_HEIGHT = 25;
 
     public Console() {
         super(MIN_LENGTH, MIN_HEIGHT);
     }
 
-    public void adjustSize() {
-        CComponent[] save = this.getContent().toArray(new CComponent[this.getContent().size()]);
+    public void adjustSize(App app) {
+        List<CComponent> save = new LinkedList<>(this.getContent());
         this.getContent().clear();
 
-        CFrame adjustingWindow = new CFrame(new CLabel("Réglage des dimensions de la console"));
-        CLabel instructions_1 = new CLabel(new String[]{"Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran",
-            "Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd"});
-        CLabel instructions_2 = new CLabel("Appuyez sur \"Entrée\" pour valider");
+        AdjustSizeFrame adjustSizeFrame = new AdjustSizeFrame();
+        adjustSizeFrame.setSize(this.getLength(), this.getHeight());
+        this.getContent().add(adjustSizeFrame);
 
-        adjustingWindow.getContent().getContent().add(instructions_1);
-        adjustingWindow.getContent().getContent().add(instructions_2);
-        adjustingWindow.setSize(this.getLength(), this.getHeight());
-
-        this.getContent().add(adjustingWindow);
-
-        while (true) {
+        while (!adjustSizeFrame.isSizeAdjusted() && app.isRunning()) {
             print();
             try {
                 int input = RawConsoleInput.read(true);
-                // 13 = Entrée dans un terminal ; 10 = Entrée dans netbeans
-                if (input == 13 || input == 10) {
-                    break;
-                }
-                Direction direction = DirectionUtils.parseDirection(input);
-                int newHeight = this.getHeight();
-                int newLength = this.getLength();
-                switch (direction) {
-                    case LEFT -> {
-                        if (this.getLength() > MIN_LENGTH) {
-                            newLength--;
-                        }
-                    }
-                    case RIGHT -> {
-                        newLength++;
-                    }
-                    case TOP -> {
-                        if (this.getHeight() > MIN_HEIGHT) {
-                            newHeight--;
-                        }
-                    }
-                    case BOTTOM -> {
-                        newHeight++;
-                    }
-                }
-                this.setSize(newLength, newHeight);
-                adjustingWindow.setSize(newLength, newHeight);
+                app.getConsole().keyPressed(input);
+                this.setSize(adjustSizeFrame.getLength(), adjustSizeFrame.getHeight());
             } catch (IOException ex) {
                 System.out.println("ERREUR");
                 System.exit(1);
-            } catch (DirectionNotFoundException ex) {
-
             }
         }
 
         this.getContent().clear();
-        this.getContent().addAll(Arrays.asList(save));
+        this.getContent().addAll(save);
     }
 
     public void print() {
@@ -89,6 +52,7 @@ public class Console extends CPanel {
         System.out.flush();
     }
 
+    // TODO REMOVE THIS
     public void debugKeys() {
         while (true) {
             try {

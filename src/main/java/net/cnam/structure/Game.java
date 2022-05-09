@@ -1,11 +1,14 @@
 package net.cnam.structure;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
-import net.cnam.entity.Personage;
+import net.cnam.App;
 import net.cnam.entity.Player;
 import net.cnam.generator.Generator;
 import net.cnam.gui.Console;
+import net.cnam.gui.component.CComponent;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;
 import net.cnam.utils.console.RawConsoleInput;
@@ -18,6 +21,7 @@ public class Game extends CFrame {
     private final Castle castle;
     private final Map map;
     private final Player player;
+    private boolean running = false;
 
     public Game(Player player) {
         this(null, player);
@@ -39,10 +43,21 @@ public class Game extends CFrame {
         this.setTitle(new CLabel("Jeu\n(seed: " + this.castle.getSeed() + ")"));
     }
 
-    public void start(Console console) {
+    public void start(App app) {
+        if (running || !app.isRunning()) {
+            return;
+        }
+
+        running = true;
+
+        Console console = app.getConsole();
+
         this.setSize(console.getLength(), console.getHeight());
+        List<CComponent> save = new LinkedList<>(console.getContent());
+        console.getContent().clear();
+
         console.getContent().add(this);
-        while (true) {
+        while (running && app.isRunning()) {
             console.print();
             try {
                 int input = RawConsoleInput.read(true);
@@ -73,7 +88,17 @@ public class Game extends CFrame {
 
             }
         }
-        console.getContent().remove(this);
+        console.getContent().clear();
+        console.getContent().addAll(save);
+        stop();
+    }
+
+    public void stop() {
+        if (!running) {
+            return;
+        }
+
+        running = false;
     }
 
     @Override
@@ -103,7 +128,11 @@ public class Game extends CFrame {
         return map;
     }
 
-    public Personage getPlayer() {
+    public Player getPlayer() {
         return player;
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

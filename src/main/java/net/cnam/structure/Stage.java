@@ -1,7 +1,7 @@
 package net.cnam.structure;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 import net.cnam.entity.LivingEntity;
 import net.cnam.gui.component.CComponent;
 import net.cnam.object.Location;
@@ -13,7 +13,7 @@ import net.cnam.structure.block.Block;
 public class Stage extends CComponent {
 
     private Room[] rooms;
-    private final Set<LivingEntity> entities = new HashSet<>();
+    private final List<LivingEntity> entities = new LinkedList<>();
 
     /**
      * Constructeur
@@ -186,6 +186,10 @@ public class Stage extends CComponent {
         return result;
     }
 
+    @Override
+    public void keyPressed(int key) {
+    }
+
     /**
      * Méthode permettant de récupérer les pièces de l'étage
      *
@@ -207,9 +211,9 @@ public class Stage extends CComponent {
     /**
      * Méthode permettant de récupérer les entités dans l'étage
      *
-     * @return Les entités
+     * @return La liste des entités
      */
-    public Set<LivingEntity> getEntities() {
+    public List<LivingEntity> getEntities() {
         return entities;
     }
 }

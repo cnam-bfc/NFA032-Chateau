@@ -1,6 +1,8 @@
 package net.cnam.gui.component;
 
-// ┌┐└┘├┤─│
+import net.cnam.utils.console.CGraphics;
+
+// ┌┐└┘├┤─│┴┯
 public class CFrame extends CComponent {
 
     private static final int DEFAULT_LENGTH = 50;
@@ -39,24 +41,29 @@ public class CFrame extends CComponent {
         String[] result = new String[this.getHeight()];
         int linePointer = 0;
 
-        linePointer = CComponent.renderAddLine(result, linePointer, '┌' + "─".repeat(this.getLength() - 2) + '┐');
+        linePointer = CGraphics.renderAddLine(result, linePointer, '┌' + "─".repeat(this.getLength() - 2) + '┐');
         if (title != null) {
             String[] titleRender = title.render();
             for (int i = 0; i < title.getHeight(); i++) {
                 if (i < titleRender.length) {
-                    linePointer = CComponent.renderAddLine(result, linePointer, '│' + titleRender[i] + '│');
+                    linePointer = CGraphics.renderAddLine(result, linePointer, '│' + titleRender[i] + '│');
                 } else {
-                    linePointer = CComponent.renderAddLine(result, linePointer, '│' + " ".repeat(this.getLength() - 2) + '│');
+                    linePointer = CGraphics.renderAddLine(result, linePointer, '│' + " ".repeat(this.getLength() - 2) + '│');
                 }
             }
-            linePointer = CComponent.renderAddLine(result, linePointer, '├' + "─".repeat(this.getLength() - 2) + '┤');
+            linePointer = CGraphics.renderAddLine(result, linePointer, '├' + "─".repeat(this.getLength() - 2) + '┤');
         }
         for (String str : content.render()) {
-            linePointer = CComponent.renderAddLine(result, linePointer, '│' + str + '│');
+            linePointer = CGraphics.renderAddLine(result, linePointer, '│' + str + '│');
         }
-        CComponent.renderAddLine(result, linePointer, '└' + "─".repeat(this.getLength() - 2) + '┘');
+        CGraphics.renderAddLine(result, linePointer, '└' + "─".repeat(this.getLength() - 2) + '┘');
 
         return result;
+    }
+
+    @Override
+    public void keyPressed(int key) {
+        this.content.keyPressed(key);
     }
 
     public boolean hasTitle() {

@@ -15,7 +15,6 @@ public class QuitButton extends CButton {
 
     @Override
     public void execute() {
-        MainMenu mainMenu = app.getMainMenu();
-        mainMenu.stopShowing();
+        app.stop();
     }
 }
