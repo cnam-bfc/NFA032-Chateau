@@ -7,6 +7,8 @@ package net.cnam.entity;
  * Rapidité (speed) : rapidité de l'entité pour savoir l'ordre d'attaque
  */
 public class Characteristic {
+    private int health;
+    private int resistance;
     private int strength;
     private int accuracy;
     private int speed;
@@ -14,11 +16,15 @@ public class Characteristic {
     /**
      * Constructeur
      *
+     * @param health point de vie
+     * @param resistance point de resistance
      * @param strength force
      * @param accuracy précision
      * @param speed vitesse
      */
-    public Characteristic(int strength, int accuracy, int speed) {
+    public Characteristic(int health, int resistance, int strength, int accuracy, int speed) {
+        this.health = health;
+        this.resistance = resistance;
         this.strength = strength;
         this.accuracy = accuracy;
         this.speed = speed;
@@ -77,23 +83,42 @@ public class Characteristic {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+    
+    /**
+     * Méthode permettant de récupérer la santé de l'entité
+     *
+     * @return la santé
+     */
+    public int getHealth() {
+        return health;
+    }
 
-    /* a voir si on en a besoin
-    
-    //méthode pour comparer la précision. RETOURNE VRAI Si la vitesse passé en paramètre est plus forte
-    //renvoie vrai ou faux (1chance sur 2) si les vitesses sont égales
-    public boolean compareAccuracy(Characteristic accuracyTest){
-        if (this.accuracy == accuracyTest.getAccuracy()) return (Math.random() < 0.50);
-        return this.accuracy >= accuracyTest.getAccuracy();
+    /**
+     * Méthode permettant de définir la santé de l'entité
+     *
+     * @param health la nouvelle santé
+     */
+    public void setHealth(int health) {
+        this.health = health;
     }
-    
-    //méthode pour comparer la force. RETOURNE VRAI Si la vitesse passé en paramètre est plus forte
-    //renvoie vrai ou faux (1chance sur 2) si les vitesses sont égales
-    public boolean compareStrength(Characteristic strengthTest){
-        if (this.strength == strengthTest.getStrength()) return (Math.random() < 0.50);
-        return this.strength >= strengthTest.getAccuracy();
+
+    /**
+     * Méthode permettant de récupérer la résistance de l'entité
+     *
+     * @return la résistance
+     */
+    public int getResistance() {
+        return resistance;
     }
-*/
+
+    /**
+     * Méthode permettant de définir la résistance de l'entité
+     *
+     * @param resistance la nouvelle résistance
+     */
+    public void setResistance(int resistance) {
+        this.resistance = resistance;
+    }
     
     /**
      * méthode pour comparer la vitesse et définir le premier à attaquer lors d'un combat.

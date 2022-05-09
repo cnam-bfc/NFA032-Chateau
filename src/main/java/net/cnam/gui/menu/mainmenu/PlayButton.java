@@ -20,7 +20,7 @@ public class PlayButton extends CButton {
 
     @Override
     public void execute() {
-        app.setCurrentGame(new Game(app, new Player(null, "", Sexe.MASCULIN, 100, 100, new Characteristic(100, 100, 100), new Location(1, 1))));
+        app.setCurrentGame(new Game(app, new Player(Sexe.MASCULIN, new Characteristic(100, 100, 100, 100, 100), new Location(1, 1), "")));
         app.getCurrentGame().start(app);
     }
 }
