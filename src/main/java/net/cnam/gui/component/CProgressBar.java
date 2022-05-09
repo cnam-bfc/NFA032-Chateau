@@ -1,7 +1,5 @@
 package net.cnam.gui.component;
 
-import net.cnam.utils.console.CGraphics;
-
 public class CProgressBar extends CComponent {
 
     private int value;
@@ -28,8 +26,8 @@ public class CProgressBar extends CComponent {
         line += "\u001b[27m";
         line += " ".repeat(this.getLength() - progressed);
 
-        for (int linePointer = 0; linePointer < result.length;) {
-            linePointer = CGraphics.renderAddLine(result, linePointer, line);
+        for (int linePointer = 0; linePointer < result.length; linePointer++) {
+            result[linePointer] = line;
         }
 
         return result;
