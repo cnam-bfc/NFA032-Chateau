@@ -14,7 +14,7 @@ public class Player extends Personage {
      * @param nom nom du personnage
      */
     public Player(Sexe sexe, Characteristic characteristics, Location location, String nom) {
-        super(sexe, characteristics, location, nom);
+        super(sexe, characteristics, nom, location);
     }
 
     /**
@@ -26,8 +26,8 @@ public class Player extends Personage {
      * @param location position du personnage
      * @param nom nom du personnage
      */
-    public Player(Sexe sexe, Characteristic characteristics, Weapon weapon, Location location, String nom) {
-        super(sexe, characteristics, weapon, location, nom);
+    public Player(Sexe sexe, Characteristic characteristics, Weapon weapon, String nom, Location location) {
+        super(sexe, characteristics, weapon, nom, location);
     }
 
 //    @Override

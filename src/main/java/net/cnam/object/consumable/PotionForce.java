@@ -1,5 +1,7 @@
 package net.cnam.object.consumable;
 
+import net.cnam.entity.Player;
+
 public class PotionForce extends Consumable {
 
     public PotionForce() {
@@ -7,7 +9,7 @@ public class PotionForce extends Consumable {
     }
     
     @Override
-    public void consume() {
+    public void consume(Player player) {
         //TODO augmente la force du joueur de 5 pendant 3 rounds
     }
 

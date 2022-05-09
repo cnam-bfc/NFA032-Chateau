@@ -1,5 +1,7 @@
 package net.cnam.object.consumable;
 
+import net.cnam.entity.Player;
+
 public class PotionVie extends Consumable {
     
     public PotionVie() {
@@ -7,7 +9,7 @@ public class PotionVie extends Consumable {
     }
     
     @Override
-    public void consume() {
+    public void consume(Player player) {
         //TODO remet de la vie au joueur (pas de vie en +, vie supplémentaire = delete)
     }
 

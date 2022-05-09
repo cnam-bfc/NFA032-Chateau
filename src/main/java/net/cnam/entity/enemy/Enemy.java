@@ -16,8 +16,8 @@ public abstract class Enemy extends LivingEntity {
      * @param characteristics
      * @param location
      */
-    public Enemy(Characteristic characteristics, Location location, String nom) {
-        super(characteristics, location, nom);
+    public Enemy(Characteristic characteristics, String nom, Location location) {
+        super(characteristics, nom, location);
     }
 
     /**
@@ -27,8 +27,8 @@ public abstract class Enemy extends LivingEntity {
      * @param weapon
      * @param location
      */
-    public Enemy(Characteristic characteristics, Weapon weapon, Location location, String nom) {
-        super(characteristics, weapon, location, nom);
+    public Enemy(Characteristic characteristics, Weapon weapon, String nom, Location location) {
+        super(characteristics, weapon, nom, location);
     }
 
 }

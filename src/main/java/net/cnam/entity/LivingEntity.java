@@ -8,6 +8,13 @@ import net.cnam.object.weapon.Weapon;
  */
 public abstract class LivingEntity extends Entity {
 
+    //TODO Remove (temporaire)
+    protected final int DEFAULT_HEALTH = 100;
+    protected final int DEFAULT_RESISTANCE = 50;
+    protected final int DEFAULT_STRENGTH = 15;
+    protected final int DEFAULT_ACCURACY = 15;
+    protected final int DEFAULT_SPEED = 15;
+    
     private Characteristic characteristics;
     private Weapon weapon;
     private String nom;
@@ -18,7 +25,7 @@ public abstract class LivingEntity extends Entity {
      * @param characteristics Les caractéristiques de l'entité vivante
      * @param location Coordonnées de l'entité
      */
-    public LivingEntity(Characteristic characteristics, Location location, String nom) {
+    public LivingEntity(Characteristic characteristics, String nom, Location location) {
         super(location);
         this.characteristics = characteristics;
         this.nom = nom;
@@ -31,7 +38,7 @@ public abstract class LivingEntity extends Entity {
      * @param weapon l'arme que porte l'entité
      * @param location Coordonnées de l'entité
      */
-    public LivingEntity(Characteristic characteristics, Weapon weapon, Location location, String nom) {
+    public LivingEntity(Characteristic characteristics, Weapon weapon, String nom, Location location) {
         super(location);
         this.characteristics = characteristics;
         this.weapon = weapon;

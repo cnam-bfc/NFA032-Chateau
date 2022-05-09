@@ -1,15 +1,12 @@
 package net.cnam.object.consumable;
 
 import net.cnam.object.Item;
+import net.cnam.object.PortableObject;
 
-public class Consumable extends Item implements ConsumableObject{
+public abstract class Consumable extends Item implements ConsumableObject, PortableObject{
 
     public Consumable(String nom) {
         super(nom);
-    }
-
-    @Override
-    public void consume() {
     }
 
 }

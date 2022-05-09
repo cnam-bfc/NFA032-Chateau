@@ -7,7 +7,7 @@ import net.cnam.object.weapon.Weapon;
 public class Spider extends Enemy {
 
     public Spider(Location location) {
-        super(new Characteristic(100,50,10,10,10), null, location, "Maurice");
+        super(new Characteristic(100,50,10,10,10), null, "Maurice", location);
     }
 
     @Override

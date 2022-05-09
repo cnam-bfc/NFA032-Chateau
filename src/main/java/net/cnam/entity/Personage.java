@@ -19,8 +19,8 @@ public class Personage extends LivingEntity {
      * @param location position du personnage
      * @param nom nom du personnage
      */
-    public Personage(Sexe sexe, Characteristic characteristics, Location location, String nom) {
-        super(characteristics, location, nom);
+    public Personage(Sexe sexe, Characteristic characteristics, String nom, Location location) {
+        super(characteristics, nom, location);
         this.sexe = sexe;
     }
 
@@ -33,8 +33,8 @@ public class Personage extends LivingEntity {
      * @param location position du personnage
      * @param nom nom du personnage
      */
-    public Personage(Sexe sexe, Characteristic characteristics, Weapon weapon, Location location, String nom) {
-        super(characteristics, weapon, location, nom);
+    public Personage(Sexe sexe, Characteristic characteristics, Weapon weapon, String nom, Location location) {
+        super(characteristics, weapon, nom, location);
         this.sexe = sexe;
     }
     
