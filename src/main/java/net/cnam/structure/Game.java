@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import net.cnam.App;
-import net.cnam.entity.Enemy;
+import net.cnam.entity.enemy.Enemy;
 import net.cnam.entity.Player;
 import net.cnam.fight.Fight;
 import net.cnam.generator.Generator;

@@ -1,66 +1,43 @@
 package net.cnam.entity;
 
 import net.cnam.object.Location;
+import net.cnam.object.weapon.Weapon;
 
 /**
  * Classe abstraite d'une entité vivante
  */
 public abstract class LivingEntity extends Entity {
 
-    private int health;
-    private int resistance;
     private Characteristic characteristics;
+    private Weapon weapon;
+    private String nom;
 
     /**
-     * Constructeur
+     * Constructeur sans arme
      *
-     * @param health La santé de l'entité vivante
-     * @param resistance La résistance de l'entité vivante
      * @param characteristics Les caractéristiques de l'entité vivante
      * @param location Coordonnées de l'entité
      */
-    public LivingEntity(int health, int resistance, Characteristic characteristics, Location location) {
+    public LivingEntity(Characteristic characteristics, Location location, String nom) {
         super(location);
-        this.health = health;
-        this.resistance = resistance;
         this.characteristics = characteristics;
+        this.nom = nom;
     }
 
     /**
-     * Méthode permettant de récupérer la santé de l'entité
+     * Constructeur avec arme
      *
-     * @return la santé
+     * @param characteristics Les caractéristiques de l'entité vivante
+     * @param weapon l'arme que porte l'entité
+     * @param location Coordonnées de l'entité
      */
-    public int getHealth() {
-        return health;
+    public LivingEntity(Characteristic characteristics, Weapon weapon, Location location, String nom) {
+        super(location);
+        this.characteristics = characteristics;
+        this.weapon = weapon;
+        this.nom = nom;
     }
 
-    /**
-     * Méthode permettant de définir la santé de l'entité
-     *
-     * @param health la nouvelle santé
-     */
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    /**
-     * Méthode permettant de récupérer la résistance de l'entité
-     *
-     * @return la résistance
-     */
-    public int getResistance() {
-        return resistance;
-    }
-
-    /**
-     * Méthode permettant de définir la résistance de l'entité
-     *
-     * @param resistance la nouvelle résistance
-     */
-    public void setResistance(int resistance) {
-        this.resistance = resistance;
-    }
 
     /**
      * Méthode permettant de récupérer les caractérisiques de l'entité
@@ -79,4 +56,51 @@ public abstract class LivingEntity extends Entity {
     public void setCharacteristics(Characteristic characteristics) {
         this.characteristics = characteristics;
     }
+    
+    /**
+     * Méthode qui permet de récupérer l'arme possédé par l'ennemi
+     *
+     * @return l'arme
+     */
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    /**
+     * Méthode qui permet de définir l'arme possédé par l'ennemi. null est
+     * équivalent aux mains nues
+     *
+     * @param weapon la nouvelle arme
+     */
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+    
+    /**
+     * Méthode pour vérifier que l'entité possède une arme
+     * 
+     * @return un boolean (vrai si possède arme / sinon faux)
+     */
+    public boolean haveWeapon(){
+        return (this.weapon != null);
+    }
+    
+    /**
+     * Méthode permettant de récupérer le nom du personnage.
+     *
+     * @return un string "nom"
+     */
+    public String getNom() {
+        return nom;
+    }
+
+    /**
+     * Méthode permettant de définir le nom du personnage.
+     *
+     * @param nom String "nom personnage"
+     */
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+    
 }

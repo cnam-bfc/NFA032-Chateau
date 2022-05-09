@@ -1,5 +1,6 @@
 package net.cnam.fight;
 
+import net.cnam.entity.enemy.Enemy;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;

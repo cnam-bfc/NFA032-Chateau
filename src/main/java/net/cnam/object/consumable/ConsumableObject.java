@@ -1,4 +1,4 @@
-package net.cnam.object;
+package net.cnam.object.consumable;
 
 public interface ConsumableObject {
     
