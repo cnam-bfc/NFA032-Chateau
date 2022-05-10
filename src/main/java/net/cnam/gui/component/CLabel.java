@@ -63,7 +63,7 @@ public class CLabel extends CComponent {
     }
 
     @Override
-    public void keyPressed(int key) {
+    public void onKeyPressed(int key) {
     }
 
     public String getText() {

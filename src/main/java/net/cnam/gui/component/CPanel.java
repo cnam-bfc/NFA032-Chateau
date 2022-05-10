@@ -80,9 +80,9 @@ public class CPanel extends CComponent {
     }
 
     @Override
-    public void keyPressed(int key) {
+    public void onKeyPressed(int key) {
         for (CComponent component : content) {
-            component.keyPressed(key);
+            component.onKeyPressed(key);
         }
     }
 

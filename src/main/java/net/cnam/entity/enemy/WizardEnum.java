@@ -1,7 +1,5 @@
 package net.cnam.entity.enemy;
 
-import java.util.Random;
-import net.cnam.object.Location;
 import net.cnam.object.weapon.Weapon;
 
 public enum WizardEnum{

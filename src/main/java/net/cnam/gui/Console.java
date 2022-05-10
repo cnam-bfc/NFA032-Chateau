@@ -3,7 +3,6 @@ package net.cnam.gui;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import net.cnam.App;
 import net.cnam.gui.component.CComponent;
 import net.cnam.gui.component.CPanel;
 import net.cnam.utils.console.RawConsoleInput;
@@ -17,37 +16,44 @@ public class Console extends CPanel {
         super(MIN_LENGTH, MIN_HEIGHT);
     }
 
-    public void adjustSize(App app) {
+    public void adjustSize() {
+        AdjustSizeFrame adjustSizeFrame = new AdjustSizeFrame(this);
+        show(adjustSizeFrame);
+    }
+
+    public void show(CComponent component) {
         List<CComponent> save = new LinkedList<>(this.getContent());
         this.getContent().clear();
 
-        AdjustSizeFrame adjustSizeFrame = new AdjustSizeFrame();
-        adjustSizeFrame.setSize(this.getLength(), this.getHeight());
-        this.getContent().add(adjustSizeFrame);
+        component.setSize(this.getLength(), this.getHeight());
+        this.getContent().add(component);
 
-        while (!adjustSizeFrame.isSizeAdjusted() && app.isRunning()) {
+        boolean continueShowing = false;
+        do {
             print();
             try {
                 int input = RawConsoleInput.read(true);
-                app.getConsole().keyPressed(input);
-                this.setSize(adjustSizeFrame.getLength(), adjustSizeFrame.getHeight());
+                this.onKeyPressed(input);
             } catch (IOException ex) {
                 System.out.println("ERREUR");
                 System.exit(1);
             }
-        }
+            if (component instanceof DisplayableComponent displayableComponent) {
+                continueShowing = displayableComponent.isDisplayable();
+            }
+        } while (continueShowing);
 
         this.getContent().clear();
         this.getContent().addAll(save);
     }
 
-    public void print() {
+    private void print() {
         clear();
         System.out.println(this);
     }
 
     // Méthode pour effacer la console
-    public void clear() {
+    private void clear() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }

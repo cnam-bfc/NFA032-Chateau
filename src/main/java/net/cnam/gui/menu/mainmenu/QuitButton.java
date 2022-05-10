@@ -1,20 +1,19 @@
 package net.cnam.gui.menu.mainmenu;
 
-import net.cnam.App;
 import net.cnam.gui.component.CButton;
 
 public class QuitButton extends CButton {
 
-    private final App app;
+    private final MainMenu mainMenu;
 
-    public QuitButton(App app) {
+    public QuitButton(MainMenu mainMenu) {
         super("3. Quitter");
 
-        this.app = app;
+        this.mainMenu = mainMenu;
     }
 
     @Override
     public void execute() {
-        app.stop();
+        mainMenu.stopDisplaying();
     }
 }

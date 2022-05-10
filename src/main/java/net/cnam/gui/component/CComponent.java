@@ -14,7 +14,7 @@ public abstract class CComponent {
 
     public abstract String[] render();
 
-    public abstract void keyPressed(int key);
+    public abstract void onKeyPressed(int key);
 
     public void setSize(int length, int height) {
         this.setLength(length);
