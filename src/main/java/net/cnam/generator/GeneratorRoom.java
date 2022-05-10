@@ -41,6 +41,11 @@ public class GeneratorRoom {
             walls.add(new GeneratorWall(wallLocation, Orientation.HORIZONTAL, room.getLength() - 2, room));
         }
     }
+    
+    // TODO Remplir la pièce
+    public void fillRoom(){
+        
+    }
 
     public List<GeneratorWall> getWalls() {
         return walls;
