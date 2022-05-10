@@ -39,5 +39,4 @@ public class Weapon extends Item implements PortableItem {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-    
 }

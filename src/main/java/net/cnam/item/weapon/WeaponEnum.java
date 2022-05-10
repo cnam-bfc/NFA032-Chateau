@@ -37,5 +37,4 @@ public enum WeaponEnum {
     public int getSpeed() {
         return speed;
     }
-
 }
