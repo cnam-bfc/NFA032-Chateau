@@ -48,16 +48,17 @@ public class RawConsoleInput {
      *         Otherwise an Unicode character code within the range 0 to 0xFFFF.
      */
     public static int read(boolean wait) throws IOException {
+        int key;
         if (isWindows) {
-            int key = readWindows(wait);
-            // Exit if the user presses Ctrl+C.
-            if (key == 3) {
-                System.exit(0);
-            }
-            return key;
+            key = readWindows(wait);
         } else {
-            return readUnix(wait);
+            key = readUnix(wait);
         }
+        // Exit if the user presses Ctrl+C.
+        if (key == 3) {
+            System.exit(0);
+        }
+        return key;
     }
 
     /**
