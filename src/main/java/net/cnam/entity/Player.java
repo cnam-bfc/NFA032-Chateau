@@ -1,16 +1,37 @@
 package net.cnam.entity;
 
 import net.cnam.object.Location;
-import net.cnam.object.Weapon;
+import net.cnam.object.weapon.Weapon;
 
 public class Player extends Personage {
 
-    public Player(Weapon weapon, String nom, Sexe sexe, int health, int resistance, Characteristic characteristics, Location location) {
-        super(weapon, nom, sexe, health, resistance, characteristics, location);
+    /**
+     * Constructeur du personnage sans arme
+     * 
+     * @param sexe sexe du personnage
+     * @param characteristics fiche de caractéristique du personnage
+     * @param location position du personnage
+     * @param nom nom du personnage
+     */
+    public Player(Sexe sexe, Characteristic characteristics, Location location, String nom) {
+        super(sexe, characteristics, nom, location);
     }
 
-//    @Override
-//    public String getCharacter() {
-//        return "\u001b[32m" + super.getCharacter() + "\u001b[39m";
-//    }
+    /**
+     * Constructeur du personnage avec une arme
+     * 
+     * @param sexe sexe du personnage
+     * @param characteristics fiche de caractéristique du personnage
+     * @param weapon arme du personnage
+     * @param location position du personnage
+     * @param nom nom du personnage
+     */
+    public Player(Sexe sexe, Characteristic characteristics, Weapon weapon, String nom, Location location) {
+        super(sexe, characteristics, weapon, nom, location);
+    }
+
+    @Override
+    public String getCharacter() {
+        return "\u001b[32m" + super.getCharacter() + "\u001b[39m";
+    }
 }

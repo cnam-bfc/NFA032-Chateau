@@ -1,7 +1,5 @@
 package net.cnam.gui.component;
 
-import net.cnam.utils.console.CGraphics;
-
 // ┌┐└┘├┤─│┴┯
 public class CFrame extends CComponent {
 
@@ -41,24 +39,33 @@ public class CFrame extends CComponent {
         String[] result = new String[this.getHeight()];
         int linePointer = 0;
 
-        linePointer = CGraphics.renderAddLine(result, linePointer, '┌' + "─".repeat(this.getLength() - 2) + '┐');
+        linePointer = renderAddLine(result, linePointer, '┌' + "─".repeat(this.getLength() - 2) + '┐');
         if (title != null) {
             String[] titleRender = title.render();
             for (int i = 0; i < title.getHeight(); i++) {
                 if (i < titleRender.length) {
-                    linePointer = CGraphics.renderAddLine(result, linePointer, '│' + titleRender[i] + '│');
+                    linePointer = renderAddLine(result, linePointer, '│' + titleRender[i] + '│');
                 } else {
-                    linePointer = CGraphics.renderAddLine(result, linePointer, '│' + " ".repeat(this.getLength() - 2) + '│');
+                    linePointer = renderAddLine(result, linePointer, '│' + " ".repeat(this.getLength() - 2) + '│');
                 }
             }
-            linePointer = CGraphics.renderAddLine(result, linePointer, '├' + "─".repeat(this.getLength() - 2) + '┤');
+            linePointer = renderAddLine(result, linePointer, '├' + "─".repeat(this.getLength() - 2) + '┤');
         }
         for (String str : content.render()) {
-            linePointer = CGraphics.renderAddLine(result, linePointer, '│' + str + '│');
+            linePointer = renderAddLine(result, linePointer, '│' + str + '│');
         }
-        CGraphics.renderAddLine(result, linePointer, '└' + "─".repeat(this.getLength() - 2) + '┘');
+        renderAddLine(result, linePointer, '└' + "─".repeat(this.getLength() - 2) + '┘');
 
         return result;
+    }
+
+    private int renderAddLine(String[] lines, int linePointer, String line) {
+        if (!(linePointer < lines.length)) {
+            return linePointer;
+        }
+
+        lines[linePointer] = line;
+        return ++linePointer;
     }
 
     @Override

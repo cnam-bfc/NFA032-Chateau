@@ -1,8 +1,8 @@
 package net.cnam.gui.component;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import net.cnam.utils.console.CGraphics;
 
 public class CPanel extends CComponent {
 
@@ -38,14 +38,16 @@ public class CPanel extends CComponent {
             paddingNb += 2;
         }
 
-        for (int i = 0; i < this.getContent().size(); i++) {
-            CComponent component = this.getContent().get(i);
+        Iterator<CComponent> componentIterator = this.getContent().iterator();
+        mainLoop:
+        for (int i = 0; componentIterator.hasNext(); i++) {
+            CComponent component = componentIterator.next();
 
             // Espace de padding
             // + 1 pour le padding automatique (bourage) de fin
             if (i != 0 || renderMainPadding) {
                 for (int j = 0; j < paddingHeight / paddingNb; j++) {
-                    linePointer = CGraphics.renderAddLine(result, linePointer, emptyLine);
+                    result[linePointer++] = emptyLine;
                 }
             }
 
@@ -60,13 +62,18 @@ public class CPanel extends CComponent {
                 if (paddingLength > 0) {
                     line += " ".repeat(paddingLength / 2 + paddingLength % 2);
                 }
-                linePointer = CGraphics.renderAddLine(result, linePointer, line);
+
+                if (linePointer < result.length) {
+                    result[linePointer++] = line;
+                } else {
+                    break mainLoop;
+                }
             }
         }
 
         // Bourage à la fin
-        for (; linePointer < result.length;) {
-            linePointer = CGraphics.renderAddLine(result, linePointer, emptyLine);
+        for (; linePointer < result.length; linePointer++) {
+            result[linePointer] = emptyLine;
         }
 
         return result;

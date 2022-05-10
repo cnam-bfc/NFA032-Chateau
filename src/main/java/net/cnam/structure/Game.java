@@ -5,7 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import net.cnam.App;
+import net.cnam.entity.enemy.Enemy;
 import net.cnam.entity.Player;
+import net.cnam.fight.Fight;
 import net.cnam.generator.Generator;
 import net.cnam.gui.Console;
 import net.cnam.gui.component.CComponent;
@@ -22,12 +24,14 @@ public class Game extends CFrame {
     private final Map map;
     private final Player player;
     private boolean running = false;
+    private App app;
 
-    public Game(Player player) {
-        this(null, player);
+    public Game(App app, Player player) {
+        this(app, null, player);
     }
 
-    public Game(Castle castle, Player player) {
+    public Game(App app, Castle castle, Player player) {
+        this.app = app;
         if (castle != null) {
             this.castle = castle;
         } else {
@@ -99,6 +103,16 @@ public class Game extends CFrame {
         }
 
         running = false;
+    }
+    
+    /**
+     * Méthode pour ouvrir une fenêtre de combat et démarrer le combat.
+     * 
+     * @param enemy l'ennmie qu'affronte le joueur
+     */
+    public void fight(Enemy enemy){
+        Fight fight = new Fight(this.player, enemy);
+        fight.start(app);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package net.cnam.gui.component;
 
 import net.cnam.utils.StringUtils;
-import net.cnam.utils.console.CGraphics;
 
 public class CLabel extends CComponent {
 
@@ -39,7 +38,7 @@ public class CLabel extends CComponent {
         // Lignes de la console - lignes de texte au millieu
         int paddingHeight = this.getHeight() - textLines.length;
         for (int i = 0; i < paddingHeight / 2; i++) {
-            linePointer = CGraphics.renderAddLine(result, linePointer, emptyLine);
+            result[linePointer++] = emptyLine;
         }
         for (String textLine : textLines) {
             if (textLine.length() > this.getLength()) {
@@ -47,12 +46,17 @@ public class CLabel extends CComponent {
             } else if (textLine.length() < this.getLength()) {
                 textLine = StringUtils.centerString(textLine, ' ', this.getLength());
             }
-            linePointer = CGraphics.renderAddLine(result, linePointer, textLine);
+
+            if (linePointer < result.length) {
+                result[linePointer++] = textLine;
+            } else {
+                break;
+            }
         }
 
         // Bourage à la fin
-        for (; linePointer < result.length;) {
-            linePointer = CGraphics.renderAddLine(result, linePointer, emptyLine);
+        for (; linePointer < result.length; linePointer++) {
+            result[linePointer] = emptyLine;
         }
 
         return result;

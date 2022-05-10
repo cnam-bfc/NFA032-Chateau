@@ -1,72 +1,43 @@
 package net.cnam.entity;
 
 import net.cnam.object.Location;
-import net.cnam.object.Weapon;
+import net.cnam.object.weapon.Weapon;
 
 /**
  * Classe d'un personnage.
  *
  */
 public class Personage extends LivingEntity {
-
-    private Weapon weapon;
-    private String nom;
+    
     private Sexe sexe;
 
     /**
-     * Constructeur
-     *
-     * @param weapon L'arme du personnage
-     * @param nom Le nom du personnage
-     * @param sexe Le sexe du personnage
-     * @param health La santé de l'entité vivante
-     * @param resistance La résistance de l'entité vivante
-     * @param characteristics Les caractéristiques de l'entité vivante
-     * @param location Coordonnées de l'entité
+     * Constructeur du personnage sans arme
+     * 
+     * @param sexe sexe du personnage
+     * @param characteristics fiche de caractéristique du personnage
+     * @param location position du personnage
+     * @param nom nom du personnage
      */
-    public Personage(Weapon weapon, String nom, Sexe sexe, int health, int resistance, Characteristic characteristics, Location location) {
-        super(health, resistance, characteristics, location);
-        this.weapon = weapon;
-        this.nom = nom;
+    public Personage(Sexe sexe, Characteristic characteristics, String nom, Location location) {
+        super(characteristics, nom, location);
         this.sexe = sexe;
     }
 
     /**
-     * Méthode permettant de récupérer l'arme du personnage.
-     *
-     * @return un objet weapon (arme)
+     * Constructeur du personnage avec une arme
+     * 
+     * @param sexe sexe du personnage
+     * @param characteristics fiche de caractéristique du personnage
+     * @param weapon arme du personnage
+     * @param location position du personnage
+     * @param nom nom du personnage
      */
-    public Weapon getWeapon() {
-        return weapon;
+    public Personage(Sexe sexe, Characteristic characteristics, Weapon weapon, String nom, Location location) {
+        super(characteristics, weapon, nom, location);
+        this.sexe = sexe;
     }
-
-    /**
-     * Méthode permettant de définir l'arme du personnage.
-     *
-     * @param weapon Objet Weapon (arme)
-     */
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
-    }
-
-    /**
-     * Méthode permettant de récupérer le nom du personnage.
-     *
-     * @return un string "nom"
-     */
-    public String getNom() {
-        return nom;
-    }
-
-    /**
-     * Méthode permettant de définir le nom du personnage.
-     *
-     * @param nom String "nom personnage"
-     */
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
+    
     /**
      * Méthode permettant de récupérer le sexe du personnage.
      *
