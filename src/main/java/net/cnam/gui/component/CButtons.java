@@ -37,8 +37,8 @@ public class CButtons extends CPanel {
     }
 
     @Override
-    public void keyPressed(int key) {
-        super.keyPressed(key);
+    public void onKeyPressed(int key) {
+        super.onKeyPressed(key);
 
         if (buttons.size() < 2) {
             return;

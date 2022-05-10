@@ -1,23 +1,23 @@
 package net.cnam.gui.menu.mainmenu;
 
-import net.cnam.App;
 import net.cnam.gui.Console;
 import net.cnam.gui.component.CButton;
 
 public class SettingsButton extends CButton {
 
-    private final App app;
+    private final Console console;
+    private final MainMenu mainMenu;
 
-    public SettingsButton(App app) {
+    public SettingsButton(Console console, MainMenu mainMenu) {
         super("2. Paramètres");
 
-        this.app = app;
+        this.console = console;
+        this.mainMenu = mainMenu;
     }
 
     @Override
     public void execute() {
-        Console console = app.getConsole();
-        console.adjustSize(app);
-        app.getMainMenu().setSize(console.getLength(), console.getHeight());
+        console.adjustSize();
+        mainMenu.setSize(console.getLength(), console.getHeight());
     }
 }

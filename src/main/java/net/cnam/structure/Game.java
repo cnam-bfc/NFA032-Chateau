@@ -1,37 +1,27 @@
 package net.cnam.structure;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
-import net.cnam.App;
-import net.cnam.entity.enemy.Enemy;
 import net.cnam.entity.Player;
-import net.cnam.fight.Fight;
 import net.cnam.generator.Generator;
-import net.cnam.gui.Console;
-import net.cnam.gui.component.CComponent;
+import net.cnam.gui.DisplayableComponent;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;
-import net.cnam.utils.console.RawConsoleInput;
 import net.cnam.utils.direction.Direction;
 import net.cnam.utils.direction.DirectionNotFoundException;
 import net.cnam.utils.direction.DirectionUtils;
 
-public class Game extends CFrame {
+public class Game extends CFrame implements DisplayableComponent {
 
     private final Castle castle;
     private final Map map;
     private final Player player;
-    private boolean running = false;
-    private App app;
+    private boolean display = true;
 
-    public Game(App app, Player player) {
-        this(app, null, player);
+    public Game(Player player) {
+        this(null, player);
     }
 
-    public Game(App app, Castle castle, Player player) {
-        this.app = app;
+    public Game(Castle castle, Player player) {
         if (castle != null) {
             this.castle = castle;
         } else {
@@ -47,72 +37,45 @@ public class Game extends CFrame {
         this.setTitle(new CLabel("Jeu\n(seed: " + this.castle.getSeed() + ")"));
     }
 
-    public void start(App app) {
-        if (running || !app.isRunning()) {
+    @Override
+    public void onKeyPressed(int key) {
+        // TODO Enlever ça, temporaire
+        if (key == 13 || key == 10) {
+            stopDisplaying();
             return;
         }
 
-        running = true;
+        // On transmet la touche appuyé aux composants dans cette fenêtre
+        super.onKeyPressed(key);
 
-        Console console = app.getConsole();
-
-        this.setSize(console.getLength(), console.getHeight());
-        List<CComponent> save = new LinkedList<>(console.getContent());
-        console.getContent().clear();
-
-        console.getContent().add(this);
-        while (running && app.isRunning()) {
-            console.print();
-            try {
-                int input = RawConsoleInput.read(true);
-                // 13 = Entrée dans un terminal ; 10 = Entrée dans netbeans
-                if (input == 13 || input == 10) {
-                    break;
+        // On déplace le joueur vers la direction souhaité
+        try {
+            Direction direction = DirectionUtils.parseDirection(key);
+            switch (direction) {
+                case TOP -> {
+                    this.getCastle().getStages()[0].move(player, 0, -1);
                 }
-
-                Direction direction = DirectionUtils.parseDirection(input);
-                switch (direction) {
-                    case TOP -> {
-                        this.getCastle().getStages()[0].move(player, 0, -1);
-                    }
-                    case RIGHT -> {
-                        this.getCastle().getStages()[0].move(player, 1, 0);
-                    }
-                    case BOTTOM -> {
-                        this.getCastle().getStages()[0].move(player, 0, 1);
-                    }
-                    case LEFT -> {
-                        this.getCastle().getStages()[0].move(player, -1, 0);
-                    }
+                case RIGHT -> {
+                    this.getCastle().getStages()[0].move(player, 1, 0);
                 }
-            } catch (IOException ex) {
-                System.out.println("ERREUR");
-                System.exit(1);
-            } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException ex) {
-
+                case BOTTOM -> {
+                    this.getCastle().getStages()[0].move(player, 0, 1);
+                }
+                case LEFT -> {
+                    this.getCastle().getStages()[0].move(player, -1, 0);
+                }
             }
+        } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException ex) {
         }
-        console.getContent().clear();
-        console.getContent().addAll(save);
-        stop();
     }
 
-    public void stop() {
-        if (!running) {
-            return;
-        }
-
-        running = false;
+    @Override
+    public boolean isDisplayable() {
+        return display;
     }
-    
-    /**
-     * Méthode pour ouvrir une fenêtre de combat et démarrer le combat.
-     * 
-     * @param enemy l'ennmie qu'affronte le joueur
-     */
-    public void fight(Enemy enemy){
-        Fight fight = new Fight(this.player, enemy);
-        fight.start(app);
+
+    public void stopDisplaying() {
+        display = false;
     }
 
     @Override
@@ -144,9 +107,5 @@ public class Game extends CFrame {
 
     public Player getPlayer() {
         return player;
-    }
-
-    public boolean isRunning() {
-        return running;
     }
 }

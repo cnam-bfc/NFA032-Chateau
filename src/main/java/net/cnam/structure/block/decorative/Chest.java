@@ -1,7 +1,5 @@
 package net.cnam.structure.block.decorative;
 
-import net.cnam.structure.block.Block;
-
 /**
  * Class permettant de créer un block Coffre (Chest) pour la map.
  */

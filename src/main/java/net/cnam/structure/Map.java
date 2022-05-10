@@ -131,7 +131,7 @@ public class Map extends CComponent {
     }
 
     @Override
-    public void keyPressed(int key) {
+    public void onKeyPressed(int key) {
     }
 
     public Stage getStage() {

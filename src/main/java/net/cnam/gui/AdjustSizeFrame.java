@@ -6,12 +6,15 @@ import net.cnam.utils.direction.Direction;
 import net.cnam.utils.direction.DirectionNotFoundException;
 import net.cnam.utils.direction.DirectionUtils;
 
-public class AdjustSizeFrame extends CFrame {
+public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
 
+    private final Console console;
     private boolean sizeAdjusted = false;
 
-    public AdjustSizeFrame() {
+    public AdjustSizeFrame(Console console) {
         super();
+
+        this.console = console;
 
         CLabel title = new CLabel("Réglage des dimensions de la console");
         CLabel instructions_1 = new CLabel(new String[]{"Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran",
@@ -24,8 +27,8 @@ public class AdjustSizeFrame extends CFrame {
     }
 
     @Override
-    public void keyPressed(int key) {
-        super.keyPressed(key);
+    public void onKeyPressed(int key) {
+        super.onKeyPressed(key);
 
         // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal
         if (key == 10 || key == 13) {
@@ -56,11 +59,17 @@ public class AdjustSizeFrame extends CFrame {
                 }
             }
             this.setSize(newLength, newHeight);
+            console.setSize(newLength, newHeight);
         } catch (DirectionNotFoundException ex) {
         }
     }
 
     public boolean isSizeAdjusted() {
         return sizeAdjusted;
+    }
+
+    @Override
+    public boolean isDisplayable() {
+        return !sizeAdjusted;
     }
 }

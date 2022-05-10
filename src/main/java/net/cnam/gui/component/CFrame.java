@@ -69,8 +69,8 @@ public class CFrame extends CComponent {
     }
 
     @Override
-    public void keyPressed(int key) {
-        this.content.keyPressed(key);
+    public void onKeyPressed(int key) {
+        this.content.onKeyPressed(key);
     }
 
     public boolean hasTitle() {

@@ -72,8 +72,8 @@ public abstract class CButton extends CLabel {
     }
 
     @Override
-    public void keyPressed(int key) {
-        super.keyPressed(key);
+    public void onKeyPressed(int key) {
+        super.onKeyPressed(key);
 
         // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal
         if (this.isSelected() && (key == 10 || key == 13)) {
