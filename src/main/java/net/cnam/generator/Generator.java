@@ -51,7 +51,7 @@ public class Generator {
      * @return un tableau d'étage
      */
     public Stage[] generateStages() {
-        Stage[] result = new Stage[this.random.nextInt(MIN_STAGE, MAX_STAGE)];
+        Stage[] result = new Stage[this.random.nextInt(MIN_STAGE, MAX_STAGE + 1)];
 
         for (int i = 0; i < result.length; i++) {
             Stage stage = generateStage();
@@ -70,8 +70,8 @@ public class Generator {
      * @return un étage
      */
     public Stage generateStage() {
-        int stageLength = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE);
-        int stageWidth = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE);
+        int stageLength = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE + 1);
+        int stageWidth = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE + 1);
 
         Room[] rooms = new Room[1];
         rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageWidth]); //room de base
@@ -95,7 +95,7 @@ public class Generator {
             }
             int nbRooms = rooms.length;
             for (int j = 0; j < nbRooms; j++) {
-                if (pourcentage != 0 && this.random.nextInt(1, 100) + pourcentage > 50) {
+                if (pourcentage != 0 && this.random.nextInt(1, 100 + 1) + pourcentage > 50) {
                     continue;
                 }
                 Room roomDivided = divideRoom(rooms[j]);
@@ -190,7 +190,7 @@ public class Generator {
         if (roomLeft.getLength() / 2 <= MIN_SIZE_ROOM) {
             return null;
         }
-        int cut = random.nextInt(MIN_SIZE_ROOM, roomLeft.getLength() - MIN_SIZE_ROOM);
+        int cut = random.nextInt(MIN_SIZE_ROOM, roomLeft.getLength() - MIN_SIZE_ROOM + 1);
 
         Block[][] oldBlocks = roomLeft.getBlocks();
 
@@ -233,7 +233,7 @@ public class Generator {
         if (roomTop.getHeight() / 2 <= MIN_SIZE_ROOM) {
             return null;
         }
-        int cut = random.nextInt(MIN_SIZE_ROOM, roomTop.getHeight() - MIN_SIZE_ROOM);
+        int cut = random.nextInt(MIN_SIZE_ROOM, roomTop.getHeight() - MIN_SIZE_ROOM + 1);
 
         Block[][] oldBlocks = roomTop.getBlocks();
 
