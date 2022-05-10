@@ -2,10 +2,10 @@ package net.cnam.item;
 
 public class Item implements PortableItem {
 
-    private String nom;
+    private String name;
 
-    public Item(String nom) {
-        this.nom = nom;
+    public Item(String name) {
+        this.name = name;
     }
 
     @Override
@@ -16,4 +16,9 @@ public class Item implements PortableItem {
     public void drop() {
         //TODO poser l'item à l'emplacement ou se trouve le joueur
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
