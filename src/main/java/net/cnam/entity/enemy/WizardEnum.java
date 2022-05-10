@@ -1,5 +1,6 @@
 package net.cnam.entity.enemy;
 
+import java.util.ArrayList;
 import net.cnam.item.weapon.Weapon;
 
 public enum WizardEnum{
@@ -36,12 +37,15 @@ public enum WizardEnum{
         return weapon;
     }
 
-//TODO modifier pour ajouter csv    
-//    public static WizardEnum[] getAllWizardEnum(){
-//        WizardEnum[] test2 = WizardEnum.values();
-//        //ECRIRE LE CODE POUR RECUP LE CSV ET L"AJOUTER 
-//        return test2;
-//    }
+    public static ArrayList<WizardEnum> getAllWizardEnum(){
+        WizardEnum[] tabWizardEnum = WizardEnum.values();
+        ArrayList<WizardEnum> result = new ArrayList<>();
+       for (int i = 0 ; i < tabWizardEnum.length ; i++){
+           result.add(tabWizardEnum[0]);
+       }
+       //TODO modifier pour ajouter csv   
+        return result;
+    }
     
     
         
