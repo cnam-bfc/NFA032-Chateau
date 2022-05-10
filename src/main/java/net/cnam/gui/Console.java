@@ -57,14 +57,4 @@ public class Console extends CPanel {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-
-    // TODO REMOVE THIS
-    public void debugKeys() {
-        while (true) {
-            try {
-                System.out.println(RawConsoleInput.read(true));
-            } catch (IOException ex) {
-            }
-        }
-    }
 }
