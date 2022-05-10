@@ -1,6 +1,6 @@
 package net.cnam.entity.enemy;
 
-import net.cnam.object.weapon.Weapon;
+import net.cnam.item.weapon.Weapon;
 
 public enum WizardEnum{
     

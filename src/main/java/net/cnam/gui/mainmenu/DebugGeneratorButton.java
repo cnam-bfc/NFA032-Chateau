@@ -1,4 +1,4 @@
-package net.cnam.gui.menu.mainmenu;
+package net.cnam.gui.mainmenu;
 
 import java.util.Random;
 import net.cnam.generator.Generator;

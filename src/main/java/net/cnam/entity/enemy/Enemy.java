@@ -2,8 +2,8 @@ package net.cnam.entity.enemy;
 
 import net.cnam.entity.Characteristic;
 import net.cnam.entity.LivingEntity;
-import net.cnam.object.Location;
-import net.cnam.object.weapon.Weapon;
+import net.cnam.utils.Location;
+import net.cnam.item.weapon.Weapon;
 
 /**
  * Classe d'un ennemi

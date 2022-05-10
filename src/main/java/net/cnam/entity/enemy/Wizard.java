@@ -2,8 +2,8 @@ package net.cnam.entity.enemy;
 
 import java.util.Random;
 import net.cnam.entity.Characteristic;
-import net.cnam.object.Location;
-import net.cnam.object.weapon.Weapon;
+import net.cnam.utils.Location;
+import net.cnam.item.weapon.Weapon;
 
 public class Wizard extends Enemy {
     

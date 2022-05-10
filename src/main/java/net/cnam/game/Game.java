@@ -1,4 +1,4 @@
-package net.cnam.structure;
+package net.cnam.game;
 
 import java.util.Random;
 import net.cnam.entity.Player;
@@ -6,6 +6,8 @@ import net.cnam.generator.Generator;
 import net.cnam.gui.DisplayableComponent;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;
+import net.cnam.structure.Castle;
+import net.cnam.structure.CoordinatesOutOfBoundsException;
 import net.cnam.utils.direction.Direction;
 import net.cnam.utils.direction.DirectionNotFoundException;
 import net.cnam.utils.direction.DirectionUtils;

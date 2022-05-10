@@ -1,8 +1,10 @@
-package net.cnam.structure;
+package net.cnam.game;
 
 import net.cnam.entity.LivingEntity;
 import net.cnam.gui.component.CComponent;
-import net.cnam.object.Location;
+import net.cnam.structure.CoordinatesOutOfBoundsException;
+import net.cnam.structure.Stage;
+import net.cnam.utils.Location;
 import net.cnam.structure.block.Block;
 
 public class Map extends CComponent {

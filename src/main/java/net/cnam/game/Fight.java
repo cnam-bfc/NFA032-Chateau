@@ -1,4 +1,4 @@
-package net.cnam.fight;
+package net.cnam.game;
 
 import net.cnam.entity.enemy.Enemy;
 import net.cnam.entity.*;

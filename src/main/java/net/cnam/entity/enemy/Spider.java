@@ -1,7 +1,7 @@
 package net.cnam.entity.enemy;
 
 import net.cnam.entity.Characteristic;
-import net.cnam.object.Location;
+import net.cnam.utils.Location;
 
 public class Spider extends Enemy {
 

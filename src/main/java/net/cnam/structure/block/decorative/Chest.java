@@ -1,12 +1,18 @@
 package net.cnam.structure.block.decorative;
 
+import net.cnam.item.Item;
+
 /**
  * Class permettant de créer un block Coffre (Chest) pour la map.
  */
 public class Chest extends DecorativeBlock {
 
-    public Chest(Object object) {
-        super(object);
+    public Chest() {
+        this(null);
+    }
+
+    public Chest(Item hiddenItem) {
+        super(hiddenItem);
     }
 
     @Override

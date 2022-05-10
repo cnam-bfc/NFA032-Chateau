@@ -1,7 +1,7 @@
 package net.cnam.entity;
 
-import net.cnam.object.Location;
-import net.cnam.object.weapon.Weapon;
+import net.cnam.utils.Location;
+import net.cnam.item.weapon.Weapon;
 
 public class Player extends Personage {
 

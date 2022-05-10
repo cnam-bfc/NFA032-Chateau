@@ -3,7 +3,7 @@ package net.cnam.generator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import net.cnam.object.Location;
+import net.cnam.utils.Location;
 import net.cnam.structure.Room;
 import net.cnam.utils.direction.Orientation;
 

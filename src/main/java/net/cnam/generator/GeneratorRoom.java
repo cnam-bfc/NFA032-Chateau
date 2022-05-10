@@ -2,7 +2,7 @@ package net.cnam.generator;
 
 import java.util.LinkedList;
 import java.util.List;
-import net.cnam.object.Location;
+import net.cnam.utils.Location;
 import net.cnam.structure.Room;
 import net.cnam.structure.Stage;
 import net.cnam.utils.direction.Orientation;

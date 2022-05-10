@@ -1,11 +1,10 @@
-package net.cnam.object;
+package net.cnam.item;
 
-public interface PortableObject {
-    
+public interface PortableItem {
+
     //permet à l'objet d'être tenu par une entité
     public void isCarry();
-    
+
     //lache l'objet dans la pièce
     public void drop();
-
 }

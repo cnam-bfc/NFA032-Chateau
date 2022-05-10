@@ -1,22 +1,21 @@
 package net.cnam.structure.block.decorative;
 
+import net.cnam.item.Item;
 import net.cnam.structure.block.Block;
 
 public abstract class DecorativeBlock extends Block {
-    
-    Object object;
 
-    public DecorativeBlock(Object object) {
-        this.object = object;
-    }
-    
-    public boolean hasItem(){
-        if (this.object == null) return false;
-        return true;
+    private Item hiddenItem;
+
+    public DecorativeBlock(Item hiddenItem) {
+        this.hiddenItem = hiddenItem;
     }
 
-    public Object getObject() {
-        return object;
+    public boolean hasItem() {
+        return this.hiddenItem != null;
     }
 
+    public Item getHiddenItem() {
+        return hiddenItem;
+    }
 }

@@ -1,7 +1,7 @@
 package net.cnam.structure;
 
 import net.cnam.gui.component.CComponent;
-import net.cnam.object.Location;
+import net.cnam.utils.Location;
 import net.cnam.structure.block.Block;
 
 /**

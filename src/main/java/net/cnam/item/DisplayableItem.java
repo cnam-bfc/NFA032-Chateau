@@ -1,9 +1,9 @@
-package net.cnam.object;
+package net.cnam.item;
 
 /**
  * Interface permetteant d'associer un caractère (char) à un objet
  */
-public interface DisplayableObject {
+public interface DisplayableItem {
 
     /**
      * Méthode permettant de récupérer le caractère (char) associé à l'objet

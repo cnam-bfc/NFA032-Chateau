@@ -1,7 +1,8 @@
-package net.cnam.object;
+package net.cnam.utils;
 
 /**
  * Classe générique permettant de former un couple d'objet
+ *
  * @param <A> Type de A
  * @param <B> Type de B
  */
@@ -12,7 +13,7 @@ public class Couple<A, B> {
 
     /**
      * Constructeur
-     * 
+     *
      * @param ElemOne Objet Un
      * @param ElemTwo Objet Deux
      */
@@ -23,7 +24,7 @@ public class Couple<A, B> {
 
     /**
      * Méthode pour récupérer l'élément Un.
-     * 
+     *
      * @return l'objet un
      */
     public A getElemOne() {
@@ -32,7 +33,7 @@ public class Couple<A, B> {
 
     /**
      * Méthode pour définir l'élément deux dans le couple
-     * 
+     *
      * @param ElemOne Objet deux
      */
     public void setElemOne(A ElemOne) {
@@ -41,7 +42,7 @@ public class Couple<A, B> {
 
     /**
      * Méthode pour récupérer l'élément Deux.
-     * 
+     *
      * @return l'objet deux
      */
     public B getElemTwo() {
@@ -50,11 +51,10 @@ public class Couple<A, B> {
 
     /**
      * Méthode pour définir l'élément deux dans le couple
-     * 
+     *
      * @param ElemTwo Objet deux
      */
     public void setElemTwo(B ElemTwo) {
         this.ElemTwo = ElemTwo;
     }
-
 }

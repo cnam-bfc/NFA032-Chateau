@@ -1,7 +1,7 @@
 package net.cnam;
 
 import net.cnam.gui.Console;
-import net.cnam.gui.menu.mainmenu.MainMenu;
+import net.cnam.gui.mainmenu.MainMenu;
 
 public class App {
 

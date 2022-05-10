@@ -1,15 +1,15 @@
-package net.cnam.object.weapon;
+package net.cnam.item.weapon;
 
 public enum WeaponEnum {
-    
+
     //Armes spéciales
     EXCALIBURNE("Excaliburne", 10, 0, 2),
-    POELE("Poele", 2, -3 , 5),
+    POELE("Poele", 2, -3, 5),
     FROSTMOURN("Frostmourn", 8, 0, 4),
     COUTEAU_A_BEURRE("Couteau a beurre", 2, 5, 8),
-    LE_RATEAU("Rateau", 4, 0 , 8),
-    LA_GROSSE_PELLE("La grosse pelle !", 5 ,5 ,5);
-    
+    LE_RATEAU("Rateau", 4, 0, 8),
+    LA_GROSSE_PELLE("La grosse pelle !", 5, 5, 5);
+
     private String name;
     private int power;
     private int accuracy;
@@ -21,7 +21,7 @@ public enum WeaponEnum {
         this.accuracy = accuracy;
         this.speed = speed;
     }
-            
+
     public String getName() {
         return name;
     }
@@ -37,7 +37,4 @@ public enum WeaponEnum {
     public int getSpeed() {
         return speed;
     }
-    
-    
-    
 }

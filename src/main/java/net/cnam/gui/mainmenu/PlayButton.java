@@ -1,12 +1,12 @@
-package net.cnam.gui.menu.mainmenu;
+package net.cnam.gui.mainmenu;
 
 import net.cnam.entity.Characteristic;
 import net.cnam.entity.Player;
 import net.cnam.entity.Sexe;
 import net.cnam.gui.Console;
 import net.cnam.gui.component.CButton;
-import net.cnam.object.Location;
-import net.cnam.structure.Game;
+import net.cnam.utils.Location;
+import net.cnam.game.Game;
 
 public class PlayButton extends CButton {
 

@@ -1,9 +1,15 @@
 package net.cnam.structure.block.decorative;
 
+import net.cnam.item.Item;
+
 public class Wardrobe extends DecorativeBlock {
 
-    public Wardrobe(Object object) {
-        super(object);
+    public Wardrobe() {
+        this(null);
+    }
+
+    public Wardrobe(Item hiddenItem) {
+        super(hiddenItem);
     }
 
     @Override

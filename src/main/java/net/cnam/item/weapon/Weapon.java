@@ -1,9 +1,9 @@
-package net.cnam.object.weapon;
+package net.cnam.item.weapon;
 
-import net.cnam.object.Item;
-import net.cnam.object.PortableObject;
+import net.cnam.item.Item;
+import net.cnam.item.PortableItem;
 
-public class Weapon extends Item implements PortableObject {
+public class Weapon extends Item implements PortableItem {
 
     private int power;
     private int accuracy;
@@ -15,7 +15,4 @@ public class Weapon extends Item implements PortableObject {
         this.accuracy = accuracy;
         this.speed = speed;
     }
-    
-    
-    
 }

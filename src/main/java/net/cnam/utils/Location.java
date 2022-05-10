@@ -1,4 +1,4 @@
-package net.cnam.object;
+package net.cnam.utils;
 
 /**
  * Class permettant de stocker des coordonnées x,y

@@ -1,4 +1,4 @@
-package net.cnam.gui.menu.mainmenu;
+package net.cnam.gui.mainmenu;
 
 import java.io.IOException;
 import net.cnam.gui.component.CButton;
