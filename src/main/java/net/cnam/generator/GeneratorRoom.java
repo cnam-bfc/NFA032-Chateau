@@ -9,21 +9,22 @@ import net.cnam.structure.Stage;
 import net.cnam.utils.direction.Orientation;
 
 public class GeneratorRoom {
-    
+
     private final int MIN_BLOCKS = 3;
     private final int MAX_BLOCKS = 5;
 
+    private final Room room;
+    private final Stage stage;
+    private final Random random;
+
     private final List<GeneratorWall> walls = new LinkedList<>();
     private final List<GeneratorWall> sideWalls = new LinkedList<>();
-    private Room room;
-    private Stage stage;
-    private Random random;
 
     public GeneratorRoom(Room room, Stage stage, Random random) {
         this.room = room;
         this.stage = stage;
         this.random = random;
-        
+
         Location roomLocation = room.getLocation();
 
         // Génération des murs de la pièce
@@ -52,10 +53,18 @@ public class GeneratorRoom {
             walls.add(new GeneratorWall(wallLocation, Orientation.HORIZONTAL, room.getLength() - 2, room));
         }
     }
-    
+
     // TODO Remplir la pièce
-    public void fillRoom(){
-               
+    public void fillRoom() {
+
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 
     public List<GeneratorWall> getWalls() {
