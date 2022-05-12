@@ -55,9 +55,6 @@ public class Generator {
 
         for (int i = 0; i < result.length; i++) {
             Stage stage = generateStage();
-            for (Room room : stage.getRooms()) {
-                generateRoom(room);
-            }
             result[i] = stage;
         }
 
@@ -130,6 +127,8 @@ public class Generator {
                 }
             }
         }
+        
+        GeneratorRoom playerRoom = genRooms.get(random.nextInt(0, genRooms.size()));
 
         // On fait un trou dans chaque mur de chaque pièce
         // TODO Faire l'algorithme au lieu de ce truc de test débile
@@ -261,10 +260,6 @@ public class Generator {
         roomTop.setBlocks(newBlocksRoomTop);
 
         return roomBot;
-    }
-
-    // TODO Remplir la pièce avec des objets à la con
-    public void generateRoom(Room room) {
     }
 
     /**
