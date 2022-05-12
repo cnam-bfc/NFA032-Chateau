@@ -55,6 +55,9 @@ public class Generator {
 
         for (int i = 0; i < result.length; i++) {
             Stage stage = generateStage();
+            for (Room room : stage.getRooms()) {
+                generateRoom(room);
+            }
             result[i] = stage;
         }
 
@@ -106,11 +109,17 @@ public class Generator {
 
         Stage generatedStage = new Stage(rooms, stageLength, stageWidth);
 
+        generateStageWalls(generatedStage);
+
+        return generatedStage;
+    }
+
+    private void generateStageWalls(Stage generatedStage) {
         // Génération des murs
         List<GeneratorRoom> genRooms = new LinkedList<>();
         List<GeneratorWall> genWalls = new LinkedList<>(); // Contient tout les murs de toutes les pièces
         // On génère les murs des pièces
-        for (Room room : rooms) {
+        for (Room room : generatedStage.getRooms()) {
             GeneratorRoom genRoom = new GeneratorRoom(room, generatedStage, random);
             genRooms.add(genRoom);
             genWalls.addAll(genRoom.getWalls());
@@ -127,21 +136,18 @@ public class Generator {
                 }
             }
         }
-        
-        GeneratorRoom playerRoom = genRooms.get(random.nextInt(0, genRooms.size()));
 
         // On fait un trou dans chaque mur de chaque pièce
         // TODO Faire l'algorithme au lieu de ce truc de test débile
-        for (GeneratorRoom genRoom : genRooms) {
-            for (GeneratorWall roomWall : genRoom.getWalls()) {
-                for (GeneratorWall otherRoomWall : genRoom.getSideWalls()) {
-                    if (roomWall.overlapWall(otherRoomWall)) {
-                        roomWall.breakWall(otherRoomWall, random);
-                    }
-                }
-            }
-        }
-
+//        for (GeneratorRoom genRoom : genRooms) {
+//            for (GeneratorWall roomWall : genRoom.getWalls()) {
+//                for (GeneratorWall otherRoomWall : genRoom.getSideWalls()) {
+//                    if (roomWall.overlapWall(otherRoomWall)) {
+//                        roomWall.breakWall(otherRoomWall, random);
+//                    }
+//                }
+//            }
+//        }
         // On met des portes où il y a des passage
         for (GeneratorRoom genRoom : genRooms) {
             for (GeneratorWall roomWall : genRoom.getWalls()) {
@@ -153,8 +159,10 @@ public class Generator {
                 }
             }
         }
+    }
 
-        return generatedStage;
+    public void generateRoom(Room room) {
+
     }
 
     /**
@@ -269,5 +277,5 @@ public class Generator {
      */
     public long getSeed() {
         return seed;
-    }  
+    }
 }
