@@ -16,11 +16,6 @@ public class Chest extends DecorativeBlock {
     }
 
     @Override
-    public boolean isSolid() {
-        return false;
-    }
-
-    @Override
     public String getCharacter() {
         return "C";
     }

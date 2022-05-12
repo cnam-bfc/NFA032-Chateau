@@ -10,9 +10,6 @@ import net.cnam.utils.direction.Orientation;
 
 public class GeneratorRoom {
 
-    private final int MIN_BLOCKS = 3; // inclus
-    private final int MAX_BLOCKS = 5; // inclus
-
     private final Room room;
     private final Stage stage;
     private final Random random;
@@ -51,17 +48,6 @@ public class GeneratorRoom {
         if (roomLocation.getY() + room.getHeight() != stage.getHeight()) {
             Location wallLocation = new Location(roomLocation.getX() + 1, roomLocation.getY() + room.getHeight() - 1);
             walls.add(new GeneratorWall(wallLocation, Orientation.HORIZONTAL, room.getLength() - 2, room));
-        }
-    }
-
-    // TODO Remplir la pièce
-    public void fillRoom(Room room) {
-        int numberBlocks = random.nextInt(MIN_BLOCKS, MAX_BLOCKS+1);
-        for (int i = 0 ; i < numberBlocks ; i++)
-        {
-            int x = random.nextInt(1,room.getLength()-1);
-            int y = random.nextInt(1,room.getHeight()-1);
-            
         }
     }
 

@@ -13,11 +13,6 @@ public class Table extends DecorativeBlock {
     }
 
     @Override
-    public boolean isSolid() {
-        return false;
-    }
-
-    @Override
     public String getCharacter() {
         return "T";
     }
