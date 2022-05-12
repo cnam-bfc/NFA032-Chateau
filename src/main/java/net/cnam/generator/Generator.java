@@ -1,8 +1,12 @@
 package net.cnam.generator;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import net.cnam.utils.Location;
 import net.cnam.structure.*;
 import net.cnam.structure.block.*;
@@ -116,51 +120,122 @@ public class Generator {
 
     private void generateStageWalls(Stage generatedStage) {
         // Génération des murs
-        List<GeneratorRoom> genRooms = new LinkedList<>();
-        List<GeneratorWall> genWalls = new LinkedList<>(); // Contient tout les murs de toutes les pièces
+        List<GRoom> rooms = new LinkedList<>();
+        List<GRoomWall> roomsWalls = new LinkedList<>(); // Contient tout les murs de toutes les pièces
         // On génère les murs des pièces
+        int nb = 0;
         for (Room room : generatedStage.getRooms()) {
-            GeneratorRoom genRoom = new GeneratorRoom(room, generatedStage, random);
-            genRooms.add(genRoom);
-            genWalls.addAll(genRoom.getWalls());
+            GRoom genRoom = new GRoom(room, generatedStage, ++nb);
+            rooms.add(genRoom);
+            roomsWalls.addAll(genRoom.getWalls());
         }
 
-        // On ajoute les murs qui ont des blocs en communs
-        for (GeneratorRoom genRoom : genRooms) {
-            // En gros, on prend les murs commun avec les pièces d'a côté
-            for (GeneratorWall roomWall : genRoom.getWalls()) {
-                for (GeneratorWall wall : genWalls) {
-                    if (roomWall.overlapWall(wall) && !genRoom.getWalls().contains(wall)) {
-                        genRoom.getSideWalls().add(wall);
+        // On vérifie pour tout les murs lesquels se superposent
+        // Pour toutes les pièces
+        for (GRoom room : rooms) {
+            // On boucles sur tout lees murs de la pièce (room)
+            for (GRoomWall wall : room.getWalls()) {
+                // On regarde dans la liste qui contient tous les murs si il y a un mur qui se superpose avec ce mur (wall)
+                for (GRoomWall tempWall : roomsWalls) {
+                    // On vérifie aussi que le mur (wall) n'est pas celui qui resort de la liste totale des murs
+                    if (wall != tempWall && wall.overlapWall(tempWall)) {
+                        // On ajoute (tempWall) à la liste des murs qui se superpose sur wall
+                        wall.getSideWalls().add(tempWall);
                     }
                 }
             }
         }
 
-        // On fait un trou dans chaque mur de chaque pièce
-        // TODO Faire l'algorithme au lieu de ce truc de test débile
-//        for (GeneratorRoom genRoom : genRooms) {
-//            for (GeneratorWall roomWall : genRoom.getWalls()) {
-//                for (GeneratorWall otherRoomWall : genRoom.getSideWalls()) {
-//                    if (roomWall.overlapWall(otherRoomWall)) {
-//                        roomWall.breakWall(otherRoomWall, random);
-//                    }
-//                }
-//            }
-//        }
-        // On met des portes où il y a des passage
-        for (GeneratorRoom genRoom : genRooms) {
-            for (GeneratorWall roomWall : genRoom.getWalls()) {
-                for (Location location : roomWall.getPassages()) {
+        // On créer les murs individuels
+        List<GWall> walls = new ArrayList<>(); // Contient tout les murs
+        // Pour toutes les pièces
+        for (GRoom room : rooms) {
+            // On boucles sur tout lees murs de la pièce (room)
+            for (GRoomWall wall : room.getWalls()) {
+                // On regarde dans la liste qui contient tous les murs si il y a un mur qui se superpose avec ce mur (wall)
+                for (GRoomWall tempWall : wall.getSideWalls()) {
+                    GWall gWall = wall.createWall(tempWall, random);
+                    if (!walls.contains(gWall)) {
+                        walls.add(gWall);
+                    }
+                }
+            }
+        }
+
+        // Algo de création des portes
+        while (!isGeneratingStageWallsFinished(rooms)) {
+            while (true) {
+                GWall wall = walls.get(random.nextInt(walls.size()));
+                GRoom room1 = wall.getRoomOne();
+                int maze1 = room1.getMazeNb();
+                GRoom room2 = wall.getRoomTwo();
+                int maze2 = room2.getMazeNb();
+                if (maze1 != maze2) {
+                    for (GRoom room : rooms) {
+                        if (room.getMazeNb() == maze2) {
+                            room.setMazeNb(maze1);
+                        }
+                    }
+                    Location breakPoint = wall.getBreakPoint(random);
                     try {
-                        generatedStage.setBlock(location.getX(), location.getY(), new Door());
+                        generatedStage.setBlock(breakPoint.getX(), breakPoint.getY(), new Door());
                     } catch (CoordinatesOutOfBoundsException ex) {
                     }
+                    break;
                 }
             }
         }
     }
 
+    private boolean isGeneratingStageWallsFinished(List<GRoom> rooms) {
+        Iterator<GRoom> iterator = rooms.iterator();
+        int nb = iterator.next().getMazeNb();
+        while (iterator.hasNext()) {
+            int temp = iterator.next().getMazeNb();
+            if (nb != temp) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // TODO Poubelle !!!!!!!!!!!!!!!!!!
+//    private boolean verifyStageJoin(List<GRoom> rooms) {
+//        // On pioche une pièce au hasard
+//        GRoom firstRoom = rooms.get(random.nextInt(rooms.size()));
+//        System.out.println(firstRoom);
+//        
+//        // On recherche les pièces qui ne sont pas reliés à firstRoom
+//        List<GRoom> roomsAlone = getRoomsAlone(rooms, firstRoom);
+//        System.out.println(roomsAlone);
+//
+//        return roomsAlone.isEmpty();
+//    }
+//
+//    private List<GRoom> getRoomsAlone(List<GRoom> rooms, GRoom room) {
+//        // Toutes les pièces passé en paramètres sont soit isolé soit pas encore calculé si elle était relié
+//        List<GRoom> roomsAlone = new LinkedList<>(rooms);
+//        // On retire la pièce vu qu'on est entré dedans
+//        roomsAlone.remove(room);
+//
+//        // Pour chaque mur 
+//        for (GRoomWall wall : room.getWalls()) {
+//            for (GWall passage : wall.getPassages()) {
+//                GRoomWall otherWall;
+//                if (passage.getWallOne() == wall) {
+//                    otherWall = passage.getWallTwo();
+//                } else {
+//                    otherWall = passage.getWallOne();
+//                }
+//                if (!roomsAlone.contains(otherWall.getGRoom())) {
+//                    continue;
+//                }
+//                roomsAlone.removeAll(getRoomsAlone(roomsAlone, otherWall.getGRoom()));
+//            }
+//        }
+//
+//        return roomsAlone;
+//    }
     public void generateRoom(Room room) {
 
     }

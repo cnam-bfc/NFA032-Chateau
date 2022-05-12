@@ -2,28 +2,20 @@ package net.cnam.generator;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
+import java.util.Objects;
 import net.cnam.utils.Location;
 import net.cnam.structure.Room;
 import net.cnam.structure.Stage;
 import net.cnam.utils.direction.Orientation;
 
-public class GeneratorRoom {
+public class GRoom {
 
-    private final int MIN_BLOCKS = 3;
-    private final int MAX_BLOCKS = 5;
+    private final List<GRoomWall> walls = new LinkedList<>();
 
-    private final Room room;
-    private final Stage stage;
-    private final Random random;
+    private int mazeNb;
 
-    private final List<GeneratorWall> walls = new LinkedList<>();
-    private final List<GeneratorWall> sideWalls = new LinkedList<>();
-
-    public GeneratorRoom(Room room, Stage stage, Random random) {
-        this.room = room;
-        this.stage = stage;
-        this.random = random;
+    public GRoom(Room room, Stage stage, int mazeNb) {
+        this.mazeNb = mazeNb;
 
         Location roomLocation = room.getLocation();
 
@@ -32,46 +24,59 @@ public class GeneratorRoom {
         // Si il n'est pas sur la bordure gauche de l'étage
         if (roomLocation.getX() != 0) {
             Location wallLocation = new Location(roomLocation.getX(), roomLocation.getY() + 1);
-            walls.add(new GeneratorWall(wallLocation, Orientation.VERTICAL, room.getHeight() - 2, room));
+            walls.add(new GRoomWall(wallLocation, Orientation.VERTICAL, room.getHeight() - 2, this));
         }
         // Mur du haut
         // Si il n'est pas sur la bordure haute de l'étage
         if (roomLocation.getY() != 0) {
             Location wallLocation = new Location(roomLocation.getX() + 1, roomLocation.getY());
-            walls.add(new GeneratorWall(wallLocation, Orientation.HORIZONTAL, room.getLength() - 2, room));
+            walls.add(new GRoomWall(wallLocation, Orientation.HORIZONTAL, room.getLength() - 2, this));
         }
         // Mur de droite
         // Si il n'est pas sur la bordure droite de l'étage
         if (roomLocation.getX() + room.getLength() != stage.getLength()) {
             Location wallLocation = new Location(roomLocation.getX() + room.getLength() - 1, roomLocation.getY() + 1);
-            walls.add(new GeneratorWall(wallLocation, Orientation.VERTICAL, room.getHeight() - 2, room));
+            walls.add(new GRoomWall(wallLocation, Orientation.VERTICAL, room.getHeight() - 2, this));
         }
         // Mur du bas
         // Si il n'est pas sur la bordure basse de l'étage
         if (roomLocation.getY() + room.getHeight() != stage.getHeight()) {
             Location wallLocation = new Location(roomLocation.getX() + 1, roomLocation.getY() + room.getHeight() - 1);
-            walls.add(new GeneratorWall(wallLocation, Orientation.HORIZONTAL, room.getLength() - 2, room));
+            walls.add(new GRoomWall(wallLocation, Orientation.HORIZONTAL, room.getLength() - 2, this));
         }
     }
 
-    // TODO Remplir la pièce
-    public void fillRoom() {
-
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public List<GeneratorWall> getWalls() {
+    public List<GRoomWall> getWalls() {
         return walls;
     }
 
-    public List<GeneratorWall> getSideWalls() {
-        return sideWalls;
+    public int getMazeNb() {
+        return mazeNb;
+    }
+
+    public void setMazeNb(int mazeNb) {
+        this.mazeNb = mazeNb;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + Objects.hashCode(this.walls);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final GRoom other = (GRoom) obj;
+        return Objects.equals(this.walls, other.walls);
     }
 }
