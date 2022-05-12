@@ -7,7 +7,7 @@ public class Wall extends Block {
 
     @Override
     public boolean isSolid() {
-        return false;
+        return true;
     }
 
     @Override

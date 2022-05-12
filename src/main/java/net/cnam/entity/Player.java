@@ -1,9 +1,12 @@
 package net.cnam.entity;
 
+import net.cnam.entity.pet.Pet;
 import net.cnam.utils.Location;
 import net.cnam.item.weapon.Weapon;
 
 public class Player extends Personage {
+    
+    Pet pet;
 
     /**
      * Constructeur du personnage sans arme
@@ -34,4 +37,14 @@ public class Player extends Personage {
     public String getCharacter() {
         return "\u001b[32m" + super.getCharacter() + "\u001b[39m";
     }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+    
+    
 }

@@ -150,7 +150,7 @@ public class Stage extends CComponent {
                     throw new CoordinatesOutOfBoundsException("L'entité ne peut pas sortir de l'étage!");
                 }
                 Block block = this.getBlock(newX, newY);
-                if (block != null && !block.isSolid()) {
+                if (block != null && block.isSolid()) {
                     return;
                 }
                 // TODO Vérifier qu'il va pas sur un block non translucide

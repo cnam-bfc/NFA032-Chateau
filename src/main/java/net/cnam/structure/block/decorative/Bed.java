@@ -15,11 +15,6 @@ public class Bed extends DecorativeBlock {
     }
 
     @Override
-    public boolean isSolid() {
-        return false;
-    }
-
-    @Override
     public String getCharacter() {
         return "B";
     }

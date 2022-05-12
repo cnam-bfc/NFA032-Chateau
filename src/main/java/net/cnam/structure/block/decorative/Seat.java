@@ -2,18 +2,18 @@ package net.cnam.structure.block.decorative;
 
 import net.cnam.item.Item;
 
-public class Table extends DecorativeBlock {
+public class Seat extends DecorativeBlock {
 
-    public Table() {
+    public Seat() {
         this(null);
     }
 
-    public Table(Item hiddenItem) {
+    public Seat(Item hiddenItem) {
         super(hiddenItem);
     }
 
     @Override
     public String getCharacter() {
-        return "T";
+        return "S";
     }
 }

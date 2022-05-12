@@ -1,15 +1,14 @@
 package net.cnam.generator;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import net.cnam.utils.Location;
 import net.cnam.structure.*;
 import net.cnam.structure.block.*;
+import net.cnam.structure.block.decorative.*;
 import net.cnam.utils.array.ArrayUtils;
 
 /**
@@ -25,6 +24,9 @@ public class Generator {
     private static final int NB_ITERATION_MIN = 3; //nombre de division minimum des étages
     private static final int NB_ITERATION_MAX = 5; //nombre de division maximum supplémentaire des étages
     private static final int POURCENT_DIVIDE = 10; //ajusteur pour savoir si une pièce se re divise dans la deuxième phase de division
+    private static final int MIN_BLOCKS = 3; // nombre de bloc décoratifs minimum par pièce
+    private static final int MAX_BLOCKS = 5; // nombre de bloc maximum par pièce
+    private static final int LUCK_BLOCK = 70;
 
     private final long seed;
     private final Random random;
@@ -236,8 +238,74 @@ public class Generator {
 //
 //        return roomsAlone;
 //    }
+    /**
+     * Méthode permettant de générer l'intérieur d'une pièce. Met un nombre
+     * aléatoire de bloc dans la pièce.
+     *
+     * @param room la pièce à remplir
+     */
     public void generateRoom(Room room) {
+        int numberBlocks = random.nextInt(MIN_BLOCKS, MAX_BLOCKS + 1);
+        for (int i = 0; i < numberBlocks; i++) {
+            int x = random.nextInt(1, room.getLength() - 1);
+            int y = random.nextInt(1, room.getHeight() - 1);
+            boolean testDoor;
+            //vérification qu'il n'y a pas de porte à proximité sinon on décale
+            do {
+                testDoor = false;
+                if (room.getBlocks()[x + 1][y] instanceof Door) {
+                    x -= 1;
+                    testDoor = true;
+                }
+                if (room.getBlocks()[x - 1][y] instanceof Door) {
+                    x += 1;
+                    testDoor = true;
+                }
+                if (room.getBlocks()[x][y + 1] instanceof Door) {
+                    y -= 1;
+                    testDoor = true;
+                }
+                if (room.getBlocks()[x + 1][y - 1] instanceof Door) {
+                    y += 1;
+                    testDoor = true;
+                }
+                if (room.getBlocks()[x][y] != null) {
+                    x = random.nextInt(1, room.getLength() - 1);
+                    y = random.nextInt(1, room.getHeight() - 1);
+                    testDoor = true;
+                }
+            } while (testDoor);
+            room.getBlocks()[x][y] = pickRandomBlock();
+        }
+    }
 
+    /**
+     * Méthode pour choisir le bloc à placer dans la pièce.
+     *
+     * @return renvoie un block aléatoire
+     */
+    public Block pickRandomBlock() {
+
+        if (random.nextInt(1, 101) > LUCK_BLOCK) {
+            switch (random.nextInt(1, 3)) {
+                case 1 -> {
+                    return new Chest();
+                }
+                case 2 -> {
+                    return new Bed();
+                }
+            }
+        } else {
+            switch (random.nextInt(1, 3)) {
+                case 1 -> {
+                    return new Wardrobe();
+                }
+                case 2 -> {
+                    return new Table();
+                }
+            }
+        }
+        return null;
     }
 
     /**

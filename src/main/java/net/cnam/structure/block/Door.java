@@ -9,7 +9,7 @@ public class Door extends Block {
 
     @Override
     public boolean isSolid() {
-        return !locked;
+        return locked;
     }
 
     @Override
