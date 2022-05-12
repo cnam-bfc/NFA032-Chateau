@@ -111,7 +111,7 @@ public class Generator {
         List<GeneratorWall> genWalls = new LinkedList<>(); // Contient tout les murs de toutes les pièces
         // On génère les murs des pièces
         for (Room room : rooms) {
-            GeneratorRoom genRoom = new GeneratorRoom(room, generatedStage);
+            GeneratorRoom genRoom = new GeneratorRoom(room, generatedStage, random);
             genRooms.add(genRoom);
             genWalls.addAll(genRoom.getWalls());
         }
@@ -269,5 +269,5 @@ public class Generator {
      */
     public long getSeed() {
         return seed;
-    }
+    }  
 }
