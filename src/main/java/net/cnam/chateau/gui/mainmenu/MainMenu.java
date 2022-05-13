@@ -3,7 +3,7 @@ package net.cnam.chateau.gui.mainmenu;
 import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import net.cnam.chateau.audio.SimpleAudioPlayer;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.FullScreenDisplayableComponent;
 import net.cnam.chateau.gui.component.CButton;

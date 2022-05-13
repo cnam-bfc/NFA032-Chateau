@@ -1,4 +1,4 @@
-package net.cnam.chateau.audio;
+package net.cnam.chateau.utils.audio;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -9,6 +9,13 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * SimpleAudioPlayer is a class to play a song file.
+ *
+ * Source: https://www.geeksforgeeks.org/play-audio-file-using-java/
+ *
+ * @author GeeksforGeeks
+ */
 public class SimpleAudioPlayer {
 
     // to store current position

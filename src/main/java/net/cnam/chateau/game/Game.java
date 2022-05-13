@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Random;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import net.cnam.chateau.audio.SimpleAudioPlayer;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.generator.Generator;
 import net.cnam.chateau.gui.FullScreenDisplayableComponent;
