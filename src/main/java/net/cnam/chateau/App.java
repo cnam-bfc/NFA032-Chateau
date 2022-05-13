@@ -1,7 +1,7 @@
 package net.cnam.chateau;
 
 import net.cnam.chateau.gui.Console;
-import net.cnam.chateau.gui.mainmenu.MainMenu;
+import net.cnam.chateau.gui.main.menu.MainMenu;
 
 public class App {
 
