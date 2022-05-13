@@ -8,6 +8,7 @@ import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.utils.console.RawConsoleInput;
 
+// https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 public class Console extends CPanel {
 
     private final AppSettings settings;
