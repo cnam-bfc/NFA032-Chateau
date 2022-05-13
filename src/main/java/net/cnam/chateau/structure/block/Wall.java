@@ -1,5 +1,7 @@
 package net.cnam.chateau.structure.block;
 
+import net.cnam.chateau.gui.CColor;
+
 /**
  * Class permettant de créer un block Mur (Wall) pour la map.
  */
@@ -12,6 +14,6 @@ public class Wall extends Block {
 
     @Override
     public String getCharacter() {
-        return "\033[100m \033[49m";
+        return CColor.BRIGHT_BLACK.getBackground() + ' ' + CColor.BRIGHT_BLACK.getBackgroundReset();
     }
 }

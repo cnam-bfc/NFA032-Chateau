@@ -1,5 +1,7 @@
 package net.cnam.chateau.gui.component;
 
+import net.cnam.chateau.gui.CColor;
+
 public class CProgressBar extends CComponent {
 
     private int value;
@@ -21,9 +23,9 @@ public class CProgressBar extends CComponent {
         String[] result = new String[this.getHeight()];
 
         int progressed = (int) ((float) value / maxValue * this.getLength());
-        String line = "\u001b[7m";
+        String line = CColor.REVERSE.getForeground();
         line += " ".repeat(progressed);
-        line += "\u001b[27m";
+        line += CColor.REVERSE.getForegroundReset();
         line += " ".repeat(this.getLength() - progressed);
 
         for (int linePointer = 0; linePointer < result.length; linePointer++) {

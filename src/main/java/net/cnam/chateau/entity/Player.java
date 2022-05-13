@@ -1,16 +1,17 @@
 package net.cnam.chateau.entity;
 
 import net.cnam.chateau.entity.pet.Pet;
+import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.item.weapon.Weapon;
 
 public class Player extends Personage {
-    
-    Pet pet;
+
+    private Pet pet;
 
     /**
      * Constructeur du personnage sans arme
-     * 
+     *
      * @param sexe sexe du personnage
      * @param characteristics fiche de caractéristique du personnage
      * @param location position du personnage
@@ -22,7 +23,7 @@ public class Player extends Personage {
 
     /**
      * Constructeur du personnage avec une arme
-     * 
+     *
      * @param sexe sexe du personnage
      * @param characteristics fiche de caractéristique du personnage
      * @param weapon arme du personnage
@@ -35,7 +36,7 @@ public class Player extends Personage {
 
     @Override
     public String getCharacter() {
-        return "\u001b[32m" + super.getCharacter() + "\u001b[39m";
+        return CColor.GREEN + super.getCharacter() + CColor.GREEN.getForegroundReset();
     }
 
     public Pet getPet() {
@@ -45,6 +46,4 @@ public class Player extends Personage {
     public void setPet(Pet pet) {
         this.pet = pet;
     }
-    
-    
 }

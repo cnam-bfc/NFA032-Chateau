@@ -2,6 +2,7 @@ package net.cnam.chateau.entity.pet;
 
 import net.cnam.chateau.entity.Characteristic;
 import net.cnam.chateau.entity.LivingEntity;
+import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.utils.Location;
 
 abstract public class Pet extends LivingEntity {
@@ -12,11 +13,11 @@ abstract public class Pet extends LivingEntity {
 
     @Override
     public String getCharacter() {
-        return "\u001b[44m" + "P" + "\u001b[44m";
+        return CColor.BLUE + "P" + CColor.BLUE.getForegroundReset();
     }
-    
+
     abstract void power();
-    
+
     abstract String scream();
 
 }

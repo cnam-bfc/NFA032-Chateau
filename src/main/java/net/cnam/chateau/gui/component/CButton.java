@@ -1,5 +1,6 @@
 package net.cnam.chateau.gui.component;
 
+import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.utils.StringUtils;
 
 public abstract class CButton extends CLabel {
@@ -39,20 +40,20 @@ public abstract class CButton extends CLabel {
         for (String textLine : textLines) {
             if (textLine.length() > this.getLength()) {
                 if (selected) {
-                    textLine = "\u001b[7m" + textLine.substring(0, this.getLength()) + "\u001b[27m";
+                    textLine = CColor.REVERSE + textLine.substring(0, this.getLength()) + CColor.REVERSE.getForegroundReset();
                 } else {
                     textLine = textLine.substring(0, this.getLength());
                 }
             } else if (textLine.length() < this.getLength()) {
                 if (selected) {
-                    int newLength = this.getLength() + "\u001b[7m".length() + "\u001b[27m".length();
-                    textLine = StringUtils.centerString("\u001b[7m" + textLine + "\u001b[27m", ' ', newLength);
+                    int newLength = this.getLength() + CColor.REVERSE.getForeground().length() + CColor.REVERSE.getForegroundReset().length();
+                    textLine = StringUtils.centerString(CColor.REVERSE + textLine + CColor.REVERSE.getForegroundReset(), ' ', newLength);
                 } else {
                     textLine = StringUtils.centerString(textLine, ' ', this.getLength());
                 }
             } else {
                 if (selected) {
-                    textLine = "\u001b[7m" + textLine + "\u001b[27m";
+                    textLine = CColor.REVERSE + textLine + CColor.REVERSE.getForegroundReset();
                 }
             }
 
