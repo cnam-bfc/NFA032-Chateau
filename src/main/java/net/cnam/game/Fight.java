@@ -2,10 +2,10 @@ package net.cnam.game;
 
 import net.cnam.entity.enemy.Enemy;
 import net.cnam.entity.*;
-import net.cnam.gui.DisplayableComponent;
 import net.cnam.gui.component.CFrame;
+import net.cnam.gui.LoopDisplayableComponent;
 
-public class Fight extends CFrame implements DisplayableComponent {
+public class Fight extends CFrame implements LoopDisplayableComponent {
 
     private Player player;
     private Enemy enemy;

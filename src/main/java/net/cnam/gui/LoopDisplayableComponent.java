@@ -1,6 +1,6 @@
 package net.cnam.gui;
 
-public interface DisplayableComponent {
+public interface LoopDisplayableComponent {
 
     public abstract boolean isDisplayable();
 }

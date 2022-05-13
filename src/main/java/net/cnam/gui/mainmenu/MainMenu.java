@@ -1,13 +1,13 @@
 package net.cnam.gui.mainmenu;
 
 import net.cnam.gui.Console;
-import net.cnam.gui.DisplayableComponent;
 import net.cnam.gui.component.CButton;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;
 import net.cnam.gui.component.CButtons;
+import net.cnam.gui.LoopDisplayableComponent;
 
-public class MainMenu extends CFrame implements DisplayableComponent {
+public class MainMenu extends CFrame implements LoopDisplayableComponent {
 
     private final CButtons buttonsChoices;
     private boolean display = true;

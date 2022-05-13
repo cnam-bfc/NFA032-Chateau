@@ -38,7 +38,7 @@ public class Console extends CPanel {
                 System.out.println("ERREUR");
                 System.exit(1);
             }
-            if (component instanceof DisplayableComponent displayableComponent) {
+            if (component instanceof LoopDisplayableComponent displayableComponent) {
                 continueShowing = displayableComponent.isDisplayable();
             }
         } while (continueShowing);

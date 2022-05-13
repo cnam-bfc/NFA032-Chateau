@@ -6,7 +6,7 @@ import net.cnam.utils.direction.Direction;
 import net.cnam.utils.direction.DirectionNotFoundException;
 import net.cnam.utils.direction.DirectionUtils;
 
-public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
+public class AdjustSizeFrame extends CFrame implements LoopDisplayableComponent {
 
     private final Console console;
     private boolean sizeAdjusted = false;
