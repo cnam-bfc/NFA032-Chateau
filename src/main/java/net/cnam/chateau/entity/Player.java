@@ -35,7 +35,7 @@ public class Player extends Personage {
 
     @Override
     public String getCharacter() {
-        return "\u001b[32m" + super.getCharacter() + "\u001b[39m";
+        return "\u001b[32m♂\u001b[39m";
     }
 
     public Pet getPet() {
