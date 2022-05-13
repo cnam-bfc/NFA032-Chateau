@@ -102,7 +102,9 @@ public class Map extends CComponent {
                     Block block = stage.getBlock(x, y);
                     LivingEntity entity = stage.getEntity(x, y);
                     if (x != 0) {
-                        if (block instanceof Wall wall && stage.getBlock(x - 1, y) instanceof Wall) {
+                        if (block instanceof Wall wall) {
+                            line += wall.getCharacter();
+                        } else if (stage.getBlock(x - 1, y) instanceof Wall wall) {
                             line += wall.getCharacter();
                         } else {
                             line += ' ';
