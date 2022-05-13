@@ -6,6 +6,7 @@ import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
+import net.cnam.chateau.structure.block.Wall;
 
 public class Map extends CComponent {
 
@@ -101,7 +102,11 @@ public class Map extends CComponent {
                     Block block = stage.getBlock(x, y);
                     LivingEntity entity = stage.getEntity(x, y);
                     if (x != 0) {
-                        line += ' ';
+                        if (block instanceof Wall wall && stage.getBlock(x - 1, y) instanceof Wall) {
+                            line += wall.getCharacter();
+                        } else {
+                            line += ' ';
+                        }
                     }
                     if (entity != null) {
                         line += entity.getCharacter();
