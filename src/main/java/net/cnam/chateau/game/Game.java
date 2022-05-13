@@ -55,7 +55,7 @@ public class Game extends CFrame implements LoopDisplayableComponent, FullScreen
     public void onKeyPressed(int key) {
         // TODO Enlever ça, temporaire
         if (key == 13 || key == 10) {
-            stopDisplaying();
+            stop();
             return;
         }
 
@@ -93,8 +93,12 @@ public class Game extends CFrame implements LoopDisplayableComponent, FullScreen
         return true;
     }
 
-    public void stopDisplaying() {
+    public void stop() {
         display = false;
+        try {
+            audioPlayer.stop();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | NullPointerException ex) {
+        }
     }
 
     @Override
