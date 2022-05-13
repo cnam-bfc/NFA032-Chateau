@@ -2,6 +2,7 @@ package net.cnam.chateau.gui.main.menu;
 
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
+import net.cnam.chateau.gui.settings.menu.SettingsMenu;
 
 public class SettingsButton extends CButton {
 
@@ -15,6 +16,6 @@ public class SettingsButton extends CButton {
 
     @Override
     public void execute() {
-        console.adjustSize();
+        console.show(new SettingsMenu(console));
     }
 }

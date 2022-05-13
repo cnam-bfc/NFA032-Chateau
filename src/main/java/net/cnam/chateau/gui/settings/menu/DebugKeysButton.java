@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.main.menu;
+package net.cnam.chateau.gui.settings.menu;
 
 import java.io.IOException;
 import net.cnam.chateau.gui.component.CButton;

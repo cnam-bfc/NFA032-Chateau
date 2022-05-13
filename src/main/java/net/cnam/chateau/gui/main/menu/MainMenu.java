@@ -23,9 +23,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
         this.buttonsChoices = new CButtons(new CButton[]{
             new PlayButton(console, this),
             new SettingsButton(console),
-            new QuitButton(this),
-            new DebugGeneratorButton(),
-            new DebugKeysButton()
+            new QuitButton(this)
         }, 1);
 
         this.getContent().getContent().add(buttonsChoices);
