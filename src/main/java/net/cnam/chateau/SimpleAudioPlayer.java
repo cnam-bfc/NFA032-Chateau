@@ -38,7 +38,7 @@ public class SimpleAudioPlayer {
 
     public static void main(String[] args) {
         try {
-            filePath = "/songs/toby fox - UNDERTALE Soundtrack - 02 Start Menu.wav";
+            filePath = "/songs/Stranger Things 3 - The Game Soundtrack - Hess Farm.wav";
             SimpleAudioPlayer audioPlayer = new SimpleAudioPlayer();
 
             audioPlayer.play();
