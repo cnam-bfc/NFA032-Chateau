@@ -1,6 +1,10 @@
 package net.cnam.chateau.game;
 
+import java.io.IOException;
 import java.util.Random;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import net.cnam.chateau.audio.SimpleAudioPlayer;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.generator.Generator;
 import net.cnam.chateau.gui.FullScreenDisplayableComponent;
@@ -18,6 +22,7 @@ public class Game extends CFrame implements LoopDisplayableComponent, FullScreen
     private final Castle castle;
     private final Map map;
     private final Player player;
+    private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
 
     public Game(Player player) {
@@ -38,6 +43,12 @@ public class Game extends CFrame implements LoopDisplayableComponent, FullScreen
         this.getContent().getContent().add(map);
 
         this.setTitle(new CLabel("Jeu\n(seed: " + this.castle.getSeed() + ")"));
+
+        try {
+            this.audioPlayer = new SimpleAudioPlayer("/songs/Stranger Things 3 - The game soundtrack - Russian Farm Base.wav");
+            audioPlayer.play();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+        }
     }
 
     @Override
