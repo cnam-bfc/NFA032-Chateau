@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -102,6 +103,12 @@ public class SimpleAudioPlayer {
             clip.setMicrosecondPosition(c);
             this.play();
         }
+    }
+
+    // Method to set volume 0.0 is 0% and 1.0 is 100%
+    public void setVolume(float volume) {
+        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.VOLUME);
+        volumeControl.setValue(volume);
     }
 
     // Method to reset audio stream
