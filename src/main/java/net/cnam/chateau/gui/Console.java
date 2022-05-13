@@ -85,7 +85,6 @@ public class Console extends CPanel {
         clear();
 
         // Rendre le curseur visible
-        // Au final non car bug sous windaube
-        //System.out.print("\033[?25h");
+        System.out.print("\033[?25h");
     }
 }
