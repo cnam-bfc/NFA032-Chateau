@@ -7,6 +7,8 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO FAIRE DES ITERATEURS SUR LES LISTES
-        new App().start();
+        App app = new App();
+        app.start();
+        app.getConsole().finalClear();
     }
 }

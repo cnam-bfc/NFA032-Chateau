@@ -13,9 +13,12 @@ public class Console extends CPanel {
     private final AppSettings settings;
 
     public Console(AppSettings settings) {
-        super(settings.getConsoleLength(), settings.getConsoleHeight());
+        super(0, 0);
 
         this.settings = settings;
+
+        // Rendre le curseur invisible
+        System.out.print("\033[?25l");
     }
 
     public void adjustSize() {
@@ -31,6 +34,7 @@ public class Console extends CPanel {
 
         boolean continueShowing = false;
         do {
+            clear();
             if (settings.getConsoleLength() != this.getLength()) {
                 this.setLength(settings.getConsoleLength());
             }
@@ -50,7 +54,7 @@ public class Console extends CPanel {
                     }
                 }
             }
-            print();
+            System.out.print(this);
             try {
                 int input = RawConsoleInput.read(true);
                 this.onKeyPressed(input);
@@ -67,14 +71,21 @@ public class Console extends CPanel {
         this.getContent().addAll(save);
     }
 
-    private void print() {
-        clear();
-        System.out.println(this);
-    }
-
     // Méthode pour effacer la console
     private void clear() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        for (int i = 0; i < this.getHeight() - 1; i++) {
+            // On déplace le curseur sur la ligne au dessus
+            System.out.print("\033[F");
+        }
+        // On efface le terminal à partir du curseur
+        System.out.print("\033[0J");
+    }
+
+    public void finalClear() {
+        clear();
+
+        // Rendre le curseur visible
+        // Au final non car bug sous windaube
+        //System.out.print("\033[?25h");
     }
 }
