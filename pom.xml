@@ -35,7 +35,26 @@
     </dependency>
   </dependencies>
 
+  <!-- Permet de générer la javadoc avec la commande mvn site -->
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.4.0</version>
+        <configuration></configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -110,16 +129,4 @@
       </plugins>
     </pluginManagement>
   </build>
-
-  <!-- Permet de générer la javadoc avec la commande mvn site -->
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.4.0</version>
-        <configuration></configuration>
-      </plugin>
-    </plugins>
-  </reporting>
 </project>
