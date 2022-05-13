@@ -12,6 +12,6 @@ public class Wall extends Block {
 
     @Override
     public String getCharacter() {
-        return "#";
+        return "\033[100m \033[49m";
     }
 }
