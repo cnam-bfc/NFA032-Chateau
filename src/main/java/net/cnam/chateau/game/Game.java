@@ -7,7 +7,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.generator.Generator;
-import net.cnam.chateau.gui.FullScreenDisplayableComponent;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.structure.Castle;
@@ -15,9 +14,9 @@ import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
-import net.cnam.chateau.gui.LoopDisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 
-public class Game extends CFrame implements LoopDisplayableComponent, FullScreenDisplayableComponent {
+public class Game extends CFrame implements DisplayableComponent {
 
     private final Castle castle;
     private final Map map;
@@ -84,12 +83,12 @@ public class Game extends CFrame implements LoopDisplayableComponent, FullScreen
     }
 
     @Override
-    public boolean isDisplayableLoopingMode() {
+    public boolean isInLoopingMode() {
         return display;
     }
 
     @Override
-    public boolean isDisplayableFullScreenMode() {
+    public boolean isInFullScreenMode() {
         return true;
     }
 

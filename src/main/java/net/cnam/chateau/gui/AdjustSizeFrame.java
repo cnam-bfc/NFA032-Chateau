@@ -7,7 +7,7 @@ import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 
-public class AdjustSizeFrame extends CFrame implements LoopDisplayableComponent, FullScreenDisplayableComponent {
+public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
 
     private final AppSettings settings;
     private boolean sizeAdjusted = false;
@@ -63,12 +63,12 @@ public class AdjustSizeFrame extends CFrame implements LoopDisplayableComponent,
     }
 
     @Override
-    public boolean isDisplayableLoopingMode() {
+    public boolean isInLoopingMode() {
         return !sizeAdjusted;
     }
 
     @Override
-    public boolean isDisplayableFullScreenMode() {
+    public boolean isInFullScreenMode() {
         return true;
     }
 }

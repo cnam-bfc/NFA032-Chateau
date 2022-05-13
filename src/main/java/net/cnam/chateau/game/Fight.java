@@ -2,11 +2,10 @@ package net.cnam.chateau.game;
 
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
-import net.cnam.chateau.gui.FullScreenDisplayableComponent;
 import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.LoopDisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 
-public class Fight extends CFrame implements LoopDisplayableComponent, FullScreenDisplayableComponent {
+public class Fight extends CFrame implements DisplayableComponent {
 
     private Player player;
     private Enemy enemy;
@@ -30,12 +29,12 @@ public class Fight extends CFrame implements LoopDisplayableComponent, FullScree
     }
 
     @Override
-    public boolean isDisplayableLoopingMode() {
+    public boolean isInLoopingMode() {
         return display;
     }
 
     @Override
-    public boolean isDisplayableFullScreenMode() {
+    public boolean isInFullScreenMode() {
         return true;
     }
 

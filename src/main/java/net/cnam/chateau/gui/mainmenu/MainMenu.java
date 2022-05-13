@@ -5,14 +5,13 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.gui.Console;
-import net.cnam.chateau.gui.FullScreenDisplayableComponent;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.CButtons;
-import net.cnam.chateau.gui.LoopDisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 
-public class MainMenu extends CFrame implements LoopDisplayableComponent, FullScreenDisplayableComponent {
+public class MainMenu extends CFrame implements DisplayableComponent {
 
     private final CButtons buttonsChoices;
     private SimpleAudioPlayer audioPlayer;
@@ -39,7 +38,7 @@ public class MainMenu extends CFrame implements LoopDisplayableComponent, FullSc
     }
 
     @Override
-    public boolean isDisplayableLoopingMode() {
+    public boolean isInLoopingMode() {
         return display;
     }
 
@@ -48,7 +47,7 @@ public class MainMenu extends CFrame implements LoopDisplayableComponent, FullSc
     }
 
     @Override
-    public boolean isDisplayableFullScreenMode() {
+    public boolean isInFullScreenMode() {
         return true;
     }
 

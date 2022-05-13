@@ -27,24 +27,24 @@ public class Console extends CPanel {
         show(adjustSizeFrame);
     }
 
-    public void show(CComponent component) {
-        List<CComponent> save = new LinkedList<>(this.getContent());
-        this.getContent().clear();
+    public void show(DisplayableComponent displayableComponent) {
+        if (displayableComponent instanceof CComponent component) {
+            List<CComponent> save = new LinkedList<>(this.getContent());
+            this.getContent().clear();
 
-        this.getContent().add(component);
+            this.getContent().add(component);
 
-        boolean continueShowing = false;
-        do {
-            clear();
-            if (settings.getConsoleLength() != this.getLength()) {
-                this.setLength(settings.getConsoleLength());
-            }
-            if (settings.getConsoleHeight() != this.getHeight()) {
-                this.setHeight(settings.getConsoleHeight());
-            }
-            for (CComponent comp : this.getContent()) {
-                if (comp instanceof FullScreenDisplayableComponent fullScreenComponent) {
-                    if (!fullScreenComponent.isDisplayableFullScreenMode()) {
+            boolean continueShowing;
+            do {
+                clear();
+                if (settings.getConsoleLength() != this.getLength()) {
+                    this.setLength(settings.getConsoleLength());
+                }
+                if (settings.getConsoleHeight() != this.getHeight()) {
+                    this.setHeight(settings.getConsoleHeight());
+                }
+                for (CComponent comp : this.getContent()) {
+                    if (!displayableComponent.isInFullScreenMode()) {
                         continue;
                     }
                     if (this.getLength() != comp.getLength()) {
@@ -54,22 +54,20 @@ public class Console extends CPanel {
                         comp.setHeight(this.getHeight());
                     }
                 }
-            }
-            System.out.print(this);
-            try {
-                int input = RawConsoleInput.read(true);
-                this.onKeyPressed(input);
-            } catch (IOException ex) {
-                System.out.println("ERREUR");
-                System.exit(1);
-            }
-            if (component instanceof LoopDisplayableComponent displayableComponent) {
-                continueShowing = displayableComponent.isDisplayableLoopingMode();
-            }
-        } while (continueShowing);
+                System.out.print(this);
+                try {
+                    int input = RawConsoleInput.read(true);
+                    this.onKeyPressed(input);
+                } catch (IOException ex) {
+                    System.out.println("ERREUR");
+                    System.exit(1);
+                }
+                continueShowing = displayableComponent.isInLoopingMode();
+            } while (continueShowing);
 
-        this.getContent().clear();
-        this.getContent().addAll(save);
+            this.getContent().clear();
+            this.getContent().addAll(save);
+        }
     }
 
     // Méthode pour effacer la console
