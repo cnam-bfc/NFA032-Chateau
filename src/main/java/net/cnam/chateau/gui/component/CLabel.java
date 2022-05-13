@@ -26,6 +26,7 @@ public class CLabel extends CComponent {
 
     public CLabel(String[] lines, int length, int height) {
         super(length, height);
+
         this.textLines = lines;
     }
 
