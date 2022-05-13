@@ -1,20 +1,21 @@
 package net.cnam.gui;
 
+import net.cnam.AppSettings;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;
 import net.cnam.utils.direction.Direction;
 import net.cnam.utils.direction.DirectionNotFoundException;
 import net.cnam.utils.direction.DirectionUtils;
 
-public class AdjustSizeFrame extends CFrame implements LoopDisplayableComponent {
+public class AdjustSizeFrame extends CFrame implements LoopDisplayableComponent, FullScreenDisplayableComponent {
 
-    private final Console console;
+    private final AppSettings settings;
     private boolean sizeAdjusted = false;
 
-    public AdjustSizeFrame(Console console) {
+    public AdjustSizeFrame(AppSettings settings) {
         super();
 
-        this.console = console;
+        this.settings = settings;
 
         CLabel title = new CLabel("Réglage des dimensions de la console");
         CLabel instructions_1 = new CLabel(new String[]{"Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran",
@@ -38,28 +39,21 @@ public class AdjustSizeFrame extends CFrame implements LoopDisplayableComponent 
 
         try {
             Direction direction = DirectionUtils.parseDirection(key);
-            int newHeight = this.getHeight();
-            int newLength = this.getLength();
             switch (direction) {
                 case LEFT -> {
-                    if (this.getLength() > Console.MIN_LENGTH) {
-                        newLength--;
-                    }
+                    settings.setConsoleLength(settings.getConsoleLength() - 1);
                 }
                 case RIGHT -> {
-                    newLength++;
+                    settings.setConsoleLength(settings.getConsoleLength() + 1);
                 }
                 case TOP -> {
-                    if (this.getHeight() > Console.MIN_HEIGHT) {
-                        newHeight--;
-                    }
+                    settings.setConsoleHeight(settings.getConsoleHeight() - 1);
                 }
                 case BOTTOM -> {
-                    newHeight++;
+
+                    settings.setConsoleHeight(settings.getConsoleHeight() + 1);
                 }
             }
-            this.setSize(newLength, newHeight);
-            console.setSize(newLength, newHeight);
         } catch (DirectionNotFoundException ex) {
         }
     }
@@ -69,7 +63,12 @@ public class AdjustSizeFrame extends CFrame implements LoopDisplayableComponent 
     }
 
     @Override
-    public boolean isDisplayable() {
+    public boolean isDisplayableLoopingMode() {
         return !sizeAdjusted;
+    }
+
+    @Override
+    public boolean isDisplayableFullScreenMode() {
+        return true;
     }
 }

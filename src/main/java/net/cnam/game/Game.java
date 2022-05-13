@@ -3,6 +3,7 @@ package net.cnam.game;
 import java.util.Random;
 import net.cnam.entity.Player;
 import net.cnam.generator.Generator;
+import net.cnam.gui.FullScreenDisplayableComponent;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;
 import net.cnam.structure.Castle;
@@ -12,7 +13,7 @@ import net.cnam.utils.direction.DirectionNotFoundException;
 import net.cnam.utils.direction.DirectionUtils;
 import net.cnam.gui.LoopDisplayableComponent;
 
-public class Game extends CFrame implements LoopDisplayableComponent {
+public class Game extends CFrame implements LoopDisplayableComponent, FullScreenDisplayableComponent {
 
     private final Castle castle;
     private final Map map;
@@ -72,8 +73,13 @@ public class Game extends CFrame implements LoopDisplayableComponent {
     }
 
     @Override
-    public boolean isDisplayable() {
+    public boolean isDisplayableLoopingMode() {
         return display;
+    }
+
+    @Override
+    public boolean isDisplayableFullScreenMode() {
+        return true;
     }
 
     public void stopDisplaying() {

@@ -2,5 +2,5 @@ package net.cnam.gui;
 
 public interface LoopDisplayableComponent {
 
-    public abstract boolean isDisplayable();
+    public abstract boolean isDisplayableLoopingMode();
 }

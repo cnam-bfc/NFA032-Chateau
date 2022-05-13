@@ -3,21 +3,23 @@ package net.cnam.gui;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import net.cnam.AppSettings;
 import net.cnam.gui.component.CComponent;
 import net.cnam.gui.component.CPanel;
 import net.cnam.utils.console.RawConsoleInput;
 
 public class Console extends CPanel {
 
-    public static final int MIN_LENGTH = 80;
-    public static final int MIN_HEIGHT = 25;
+    private final AppSettings settings;
 
-    public Console() {
-        super(MIN_LENGTH, MIN_HEIGHT);
+    public Console(AppSettings settings) {
+        super(settings.getConsoleLength(), settings.getConsoleHeight());
+
+        this.settings = settings;
     }
 
     public void adjustSize() {
-        AdjustSizeFrame adjustSizeFrame = new AdjustSizeFrame(this);
+        AdjustSizeFrame adjustSizeFrame = new AdjustSizeFrame(settings);
         show(adjustSizeFrame);
     }
 
@@ -25,11 +27,29 @@ public class Console extends CPanel {
         List<CComponent> save = new LinkedList<>(this.getContent());
         this.getContent().clear();
 
-        component.setSize(this.getLength(), this.getHeight());
         this.getContent().add(component);
 
         boolean continueShowing = false;
         do {
+            if (settings.getConsoleLength() != this.getLength()) {
+                this.setLength(settings.getConsoleLength());
+            }
+            if (settings.getConsoleHeight() != this.getHeight()) {
+                this.setHeight(settings.getConsoleHeight());
+            }
+            for (CComponent comp : this.getContent()) {
+                if (comp instanceof FullScreenDisplayableComponent fullScreenComponent) {
+                    if (!fullScreenComponent.isDisplayableFullScreenMode()) {
+                        continue;
+                    }
+                    if (this.getLength() != comp.getLength()) {
+                        comp.setLength(this.getLength());
+                    }
+                    if (this.getHeight() != comp.getHeight()) {
+                        comp.setHeight(this.getHeight());
+                    }
+                }
+            }
             print();
             try {
                 int input = RawConsoleInput.read(true);
@@ -39,7 +59,7 @@ public class Console extends CPanel {
                 System.exit(1);
             }
             if (component instanceof LoopDisplayableComponent displayableComponent) {
-                continueShowing = displayableComponent.isDisplayable();
+                continueShowing = displayableComponent.isDisplayableLoopingMode();
             }
         } while (continueShowing);
 

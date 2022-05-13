@@ -1,13 +1,14 @@
 package net.cnam.gui.mainmenu;
 
 import net.cnam.gui.Console;
+import net.cnam.gui.FullScreenDisplayableComponent;
 import net.cnam.gui.component.CButton;
 import net.cnam.gui.component.CFrame;
 import net.cnam.gui.component.CLabel;
 import net.cnam.gui.component.CButtons;
 import net.cnam.gui.LoopDisplayableComponent;
 
-public class MainMenu extends CFrame implements LoopDisplayableComponent {
+public class MainMenu extends CFrame implements LoopDisplayableComponent, FullScreenDisplayableComponent {
 
     private final CButtons buttonsChoices;
     private boolean display = true;
@@ -17,7 +18,7 @@ public class MainMenu extends CFrame implements LoopDisplayableComponent {
 
         this.buttonsChoices = new CButtons(new CButton[]{
             new PlayButton(console),
-            new SettingsButton(console, this),
+            new SettingsButton(console),
             new QuitButton(this),
             new DebugGeneratorButton(),
             new DebugKeysButton()
@@ -27,11 +28,16 @@ public class MainMenu extends CFrame implements LoopDisplayableComponent {
     }
 
     @Override
-    public boolean isDisplayable() {
+    public boolean isDisplayableLoopingMode() {
         return display;
     }
 
     public void stopDisplaying() {
         display = false;
+    }
+
+    @Override
+    public boolean isDisplayableFullScreenMode() {
+        return true;
     }
 }
