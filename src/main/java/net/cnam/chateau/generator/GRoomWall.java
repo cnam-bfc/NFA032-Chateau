@@ -35,7 +35,7 @@ public class GRoomWall {
                     return false;
                 }
                 // Si ils ne se chevauchent pas
-                if (this.location.getX() > wall.location.getX() + wall.length - 1 || this.location.getX() + this.length - 1 < wall.location.getX()) {
+                if (this.location.getX() >= wall.location.getX() + wall.length || this.location.getX() + this.length <= wall.location.getX()) {
                     return false;
                 }
             }
@@ -45,7 +45,7 @@ public class GRoomWall {
                     return false;
                 }
                 // Si ils ne se chevauchent pas
-                if (this.location.getY() > wall.location.getY() + wall.length - 1 || this.location.getY() + this.length - 1 < wall.location.getY()) {
+                if (this.location.getY() >= wall.location.getY() + wall.length || this.location.getY() + this.length <= wall.location.getY()) {
                     return false;
                 }
             }

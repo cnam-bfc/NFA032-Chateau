@@ -1,13 +1,8 @@
 package net.cnam.chateau;
 
-// Java program to play an Audio
-// file using Clip Object
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -43,7 +38,7 @@ public class SimpleAudioPlayer {
 
     public static void main(String[] args) {
         try {
-            filePath = "songs/toby fox - UNDERTALE Soundtrack - 02 Start Menu.flac";
+            filePath = "/songs/toby fox - UNDERTALE Soundtrack - 02 Start Menu.wav";
             SimpleAudioPlayer audioPlayer = new SimpleAudioPlayer();
 
             audioPlayer.play();
@@ -149,7 +144,7 @@ public class SimpleAudioPlayer {
 
     // Method to reset audio stream
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+        audioInputStream = AudioSystem.getAudioInputStream(SimpleAudioPlayer.class.getResourceAsStream(filePath));
         clip.open(audioInputStream);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
