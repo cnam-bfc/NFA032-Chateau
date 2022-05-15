@@ -186,14 +186,23 @@ public class Generator {
                             room.setMazeNb(maze1);
                         }
                     }
-                    Location breakPoint = wall.getBreakPoint(random);
-                    try {
-                        generatedStage.setBlock(breakPoint.getX(), breakPoint.getY(), new Door());
-                    } catch (CoordinatesOutOfBoundsException ex) {
-                    }
+                    breakWall(generatedStage, wall);
                     break;
                 }
             }
+        }
+
+        // On fait la liste des murs qui ne sont pas cassés
+        List<GWall> wallsUnbreaked = new ArrayList<>();
+        for (GWall wall : walls) {
+            if (!wall.isBreaked()) {
+                wallsUnbreaked.add(wall);
+            }
+        }
+
+        // On fait des trous dans des murs au hasard
+        for (int i = 0; i < random.nextInt(wallsUnbreaked.size() / 2); i++) {
+            breakWall(generatedStage, wallsUnbreaked.remove(random.nextInt(wallsUnbreaked.size())));
         }
     }
 
@@ -207,6 +216,18 @@ public class Generator {
             }
         }
         return true;
+    }
+
+    private void breakWall(Stage stage, GWall wall) {
+        try {
+            List<Location> possibleBreakPoints = wall.getWallsLocations();
+            if (possibleBreakPoints.isEmpty()) {
+                return;
+            }
+            Location breakPoint = possibleBreakPoints.remove(random.nextInt(possibleBreakPoints.size()));
+            stage.setBlock(breakPoint.getX(), breakPoint.getY(), new Door());
+        } catch (CoordinatesOutOfBoundsException ex) {
+        }
     }
 
     // TODO Poubelle !!!!!!!!!!!!!!!!!!
