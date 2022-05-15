@@ -3,6 +3,7 @@ package net.cnam.chateau.structure;
 import java.util.LinkedList;
 import java.util.List;
 import net.cnam.chateau.entity.LivingEntity;
+import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
@@ -154,6 +155,10 @@ public class Stage extends CComponent {
                     return;
                 }
                 // TODO Vérifier qu'il va pas sur un block non translucide
+                //vérifier si l'entité est un joueur, si oui vérifie si il a un pet, si oui, positionne le pet à la position du joueur avant déplacement
+                if (entity instanceof Player player){
+                    if(player.getPet() != null && player.getPet().isFollowPlayer()) player.getPet().follow(entityLocation);
+                }
                 entityLocation.setX(entityLocation.getX() + relX);
                 entityLocation.setY(entityLocation.getY() + relY);
             }

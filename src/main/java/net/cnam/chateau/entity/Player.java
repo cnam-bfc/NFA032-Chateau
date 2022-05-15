@@ -1,13 +1,13 @@
 package net.cnam.chateau.entity;
 
-import net.cnam.chateau.entity.pet.Pet;
+import net.cnam.chateau.entity.pet.*;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.item.weapon.Weapon;
 
 public class Player extends Personage {
 
-    private Pet pet;
+    private Pet pet = new PepeLoiseau(new Location(this.getLocation().getX(), this.getLocation().getY()));
 
     /**
      * Constructeur du personnage sans arme

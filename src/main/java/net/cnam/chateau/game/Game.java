@@ -37,6 +37,7 @@ public class Game extends CFrame implements DisplayableComponent {
         }
         this.player = player;
         this.castle.getStages()[0].getEntities().add(player);
+        this.castle.getStages()[0].getEntities().add(player.getPet()); //à voir pour faire mieux
         this.map = new Map(this.castle.getStages()[0], player.getLocation());
 
         this.getContent().getContent().add(map);
