@@ -8,8 +8,8 @@ public class PepeLoiseau extends Pet {
     private boolean power = true;
 
     //TODO Voir pour faire suivre le joueur dans la location
-    public PepeLoiseau() {
-        super(new Characteristic(50,50,10,10,10), "Pepe Loiseau", null);
+    public PepeLoiseau(Location location) {
+        super(new Characteristic(50,50,10,10,10), "Pepe Loiseau", location);
     }
     
     @Override
