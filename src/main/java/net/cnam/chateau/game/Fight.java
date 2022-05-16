@@ -12,6 +12,8 @@ public class Fight extends CFrame implements DisplayableComponent {
     private boolean display = true;
 
     public Fight(Player player, Enemy enemy) {
+        super(0, 0);
+
         this.player = player;
         this.enemy = enemy;
     }

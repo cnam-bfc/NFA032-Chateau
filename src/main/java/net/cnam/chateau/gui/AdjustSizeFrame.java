@@ -13,7 +13,7 @@ public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
     private boolean sizeAdjusted = false;
 
     public AdjustSizeFrame(AppSettings settings) {
-        super();
+        super(0, 0);
 
         this.settings = settings;
 

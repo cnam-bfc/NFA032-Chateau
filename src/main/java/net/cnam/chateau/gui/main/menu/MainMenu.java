@@ -5,22 +5,22 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.gui.Console;
-import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
-import net.cnam.chateau.gui.component.CButtons;
+import net.cnam.chateau.gui.component.CChoises;
 import net.cnam.chateau.gui.DisplayableComponent;
+import net.cnam.chateau.gui.component.SelectableComponent;
 
 public class MainMenu extends CFrame implements DisplayableComponent {
 
-    private final CButtons buttonsChoices;
+    private final CChoises buttonsChoices;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
 
     public MainMenu(Console console) {
-        super(new CLabel("Menu principal"));
+        super(new CLabel("Menu principal"), 0, 0);
 
-        this.buttonsChoices = new CButtons(new CButton[]{
+        this.buttonsChoices = new CChoises(new SelectableComponent[]{
             new PlayButton(console, this),
             new SettingsButton(console),
             new QuitButton(this)

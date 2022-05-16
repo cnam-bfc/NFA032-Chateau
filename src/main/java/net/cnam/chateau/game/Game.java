@@ -29,6 +29,8 @@ public class Game extends CFrame implements DisplayableComponent {
     }
 
     public Game(Castle castle, Player player) {
+        super(0, 0);
+
         if (castle != null) {
             this.castle = castle;
         } else {
