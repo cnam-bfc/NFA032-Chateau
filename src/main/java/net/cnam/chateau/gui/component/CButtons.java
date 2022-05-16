@@ -5,6 +5,7 @@ import java.util.List;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
+import net.cnam.chateau.utils.direction.Orientation;
 
 public class CButtons extends CPanel {
 
@@ -15,7 +16,7 @@ public class CButtons extends CPanel {
     }
 
     public CButtons(CButton[] buttons, int spacing) {
-        super(0, 0, false);
+        super(0, 0, Orientation.VERTICAL, false);
 
         for (int i = 0; i < buttons.length; i++) {
             CButton button = buttons[i];

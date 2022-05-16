@@ -3,7 +3,7 @@ package net.cnam.chateau.gui.component;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.utils.StringUtils;
 
-public abstract class CButton extends CLabel {
+public abstract class CButton extends CLabel implements SelectableComponent {
 
     private boolean selected = false;
 
@@ -82,10 +82,12 @@ public abstract class CButton extends CLabel {
         }
     }
 
+    @Override
     public boolean isSelected() {
         return selected;
     }
 
+    @Override
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
