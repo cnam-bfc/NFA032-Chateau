@@ -17,7 +17,11 @@ public class CChoises extends CPanel {
     }
 
     public CChoises(SelectableComponent[] components, int spacing) {
-        super(Arrays.copyOf(components, components.length, CComponent[].class), Orientation.VERTICAL, spacing);
+        this(components, Orientation.VERTICAL, spacing);
+    }
+
+    public CChoises(SelectableComponent[] components, Orientation orientation, int spacing) {
+        super(Arrays.copyOf(components, components.length, CComponent[].class), orientation, spacing);
 
         for (int i = 0; i < components.length; i++) {
             SelectableComponent component = components[i];
