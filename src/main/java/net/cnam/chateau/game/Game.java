@@ -48,7 +48,7 @@ public class Game extends CFrame implements DisplayableComponent {
         this.setTitle(new CLabel("Jeu\n(seed: " + this.castle.getSeed() + ")"));
 
         try {
-            this.audioPlayer = new SimpleAudioPlayer("/songs/Stranger Things 3 - The game soundtrack - Russian Farm Base.wav");
+            this.audioPlayer = new SimpleAudioPlayer("/songs/Stranger Things 3 - The Game Soundtrack - Russian Farm Base.wav");
             audioPlayer.setVolume(settings.getMusicVolume());
             audioPlayer.play();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
