@@ -2,8 +2,9 @@ package net.cnam.chateau.gui.component;
 
 import net.cnam.chateau.utils.StringUtils;
 
-public class CTextField extends CComponent {
+public class CTextField extends CComponent implements SelectableComponent {
 
+    private boolean selected = true;
     private String text = "";
 //    private int pointer = 0;
 
@@ -48,8 +49,22 @@ public class CTextField extends CComponent {
 
     @Override
     public void onKeyPressed(int key) {
+        if (!isSelected()) {
+            return;
+        }
+
         char character = (char) key;
 
         text += character;
+    }
+
+    @Override
+    public boolean isSelected() {
+        return selected;
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

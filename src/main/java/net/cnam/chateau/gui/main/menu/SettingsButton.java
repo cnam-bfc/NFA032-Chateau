@@ -13,7 +13,7 @@ public class SettingsButton extends CButton {
     private final SimpleAudioPlayer menuPlayer;
 
     public SettingsButton(Console console, AppSettings settings, SimpleAudioPlayer menuPlayer) {
-        super("2. Paramètres");
+        super("Paramètres");
 
         this.console = console;
         this.settings = settings;

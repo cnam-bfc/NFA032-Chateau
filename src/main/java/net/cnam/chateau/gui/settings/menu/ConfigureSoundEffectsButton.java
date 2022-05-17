@@ -11,7 +11,7 @@ public class ConfigureSoundEffectsButton extends CButton {
     private final AppSettings settings;
 
     public ConfigureSoundEffectsButton(Console console, AppSettings settings) {
-        super("3. Configurer le volume des effects sonores");
+        super("Configurer le volume des effects sonores");
 
         this.console = console;
         this.settings = settings;

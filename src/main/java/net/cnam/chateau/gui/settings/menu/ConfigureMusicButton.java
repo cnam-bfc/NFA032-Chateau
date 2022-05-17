@@ -13,7 +13,7 @@ public class ConfigureMusicButton extends CButton {
     private final SimpleAudioPlayer menuPlayer;
 
     public ConfigureMusicButton(Console console, AppSettings settings, SimpleAudioPlayer menuPlayer) {
-        super("2. Configurer le volume de la musique");
+        super("Configurer le volume de la musique");
 
         this.console = console;
         this.settings = settings;
