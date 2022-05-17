@@ -7,6 +7,8 @@ public class AppSettings {
 
     private int consoleLength = CONSOLE_MIN_LENGTH;
     private int consoleHeight = CONSOLE_MIN_HEIGHT;
+    private float musicVolume = 1f;
+    private float soundEffectsVolume = 1f;
 
     public AppSettings() {
         String detectedConsoleLengthStr = System.getProperty("COLUMNS");
@@ -45,5 +47,21 @@ public class AppSettings {
             return;
         }
         this.consoleHeight = consoleHeight;
+    }
+
+    public float getMusicVolume() {
+        return musicVolume;
+    }
+
+    public void setMusicVolume(float musicVolume) {
+        this.musicVolume = musicVolume;
+    }
+
+    public float getSoundEffectsVolume() {
+        return soundEffectsVolume;
+    }
+
+    public void setSoundEffectsVolume(float soundEffectsVolume) {
+        this.soundEffectsVolume = soundEffectsVolume;
     }
 }

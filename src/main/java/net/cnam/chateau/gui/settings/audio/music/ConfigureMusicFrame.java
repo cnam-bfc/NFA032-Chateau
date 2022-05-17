@@ -1,28 +1,30 @@
-package net.cnam.chateau.gui.settings.menu;
+package net.cnam.chateau.gui.settings.audio.music;
 
 import net.cnam.chateau.AppSettings;
-import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
+import net.cnam.chateau.gui.component.CGauge;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
+import net.cnam.chateau.utils.direction.Orientation;
 
-public class SettingsMenu extends CFrame implements DisplayableComponent {
+public class ConfigureMusicFrame extends CFrame implements DisplayableComponent {
 
     private boolean display = true;
 
-    public SettingsMenu(Console console, AppSettings settings, SimpleAudioPlayer menuPlayer) {
-        super(new CLabel("Paramètres"), 0, 0);
+    public ConfigureMusicFrame(AppSettings settings, SimpleAudioPlayer menuPlayer) {
+        super(new CLabel("Configurer le niveau sonore de la musique"), 0, 0);
 
+        CGauge gauge = new ConfigureMusicGauge(settings, menuPlayer);
         CChoices choices = new CChoices(new SelectableComponent[]{
-            new ConfigureScreenButton(console),
-            new ConfigureMusicButton(console, settings, menuPlayer),
-            new BackButton(this),
-            new DebugGeneratorButton(),
-            new DebugKeysButton()
-        }, 1);
+            gauge,
+            new CChoices(new SelectableComponent[]{
+                new ConfigureMusicOkButton(this, settings, gauge),
+                new ConfigureMusicCancelButton(this, settings, menuPlayer)
+            }, Orientation.HORIZONTAL, 10)
+        }, 5);
 
         this.getContent().getContent().add(choices);
     }

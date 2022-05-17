@@ -35,8 +35,9 @@ public class Stage extends CComponent {
      * @param x Coordonnée x
      * @param y Coordonnée y
      * @return Le bloc aux coordonnées spécifiés
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception
-     * lorsque les coordonnées ne sont pas contenu dans la taille de l'étage
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
      */
     public Block getBlock(int x, int y) throws CoordinatesOutOfBoundsException {
         if (x < 0) {
@@ -71,8 +72,9 @@ public class Stage extends CComponent {
      * @param x Coordonnée x
      * @param y Coordonnée y
      * @param block Le bloc aux coordonnées spécifiés
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception
-     * lorsque les coordonnées ne sont pas contenu dans la taille de l'étage
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
      */
     public void setBlock(int x, int y, Block block) throws CoordinatesOutOfBoundsException {
         if (x < 0) {
@@ -105,8 +107,9 @@ public class Stage extends CComponent {
      * @param x Coordonnée x
      * @param y Coordonnée y
      * @return L'entité aux coordonnées spécifiés
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception
-     * lorsque les coordonnées ne sont pas contenu dans la taille de l'étage
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
      */
     public LivingEntity getEntity(int x, int y) throws CoordinatesOutOfBoundsException {
         if (x < 0) {
@@ -138,8 +141,8 @@ public class Stage extends CComponent {
      * @param entity L'entité à faire bouger
      * @param relX Déplacement relatif à faire au niveau de l'abscisse
      * @param relY Déplacement relatif à faire au niveau de l'ordonnée
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception levé
-     * si l'entitée tente de sortir de l'étage
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception levé si l'entitée tente de sortir de l'étage
      */
     public void move(LivingEntity entity, int relX, int relY) throws CoordinatesOutOfBoundsException {
         for (LivingEntity entity2 : entities) {
@@ -156,8 +159,10 @@ public class Stage extends CComponent {
                 }
                 // TODO Vérifier qu'il va pas sur un block non translucide
                 //vérifier si l'entité est un joueur, si oui vérifie si il a un pet, si oui, positionne le pet à la position du joueur avant déplacement
-                if (entity instanceof Player player){
-                    if(player.getPet() != null && player.getPet().isFollowPlayer()) player.getPet().follow(entityLocation);
+                if (entity instanceof Player player) {
+                    if (player.getPet() != null && player.getPet().isFollowPlayer()) {
+                        player.getPet().follow(entityLocation);
+                    }
                 }
                 entityLocation.setX(entityLocation.getX() + relX);
                 entityLocation.setY(entityLocation.getY() + relY);

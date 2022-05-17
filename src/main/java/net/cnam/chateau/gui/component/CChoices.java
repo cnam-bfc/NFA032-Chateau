@@ -8,19 +8,21 @@ import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.utils.direction.Orientation;
 
-public class CChoises extends CPanel {
+public class CChoices extends CPanel implements SelectableComponent {
 
     private final List<SelectableComponent> selectableComponents;
 
-    public CChoises(SelectableComponent[] components) {
+    private boolean selected = true;
+
+    public CChoices(SelectableComponent[] components) {
         this(components, 0);
     }
 
-    public CChoises(SelectableComponent[] components, int spacing) {
+    public CChoices(SelectableComponent[] components, int spacing) {
         this(components, Orientation.VERTICAL, spacing);
     }
 
-    public CChoises(SelectableComponent[] components, Orientation orientation, int spacing) {
+    public CChoices(SelectableComponent[] components, Orientation orientation, int spacing) {
         super(Arrays.copyOf(components, components.length, CComponent[].class), orientation, spacing);
 
         for (int i = 0; i < components.length; i++) {
@@ -38,6 +40,10 @@ public class CChoises extends CPanel {
 
     @Override
     public void onKeyPressed(int key) {
+        if (!isSelected()) {
+            return;
+        }
+
         super.onKeyPressed(key);
 
         if (selectableComponents.size() < 2) {
@@ -89,6 +95,26 @@ public class CChoises extends CPanel {
                 }
             }
         } catch (DirectionNotFoundException ex) {
+        }
+    }
+
+    @Override
+    public boolean isSelected() {
+        return selected;
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        if (selected) {
+            if (selectableComponents.isEmpty()) {
+                return;
+            }
+            selectableComponents.get(0).setSelected(true);
+        } else {
+            for (SelectableComponent component : selectableComponents) {
+                component.setSelected(false);
+            }
         }
     }
 }

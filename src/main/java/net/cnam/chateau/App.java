@@ -14,7 +14,7 @@ public class App {
     }
 
     public void start() {
-        MainMenu mainMenu = new MainMenu(console);
+        MainMenu mainMenu = new MainMenu(console, settings);
         console.show(mainMenu);
     }
 
