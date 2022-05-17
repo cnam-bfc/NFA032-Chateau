@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Random;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.generator.Generator;
@@ -24,11 +25,11 @@ public class Game extends CFrame implements DisplayableComponent {
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
 
-    public Game(Player player) {
-        this(null, player);
+    public Game(AppSettings settings, Player player) {
+        this(settings, null, player);
     }
 
-    public Game(Castle castle, Player player) {
+    public Game(AppSettings settings, Castle castle, Player player) {
         super(0, 0);
 
         if (castle != null) {
@@ -48,6 +49,7 @@ public class Game extends CFrame implements DisplayableComponent {
 
         try {
             this.audioPlayer = new SimpleAudioPlayer("/songs/Stranger Things 3 - The game soundtrack - Russian Farm Base.wav");
+            audioPlayer.setVolume(settings.getMusicVolume());
             audioPlayer.play();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
         }

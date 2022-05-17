@@ -28,7 +28,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
         }
 
         CChoices choices = new CChoices(new SelectableComponent[]{
-            new PlayButton(console, this),
+            new PlayButton(console, settings, this),
             new SettingsButton(console, settings, audioPlayer),
             new QuitButton(this)
         }, 1);
