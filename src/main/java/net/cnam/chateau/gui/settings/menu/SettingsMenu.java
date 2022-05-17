@@ -19,6 +19,7 @@ public class SettingsMenu extends CFrame implements DisplayableComponent {
         CChoices choices = new CChoices(new SelectableComponent[]{
             new ConfigureScreenButton(console),
             new ConfigureMusicButton(console, settings, menuPlayer),
+            new ConfigureSoundEffectsButton(console, settings),
             new BackButton(this),
             new DebugGeneratorButton(),
             new DebugKeysButton()
