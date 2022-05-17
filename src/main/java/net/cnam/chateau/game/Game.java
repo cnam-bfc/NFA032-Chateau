@@ -99,10 +99,7 @@ public class Game extends CFrame implements DisplayableComponent {
 
     public void stop() {
         display = false;
-        try {
-            audioPlayer.stop();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | NullPointerException ex) {
-        }
+        audioPlayer.stop();
     }
 
     @Override

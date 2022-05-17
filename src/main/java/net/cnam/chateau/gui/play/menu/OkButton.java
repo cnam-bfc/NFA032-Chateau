@@ -32,16 +32,13 @@ public class OkButton extends CButton {
     @Override
     public void execute() {
         playMenu.stopDisplaying();
-        try {
-            mainMenu.getAudioPlayer().stop();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | NullPointerException ex) {
-        }
+        mainMenu.getAudioPlayer().stop();
         Player player = new Player(Sexe.MASCULIN, new Characteristic(100, 100, 100, 100, 100), new Location(1, 1), "");
         Game game = new Game(settings, player);
         console.show(game);
         try {
             mainMenu.getAudioPlayer().restart();
-        } catch (NullPointerException | IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
         }
     }
 }
