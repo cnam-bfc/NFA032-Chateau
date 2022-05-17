@@ -23,6 +23,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
         try {
             this.audioPlayer = new SimpleAudioPlayer("/songs/Stranger Things 3 - The Game Soundtrack - Hess Farm.wav");
             audioPlayer.setVolume(settings.getMusicVolume());
+            audioPlayer.setLoop(true);
             audioPlayer.play();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
         }

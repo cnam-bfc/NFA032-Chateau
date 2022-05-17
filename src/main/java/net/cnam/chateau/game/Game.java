@@ -50,6 +50,7 @@ public class Game extends CFrame implements DisplayableComponent {
         try {
             this.audioPlayer = new SimpleAudioPlayer("/songs/Stranger Things 3 - The Game Soundtrack - Russian Farm Base.wav");
             audioPlayer.setVolume(settings.getMusicVolume());
+            audioPlayer.setLoop(true);
             audioPlayer.play();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
         }
@@ -99,7 +100,9 @@ public class Game extends CFrame implements DisplayableComponent {
 
     public void stop() {
         display = false;
-        audioPlayer.stop();
+        if (audioPlayer != null) {
+            audioPlayer.stop();
+        }
     }
 
     @Override

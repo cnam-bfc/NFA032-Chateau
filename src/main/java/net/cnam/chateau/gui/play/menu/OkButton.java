@@ -12,6 +12,7 @@ import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 public class OkButton extends CButton {
 
@@ -32,13 +33,18 @@ public class OkButton extends CButton {
     @Override
     public void execute() {
         playMenu.stopDisplaying();
-        mainMenu.getAudioPlayer().stop();
+        SimpleAudioPlayer audioPlayer = mainMenu.getAudioPlayer();
+        if (audioPlayer != null) {
+            audioPlayer.stop();
+        }
         Player player = new Player(Sexe.MASCULIN, new Characteristic(100, 100, 100, 100, 100), new Location(1, 1), "");
         Game game = new Game(settings, player);
         console.show(game);
-        try {
-            mainMenu.getAudioPlayer().restart();
-        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+        if (audioPlayer != null) {
+            try {
+                audioPlayer.restart();
+            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+            }
         }
     }
 }

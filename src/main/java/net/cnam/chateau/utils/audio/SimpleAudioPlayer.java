@@ -108,9 +108,19 @@ public class SimpleAudioPlayer {
         c.setValue(db);
     }
 
+    // Method to set loop mode
+    public void setLoop(boolean loopMode) {
+        this.loop = loopMode;
+        if (loop) {
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } else {
+            clip.loop(0);
+        }
+    }
+
     // Method to reset audio stream
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(SimpleAudioPlayer.class.getResourceAsStream(filePath));
+        audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(SimpleAudioPlayer.class.getResourceAsStream(filePath)));
         clip.open(audioInputStream);
         if (loop) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
