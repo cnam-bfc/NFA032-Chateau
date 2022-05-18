@@ -15,7 +15,7 @@ public class CFrame extends CComponent {
     }
 
     public CFrame(CLabel title, int length, int height) {
-        this(HorizontalAlignment.CENTER, length, height);
+        this(HorizontalAlignment.CENTER, title, length, height);
     }
 
     public CFrame(HorizontalAlignment horizontalAlignment, CLabel title, int length, int height) {
