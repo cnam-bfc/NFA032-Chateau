@@ -62,24 +62,40 @@ public class Console extends CPanel {
                 try {
                     int input = RawConsoleInput.read(true);
 
+                    // Ce bout de code est nécessaire pour interpreter les caractères "spéciaux" sous linux
                     // Si un caractère d'échappemment est entré
-                    if (input == 27 && RawConsoleInput.read(true) == 91) {
-                        switch (RawConsoleInput.read(true)) {
-                            // 65 = Flèche du haut
+                    // 91 = [
+                    if (input == 27 && RawConsoleInput.read(false) == 91) {
+                        switch (RawConsoleInput.read(false)) {
+                            // 51 = 3
+                            case 51 -> {
+                                switch (RawConsoleInput.read(false)) {
+                                    // 126 = ~
+                                    case 126 -> {
+                                        // 57427 = suppr
+                                        input = 57427;
+                                    }
+                                }
+                            }
+                            // 65 = A
                             case 65 -> {
+                                // 57416 = Flèche du haut
                                 input = 57416;
                             }
-                            // 66 = Flèche du bas
+                            // 66 = B
                             case 66 -> {
+                                // 57424 = Flèche du bas
                                 input = 57424;
                             }
-                            // 68 = Flèche de gauche
-                            case 68 -> {
-                                input = 57419;
-                            }
-                            // 67 = Flèche de droite
+                            // 67 = C
                             case 67 -> {
+                                // 57421 = Flèche de droite
                                 input = 57421;
+                            }
+                            // 68 = D
+                            case 68 -> {
+                                // 57419 = Flèche de gauche
+                                input = 57419;
                             }
                         }
                     }
