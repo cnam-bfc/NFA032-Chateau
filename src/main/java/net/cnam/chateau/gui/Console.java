@@ -7,6 +7,7 @@ import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.utils.console.RawConsoleInput;
+import net.cnam.chateau.utils.direction.Direction;
 
 // Sources ANSI codes:
 // https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
@@ -60,6 +61,30 @@ public class Console extends CPanel {
                 System.out.print(this);
                 try {
                     int input = RawConsoleInput.read(true);
+
+                    // Si un caractère d'échappemment est entré
+                    if (input == 27 && RawConsoleInput.read(true) == 91) {
+                        switch (RawConsoleInput.read(true)) {
+                            // 65 = Flèche du haut
+                            case 65 -> {
+                                input = 57416;
+                            }
+                            // 66 = Flèche du bas
+                            case 66 -> {
+                                input = 57424;
+                            }
+                            // 68 = Flèche de gauche
+                            case 68 -> {
+                                input = 57419;
+                            }
+                            // 67 = Flèche de droite
+                            case 67 -> {
+                                input = 57421;
+                            }
+                        }
+                    }
+
+                    // On notifie les éléments graphiques de la touche entrée
                     this.onKeyPressed(input);
                 } catch (IOException ex) {
                     System.out.println("ERREUR");

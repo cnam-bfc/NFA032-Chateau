@@ -1,11 +1,13 @@
 package net.cnam.chateau.gui.play.menu;
 
+import java.util.Random;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.component.CTextField;
 import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.direction.Orientation;
@@ -17,9 +19,11 @@ public class PlayMenu extends CFrame implements DisplayableComponent {
     public PlayMenu(Console console, AppSettings settings, MainMenu mainMenu) {
         super(new CLabel("Créer une partie"), 0, 0);
 
+        CTextField seed = new CTextField(new Random().nextLong() + "", AppSettings.CONSOLE_MIN_LENGTH - 10, 1);
         CChoices choices = new CChoices(new SelectableComponent[]{
+            seed,
             new CChoices(new SelectableComponent[]{
-                new OkButton(console, settings, this, mainMenu),
+                new OkButton(console, settings, this, mainMenu, seed),
                 new BackButton(this)
             }, Orientation.HORIZONTAL, 10)
         }, 1);

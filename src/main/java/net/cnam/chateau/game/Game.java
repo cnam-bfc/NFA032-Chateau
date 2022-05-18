@@ -26,18 +26,14 @@ public class Game extends CFrame implements DisplayableComponent {
     private boolean display = true;
 
     public Game(AppSettings settings, Player player) {
-        this(settings, null, player);
+        this(settings, player, new Random().nextLong());
     }
 
-    public Game(AppSettings settings, Castle castle, Player player) {
+    public Game(AppSettings settings, Player player, long seed) {
         super(0, 0);
 
-        if (castle != null) {
-            this.castle = castle;
-        } else {
-            Generator generator = new Generator(new Random().nextLong());
-            this.castle = generator.generateCastle();
-        }
+        Generator generator = new Generator(seed);
+        this.castle = generator.generateCastle();
         this.player = player;
         this.castle.getStages()[0].getEntities().add(player);
         this.castle.getStages()[0].getEntities().add(player.getPet()); //à voir pour faire mieux
