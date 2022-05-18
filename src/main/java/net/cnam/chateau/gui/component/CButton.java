@@ -7,19 +7,27 @@ public abstract class CButton extends CLabel implements SelectableComponent {
     private boolean selected = false;
 
     public CButton(String text) {
-        super(text);
+        this(HorizontalAlignment.CENTER, text);
+    }
+
+    public CButton(HorizontalAlignment horizontalAlignment, String text) {
+        super(horizontalAlignment, text);
+    }
+
+    public CButton(String text, int length) {
+        this(HorizontalAlignment.CENTER, text, length);
+    }
+
+    public CButton(HorizontalAlignment horizontalAlignment, String text, int length) {
+        super(horizontalAlignment, text, length);
     }
 
     public CButton(String text, int length, int height) {
-        super(text, length, height);
+        this(HorizontalAlignment.CENTER, text, length, height);
     }
 
-    public CButton(String[] lines) {
-        super(lines);
-    }
-
-    public CButton(String[] lines, int length, int height) {
-        super(lines, length, height);
+    public CButton(HorizontalAlignment horizontalAlignment, String text, int length, int height) {
+        super(horizontalAlignment, text, length, height);
     }
 
     public abstract void execute();

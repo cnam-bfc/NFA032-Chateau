@@ -4,29 +4,31 @@ import java.util.LinkedList;
 import java.util.List;
 import net.cnam.chateau.entity.LivingEntity;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
 
 /**
  * Classe d'un étage
  */
-public class Stage extends CComponent {
+public class Stage {
+
+    private final List<LivingEntity> entities = new LinkedList<>();
 
     private Room[] rooms;
-    private final List<LivingEntity> entities = new LinkedList<>();
+    private int length;
+    private int height;
 
     /**
      * Constructeur
      *
      * @param rooms Tableau des pièces de l'étage
      * @param length La longueur de l'étage
-     * @param width La largeur de l'étage
+     * @param height La hauteur de l'étage
      */
-    public Stage(Room[] rooms, int length, int width) {
-        super(length, width);
-
+    public Stage(Room[] rooms, int length, int height) {
         this.rooms = rooms;
+        this.length = length;
+        this.height = height;
     }
 
     /**
@@ -170,34 +172,38 @@ public class Stage extends CComponent {
         }
     }
 
-    @Override
-    public String[] render() {
-        String[] result = new String[this.getHeight()];
-
-        for (int y = 0; y < this.getHeight(); y++) {
-            String line = "";
-            for (int x = 0; x < this.getLength(); x++) {
-                try {
-                    Block block = getBlock(x, y);
-                    LivingEntity entity = getEntity(x, y);
-                    if (entity != null) {
-                        line += entity.getCharacter();
-                    } else if (block != null) {
-                        line += block.getCharacter();
-                    } else {
-                        line += ' ';
-                    }
-                } catch (CoordinatesOutOfBoundsException ex) {
-                }
-            }
-            result[y] = line;
-        }
-
-        return result;
-    }
-
-    @Override
-    public void onKeyPressed(int key) {
+//    @Override
+//    public String[] render() {
+//        String[] result = new String[this.getHeight()];
+//
+//        for (int y = 0; y < this.getHeight(); y++) {
+//            String line = "";
+//            for (int x = 0; x < this.getLength(); x++) {
+//                try {
+//                    Block block = getBlock(x, y);
+//                    LivingEntity entity = getEntity(x, y);
+//                    if (entity != null) {
+//                        line += entity.getCharacter();
+//                    } else if (block != null) {
+//                        line += block.getCharacter();
+//                    } else {
+//                        line += ' ';
+//                    }
+//                } catch (CoordinatesOutOfBoundsException ex) {
+//                }
+//            }
+//            result[y] = line;
+//        }
+//
+//        return result;
+//    }
+    /**
+     * Méthode permettant de récupérer les entités dans l'étage
+     *
+     * @return La liste des entités
+     */
+    public List<LivingEntity> getEntities() {
+        return entities;
     }
 
     /**
@@ -209,6 +215,22 @@ public class Stage extends CComponent {
         return rooms;
     }
 
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     /**
      * Méthode permettant de définir les pièces de l'étage
      *
@@ -216,14 +238,5 @@ public class Stage extends CComponent {
      */
     public void setRooms(Room[] rooms) {
         this.rooms = rooms;
-    }
-
-    /**
-     * Méthode permettant de récupérer les entités dans l'étage
-     *
-     * @return La liste des entités
-     */
-    public List<LivingEntity> getEntities() {
-        return entities;
     }
 }

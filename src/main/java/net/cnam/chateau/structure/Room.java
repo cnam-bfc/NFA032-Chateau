@@ -1,13 +1,12 @@
 package net.cnam.chateau.structure;
 
-import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
 
 /**
  * Classe d'une pièce
  */
-public class Room extends CComponent {
+public class Room {
 
     private final Location location;
     private Block[][] blocks;
@@ -19,8 +18,6 @@ public class Room extends CComponent {
      * @param blocks Tableau des blocks de la pièce
      */
     public Room(Location location, Block[][] blocks) {
-        super(blocks.length, blocks[0].length);
-
         this.location = location;
         this.blocks = blocks;
     }
@@ -45,30 +42,33 @@ public class Room extends CComponent {
 
     public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;
-        this.setSize(blocks.length, blocks[0].length);
     }
 
-    @Override
-    public String[] render() {
-        String[] result = new String[this.getHeight()];
-
-        for (int y = 0; y < blocks[0].length; y++) {
-            String line = "";
-            for (int x = 0; x < blocks.length; x++) {
-                Block block = blocks[x][y];
-                if (block != null) {
-                    line += block.getCharacter();
-                } else {
-                    line += ' ';
-                }
-            }
-            result[y] = line;
-        }
-
-        return result;
+    public int getLength() {
+        return blocks.length;
     }
 
-    @Override
-    public void onKeyPressed(int key) {
+    public int getHeight() {
+        return blocks[0].length;
     }
+
+//    @Override
+//    public String[] render() {
+//        String[] result = new String[this.getHeight()];
+//
+//        for (int y = 0; y < blocks[0].length; y++) {
+//            String line = "";
+//            for (int x = 0; x < blocks.length; x++) {
+//                Block block = blocks[x][y];
+//                if (block != null) {
+//                    line += block.getCharacter();
+//                } else {
+//                    line += ' ';
+//                }
+//            }
+//            result[y] = line;
+//        }
+//
+//        return result;
+//    }
 }

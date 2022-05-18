@@ -2,6 +2,7 @@ package net.cnam.chateau.game;
 
 import net.cnam.chateau.entity.LivingEntity;
 import net.cnam.chateau.gui.component.CComponent;
+import net.cnam.chateau.gui.component.HorizontalAlignment;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
@@ -15,7 +16,7 @@ public class Map extends CComponent {
     private Location origin;
 
     public Map(Stage stage, Location playerLocation) {
-        super(0, 0);
+        super(HorizontalAlignment.CENTER, 0, 0);
 
         this.stage = stage;
         this.playerLocation = playerLocation;

@@ -7,11 +7,19 @@ public class CFrame extends CComponent {
     private CPanel content;
 
     public CFrame(int length, int height) {
-        this(null, length, height);
+        this(HorizontalAlignment.CENTER, length, height);
+    }
+
+    public CFrame(HorizontalAlignment horizontalAlignment, int length, int height) {
+        this(horizontalAlignment, null, length, height);
     }
 
     public CFrame(CLabel title, int length, int height) {
-        super(length, height);
+        this(HorizontalAlignment.CENTER, length, height);
+    }
+
+    public CFrame(HorizontalAlignment horizontalAlignment, CLabel title, int length, int height) {
+        super(horizontalAlignment, length, height);
 
         this.title = title;
         int panelHeight = height - 2;

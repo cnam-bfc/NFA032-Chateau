@@ -12,7 +12,7 @@ public class CProgressBar extends CComponent {
     }
 
     public CProgressBar(int length, int height, int value, int maxValue) {
-        super(length, height);
+        super(HorizontalAlignment.CENTER, length, height);
 
         this.value = value;
         this.maxValue = maxValue;

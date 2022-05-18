@@ -5,6 +5,7 @@ import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.component.HorizontalAlignment;
 import net.cnam.chateau.utils.StringUtils;
 
 public class ErrorFrame extends CFrame implements DisplayableComponent {
@@ -28,6 +29,7 @@ public class ErrorFrame extends CFrame implements DisplayableComponent {
         this.getContent().getContent().add(introMessage);
 
         CLabel errorMessage = new CLabel(text, this.getLength() - 2);
+        errorMessage.setHorizontalAlignment(HorizontalAlignment.LEFT);
         errorMessage.getColors().add(CColor.BLINKING);
         errorMessage.getColors().add(CColor.RED);
         this.getContent().getContent().add(errorMessage);

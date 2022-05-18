@@ -13,11 +13,19 @@ public class CTextField extends CComponent implements SelectableComponent {
     private int pointer;
 
     public CTextField(int length, int height) {
-        this(null, length, height);
+        this(HorizontalAlignment.CENTER, length, height);
+    }
+
+    public CTextField(HorizontalAlignment horizontalAlignment, int length, int height) {
+        this(horizontalAlignment, null, length, height);
     }
 
     public CTextField(String text, int length, int height) {
-        super(length, height);
+        this(HorizontalAlignment.CENTER, text, length, height);
+    }
+
+    public CTextField(HorizontalAlignment horizontalAlignment, String text, int length, int height) {
+        super(horizontalAlignment, length, height);
 
         if (text != null) {
             this.text = text;
@@ -51,6 +59,7 @@ public class CTextField extends CComponent implements SelectableComponent {
             if (text.length() >= this.getLength()) {
                 line += text.substring(pointer, this.getLength() - 1);
             } else {
+                // TODO Faire le rendu en fonction de l'alignement
                 line += text.substring(pointer);
                 line = StringUtils.centerString(line, ' ', this.getLength()
                         + CColor.BLINKING.getForeground().length() + CColor.BLINKING.getForegroundReset().length()

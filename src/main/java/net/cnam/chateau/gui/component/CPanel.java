@@ -13,11 +13,19 @@ public class CPanel extends CComponent {
     private boolean renderMainPadding;
 
     public CPanel(int length, int height) {
-        this(length, height, Orientation.VERTICAL, true);
+        this(HorizontalAlignment.CENTER, length, height);
+    }
+
+    public CPanel(HorizontalAlignment horizontalAlignment, int length, int height) {
+        this(horizontalAlignment, length, height, Orientation.VERTICAL, true);
     }
 
     public CPanel(int length, int height, Orientation renderOrientation, boolean renderMainPadding) {
-        super(length, height);
+        this(HorizontalAlignment.CENTER, length, height, renderOrientation, renderMainPadding);
+    }
+
+    public CPanel(HorizontalAlignment horizontalAlignment, int length, int height, Orientation renderOrientation, boolean renderMainPadding) {
+        super(horizontalAlignment, length, height);
 
         this.renderOrientation = renderOrientation;
         this.renderMainPadding = renderMainPadding;
@@ -64,6 +72,7 @@ public class CPanel extends CComponent {
         }
     }
 
+    // TODO Faire le rendu en fonction de l'alignement horizontal
     @Override
     public String[] render() {
         String[] result = new String[this.getHeight()];
