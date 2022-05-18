@@ -123,8 +123,10 @@ public class Console extends CPanel {
         System.out.print("\033[0J");
     }
 
-    public void finalClear() {
-        clear();
+    public void finalClear(boolean clear) {
+        if (clear) {
+            clear();
+        }
 
         // Rendre le curseur visible
         System.out.print("\033[?25h");

@@ -18,6 +18,7 @@ public class App {
         try {
             MainMenu mainMenu = new MainMenu(console, settings);
             console.show(mainMenu);
+            console.finalClear(true);
         } catch (Exception ex) {
             StackTraceElement[] trace = ex.getStackTrace();
             String[] lines = new String[trace.length + 2];
@@ -27,7 +28,7 @@ public class App {
                 lines[i] = "   at " + trace[i - 2];
             }
             console.show(new ErrorFrame(ErrorFrame.Type.EXCEPTION, lines));
+            console.finalClear(false);
         }
-        console.finalClear();
     }
 }
