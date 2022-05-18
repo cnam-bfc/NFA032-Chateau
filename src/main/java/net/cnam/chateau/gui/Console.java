@@ -31,10 +31,6 @@ public class Console extends CPanel {
     }
 
     public void show(DisplayableComponent displayableComponent) {
-        show(displayableComponent, true);
-    }
-
-    public void show(DisplayableComponent displayableComponent, boolean clear) {
         if (displayableComponent instanceof CComponent component) {
             List<CComponent> save = new LinkedList<>(this.getContent());
             this.getContent().clear();
@@ -43,9 +39,7 @@ public class Console extends CPanel {
 
             boolean continueShowing;
             do {
-                if (clear) {
-                    clear();
-                }
+                clear();
                 if (settings.getConsoleLength() != this.getLength()) {
                     this.setLength(settings.getConsoleLength());
                 }

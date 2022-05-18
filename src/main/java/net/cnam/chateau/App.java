@@ -27,7 +27,7 @@ public class App {
             for (int i = 2; i < trace.length + 2; i++) {
                 lines[i] = "   at " + trace[i - 2];
             }
-            console.show(new ErrorFrame(ErrorFrame.Type.EXCEPTION, lines), false);
+            console.show(new ErrorFrame(ErrorFrame.Type.EXCEPTION, lines));
             console.finalClear(false);
         }
     }
