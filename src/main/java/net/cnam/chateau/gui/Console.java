@@ -7,7 +7,6 @@ import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.utils.console.RawConsoleInput;
-import net.cnam.chateau.utils.direction.Direction;
 
 // Sources ANSI codes:
 // https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
@@ -129,5 +128,10 @@ public class Console extends CPanel {
 
         // Rendre le curseur visible
         System.out.print("\033[?25h");
+
+        try {
+            RawConsoleInput.resetConsoleMode();
+        } catch (IOException ex) {
+        }
     }
 }

@@ -19,11 +19,11 @@ public class PlayMenu extends CFrame implements DisplayableComponent {
     public PlayMenu(Console console, AppSettings settings, MainMenu mainMenu) {
         super(new CLabel("Créer une partie"), 0, 0);
 
-        CTextField seed = new CTextField(new Random().nextLong() + "", AppSettings.CONSOLE_MIN_LENGTH - 10, 1);
+        CTextField seedTextField = new CTextField(new Random().nextLong() + "", AppSettings.CONSOLE_MIN_LENGTH - 10, 1);
         CChoices choices = new CChoices(new SelectableComponent[]{
-            seed,
+            seedTextField,
             new CChoices(new SelectableComponent[]{
-                new OkButton(console, settings, this, mainMenu, seed),
+                new OkButton(console, settings, this, mainMenu, seedTextField),
                 new BackButton(this)
             }, Orientation.HORIZONTAL, 10)
         }, 1);

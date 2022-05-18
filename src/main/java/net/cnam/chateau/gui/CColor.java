@@ -1,9 +1,13 @@
 package net.cnam.chateau.gui;
 
+// Sources ANSI codes:
+// https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
+// https://askubuntu.com/questions/558280/changing-colour-of-text-and-background-of-terminal
+// https://en.wikipedia.org/wiki/ANSI_escape_code
 public enum CColor {
 
     RESET(0, 0, 0, 0),
-    BOLD(1, 1, 21, 21),
+    BOLD(1, 1, 22, 22),
     DIM(2, 2, 22, 22),
     ITALIC(3, 3, 23, 23),
     UNDERLINE(4, 4, 24, 24),

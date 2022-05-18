@@ -9,6 +9,5 @@ public class Main {
         // TODO FAIRE DES ITERATEURS SUR LES LISTES
         App app = new App();
         app.start();
-        app.getConsole().finalClear();
     }
 }

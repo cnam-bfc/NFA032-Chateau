@@ -48,7 +48,7 @@ public class Game extends CFrame implements DisplayableComponent {
             audioPlayer.setVolume(settings.getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ex) {
         }
     }
 

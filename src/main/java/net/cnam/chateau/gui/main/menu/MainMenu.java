@@ -25,7 +25,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
             audioPlayer.setVolume(settings.getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ex) {
         }
 
         CChoices choices = new CChoices(new SelectableComponent[]{

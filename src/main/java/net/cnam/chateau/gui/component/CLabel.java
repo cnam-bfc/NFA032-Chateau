@@ -1,19 +1,22 @@
 package net.cnam.chateau.gui.component;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.utils.StringUtils;
 
 public class CLabel extends CComponent {
 
+    private final List<CColor> colors = new LinkedList<>();
     private String[] textLines;
 
     public CLabel(String text) {
-        this(
-                // String[] lines
-                StringUtils.convertStringToStringArray(text),
-                // length
-                StringUtils.getMaximumLength(StringUtils.convertStringToStringArray(text)),
-                // height
-                StringUtils.convertStringToStringArray(text).length);
+        this(StringUtils.convertStringToStringArray(text), StringUtils.getMaximumLength(StringUtils.convertStringToStringArray(text)), StringUtils.convertStringToStringArray(text).length);
+    }
+
+    public CLabel(String text, int length) {
+        this(formatLines(StringUtils.convertStringToStringArray(text), length), length, formatLines(StringUtils.convertStringToStringArray(text), length).length);
     }
 
     public CLabel(String text, int length, int height) {
@@ -24,10 +27,36 @@ public class CLabel extends CComponent {
         this(lines, StringUtils.getMaximumLength(lines), lines.length);
     }
 
+    public CLabel(String[] lines, int length) {
+        this(formatLines(lines, length), length, formatLines(lines, length).length);
+    }
+
     public CLabel(String[] lines, int length, int height) {
         super(length, height);
 
-        this.textLines = lines;
+        this.textLines = formatLines(lines, length);
+    }
+
+    private static String[] formatLines(String[] lines, int length) {
+        List<String> linesFormated = new LinkedList<>();
+
+        for (String line : lines) {
+            boolean first = true;
+            while (line.length() > length) {
+                first = false;
+                linesFormated.add(line.substring(0, length));
+                line = line.substring(length);
+            }
+
+            if (!line.isEmpty()) {
+                if (!first) {
+                    line = line + " ".repeat(length - line.length());
+                }
+                linesFormated.add(line);
+            }
+        }
+
+        return linesFormated.toArray(String[]::new);
     }
 
     @Override
@@ -42,10 +71,16 @@ public class CLabel extends CComponent {
             result[linePointer++] = emptyLine;
         }
         for (String textLine : textLines) {
-            if (textLine.length() > this.getLength()) {
-                textLine = textLine.substring(0, this.getLength());
-            } else if (textLine.length() < this.getLength()) {
-                textLine = StringUtils.centerString(textLine, ' ', this.getLength());
+            int lineLength = textLine.length();
+            int length = this.getLength();
+            for (CColor color : colors) {
+                length += color.getForeground().length() + color.getForegroundReset().length();
+                textLine = color.getForeground() + textLine + color.getForegroundReset();
+            }
+            if (lineLength > this.getLength()) {
+                textLine = textLine.substring(0, length);
+            } else if (lineLength < this.getLength()) {
+                textLine = StringUtils.centerString(textLine, ' ', length);
             }
 
             if (linePointer < result.length) {
@@ -65,6 +100,10 @@ public class CLabel extends CComponent {
 
     @Override
     public void onKeyPressed(int key) {
+    }
+
+    public List<CColor> getColors() {
+        return colors;
     }
 
     public String getText() {

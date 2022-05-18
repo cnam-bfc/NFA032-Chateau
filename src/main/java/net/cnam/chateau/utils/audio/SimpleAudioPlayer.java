@@ -19,9 +19,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class SimpleAudioPlayer {
 
-    private final Clip clip = AudioSystem.getClip();
+    private final Clip clip;
+    private final String filePath;
 
-    private String filePath;
     private AudioInputStream audioInputStream;
 
     // to store current position
@@ -33,7 +33,8 @@ public class SimpleAudioPlayer {
     private float volume = 1f;
 
     // constructor to initialize streams and clip
-    public SimpleAudioPlayer(String filePath) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public SimpleAudioPlayer(String filePath) throws UnsupportedAudioFileException, IOException, LineUnavailableException, IllegalArgumentException {
+        this.clip = AudioSystem.getClip();
         this.filePath = filePath;
 
         resetAudioStream();
