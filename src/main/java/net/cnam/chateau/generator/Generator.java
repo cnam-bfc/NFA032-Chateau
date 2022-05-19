@@ -65,17 +65,24 @@ public class Generator {
      * @return un tableau d'étage
      */
     public Stage[] generateStages() {
-        Stage[] result = new Stage[this.random.nextInt(MIN_STAGE, MAX_STAGE + 1)];
+        Stage[] stages = new Stage[this.random.nextInt(MIN_STAGE, MAX_STAGE + 1)];
 
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < stages.length; i++) {
             Stage stage = generateStage();
             for (Room room : stage.getRooms()) {
                 generateRoom(room);
             }
-            result[i] = stage;
+            stages[i] = stage;
         }
 
-        return result;
+        // On génère les passages
+        for (int i = 0; i < stages.length; i++) {
+            Stage stage = stages[i];
+            List<GRoom> gRooms = generateStageWalls(stage);
+            GSolverTry test = new GSolverTry(stage.getRooms()[0], gRooms, random);
+        }
+
+        return stages;
     }
 
     /**
@@ -121,13 +128,7 @@ public class Generator {
             }
         }
 
-        Stage generatedStage = new Stage(rooms, stageLength, stageWidth);
-
-        List<GRoom> GRoom = generateStageWalls(generatedStage);
-        GSolverTry test = new GSolverTry(rooms[0] ,GRoom, random);
-        //ICI ALBAN
-
-        return generatedStage;
+        return new Stage(rooms, stageLength, stageWidth);
     }
 
     private List<GRoom> generateStageWalls(Stage generatedStage) {
