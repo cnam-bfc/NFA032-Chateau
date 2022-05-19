@@ -4,6 +4,7 @@ import net.cnam.chateau.entity.LivingEntity;
 import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.gui.component.HorizontalAlignment;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
+import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
@@ -102,6 +103,18 @@ public class Map extends CComponent {
                 try {
                     Block block = stage.getBlock(x, y);
                     LivingEntity entity = stage.getEntity(x, y);
+                    // Si la location n'a pas été visité par le joueur on l'affiche pas
+                    Room[] rooms = stage.getRooms(x, y);
+                    boolean clear = true;
+                    for (Room room : rooms) {
+                        if (room.isVisited()) {
+                            clear = false;
+                        }
+                    }
+                    if (clear) {
+                        block = new Wall();
+                        entity = null;
+                    }
                     if (x != 0) {
                         if (block instanceof Wall wall) {
                             line += wall.getCharacter();

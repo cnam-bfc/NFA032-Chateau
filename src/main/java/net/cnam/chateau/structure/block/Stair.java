@@ -6,6 +6,7 @@ import net.cnam.chateau.game.Map;
 import net.cnam.chateau.gui.event.BlockListener;
 import net.cnam.chateau.gui.event.EntityEnterBlockEvent;
 import net.cnam.chateau.gui.event.EntityLeaveBlockEvent;
+import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
@@ -39,6 +40,10 @@ public abstract class Stair extends Block implements BlockListener {
             otherStair.stage.getEntities().add(player);
             player.getLocation().setX(otherStair.location.getX());
             player.getLocation().setY(otherStair.location.getY());
+            try {
+                otherStair.stage.getRoom(otherStair.location).setVisited(true);
+            } catch (CoordinatesOutOfBoundsException ex) {
+            }
             if (player.havePet()) {
                 otherStair.stage.getEntities().add(player.getPet());
                 player.getPet().getLocation().setX(otherStair.location.getX());
