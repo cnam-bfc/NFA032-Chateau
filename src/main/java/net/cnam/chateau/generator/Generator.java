@@ -75,12 +75,16 @@ public class Generator {
             stages[i] = stage;
         }
 
-        // On génère les passages
+        // On génère les passages dans chaque étage
         for (int i = 0; i < stages.length; i++) {
             Stage stage = stages[i];
             List<GRoom> gRooms = generateStageWalls(stage);
-            GSolver solver = new GSolver(stage.getRooms()[0], gRooms, random);
         }
+
+        // On place le joueur aléatoirement dans l'étage le plus haut (ou le plus bas à voir)
+        // On génère les passages entre chaque étag
+        // - on place les sorties
+        //GSolver solver = new GSolver(stage.getRooms()[0], gRooms, random);
 
         return stages;
     }
