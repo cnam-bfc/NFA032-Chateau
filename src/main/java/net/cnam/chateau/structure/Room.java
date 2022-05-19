@@ -10,6 +10,7 @@ public class Room {
 
     private final Location location;
     private Block[][] blocks;
+    private boolean visited = false;
 
     /**
      * Constructeur
@@ -50,6 +51,14 @@ public class Room {
 
     public int getHeight() {
         return blocks[0].length;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 
 //    @Override

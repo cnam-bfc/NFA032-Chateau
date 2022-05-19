@@ -2,7 +2,7 @@ package net.cnam.chateau.gui.event;
 
 public interface BlockListener {
 
-    void onEntityEnterBlock(BlockEvent event);
+    void onEntityEnterBlock(EntityEnterBlockEvent event);
 
-    void onEntityLeaveBlock(BlockEvent event);
+    void onEntityLeaveBlock(EntityLeaveBlockEvent event);
 }

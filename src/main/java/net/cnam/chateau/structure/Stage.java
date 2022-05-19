@@ -4,8 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import net.cnam.chateau.entity.LivingEntity;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.gui.event.BlockEvent;
 import net.cnam.chateau.gui.event.BlockListener;
+import net.cnam.chateau.gui.event.EntityEnterBlockEvent;
+import net.cnam.chateau.gui.event.EntityLeaveBlockEvent;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
 
@@ -245,24 +246,34 @@ public class Stage {
                     return;
                 }
 
-                // Vérifier si l'entité est un joueur, si oui vérifie si il a un pet, si oui, positionne le pet à la position du joueur avant déplacement
-                if (entity instanceof Player player) {
-                    if (player.havePet() && player.getPet().isFollowingPlayer() && !player.getPet().getLocation().equals(entityLocation)) {
-                        this.move(player.getPet(), entityLocation);
+                // On notifie le nouveau block que l'entité rentre sur celui-ci
+                if (newBlock != null && newBlock instanceof BlockListener blockListener) {
+                    EntityEnterBlockEvent event = new EntityEnterBlockEvent(entity);
+                    blockListener.onEntityEnterBlock(event);
+                    // Si le block refuse que l'entité rentre sur son territoire on ne déplace pas l'entité
+                    if (event.isCanceled()) {
+                        return;
                     }
                 }
 
                 // On notifie l'ancien block où était l'entité que celle-ci est partie
                 if (oldBlock != null && oldBlock instanceof BlockListener blockListener) {
-                    blockListener.onEntityLeaveBlock(new BlockEvent(entity));
-                }
-                // On notifie le nouveau block que l'entité rentre sur celui-ci
-                if (newBlock != null && newBlock instanceof BlockListener blockListener) {
-                    blockListener.onEntityLeaveBlock(new BlockEvent(entity));
+                    blockListener.onEntityLeaveBlock(new EntityLeaveBlockEvent(entity));
                 }
 
+                // On sauvegarde les coordonnées 
+                Location possiblePetNewLocation = entityLocation.copy();
+
+                // On déplace l'entité
                 entityLocation.setX(location.getX());
                 entityLocation.setY(location.getY());
+
+                // Vérifier si l'entité est un joueur, si oui vérifie si il a un pet, si oui, positionne le pet à la position du joueur avant déplacement
+                if (entity instanceof Player player) {
+                    if (player.havePet() && player.getPet().isFollowingPlayer() && !player.getPet().getLocation().equals(entityLocation)) {
+                        this.move(player.getPet(), possiblePetNewLocation);
+                    }
+                }
             }
         }
     }

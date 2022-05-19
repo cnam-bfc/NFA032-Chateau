@@ -58,6 +58,16 @@ public class Location extends Object {
         this.y = y;
     }
 
+    /**
+     * Méthode permettant de créer une nouvelle location avec les mêmes
+     * coordonnées
+     *
+     * @return la location cloné
+     */
+    public Location copy() {
+        return new Location(this.x, this.y);
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;

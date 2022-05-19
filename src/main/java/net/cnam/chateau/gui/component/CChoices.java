@@ -119,6 +119,18 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
             }
         }
     }
-    
-    // TODO Method to select a component by default
+
+    public void select(SelectableComponent selectableComponent) {
+        if (!selectableComponents.contains(selectableComponent)) {
+            return;
+        }
+
+        for (SelectableComponent comp : selectableComponents) {
+            if (selectableComponent == comp) {
+                comp.setSelected(true);
+            } else {
+                comp.setSelected(false);
+            }
+        }
+    }
 }
