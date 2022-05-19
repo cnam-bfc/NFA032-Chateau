@@ -127,6 +127,8 @@ public class Console extends CPanel {
     public void finalClear(boolean clear) {
         if (clear) {
             clear();
+        } else {
+            System.out.println();
         }
 
         // Rendre le curseur visible
