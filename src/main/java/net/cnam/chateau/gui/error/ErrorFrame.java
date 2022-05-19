@@ -15,7 +15,7 @@ public class ErrorFrame extends CFrame implements DisplayableComponent {
     }
 
     public ErrorFrame(Type type, String[] text) {
-        super(AppSettings.CONSOLE_MIN_LENGTH - 4, AppSettings.CONSOLE_MIN_HEIGHT - 2);
+        super(AppSettings.CONSOLE_MIN_LENGTH, AppSettings.CONSOLE_MIN_HEIGHT);
 
         CLabel title = new CLabel("ERREUR");
         title.getColors().add(CColor.BOLD);
