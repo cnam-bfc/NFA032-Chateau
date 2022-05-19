@@ -40,6 +40,7 @@ public class Generator {
 
     private final long seed;
     private final Random random;
+    private Location defaultLocation;
 
     /**
      * Constructeur
@@ -58,11 +59,11 @@ public class Generator {
      * @return un Chateau
      */
     public Castle generateCastle() {
-        return new Castle(this.generateStages(), seed);
+        return new Castle(this.generateStages(), this.defaultLocation, seed);
     }
 
     /**
-     * Méthode qui génère des étages. Appelle la méthode qui génère un étage
+     * Méthode qui génère des étages.Appelle la méthode qui génère un étage
      *
      * @return un tableau d'étage
      */
@@ -81,10 +82,10 @@ public class Generator {
         // On place le joueur aléatoirement dans l'étage le plus haut (ou le plus bas à voir)
         // JE SAIS VICTOR QU'ON PEUT SIMPLIFIER MAIS TQT
         Room firstRoom = stages[0].getRooms()[random.nextInt(0, stages[0].getRooms().length)];
-        Location defaultLocation = getDefaultPlayerLocation(firstRoom);
+        this.defaultLocation = getDefaultPlayerLocation(firstRoom);
 
         // On génère les passages dans chaque étage
-        GSolver solver = null;
+        GSolver solver;
         for (int i = 0; i < stages.length; i++) {
             Stage stage = stages[i];
             List<GRoom> gRooms = generateStageWalls(stage);
