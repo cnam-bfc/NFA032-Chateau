@@ -26,7 +26,7 @@ public class ErrorFrame extends CFrame implements DisplayableComponent {
         introMessage.getColors().add(CColor.BOLD);
         introMessage.getColors().add(CColor.BLINKING);
         introMessage.getColors().add(CColor.RED);
-        this.getContent().getContent().add(introMessage);
+        this.getContentPane().getComponents().add(introMessage);
 
         CLabel errorMessage = new CLabel(text, this.getLength() - 2);
         if (type.equals(Type.EXCEPTION)) {
@@ -34,11 +34,11 @@ public class ErrorFrame extends CFrame implements DisplayableComponent {
         }
         errorMessage.getColors().add(CColor.BLINKING);
         errorMessage.getColors().add(CColor.RED);
-        this.getContent().getContent().add(errorMessage);
+        this.getContentPane().getComponents().add(errorMessage);
 
         CLabel exitMessage = new CLabel(type.getFooter(), this.getLength() - 2);
         exitMessage.getColors().add(CColor.BLINKING);
-        this.getContent().getContent().add(exitMessage);
+        this.getContentPane().getComponents().add(exitMessage);
     }
 
     @Override

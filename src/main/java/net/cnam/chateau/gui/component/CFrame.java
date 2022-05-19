@@ -4,7 +4,7 @@ package net.cnam.chateau.gui.component;
 public class CFrame extends CComponent {
 
     private CLabel title;
-    private CPanel content;
+    private CPanel contentPane;
 
     public CFrame(int length, int height) {
         this(HorizontalAlignment.CENTER, length, height);
@@ -28,7 +28,7 @@ public class CFrame extends CComponent {
             panelHeight -= title.getHeight();
             panelHeight--;
         }
-        this.content = new CPanel(length - 2, panelHeight);
+        this.contentPane = new CPanel(length - 2, panelHeight);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CFrame extends CComponent {
             }
             linePointer = renderAddLine(result, linePointer, '├' + "─".repeat(this.getLength() - 2) + '┤');
         }
-        for (String str : content.render()) {
+        for (String str : contentPane.render()) {
             linePointer = renderAddLine(result, linePointer, '│' + str + '│');
         }
         renderAddLine(result, linePointer, '└' + "─".repeat(this.getLength() - 2) + '┘');
@@ -67,7 +67,7 @@ public class CFrame extends CComponent {
 
     @Override
     public void onKeyPressed(int key) {
-        this.content.onKeyPressed(key);
+        this.contentPane.onKeyPressed(key);
     }
 
     public boolean hasTitle() {
@@ -86,24 +86,24 @@ public class CFrame extends CComponent {
             panelHeight -= this.title.getHeight();
             panelHeight--;
         }
-        this.content.setHeight(panelHeight);
+        this.contentPane.setHeight(panelHeight);
     }
 
-    public CPanel getContent() {
-        return content;
+    public CPanel getContentPane() {
+        return contentPane;
     }
 
-    public void setContent(CPanel content) {
-        this.content = content;
+    public void setContentPane(CPanel contentPane) {
+        this.contentPane = contentPane;
         int panelHeight = this.getHeight() - 2;
         if (title != null) {
             panelHeight -= title.getHeight();
             panelHeight--;
         }
-        if (this.content == null) {
-            this.content = new CPanel(this.getLength() - 2, panelHeight);
+        if (this.contentPane == null) {
+            this.contentPane = new CPanel(this.getLength() - 2, panelHeight);
         } else {
-            this.content.setSize(this.getLength() - 2, panelHeight);
+            this.contentPane.setSize(this.getLength() - 2, panelHeight);
         }
     }
 
@@ -114,7 +114,7 @@ public class CFrame extends CComponent {
         if (this.title != null) {
             this.title.setLength(length - 2);
         }
-        this.content.setLength(length - 2);
+        this.contentPane.setLength(length - 2);
     }
 
     @Override
@@ -126,6 +126,6 @@ public class CFrame extends CComponent {
             panelHeight -= title.getHeight();
             panelHeight--;
         }
-        this.content.setHeight(panelHeight);
+        this.contentPane.setHeight(panelHeight);
     }
 }

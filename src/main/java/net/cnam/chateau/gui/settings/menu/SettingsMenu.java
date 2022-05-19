@@ -25,7 +25,7 @@ public class SettingsMenu extends CFrame implements DisplayableComponent {
             new DebugKeysButton()
         }, 1);
 
-        this.getContent().getContent().add(choices);
+        this.getContentPane().getComponents().add(choices);
     }
 
     @Override

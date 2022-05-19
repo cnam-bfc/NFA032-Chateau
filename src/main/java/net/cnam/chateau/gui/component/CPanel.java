@@ -7,7 +7,7 @@ import net.cnam.chateau.utils.direction.Orientation;
 
 public class CPanel extends CComponent {
 
-    private final List<CComponent> content = new LinkedList<>();
+    private final List<CComponent> components = new LinkedList<>();
 
     private Orientation renderOrientation;
     private boolean renderMainPadding;
@@ -82,21 +82,21 @@ public class CPanel extends CComponent {
         switch (renderOrientation) {
             case VERTICAL -> {
                 int contentLines = 0;
-                for (CComponent component : this.getContent()) {
+                for (CComponent component : this.getComponents()) {
                     contentLines += component.getHeight();
                 }
 
                 // Lignes du panel - lignes de texte au millieu
                 int paddingHeight = this.getHeight() - contentLines;
-                int paddingNb = this.getContent().size() - 1;
+                int paddingNb = this.getComponents().size() - 1;
                 if (renderMainPadding) {
                     paddingNb += 2;
                 }
 
-                Iterator<CComponent> componentIterator = this.getContent().iterator();
+                Iterator<CComponent> componentsIterator = this.getComponents().iterator();
                 mainLoop:
-                for (int i = 0; componentIterator.hasNext(); i++) {
-                    CComponent component = componentIterator.next();
+                for (int i = 0; componentsIterator.hasNext(); i++) {
+                    CComponent component = componentsIterator.next();
 
                     // Espace de padding
                     // + 1 pour le padding automatique (bourage) de fin
@@ -133,20 +133,20 @@ public class CPanel extends CComponent {
                 }
 
                 int contentColumns = 0;
-                for (CComponent component : this.getContent()) {
+                for (CComponent component : this.getComponents()) {
                     contentColumns += component.getLength();
                 }
 
                 // Colonnes du panel - Colonnes du texte au millieu
                 int paddingLength = this.getLength() - contentColumns;
-                int paddingNb = this.getContent().size() - 1;
+                int paddingNb = this.getComponents().size() - 1;
                 if (renderMainPadding) {
                     paddingNb += 2;
                 }
 
                 String line = "";
                 int lineLength = 0;
-                Iterator<CComponent> componentIterator = this.getContent().iterator();
+                Iterator<CComponent> componentIterator = this.getComponents().iterator();
                 mainLoop:
                 for (int i = 0; componentIterator.hasNext(); i++) {
                     CComponent component = componentIterator.next();
@@ -184,13 +184,13 @@ public class CPanel extends CComponent {
 
     @Override
     public void onKeyPressed(int key) {
-        for (CComponent component : content) {
+        for (CComponent component : components) {
             component.onKeyPressed(key);
         }
     }
 
-    public List<CComponent> getContent() {
-        return content;
+    public List<CComponent> getComponents() {
+        return components;
     }
 
     public Orientation getRenderingOrientation() {

@@ -33,10 +33,10 @@ public class Console extends CPanel {
 
     public void show(DisplayableComponent displayableComponent) {
         if (displayableComponent instanceof CComponent component) {
-            List<CComponent> save = new LinkedList<>(this.getContent());
-            this.getContent().clear();
+            List<CComponent> save = new LinkedList<>(this.getComponents());
+            this.getComponents().clear();
 
-            this.getContent().add(component);
+            this.getComponents().add(component);
 
             boolean continueShowing;
             do {
@@ -47,7 +47,7 @@ public class Console extends CPanel {
                 if (settings.getConsoleHeight() != this.getHeight()) {
                     this.setHeight(settings.getConsoleHeight());
                 }
-                for (CComponent comp : this.getContent()) {
+                for (CComponent comp : this.getComponents()) {
                     if (!displayableComponent.isInFullScreenMode()) {
                         continue;
                     }
@@ -109,8 +109,8 @@ public class Console extends CPanel {
                 continueShowing = displayableComponent.isInLoopingMode();
             } while (continueShowing);
 
-            this.getContent().clear();
-            this.getContent().addAll(save);
+            this.getComponents().clear();
+            this.getComponents().addAll(save);
         }
     }
 

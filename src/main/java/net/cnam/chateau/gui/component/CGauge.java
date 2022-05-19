@@ -22,11 +22,11 @@ public class CGauge extends CFrame implements SelectableComponent {
         this.label = new CLabel((int) ((float) value / maxValue * 100) + "%", 4, 1);
         this.progressBar = new CProgressBar(length - 7, 1, value, maxValue);
 
-        CPanel panel = this.getContent();
+        CPanel panel = this.getContentPane();
         panel.setRenderingMainPadding(false);
         panel.setRenderingOrientation(Orientation.HORIZONTAL);
-        panel.getContent().add(label);
-        panel.getContent().add(progressBar);
+        panel.getComponents().add(label);
+        panel.getComponents().add(progressBar);
     }
 
     @Override

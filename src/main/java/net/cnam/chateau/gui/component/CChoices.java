@@ -32,7 +32,7 @@ public class CChoices extends CPanel implements SelectableComponent {
             } else {
                 component.setSelected(false);
             }
-            this.getContent().add((CComponent) component);
+            this.getComponents().add((CComponent) component);
         }
 
         selectableComponents = new ArrayList<>(Arrays.asList(components));

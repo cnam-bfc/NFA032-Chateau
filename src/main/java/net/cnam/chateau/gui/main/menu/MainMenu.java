@@ -34,7 +34,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
             new QuitButton(this)
         }, 1);
 
-        this.getContent().getContent().add(choices);
+        this.getContentPane().getComponents().add(choices);
     }
 
     @Override

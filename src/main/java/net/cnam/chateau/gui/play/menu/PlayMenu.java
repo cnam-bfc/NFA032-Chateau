@@ -28,7 +28,7 @@ public class PlayMenu extends CFrame implements DisplayableComponent {
             }, Orientation.HORIZONTAL, 10)
         }, 1);
 
-        this.getContent().getContent().add(choices);
+        this.getContentPane().getComponents().add(choices);
     }
 
     @Override

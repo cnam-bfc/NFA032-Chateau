@@ -25,7 +25,7 @@ public class ConfigureSoundEffectsFrame extends CFrame implements DisplayableCom
             }, Orientation.HORIZONTAL, 10)
         }, 5);
 
-        this.getContent().getContent().add(choices);
+        this.getContentPane().getComponents().add(choices);
     }
 
     @Override

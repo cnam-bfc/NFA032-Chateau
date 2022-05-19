@@ -23,8 +23,8 @@ public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
         CLabel instructions_2 = new CLabel("Appuyez sur \"Entrée\" pour valider");
 
         this.setTitle(title);
-        this.getContent().getContent().add(instructions_1);
-        this.getContent().getContent().add(instructions_2);
+        this.getContentPane().getComponents().add(instructions_1);
+        this.getContentPane().getComponents().add(instructions_2);
     }
 
     @Override
