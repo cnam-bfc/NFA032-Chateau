@@ -79,7 +79,7 @@ public class Generator {
         for (int i = 0; i < stages.length; i++) {
             Stage stage = stages[i];
             List<GRoom> gRooms = generateStageWalls(stage);
-            GSolverTry test = new GSolverTry(stage.getRooms()[0], gRooms, random);
+            GSolver solver = new GSolver(stage.getRooms()[0], gRooms, random);
         }
 
         return stages;
