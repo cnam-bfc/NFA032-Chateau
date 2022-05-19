@@ -16,7 +16,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.structure.block.DownStair;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.utils.Location;
@@ -41,7 +40,6 @@ public class Generator {
 
     private final long seed;
     private final Random random;
-    private Location playerLocation;
 
     /**
      * Constructeur
@@ -102,7 +100,7 @@ public class Generator {
                 UpStair exitStair = solver.getExitStair();
                 DownStair entryStair = new DownStair();
                 exitStair.setDownStair(entryStair);
-                
+
                 int xOldExit = solver.getExitRoom().getLocation().getX() + solver.getExitLocation().getX();
                 int yOldExit = solver.getExitRoom().getLocation().getY() + solver.getExitLocation().getY();
                 while (stageEntry.getLength() <= xOldExit) {
@@ -442,24 +440,12 @@ public class Generator {
     }
 
     /**
-     * Méthode qui permet de choisir la room qui sera la room de départ du
-     * joueur.
-     *
-     * @param stage étage numéro 0
-     * @return la room de départ
-     */
-    public Room getfirstRoom(Stage stage) {
-        Room firstRoom = stage.getRooms()[random.nextInt(0, stage.getRooms().length)];
-        placePlayer(firstRoom);
-        return firstRoom;
-    }
-
-    /**
      * Méthode pour placer le player dans la première room.
      *
      * @param room room de départ
+     * @return La location dans l'étage
      */
-    public void placePlayer(Room room) {
+    public Location getDefaultPlayerLocation(Room room) {
         int x = random.nextInt(1, room.getLength() - 1);
         int y = random.nextInt(1, room.getHeight() - 1);
         boolean testDoor;
@@ -489,8 +475,7 @@ public class Generator {
                 testDoor = true;
             }
         } while (testDoor);
-        playerLocation.setX(x);
-        playerLocation.setY(y);
+        return new Location(room.getLocation().getX() + x, room.getLocation().getY() + y);
     }
 
     /**

@@ -1,5 +1,7 @@
 package net.cnam.chateau.structure;
 
+import net.cnam.chateau.utils.Location;
+
 /**
  * Classe d'un chateau
  */
@@ -7,6 +9,8 @@ public class Castle {
 
     private final Stage[] stages;
     private final long seed;
+
+    private Location defaultPlayerLocation;
 
     /**
      * Constructeur
@@ -35,5 +39,9 @@ public class Castle {
      */
     public long getSeed() {
         return seed;
+    }
+
+    public Location getDefaultPlayerLocation() {
+        return defaultPlayerLocation;
     }
 }
