@@ -37,9 +37,8 @@ public class Game extends CFrame implements DisplayableComponent, KeyListener {
         Generator generator = new Generator(seed);
         this.castle = generator.generateCastle();
         this.player = player;
+        this.player.setLocation(castle.getDefaultPlayerLocation());
         this.castle.getStages()[0].getEntities().add(player);
-        // TODO REMOVE LINE
-        this.castle.getStages()[0].getEntities().add(player.getPet()); //à voir pour faire mieux
         this.map = new Map(this.castle.getStages()[0], player.getLocation());
 
         this.getContentPane().getComponents().add(map);

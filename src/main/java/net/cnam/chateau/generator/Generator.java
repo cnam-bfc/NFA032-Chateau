@@ -16,7 +16,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.structure.block.DownStair;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.utils.Location;
@@ -41,7 +40,7 @@ public class Generator {
 
     private final long seed;
     private final Random random;
-    private Location playerLocation;
+    private Location defaultLocation;
 
     /**
      * Constructeur
@@ -60,11 +59,11 @@ public class Generator {
      * @return un Chateau
      */
     public Castle generateCastle() {
-        return new Castle(this.generateStages(), seed);
+        return new Castle(this.generateStages(), this.defaultLocation, seed);
     }
 
     /**
-     * Méthode qui génère des étages. Appelle la méthode qui génère un étage
+     * Méthode qui génère des étages.Appelle la méthode qui génère un étage
      *
      * @return un tableau d'étage
      */
@@ -82,10 +81,11 @@ public class Generator {
         // On récupère la première room
         // On place le joueur aléatoirement dans l'étage le plus haut (ou le plus bas à voir)
         // JE SAIS VICTOR QU'ON PEUT SIMPLIFIER MAIS TQT
-        Room firstRoom = getfirstRoom(stages[0]);
+        Room firstRoom = stages[0].getRooms()[random.nextInt(0, stages[0].getRooms().length)];
+        this.defaultLocation = getDefaultPlayerLocation(firstRoom);
 
         // On génère les passages dans chaque étage
-        GSolver solver = null;
+        GSolver solver;
         for (int i = 0; i < stages.length; i++) {
             Stage stage = stages[i];
             List<GRoom> gRooms = generateStageWalls(stage);
@@ -118,37 +118,37 @@ public class Generator {
                 } catch (CoordinatesOutOfBoundsException ex) {
                     firstRoom = stageEntry.getRooms()[0];
                 }
-                
-            int x = random.nextInt(1, firstRoom.getLength() - 1);
-            int y = random.nextInt(1, firstRoom.getHeight() - 1);
-            boolean testDoor;
-            //vérification qu'il n'y a pas de porte à proximité sinon on décale
-            do {
-                testDoor = false;
-                if (firstRoom.getBlocks()[x + 1][y] instanceof Door) {
-                    x -= 1;
-                    testDoor = true;
-                }
-                if (firstRoom.getBlocks()[x - 1][y] instanceof Door) {
-                    x += 1;
-                    testDoor = true;
-                }
-                if (firstRoom.getBlocks()[x][y + 1] instanceof Door) {
-                    y -= 1;
-                    testDoor = true;
-                }
-                if (firstRoom.getBlocks()[x + 1][y - 1] instanceof Door) {
-                    y += 1;
-                    testDoor = true;
-                }
-                if (firstRoom.getBlocks()[x][y] != null) {
-                    x = random.nextInt(1, firstRoom.getLength() - 1);
-                    y = random.nextInt(1, firstRoom.getHeight() - 1);
-                    testDoor = true;
-                }
-            } while (testDoor);
-            firstRoom.getBlocks()[x][y] = entryStair;
-                
+
+                int x = random.nextInt(1, firstRoom.getLength() - 1);
+                int y = random.nextInt(1, firstRoom.getHeight() - 1);
+                boolean testDoor;
+                //vérification qu'il n'y a pas de porte à proximité sinon on décale
+                do {
+                    testDoor = false;
+                    if (firstRoom.getBlocks()[x + 1][y] instanceof Door) {
+                        x -= 1;
+                        testDoor = true;
+                    }
+                    if (firstRoom.getBlocks()[x - 1][y] instanceof Door) {
+                        x += 1;
+                        testDoor = true;
+                    }
+                    if (firstRoom.getBlocks()[x][y + 1] instanceof Door) {
+                        y -= 1;
+                        testDoor = true;
+                    }
+                    if (firstRoom.getBlocks()[x + 1][y - 1] instanceof Door) {
+                        y += 1;
+                        testDoor = true;
+                    }
+                    if (firstRoom.getBlocks()[x][y] != null) {
+                        x = random.nextInt(1, firstRoom.getLength() - 1);
+                        y = random.nextInt(1, firstRoom.getHeight() - 1);
+                        testDoor = true;
+                    }
+                } while (testDoor);
+                firstRoom.getBlocks()[x][y] = entryStair;
+
             }
         }
 
@@ -480,24 +480,12 @@ public class Generator {
     }
 
     /**
-     * Méthode qui permet de choisir la room qui sera la room de départ du
-     * joueur.
-     *
-     * @param stage étage numéro 0
-     * @return la room de départ
-     */
-    public Room getfirstRoom(Stage stage) {
-        Room firstRoom = stage.getRooms()[random.nextInt(0, stage.getRooms().length)];
-        placePlayer(firstRoom);
-        return firstRoom;
-    }
-
-    /**
      * Méthode pour placer le player dans la première room.
      *
      * @param room room de départ
+     * @return La location dans l'étage
      */
-    public void placePlayer(Room room) {
+    public Location getDefaultPlayerLocation(Room room) {
         int x = random.nextInt(1, room.getLength() - 1);
         int y = random.nextInt(1, room.getHeight() - 1);
         boolean testDoor;
@@ -527,8 +515,7 @@ public class Generator {
                 testDoor = true;
             }
         } while (testDoor);
-        playerLocation.setX(x);
-        playerLocation.setY(y);
+        return new Location(room.getLocation().getX() + x, room.getLocation().getY() + y);
     }
 
     /**
