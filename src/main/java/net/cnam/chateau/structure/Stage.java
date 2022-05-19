@@ -82,6 +82,37 @@ public class Stage {
 
         return null;
     }
+    
+    public Room getRoom(int x, int y) throws CoordinatesOutOfBoundsException{
+        if (x < 0) {
+            throw new CoordinatesOutOfBoundsException("x doit être positif");
+        }
+        if (y < 0) {
+            throw new CoordinatesOutOfBoundsException("y doit être positif");
+        }
+        if (x > this.getLength()) {
+            throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
+        }
+        if (y > this.getHeight()) {
+            throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
+        }
+
+        for (Room room : rooms) {
+            Location roomLocation = room.getLocation();
+            // Si le newBlock est dans la pièce
+            if (x >= roomLocation.getX() && x < roomLocation.getX() + room.getLength()
+                    && y >= roomLocation.getY() && y < roomLocation.getY() + room.getHeight()) {
+                // On récupère la room en calculant ses coordonnées relatives par rapport à la pièce
+                return room;
+            }
+        }
+
+        return null;
+    }
+    
+    public Room getRoom(Location location) throws CoordinatesOutOfBoundsException{
+        return getRoom(location.getX(), location.getY());
+    }
 
     /**
      * Méthode pour définir un newBlock aux coordonnées passé en paramètres.

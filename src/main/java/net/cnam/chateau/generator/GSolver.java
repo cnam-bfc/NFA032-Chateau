@@ -7,12 +7,16 @@ import java.util.Map;
 import java.util.Random;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.*;
+import net.cnam.chateau.utils.Location;
 
 public class GSolver {
 
     private List<List<GRoom>> decompositionNiveau = new ArrayList<>();
     private Map<GRoom, Boolean> verifDecomposition = new HashMap<>();
     private Random random;
+    private Room exitRoom;
+    private Location exitLocation;
+    private UpStair exitStair;
 
     public GSolver(Room room, List<GRoom> gRooms, Random random) {
         this.random = random;
@@ -103,8 +107,13 @@ public class GSolver {
                 testDoor = true;
             }
         } while (testDoor);
-        room.getBlocks()[x][y] = new UpStair();
-
+        UpStair exitStair = new UpStair();
+        room.getBlocks()[x][y] = exitStair;
+        
+        //à voir si je garde
+        this.exitRoom = room;
+        this.exitLocation = new Location(x,y);
+        this.exitStair = exitStair;
     }
 
     private GRoom findGRoom(Room room, List<GRoom> GRooms) {
@@ -114,5 +123,17 @@ public class GSolver {
             }
         }
         return null;
+    }
+
+    public Room getExitRoom() {
+        return exitRoom;
+    }
+    
+    public Location getExitLocation() {
+        return exitLocation;
+    }
+
+    public UpStair getExitStair() {
+        return exitStair;
     }
 }

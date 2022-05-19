@@ -16,6 +16,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.structure.block.DownStair;
+import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.array.ArrayUtils;
 
@@ -38,6 +41,7 @@ public class Generator {
 
     private final long seed;
     private final Random random;
+    private Location playerLocation;
 
     /**
      * Constructeur
@@ -75,16 +79,40 @@ public class Generator {
             stages[i] = stage;
         }
 
+        // On récupère la première room
+        // On place le joueur aléatoirement dans l'étage le plus haut (ou le plus bas à voir)
+        // JE SAIS VICTOR QU'ON PEUT SIMPLIFIER MAIS TQT
+        Room firstRoom = getfirstRoom(stages[0]);
+
         // On génère les passages dans chaque étage
+        GSolver solver = null;
         for (int i = 0; i < stages.length; i++) {
             Stage stage = stages[i];
             List<GRoom> gRooms = generateStageWalls(stage);
+            // - on place les sorties
+            if (i == 0) {
+                solver = new GSolver(firstRoom, gRooms, random);
+            } else {
+                //trouver comment choisir la nouvelle room
+                solver = new GSolver(firstRoom, gRooms, random);
+            }
+            //ajoute l'escalier du bas en haut
+            if (i < stages.length - 1) {
+                Stage stageEntry = stages[i + 1];
+                UpStair exitStair = solver.getExitStair();
+                DownStair entryStair = new DownStair();
+                exitStair.setDownStair(entryStair);
+                
+                int xOldExit = solver.getExitRoom().getLocation().getX() + solver.getExitLocation().getX();
+                int yOldExit = solver.getExitRoom().getLocation().getY() + solver.getExitLocation().getY();
+                while (stageEntry.getLength() <= xOldExit) {
+                    xOldExit -= 1;
+                }
+                while (stageEntry.getHeight() <= yOldExit) {
+                    yOldExit -= 1;
+                }
+            }
         }
-
-        // On place le joueur aléatoirement dans l'étage le plus haut (ou le plus bas à voir)
-        // On génère les passages entre chaque étag
-        // - on place les sorties
-        //GSolver solver = new GSolver(stage.getRooms()[0], gRooms, random);
 
         return stages;
     }
@@ -238,43 +266,6 @@ public class Generator {
         }
     }
 
-    // TODO Poubelle !!!!!!!!!!!!!!!!!!
-//    private boolean verifyStageJoin(List<GRoom> rooms) {
-//        // On pioche une pièce au hasard
-//        GRoom firstRoom = rooms.get(random.nextInt(rooms.size()));
-//        System.out.println(firstRoom);
-//        
-//        // On recherche les pièces qui ne sont pas reliés à firstRoom
-//        List<GRoom> roomsAlone = getRoomsAlone(rooms, firstRoom);
-//        System.out.println(roomsAlone);
-//
-//        return roomsAlone.isEmpty();
-//    }
-//
-//    private List<GRoom> getRoomsAlone(List<GRoom> rooms, GRoom room) {
-//        // Toutes les pièces passé en paramètres sont soit isolé soit pas encore calculé si elle était relié
-//        List<GRoom> roomsAlone = new LinkedList<>(rooms);
-//        // On retire la pièce vu qu'on est entré dedans
-//        roomsAlone.remove(room);
-//
-//        // Pour chaque mur 
-//        for (GRoomWall wall : room.getWalls()) {
-//            for (GWall passage : wall.getPassages()) {
-//                GRoomWall otherWall;
-//                if (passage.getWallOne() == wall) {
-//                    otherWall = passage.getWallTwo();
-//                } else {
-//                    otherWall = passage.getWallOne();
-//                }
-//                if (!roomsAlone.contains(otherWall.getGRoom())) {
-//                    continue;
-//                }
-//                roomsAlone.removeAll(getRoomsAlone(roomsAlone, otherWall.getGRoom()));
-//            }
-//        }
-//
-//        return roomsAlone;
-//    }
     /**
      * Méthode permettant de générer l'intérieur d'une pièce. Met un nombre
      * aléatoire de bloc dans la pièce.
@@ -448,6 +439,58 @@ public class Generator {
         roomTop.setBlocks(newBlocksRoomTop);
 
         return roomBot;
+    }
+
+    /**
+     * Méthode qui permet de choisir la room qui sera la room de départ du
+     * joueur.
+     *
+     * @param stage étage numéro 0
+     * @return la room de départ
+     */
+    public Room getfirstRoom(Stage stage) {
+        Room firstRoom = stage.getRooms()[random.nextInt(0, stage.getRooms().length)];
+        placePlayer(firstRoom);
+        return firstRoom;
+    }
+
+    /**
+     * Méthode pour placer le player dans la première room.
+     *
+     * @param room room de départ
+     */
+    public void placePlayer(Room room) {
+        int x = random.nextInt(1, room.getLength() - 1);
+        int y = random.nextInt(1, room.getHeight() - 1);
+        boolean testDoor;
+        //vérification qu'il n'y a pas de porte à proximité sinon on décale.
+        //Vérifie également qu'il n'y a pas de de bloc à la position ou l'on se place
+        do {
+            testDoor = false;
+            if (room.getBlocks()[x + 1][y] instanceof Door) {
+                x -= 1;
+                testDoor = true;
+            }
+            if (room.getBlocks()[x - 1][y] instanceof Door) {
+                x += 1;
+                testDoor = true;
+            }
+            if (room.getBlocks()[x][y + 1] instanceof Door) {
+                y -= 1;
+                testDoor = true;
+            }
+            if (room.getBlocks()[x + 1][y - 1] instanceof Door) {
+                y += 1;
+                testDoor = true;
+            }
+            if (room.getBlocks()[x][y] != null) {
+                x = random.nextInt(1, room.getLength() - 1);
+                y = random.nextInt(1, room.getHeight() - 1);
+                testDoor = true;
+            }
+        } while (testDoor);
+        playerLocation.setX(x);
+        playerLocation.setY(y);
     }
 
     /**
