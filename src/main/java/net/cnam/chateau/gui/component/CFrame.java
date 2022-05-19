@@ -3,26 +3,23 @@ package net.cnam.chateau.gui.component;
 // ┌┐└┘├┤─│┴┯
 public class CFrame extends CComponent {
 
-    private static final int DEFAULT_LENGTH = 50;
-    private static final int DEFAULT_HEIGHT = 5;
-
     private CLabel title;
     private CPanel content;
 
-    public CFrame() {
-        this(null);
-    }
-
-    public CFrame(CLabel title) {
-        this(title, DEFAULT_LENGTH, DEFAULT_HEIGHT);
-    }
-
     public CFrame(int length, int height) {
-        this(null, length, height);
+        this(HorizontalAlignment.CENTER, length, height);
+    }
+
+    public CFrame(HorizontalAlignment horizontalAlignment, int length, int height) {
+        this(horizontalAlignment, null, length, height);
     }
 
     public CFrame(CLabel title, int length, int height) {
-        super(length, height);
+        this(HorizontalAlignment.CENTER, title, length, height);
+    }
+
+    public CFrame(HorizontalAlignment horizontalAlignment, CLabel title, int length, int height) {
+        super(horizontalAlignment, length, height);
 
         this.title = title;
         int panelHeight = height - 2;

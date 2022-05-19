@@ -12,6 +12,7 @@ import net.cnam.chateau.utils.console.RawConsoleInput;
 // https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 // https://askubuntu.com/questions/558280/changing-colour-of-text-and-background-of-terminal
 // https://en.wikipedia.org/wiki/ANSI_escape_code
+// https://github.com/htop-dev/htop/blob/d0d9f202c56c1fc8919548418b339d31a6b49c02/CRT.c#L944
 public class Console extends CPanel {
 
     private final AppSettings settings;
@@ -60,6 +61,46 @@ public class Console extends CPanel {
                 System.out.print(this);
                 try {
                     int input = RawConsoleInput.read(true);
+
+                    // Ce bout de code est nécessaire pour interpreter les caractères "spéciaux" sous linux
+                    // Si un caractère d'échappemment est entré
+                    // 91 = [
+                    if (input == 27 && RawConsoleInput.read(false) == 91) {
+                        switch (RawConsoleInput.read(false)) {
+                            // 51 = 3
+                            case 51 -> {
+                                switch (RawConsoleInput.read(false)) {
+                                    // 126 = ~
+                                    case 126 -> {
+                                        // 57427 = suppr
+                                        input = 57427;
+                                    }
+                                }
+                            }
+                            // 65 = A
+                            case 65 -> {
+                                // 57416 = Flèche du haut
+                                input = 57416;
+                            }
+                            // 66 = B
+                            case 66 -> {
+                                // 57424 = Flèche du bas
+                                input = 57424;
+                            }
+                            // 67 = C
+                            case 67 -> {
+                                // 57421 = Flèche de droite
+                                input = 57421;
+                            }
+                            // 68 = D
+                            case 68 -> {
+                                // 57419 = Flèche de gauche
+                                input = 57419;
+                            }
+                        }
+                    }
+
+                    // On notifie les éléments graphiques de la touche entrée
                     this.onKeyPressed(input);
                 } catch (IOException ex) {
                     System.out.println("ERREUR");
@@ -83,10 +124,19 @@ public class Console extends CPanel {
         System.out.print("\033[0J");
     }
 
-    public void finalClear() {
-        clear();
+    public void finalClear(boolean clear) {
+        if (clear) {
+            clear();
+        } else {
+            System.out.println();
+        }
 
         // Rendre le curseur visible
         System.out.print("\033[?25h");
+
+        try {
+            RawConsoleInput.resetConsoleMode();
+        } catch (IOException ex) {
+        }
     }
 }

@@ -7,7 +7,7 @@ public class BackButton extends CButton {
     private final SettingsMenu settingsMenu;
 
     public BackButton(SettingsMenu settingsMenu) {
-        super("4. Retour");
+        super("Retour");
 
         this.settingsMenu = settingsMenu;
     }

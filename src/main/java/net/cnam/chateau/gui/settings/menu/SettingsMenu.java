@@ -1,28 +1,31 @@
 package net.cnam.chateau.gui.settings.menu;
 
+import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.DisplayableComponent;
-import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.component.CButtons;
+import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.component.SelectableComponent;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 public class SettingsMenu extends CFrame implements DisplayableComponent {
 
-    private final CButtons buttonsChoices;
     private boolean display = true;
 
-    public SettingsMenu(Console console) {
-        super(new CLabel("Paramètres"));
+    public SettingsMenu(Console console, AppSettings settings, SimpleAudioPlayer menuPlayer) {
+        super(new CLabel("Paramètres"), 0, 0);
 
-        this.buttonsChoices = new CButtons(new CButton[]{
+        CChoices choices = new CChoices(new SelectableComponent[]{
             new ConfigureScreenButton(console),
+            new ConfigureMusicButton(console, settings, menuPlayer),
+            new ConfigureSoundEffectsButton(console, settings),
             new BackButton(this),
             new DebugGeneratorButton(),
             new DebugKeysButton()
         }, 1);
 
-        this.getContent().getContent().add(buttonsChoices);
+        this.getContent().getContent().add(choices);
     }
 
     @Override

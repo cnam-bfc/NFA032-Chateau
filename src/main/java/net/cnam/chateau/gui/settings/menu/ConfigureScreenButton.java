@@ -8,7 +8,7 @@ public class ConfigureScreenButton extends CButton {
     private final Console console;
 
     public ConfigureScreenButton(Console console) {
-        super("1. Configurer les dimensions");
+        super("Configurer les dimensions de la fenêtre");
 
         this.console = console;
     }

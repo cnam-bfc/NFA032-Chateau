@@ -4,10 +4,12 @@ import net.cnam.chateau.utils.StringUtils;
 
 public abstract class CComponent {
 
+    private HorizontalAlignment horizontalAlignment;
     private int length;
     private int height;
 
-    public CComponent(int length, int height) {
+    public CComponent(HorizontalAlignment horizontalAlignment, int length, int height) {
+        this.horizontalAlignment = horizontalAlignment;
         this.length = length;
         this.height = height;
     }
@@ -15,6 +17,14 @@ public abstract class CComponent {
     public abstract String[] render();
 
     public abstract void onKeyPressed(int key);
+
+    public HorizontalAlignment getHorizontalAlignment() {
+        return horizontalAlignment;
+    }
+
+    public void setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
+        this.horizontalAlignment = horizontalAlignment;
+    }
 
     public void setSize(int length, int height) {
         this.setLength(length);

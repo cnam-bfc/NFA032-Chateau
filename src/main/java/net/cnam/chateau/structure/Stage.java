@@ -4,29 +4,31 @@ import java.util.LinkedList;
 import java.util.List;
 import net.cnam.chateau.entity.LivingEntity;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
 
 /**
  * Classe d'un étage
  */
-public class Stage extends CComponent {
+public class Stage {
+
+    private final List<LivingEntity> entities = new LinkedList<>();
 
     private Room[] rooms;
-    private final List<LivingEntity> entities = new LinkedList<>();
+    private int length;
+    private int height;
 
     /**
      * Constructeur
      *
      * @param rooms Tableau des pièces de l'étage
      * @param length La longueur de l'étage
-     * @param width La largeur de l'étage
+     * @param height La hauteur de l'étage
      */
-    public Stage(Room[] rooms, int length, int width) {
-        super(length, width);
-
+    public Stage(Room[] rooms, int length, int height) {
         this.rooms = rooms;
+        this.length = length;
+        this.height = height;
     }
 
     /**
@@ -35,8 +37,9 @@ public class Stage extends CComponent {
      * @param x Coordonnée x
      * @param y Coordonnée y
      * @return Le bloc aux coordonnées spécifiés
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception
-     * lorsque les coordonnées ne sont pas contenu dans la taille de l'étage
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
      */
     public Block getBlock(int x, int y) throws CoordinatesOutOfBoundsException {
         if (x < 0) {
@@ -71,8 +74,9 @@ public class Stage extends CComponent {
      * @param x Coordonnée x
      * @param y Coordonnée y
      * @param block Le bloc aux coordonnées spécifiés
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception
-     * lorsque les coordonnées ne sont pas contenu dans la taille de l'étage
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
      */
     public void setBlock(int x, int y, Block block) throws CoordinatesOutOfBoundsException {
         if (x < 0) {
@@ -105,8 +109,9 @@ public class Stage extends CComponent {
      * @param x Coordonnée x
      * @param y Coordonnée y
      * @return L'entité aux coordonnées spécifiés
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception
-     * lorsque les coordonnées ne sont pas contenu dans la taille de l'étage
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
      */
     public LivingEntity getEntity(int x, int y) throws CoordinatesOutOfBoundsException {
         if (x < 0) {
@@ -138,8 +143,8 @@ public class Stage extends CComponent {
      * @param entity L'entité à faire bouger
      * @param relX Déplacement relatif à faire au niveau de l'abscisse
      * @param relY Déplacement relatif à faire au niveau de l'ordonnée
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception levé
-     * si l'entitée tente de sortir de l'étage
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception levé si l'entitée tente de sortir de l'étage
      */
     public void move(LivingEntity entity, int relX, int relY) throws CoordinatesOutOfBoundsException {
         for (LivingEntity entity2 : entities) {
@@ -156,8 +161,10 @@ public class Stage extends CComponent {
                 }
                 // TODO Vérifier qu'il va pas sur un block non translucide
                 //vérifier si l'entité est un joueur, si oui vérifie si il a un pet, si oui, positionne le pet à la position du joueur avant déplacement
-                if (entity instanceof Player player){
-                    if(player.getPet() != null && player.getPet().isFollowPlayer()) player.getPet().follow(entityLocation);
+                if (entity instanceof Player player) {
+                    if (player.getPet() != null && player.getPet().isFollowPlayer()) {
+                        player.getPet().follow(entityLocation);
+                    }
                 }
                 entityLocation.setX(entityLocation.getX() + relX);
                 entityLocation.setY(entityLocation.getY() + relY);
@@ -165,34 +172,38 @@ public class Stage extends CComponent {
         }
     }
 
-    @Override
-    public String[] render() {
-        String[] result = new String[this.getHeight()];
-
-        for (int y = 0; y < this.getHeight(); y++) {
-            String line = "";
-            for (int x = 0; x < this.getLength(); x++) {
-                try {
-                    Block block = getBlock(x, y);
-                    LivingEntity entity = getEntity(x, y);
-                    if (entity != null) {
-                        line += entity.getCharacter();
-                    } else if (block != null) {
-                        line += block.getCharacter();
-                    } else {
-                        line += ' ';
-                    }
-                } catch (CoordinatesOutOfBoundsException ex) {
-                }
-            }
-            result[y] = line;
-        }
-
-        return result;
-    }
-
-    @Override
-    public void onKeyPressed(int key) {
+//    @Override
+//    public String[] render() {
+//        String[] result = new String[this.getHeight()];
+//
+//        for (int y = 0; y < this.getHeight(); y++) {
+//            String line = "";
+//            for (int x = 0; x < this.getLength(); x++) {
+//                try {
+//                    Block block = getBlock(x, y);
+//                    LivingEntity entity = getEntity(x, y);
+//                    if (entity != null) {
+//                        line += entity.getCharacter();
+//                    } else if (block != null) {
+//                        line += block.getCharacter();
+//                    } else {
+//                        line += ' ';
+//                    }
+//                } catch (CoordinatesOutOfBoundsException ex) {
+//                }
+//            }
+//            result[y] = line;
+//        }
+//
+//        return result;
+//    }
+    /**
+     * Méthode permettant de récupérer les entités dans l'étage
+     *
+     * @return La liste des entités
+     */
+    public List<LivingEntity> getEntities() {
+        return entities;
     }
 
     /**
@@ -204,6 +215,22 @@ public class Stage extends CComponent {
         return rooms;
     }
 
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     /**
      * Méthode permettant de définir les pièces de l'étage
      *
@@ -211,14 +238,5 @@ public class Stage extends CComponent {
      */
     public void setRooms(Room[] rooms) {
         this.rooms = rooms;
-    }
-
-    /**
-     * Méthode permettant de récupérer les entités dans l'étage
-     *
-     * @return La liste des entités
-     */
-    public List<LivingEntity> getEntities() {
-        return entities;
     }
 }
