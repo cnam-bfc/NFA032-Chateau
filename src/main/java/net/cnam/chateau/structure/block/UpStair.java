@@ -1,11 +1,15 @@
 package net.cnam.chateau.structure.block;
 
+import net.cnam.chateau.entity.LivingEntity;
+import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.event.BlockEvent;
+import net.cnam.chateau.gui.event.BlockListener;
 
 /**
  * Class permettant de créer un block Porte (Door) pour la map.
  */
-public class UpStair extends Block {
+public class UpStair extends Block implements BlockListener {
 
     private boolean locked = false;
     private DownStair downStair;
@@ -18,6 +22,18 @@ public class UpStair extends Block {
     @Override
     public String getCharacter() {
         return CColor.BRIGHT_YELLOW + "U" + CColor.BRIGHT_YELLOW.getForegroundReset();
+    }
+
+    @Override
+    public void onEntityEnterBlock(BlockEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity instanceof Player player) {
+            // TODO Faire monter d'étage le joueur
+        }
+    }
+
+    @Override
+    public void onEntityLeaveBlock(BlockEvent event) {
     }
 
     public boolean isLocked() {
@@ -34,9 +50,5 @@ public class UpStair extends Block {
 
     public void setDownStair(DownStair downStair) {
         this.downStair = downStair;
-    }
-
-    public void useStair() {
-
     }
 }

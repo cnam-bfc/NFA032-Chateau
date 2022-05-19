@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.settings.menu;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.DisplayableComponent;
+import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
@@ -16,14 +17,16 @@ public class SettingsMenu extends CFrame implements DisplayableComponent {
     public SettingsMenu(Console console, AppSettings settings, SimpleAudioPlayer menuPlayer) {
         super(new CLabel("Paramètres"), 0, 0);
 
+        CButton backButton = new BackButton(this);
         CChoices choices = new CChoices(new SelectableComponent[]{
             new ConfigureScreenButton(console),
             new ConfigureMusicButton(console, settings, menuPlayer),
             new ConfigureSoundEffectsButton(console, settings),
-            new BackButton(this),
+            backButton,
             new DebugGeneratorButton(),
             new DebugKeysButton()
         }, 1);
+        choices.select(backButton);
 
         this.getContentPane().getComponents().add(choices);
     }

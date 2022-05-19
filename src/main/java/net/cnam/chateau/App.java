@@ -1,7 +1,7 @@
 package net.cnam.chateau;
 
 import net.cnam.chateau.gui.Console;
-import net.cnam.chateau.gui.error.ErrorFrame;
+import net.cnam.chateau.gui.error.CErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 
 public class App {
@@ -27,7 +27,7 @@ public class App {
             for (int i = 2; i < trace.length + 2; i++) {
                 lines[i] = "   at " + trace[i - 2];
             }
-            console.show(new ErrorFrame(ErrorFrame.Type.EXCEPTION, lines));
+            console.show(new CErrorDialog(CErrorDialog.Type.EXCEPTION, lines));
             console.finalClear(false);
         }
     }

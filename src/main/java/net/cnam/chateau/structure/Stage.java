@@ -227,7 +227,7 @@ public class Stage {
                 }
                 // On notifie le nouveau block que l'entité rentre sur celui-ci
                 if (newBlock != null && newBlock instanceof BlockListener blockListener) {
-                    blockListener.onEntityLeaveBlock(new BlockEvent(entity));
+                    blockListener.onEntityEnterBlock(new BlockEvent(entity));
                 }
 
                 entityLocation.setX(location.getX());
