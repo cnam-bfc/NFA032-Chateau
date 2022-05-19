@@ -112,6 +112,7 @@ public class GSolver {
         
         //à voir si je garde
         this.exitRoom = room;
+        this.exitStair.setLocation(new Location(x,y));
         this.exitLocation = new Location(x,y);
         this.exitStair = exitStair;
     }
