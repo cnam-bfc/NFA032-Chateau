@@ -1,8 +1,11 @@
 package net.cnam.chateau.generator;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
@@ -11,10 +14,13 @@ import net.cnam.chateau.utils.direction.Orientation;
 public class GRoom {
 
     private final List<GRoomWall> walls = new LinkedList<>();
+    private Room room;
+    private List<GWall> gWalls = new ArrayList<>();
 
     private int mazeNb;
 
     public GRoom(Room room, Stage stage, int mazeNb) {
+        this.room = room;
         this.mazeNb = mazeNb;
 
         Location roomLocation = room.getLocation();
@@ -78,5 +84,24 @@ public class GRoom {
         }
         final GRoom other = (GRoom) obj;
         return Objects.equals(this.walls, other.walls);
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public List<GWall> getGWalls() {
+        return gWalls;
+    }
+    
+    public ArrayList<GRoom> roomAdjacent(){
+        ArrayList<GRoom> result = new ArrayList();
+        for(GWall c : this.gWalls ){ 
+            if (c.isBreaked()){
+                if (c.getRoomOne() != this) result.add(c.getRoomOne());
+                if (c.getRoomTwo() != this) result.add(c.getRoomTwo());
+            }
+        }
+        return result;
     }
 }

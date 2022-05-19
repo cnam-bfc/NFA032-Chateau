@@ -123,12 +123,14 @@ public class Generator {
 
         Stage generatedStage = new Stage(rooms, stageLength, stageWidth);
 
-        generateStageWalls(generatedStage);
+        List<GRoom> GRoom = generateStageWalls(generatedStage);
+        GSolverTry test = new GSolverTry(rooms[0] ,GRoom, random);
+        //ICI ALBAN
 
         return generatedStage;
     }
 
-    private void generateStageWalls(Stage generatedStage) {
+    private List<GRoom> generateStageWalls(Stage generatedStage) {
         // Génération des murs
         List<GRoom> rooms = new LinkedList<>();
         List<GRoomWall> roomsWalls = new LinkedList<>(); // Contient tout les murs de toutes les pièces
@@ -160,7 +162,7 @@ public class Generator {
         List<GWall> walls = new ArrayList<>(); // Contient tout les murs
         // Pour toutes les pièces
         for (GRoom room : rooms) {
-            // On boucles sur tout lees murs de la pièce (room)
+            // On boucles sur tout les murs de la pièce (room)
             for (GRoomWall wall : room.getWalls()) {
                 // On regarde dans la liste qui contient tous les murs si il y a un mur qui se superpose avec ce mur (wall)
                 for (GRoomWall tempWall : wall.getSideWalls()) {
@@ -204,6 +206,7 @@ public class Generator {
         for (int i = 0; i < random.nextInt(wallsUnbreaked.size() / 6, wallsUnbreaked.size() / 3); i++) {
             breakWall(generatedStage, wallsUnbreaked.remove(random.nextInt(wallsUnbreaked.size())));
         }
+        return rooms;
     }
 
     private boolean isGeneratingStageWallsFinished(List<GRoom> rooms) {

@@ -59,6 +59,13 @@ public class GRoomWall {
         if (!overlapWall(wall)) {
             return null;
         }
+        
+        GRoom gRoomOne = this.getGRoom();
+        GRoom gRoomTwo = wall.getGRoom();
+        Location origin = null;
+        Orientation orientationGWall = null;
+        int lengthGWall = 0;
+        
         switch (this.orientation) {
             case HORIZONTAL -> {
                 // Minimum
@@ -73,7 +80,9 @@ public class GRoomWall {
                 if (maxWall < max) {
                     max = maxWall;
                 }
-                return new GWall(this.getGRoom(), wall.getGRoom(), new Location(min, this.location.getY()), Orientation.HORIZONTAL, max - min);
+                origin = new Location(min, this.location.getY());
+                orientationGWall = Orientation.HORIZONTAL;
+                lengthGWall = max - min;
             }
             case VERTICAL -> {
                 // Minimum
@@ -88,10 +97,15 @@ public class GRoomWall {
                 if (maxWall < max) {
                     max = maxWall;
                 }
-                return new GWall(this.getGRoom(), wall.getGRoom(), new Location(this.location.getX(), min), Orientation.VERTICAL, max - min);
+                origin = new Location(this.location.getX(), min);
+                orientationGWall = Orientation.VERTICAL;
+                lengthGWall = max - min;
             }
         }
-        return null;
+        GWall gWall = new GWall(gRoomOne, gRoomTwo, origin, orientationGWall, lengthGWall);
+        gRoomOne.getGWalls().add(gWall);
+        gRoomTwo.getGWalls().add(gWall);
+        return gWall;
     }
 
     public Location getLocation() {

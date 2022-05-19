@@ -46,4 +46,8 @@ public class Player extends Personage {
     public void setPet(Pet pet) {
         this.pet = pet;
     }
+    
+    public boolean havePet(){
+        return (this.pet != null);
+    }
 }

@@ -110,4 +110,27 @@ public abstract class LivingEntity extends Entity {
         this.nom = nom;
     }
     
+    public int getSpeed(){
+        int speed = this.getCharacteristics().getSpeed();
+        if (this.haveWeapon()) {
+            speed += this.getWeapon().getSpeed();
+        }
+        return speed;
+    }
+    
+    public int getSrength(){
+        int strength = this.getCharacteristics().getStrength();
+        if (this.haveWeapon()) {
+            strength += this.getWeapon().getPower();
+        }
+        return strength;
+    }
+    
+    public int getAccuracy(){
+        int accuracy = this.getCharacteristics().getAccuracy();
+        if (this.haveWeapon()) {
+            accuracy += this.getWeapon().getAccuracy();
+        }
+        return accuracy;
+    }
 }
