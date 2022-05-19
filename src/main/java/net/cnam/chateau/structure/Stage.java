@@ -64,10 +64,10 @@ public class Stage {
         if (y < 0) {
             throw new CoordinatesOutOfBoundsException("y doit être positif");
         }
-        if (x > this.getLength()) {
+        if (x >= this.getLength()) {
             throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
         }
-        if (y > this.getHeight()) {
+        if (y >= this.getHeight()) {
             throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
         }
 
@@ -114,10 +114,10 @@ public class Stage {
         if (y < 0) {
             throw new CoordinatesOutOfBoundsException("y doit être positif");
         }
-        if (x > this.getLength()) {
+        if (x >= this.getLength()) {
             throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
         }
-        if (y > this.getHeight()) {
+        if (y >= this.getHeight()) {
             throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
         }
 
@@ -163,10 +163,10 @@ public class Stage {
         if (y < 0) {
             throw new CoordinatesOutOfBoundsException("y doit être positif");
         }
-        if (x > this.getLength()) {
+        if (x >= this.getLength()) {
             throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
         }
-        if (y > this.getHeight()) {
+        if (y >= this.getHeight()) {
             throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
         }
 
@@ -214,10 +214,10 @@ public class Stage {
         if (y < 0) {
             throw new CoordinatesOutOfBoundsException("y doit être positif");
         }
-        if (x > this.getLength()) {
+        if (x >= this.getLength()) {
             throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
         }
-        if (y > this.getHeight()) {
+        if (y >= this.getHeight()) {
             throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
         }
 
@@ -262,10 +262,10 @@ public class Stage {
         if (y < 0) {
             throw new CoordinatesOutOfBoundsException("y doit être positif");
         }
-        if (x > this.getLength()) {
+        if (x >= this.getLength()) {
             throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
         }
-        if (y > this.getHeight()) {
+        if (y >= this.getHeight()) {
             throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
         }
 
