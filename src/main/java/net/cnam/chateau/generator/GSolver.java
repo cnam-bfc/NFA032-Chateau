@@ -109,12 +109,12 @@ public class GSolver {
         } while (testDoor);
         UpStair exitStair = new UpStair();
         room.getBlocks()[x][y] = exitStair;
-        
+
         //à voir si je garde
         this.exitRoom = room;
-        this.exitStair.setLocation(new Location(x,y));
-        this.exitLocation = new Location(x,y);
+        this.exitLocation = new Location(x, y);
         this.exitStair = exitStair;
+        this.exitStair.setLocation(new Location(x, y));
     }
 
     private GRoom findGRoom(Room room, List<GRoom> GRooms) {
@@ -129,7 +129,7 @@ public class GSolver {
     public Room getExitRoom() {
         return exitRoom;
     }
-    
+
     public Location getExitLocation() {
         return exitLocation;
     }

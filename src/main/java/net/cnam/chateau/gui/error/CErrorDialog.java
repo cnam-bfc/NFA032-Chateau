@@ -31,8 +31,9 @@ public class CErrorDialog extends CFrame implements DisplayableComponent {
         CLabel errorMessage = new CLabel(text, this.getLength() - 2);
         if (type.equals(Type.EXCEPTION)) {
             errorMessage.setHorizontalAlignment(HorizontalAlignment.LEFT);
+        } else {
+            errorMessage.getColors().add(CColor.BLINKING);
         }
-        errorMessage.getColors().add(CColor.BLINKING);
         errorMessage.getColors().add(CColor.RED);
         this.getContentPane().getComponents().add(errorMessage);
 

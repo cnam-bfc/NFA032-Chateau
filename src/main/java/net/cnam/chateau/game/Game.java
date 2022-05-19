@@ -93,16 +93,16 @@ public class Game extends CFrame implements DisplayableComponent, KeyListener {
             Direction direction = DirectionUtils.parseDirection(key);
             switch (direction) {
                 case TOP -> {
-                    this.getCastle().getStages()[0].move(player, 0, -1);
+                    map.getStage().move(player, 0, -1);
                 }
                 case RIGHT -> {
-                    this.getCastle().getStages()[0].move(player, 1, 0);
+                    map.getStage().move(player, 1, 0);
                 }
                 case BOTTOM -> {
-                    this.getCastle().getStages()[0].move(player, 0, 1);
+                    map.getStage().move(player, 0, 1);
                 }
                 case LEFT -> {
-                    this.getCastle().getStages()[0].move(player, -1, 0);
+                    map.getStage().move(player, -1, 0);
                 }
             }
         } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException ex) {

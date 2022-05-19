@@ -7,7 +7,7 @@ import net.cnam.chateau.item.weapon.Weapon;
 
 public class Player extends Personage {
 
-    private Pet pet = new PepeLoiseau(new Location(this.getLocation().getX(), this.getLocation().getY()));
+    private Pet pet;// = new PepeLoiseau(new Location(this.getLocation().getX(), this.getLocation().getY()));
 
     /**
      * Constructeur du personnage sans arme
