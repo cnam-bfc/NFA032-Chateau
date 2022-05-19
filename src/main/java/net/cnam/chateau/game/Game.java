@@ -42,6 +42,10 @@ public class Game extends CFrame implements DisplayableComponent, KeyListener {
         this.castle = generator.generateCastle();
         this.player = player;
         this.player.setLocation(castle.getDefaultPlayerLocation());
+        try {
+            this.castle.getStages()[0].getRoom(castle.getDefaultPlayerLocation()).setVisited(true);
+        } catch (CoordinatesOutOfBoundsException ex) {
+        }
         this.castle.getStages()[0].getEntities().add(player);
         this.map = new Map(this.castle.getStages()[0], player.getLocation());
 

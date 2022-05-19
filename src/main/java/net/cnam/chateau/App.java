@@ -21,11 +21,10 @@ public class App {
             console.finalClear(true);
         } catch (Exception ex) {
             StackTraceElement[] trace = ex.getStackTrace();
-            String[] lines = new String[trace.length + 2];
+            String[] lines = new String[trace.length + 1];
             lines[0] = ex.toString();
-            lines[1] = " ";
-            for (int i = 2; i < trace.length + 2; i++) {
-                lines[i] = "   at " + trace[i - 2];
+            for (int i = 1; i <= trace.length; i++) {
+                lines[i] = "   at " + trace[i - 1];
             }
             console.show(new CErrorDialog(CErrorDialog.Type.EXCEPTION, lines));
             console.finalClear(false);

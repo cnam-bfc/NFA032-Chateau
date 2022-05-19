@@ -36,7 +36,7 @@ public class Player extends Personage {
 
     @Override
     public String getCharacter() {
-        return CColor.GREEN + super.getCharacter() + CColor.GREEN.getForegroundReset();
+        return CColor.CYAN + super.getCharacter() + CColor.CYAN.getForegroundReset();
     }
 
     public Pet getPet() {
@@ -46,8 +46,8 @@ public class Player extends Personage {
     public void setPet(Pet pet) {
         this.pet = pet;
     }
-    
-    public boolean havePet(){
+
+    public boolean havePet() {
         return (this.pet != null);
     }
 }
