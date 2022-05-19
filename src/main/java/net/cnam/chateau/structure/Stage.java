@@ -83,8 +83,31 @@ public class Stage {
 
         return null;
     }
-    
-    public Room getRoom(int x, int y) throws CoordinatesOutOfBoundsException{
+
+    /**
+     * Méthode pour récupérer la room aux coordonnées passé en paramètres.
+     *
+     * @param location Coordonnées
+     * @return La pièce aux coordonnées spécifiés
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
+     */
+    public Room getRoom(Location location) throws CoordinatesOutOfBoundsException {
+        return getRoom(location.getX(), location.getY());
+    }
+
+    /**
+     * Méthode pour récupérer la room aux coordonnées passé en paramètres.
+     *
+     * @param x Coordonnée x
+     * @param y Coordonnée y
+     * @return La pièce aux coordonnées spécifiés
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
+     */
+    public Room getRoom(int x, int y) throws CoordinatesOutOfBoundsException {
         if (x < 0) {
             throw new CoordinatesOutOfBoundsException("x doit être positif");
         }
@@ -100,19 +123,65 @@ public class Stage {
 
         for (Room room : rooms) {
             Location roomLocation = room.getLocation();
-            // Si le newBlock est dans la pièce
+            // Si les coordonnées sont dans la pièce
             if (x >= roomLocation.getX() && x < roomLocation.getX() + room.getLength()
                     && y >= roomLocation.getY() && y < roomLocation.getY() + room.getHeight()) {
-                // On récupère la room en calculant ses coordonnées relatives par rapport à la pièce
                 return room;
             }
         }
 
         return null;
     }
-    
-    public Room getRoom(Location location) throws CoordinatesOutOfBoundsException{
-        return getRoom(location.getX(), location.getY());
+
+    /**
+     * Méthode pour récupérer les room aux coordonnées passé en paramètres.
+     *
+     * @param location Coordonnées
+     * @return Les pièce aux coordonnées spécifiés
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
+     */
+    public Room[] getRooms(Location location) throws CoordinatesOutOfBoundsException {
+        return getRooms(location.getX(), location.getY());
+    }
+
+    /**
+     * Méthode pour récupérer la room aux coordonnées passé en paramètres.
+     *
+     * @param x Coordonnée x
+     * @param y Coordonnée y
+     * @return Les pièces aux coordonnées spécifiés
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
+     */
+    public Room[] getRooms(int x, int y) throws CoordinatesOutOfBoundsException {
+        if (x < 0) {
+            throw new CoordinatesOutOfBoundsException("x doit être positif");
+        }
+        if (y < 0) {
+            throw new CoordinatesOutOfBoundsException("y doit être positif");
+        }
+        if (x > this.getLength()) {
+            throw new CoordinatesOutOfBoundsException("x doit inférieur à " + this.getLength() + " (" + x + ")");
+        }
+        if (y > this.getHeight()) {
+            throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
+        }
+
+        List<Room> roomList = new LinkedList<>();
+
+        for (Room room : rooms) {
+            Location roomLocation = room.getLocation();
+            // Si les coordonnées sont dans la pièce
+            if (x >= roomLocation.getX() && x < roomLocation.getX() + room.getLength()
+                    && y >= roomLocation.getY() && y < roomLocation.getY() + room.getHeight()) {
+                roomList.add(room);
+            }
+        }
+
+        return roomList.toArray(Room[]::new);
     }
 
     /**
