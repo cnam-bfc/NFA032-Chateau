@@ -12,6 +12,7 @@ import net.cnam.chateau.utils.console.RawConsoleInput;
 // https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 // https://askubuntu.com/questions/558280/changing-colour-of-text-and-background-of-terminal
 // https://en.wikipedia.org/wiki/ANSI_escape_code
+// https://github.com/htop-dev/htop/blob/d0d9f202c56c1fc8919548418b339d31a6b49c02/CRT.c#L944
 public class Console extends CPanel {
 
     private final AppSettings settings;
