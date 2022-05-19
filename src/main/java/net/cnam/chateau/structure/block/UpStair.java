@@ -14,10 +14,6 @@ public class UpStair extends Block {
     public boolean isSolid() {
         return locked;
     }
-    
-    @Override
-    public void execute() {
-    }
 
     @Override
     public String getCharacter() {
@@ -39,8 +35,8 @@ public class UpStair extends Block {
     public void setDownStair(DownStair downStair) {
         this.downStair = downStair;
     }
-    
-    public void useStair(){
-        
+
+    public void useStair() {
+
     }
 }
