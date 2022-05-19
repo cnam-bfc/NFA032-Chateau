@@ -11,6 +11,10 @@ public class Wall extends Block {
     public boolean isSolid() {
         return true;
     }
+    
+    @Override
+    public void execute() {
+    }
 
     @Override
     public String getCharacter() {

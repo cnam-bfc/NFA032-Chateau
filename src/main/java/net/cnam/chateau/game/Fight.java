@@ -60,14 +60,14 @@ public class Fight extends CFrame implements DisplayableComponent {
             attackWithPet(player, enemy);
         }
         else {
-            attackWithPet(player, enemy);
+            attackWithoutPet(player, enemy);
         }
     }
     
     public void attackWithPet(Player player, LivingEntity enemy){
         int playerSpeed = player.getSpeed();
         int playerStrength = player.getSrength();
-        int playerAccuracy = player.getSrength();
+        int playerAccuracy = player.getAccuracy();
         int enemySpeed = enemy.getSpeed();
         int enemyStrength = enemy.getSrength();
         int ennemyAccuracy = enemy.getAccuracy();
@@ -118,7 +118,7 @@ public class Fight extends CFrame implements DisplayableComponent {
     public void attackWithoutPet(Player player, LivingEntity enemy){
         int playerSpeed = player.getSpeed();
         int playerStrength = player.getSrength();
-        int playerAccuracy = player.getSrength();
+        int playerAccuracy = player.getAccuracy();
         int enemySpeed = enemy.getSpeed();
         int enemyStrength = enemy.getSrength();
         int ennemyAccuracy = enemy.getAccuracy();

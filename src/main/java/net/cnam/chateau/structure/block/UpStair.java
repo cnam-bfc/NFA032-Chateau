@@ -14,6 +14,10 @@ public class UpStair extends Block {
     public boolean isSolid() {
         return locked;
     }
+    
+    @Override
+    public void execute() {
+    }
 
     @Override
     public String getCharacter() {
