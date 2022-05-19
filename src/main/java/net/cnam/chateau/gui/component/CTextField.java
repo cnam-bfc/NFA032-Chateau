@@ -12,20 +12,20 @@ public class CTextField extends CComponent implements SelectableComponent {
     private String text;
     private int pointer;
 
-    public CTextField(int length, int height) {
-        this(HorizontalAlignment.CENTER, length, height);
+    public CTextField(int length) {
+        this(HorizontalAlignment.CENTER, length);
     }
 
-    public CTextField(HorizontalAlignment horizontalAlignment, int length, int height) {
-        this(horizontalAlignment, null, length, height);
+    public CTextField(HorizontalAlignment horizontalAlignment, int length) {
+        this(horizontalAlignment, null, length);
     }
 
-    public CTextField(String text, int length, int height) {
-        this(HorizontalAlignment.CENTER, text, length, height);
+    public CTextField(String text, int length) {
+        this(HorizontalAlignment.CENTER, text, length);
     }
 
-    public CTextField(HorizontalAlignment horizontalAlignment, String text, int length, int height) {
-        super(horizontalAlignment, length, height);
+    public CTextField(HorizontalAlignment horizontalAlignment, String text, int length) {
+        super(horizontalAlignment, length, 1);
 
         if (text != null) {
             this.text = text;
