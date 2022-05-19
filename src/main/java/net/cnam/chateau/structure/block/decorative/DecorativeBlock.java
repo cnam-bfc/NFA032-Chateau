@@ -23,4 +23,8 @@ public abstract class DecorativeBlock extends Block {
     public boolean isSolid() {
         return false;
     }
+    
+    @Override
+    public void execute() {
+    }
 }

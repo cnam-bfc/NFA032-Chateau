@@ -8,4 +8,6 @@ import net.cnam.chateau.item.DisplayableItem;
 public abstract class Block implements DisplayableItem {
 
     public abstract boolean isSolid();
+    
+    public abstract void execute();
 }

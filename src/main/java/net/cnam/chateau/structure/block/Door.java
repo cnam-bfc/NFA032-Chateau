@@ -24,4 +24,8 @@ public class Door extends Block {
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
+
+    @Override
+    public void execute() {
+    }
 }
