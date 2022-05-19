@@ -331,7 +331,7 @@ public class Stage {
                 }
 
                 // On sauvegarde les coordonnées 
-                Location possiblePetNewLocation = entityLocation.copy();
+                Location possiblePetNewLocation = new Location(entityLocation.getX(), entityLocation.getY());
 
                 // On déplace l'entité
                 entityLocation.setX(location.getX());

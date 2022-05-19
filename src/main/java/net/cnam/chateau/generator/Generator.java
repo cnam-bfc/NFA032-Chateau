@@ -101,8 +101,9 @@ public class Generator {
                 Stage stageEntry = stages[i + 1];
                 UpStair exitStair = solver.getExitStair();
                 DownStair entryStair = new DownStair();
-                exitStair.setDownStair(entryStair);
-                entryStair.setUpStair(exitStair);
+                // TODO Pour les 2 escaliers set l'étage et la location de cet escalier par rapport à l'étage
+                exitStair.setOtherStair(entryStair);
+                entryStair.setOtherStair(exitStair);
 
                 int xOldExit = solver.getExitRoom().getLocation().getX() + solver.getExitLocation().getX();
                 int yOldExit = solver.getExitRoom().getLocation().getY() + solver.getExitLocation().getY();

@@ -18,6 +18,10 @@ import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.event.KeyEvent;
 import net.cnam.chateau.gui.event.KeyListener;
+import net.cnam.chateau.structure.Room;
+import net.cnam.chateau.structure.Stage;
+import net.cnam.chateau.structure.block.Block;
+import net.cnam.chateau.structure.block.Stair;
 
 public class Game extends CFrame implements DisplayableComponent, KeyListener {
 
@@ -40,6 +44,19 @@ public class Game extends CFrame implements DisplayableComponent, KeyListener {
         this.player.setLocation(castle.getDefaultPlayerLocation());
         this.castle.getStages()[0].getEntities().add(player);
         this.map = new Map(this.castle.getStages()[0], player.getLocation());
+
+        // On set la map dans les escaliers pour que le joueur puisse changer d'étage
+        for (Stage stage : castle.getStages()) {
+            for (Room room : stage.getRooms()) {
+                for (Block[] blocks : room.getBlocks()) {
+                    for (Block block : blocks) {
+                        if (block instanceof Stair stair) {
+                            stair.setMap(map);
+                        }
+                    }
+                }
+            }
+        }
 
         this.getContentPane().getComponents().add(map);
 
