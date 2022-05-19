@@ -6,7 +6,7 @@ import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.utils.Location;
 
 abstract public class Pet extends LivingEntity {
-    
+
     private boolean followPlayer = true;
 
     public Pet(Characteristic characteristics, String nom, Location location) {
@@ -17,22 +17,16 @@ abstract public class Pet extends LivingEntity {
     public String getCharacter() {
         return CColor.BLUE + "P" + CColor.BLUE.getForegroundReset();
     }
-    
-    public void follow(Location location){
-        this.getLocation().setX(location.getX());
-        this.getLocation().setY(location.getY());
-    }
 
-    abstract void power();
+    public abstract void power();
 
-    abstract String scream();
+    public abstract String scream();
 
-    public boolean isFollowPlayer() {
+    public boolean isFollowingPlayer() {
         return followPlayer;
     }
 
-    public void setFollowPlayer(boolean followPlayer) {
+    public void setFollowingPlayer(boolean followPlayer) {
         this.followPlayer = followPlayer;
     }
-
 }

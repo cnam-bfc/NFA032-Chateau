@@ -4,7 +4,7 @@ package net.cnam.chateau.utils;
  * Class permettant de stocker des coordonnées x,y
  *
  */
-public class Location {
+public class Location extends Object {
 
     private int x;
     private int y;

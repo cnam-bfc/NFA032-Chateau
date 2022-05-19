@@ -1,8 +1,6 @@
 package net.cnam.chateau.gui.event;
 
-import java.util.EventListener;
-
-public interface KeyListener extends EventListener {
+public interface KeyListener {
 
     void onKeyPressed(KeyEvent event);
 }

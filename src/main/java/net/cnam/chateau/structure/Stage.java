@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import net.cnam.chateau.entity.LivingEntity;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.gui.event.BlockEvent;
+import net.cnam.chateau.gui.event.BlockListener;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
 
@@ -32,7 +34,20 @@ public class Stage {
     }
 
     /**
-     * Méthode pour récupérer le block aux coordonnées passé en paramètres.
+     * Méthode pour récupérer le newBlock aux coordonnées passé en paramètres.
+     *
+     * @param location Coordonnées du block
+     * @return Le bloc aux coordonnées spécifiés
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
+     */
+    public Block getBlock(Location location) throws CoordinatesOutOfBoundsException {
+        return this.getBlock(location.getX(), location.getY());
+    }
+
+    /**
+     * Méthode pour récupérer le newBlock aux coordonnées passé en paramètres.
      *
      * @param x Coordonnée x
      * @param y Coordonnée y
@@ -57,7 +72,7 @@ public class Stage {
 
         for (Room room : rooms) {
             Location roomLocation = room.getLocation();
-            // Si le block est dans la pièce
+            // Si le newBlock est dans la pièce
             if (x >= roomLocation.getX() && x < roomLocation.getX() + room.getLength()
                     && y >= roomLocation.getY() && y < roomLocation.getY() + room.getHeight()) {
                 // On récupère le bloc en calculant ses coordonnées relatives par rapport à la pièce
@@ -69,7 +84,20 @@ public class Stage {
     }
 
     /**
-     * Méthode pour définir un block aux coordonnées passé en paramètres.
+     * Méthode pour définir un newBlock aux coordonnées passé en paramètres.
+     *
+     * @param location Coordonnées du block
+     * @param block Le bloc aux coordonnées spécifiés
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
+     */
+    public void setBlock(Location location, Block block) throws CoordinatesOutOfBoundsException {
+        this.setBlock(location.getX(), location.getY(), block);
+    }
+
+    /**
+     * Méthode pour définir un newBlock aux coordonnées passé en paramètres.
      *
      * @param x Coordonnée x
      * @param y Coordonnée y
@@ -101,6 +129,19 @@ public class Stage {
                 room.getBlocks()[x - roomLocation.getX()][y - roomLocation.getY()] = block;
             }
         }
+    }
+
+    /**
+     * Méthode pour récupérer l'entité aux coordonnées passé en paramètres.
+     *
+     * @param location Coordonnées dans l'étage
+     * @return L'entité aux coordonnées spécifiés
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
+     * l'étage
+     */
+    public LivingEntity getEntity(Location location) throws CoordinatesOutOfBoundsException {
+        return this.getEntity(location.getX(), location.getY());
     }
 
     /**
@@ -147,27 +188,50 @@ public class Stage {
      * Exception levé si l'entitée tente de sortir de l'étage
      */
     public void move(LivingEntity entity, int relX, int relY) throws CoordinatesOutOfBoundsException {
+        move(entity, new Location(entity.getLocation().getX() + relX, entity.getLocation().getY() + relY));
+    }
+
+    /**
+     * Méthode permettant de faire bouger une entité dans l'étage
+     *
+     * @param entity L'entité à faire bouger
+     * @param location Location où doit aller l'entité
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
+     * Exception levé si l'entitée tente de sortir de l'étage
+     */
+    public void move(LivingEntity entity, Location location) throws CoordinatesOutOfBoundsException {
         for (LivingEntity entity2 : entities) {
             if (entity.equals(entity2)) {
                 Location entityLocation = entity.getLocation();
-                int newX = entityLocation.getX() + relX;
-                int newY = entityLocation.getY() + relY;
-                if (newX < 0 || newY < 0 || newX >= this.getLength() || newY >= this.getHeight()) {
+                Block oldBlock = this.getBlock(entityLocation.getX(), entityLocation.getY());
+                if (location.getX() < 0 || location.getY() < 0 || location.getX() >= this.getLength() || location.getY() >= this.getHeight()) {
                     throw new CoordinatesOutOfBoundsException("L'entité ne peut pas sortir de l'étage!");
                 }
-                Block block = this.getBlock(newX, newY);
-                if (block != null && block.isSolid()) {
+
+                // Vérifier qu'il va pas sur un newBlock non translucide
+                Block newBlock = this.getBlock(location);
+                if (newBlock != null && newBlock.isSolid()) {
                     return;
                 }
-                // TODO Vérifier qu'il va pas sur un block non translucide
-                //vérifier si l'entité est un joueur, si oui vérifie si il a un pet, si oui, positionne le pet à la position du joueur avant déplacement
+
+                // Vérifier si l'entité est un joueur, si oui vérifie si il a un pet, si oui, positionne le pet à la position du joueur avant déplacement
                 if (entity instanceof Player player) {
-                    if (player.getPet() != null && player.getPet().isFollowPlayer()) {
-                        player.getPet().follow(entityLocation);
+                    if (player.havePet() && player.getPet().isFollowingPlayer() && !player.getPet().getLocation().equals(entityLocation)) {
+                        this.move(player.getPet(), entityLocation);
                     }
                 }
-                entityLocation.setX(entityLocation.getX() + relX);
-                entityLocation.setY(entityLocation.getY() + relY);
+
+                // On notifie l'ancien block où était l'entité que celle-ci est partie
+                if (oldBlock != null && oldBlock instanceof BlockListener blockListener) {
+                    blockListener.onEntityLeaveBlock(new BlockEvent(entity));
+                }
+                // On notifie le nouveau block que l'entité rentre sur celui-ci
+                if (newBlock != null && newBlock instanceof BlockListener blockListener) {
+                    blockListener.onEntityLeaveBlock(new BlockEvent(entity));
+                }
+
+                entityLocation.setX(location.getX());
+                entityLocation.setY(location.getY());
             }
         }
     }
@@ -180,12 +244,12 @@ public class Stage {
 //            String line = "";
 //            for (int x = 0; x < this.getLength(); x++) {
 //                try {
-//                    Block block = getBlock(x, y);
+//                    Block newBlock = getBlock(x, y);
 //                    LivingEntity entity = getEntity(x, y);
 //                    if (entity != null) {
 //                        line += entity.getCharacter();
-//                    } else if (block != null) {
-//                        line += block.getCharacter();
+//                    } else if (newBlock != null) {
+//                        line += newBlock.getCharacter();
 //                    } else {
 //                        line += ' ';
 //                    }
