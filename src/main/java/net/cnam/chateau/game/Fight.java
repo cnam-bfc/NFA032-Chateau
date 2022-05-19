@@ -1,5 +1,6 @@
 package net.cnam.chateau.game;
 
+import java.util.Random;
 import net.cnam.chateau.entity.LivingEntity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
@@ -13,12 +14,14 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
     private Player player;
     private Enemy enemy;
     private boolean display = true;
+    private Random random;
 
     public Fight(Player player, Enemy enemy) {
         super(0, 0);
 
         this.player = player;
         this.enemy = enemy;
+        this.random = new Random();
     }
 
     @Override
@@ -54,10 +57,7 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
         //utiliser un objet
         //fuire
     }
-
-    //le joueur choisie attaque ou fuite ou utiliser un objet
-    // si le joueur attaque, le plus rapide attaque en 1er
-    //une attaque peut échouer (précision)
+    //TODO voir pour gérer si une entité meurt
     public void attack(Player player, LivingEntity enemy) {
         if (player.havePet()) {
             attackWithPet(player, enemy);
@@ -69,46 +69,67 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
     public void attackWithPet(Player player, LivingEntity enemy) {
         int playerSpeed = player.getSpeed();
         int playerStrength = player.getSrength();
-        int playerAccuracy = player.getAccuracy();
         int enemySpeed = enemy.getSpeed();
         int enemyStrength = enemy.getSrength();
-        int ennemyAccuracy = enemy.getAccuracy();
         int petSpeed = player.getPet().getSpeed();
         int petStrength = player.getPet().getSrength();
-        int petAccuracy = player.getPet().getAccuracy();
 
+        // SI le joueur est le premier à attaquer
         if (playerSpeed > enemySpeed && playerSpeed > petSpeed) {
-            //faire attaquer joueur
+            if (testAttack(player)) {
+                enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - playerStrength);
+            }
             if (enemySpeed > petSpeed) {
-                //faire attaquer l'ennemie entre le pet ou le joueur
-                //faire attaquer le pet
+                if (testAttack(enemy)) {
+                    if (random.nextBoolean()) {
+                        player.getCharacteristics().setHealth(player.getCharacteristics().getHealth() - enemyStrength);
+                    } else {
+                        player.getPet().getCharacteristics().setHealth(player.getPet().getCharacteristics().getHealth() - enemyStrength);
+                    }
+                }
             } else {
-                //faire attaquer le pet
-                //faire attaquer l'ennemie entre le pet ou le joueur
+                if (testAttack(player.getPet())) {
+                    enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - petStrength);
+                }
             }
             return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
         }
 
+        // SI l'ennemie joueur est le premier à attaquer
         if (enemySpeed > playerSpeed && enemySpeed > petSpeed) {
-            //faire attaquer l'ennemie entre le pet ou le joueur
+            if (testAttack(enemy)) {
+                if (random.nextBoolean()) {
+                    player.getCharacteristics().setHealth(player.getCharacteristics().getHealth() - enemyStrength);
+                } else {
+                    player.getPet().getCharacteristics().setHealth(player.getPet().getCharacteristics().getHealth() - enemyStrength);
+                }
+            }
             if (playerSpeed > petSpeed) {
-                //faire attaquer le joueur
-                //faire attaquer le pet
+                if (testAttack(player)) {
+                    enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - playerStrength);
+                }
             } else {
-                //faire attaquer le pet
-                //faire attaquer le joueur
+                if (testAttack(player.getPet())) {
+                    enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - petStrength);
+                }
             }
             return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
         }
 
+        // SI le pet est le premier à attaquer
         if (petSpeed > enemySpeed && petSpeed > playerSpeed) {
-            //faire attaquer le pet
             if (playerSpeed > enemySpeed) {
-                //faire attaquer le joueur
-                //faire attaquer l'ennemie entre le pet ou le joueur
+                if (testAttack(player.getPet())) {
+                    enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - petStrength);
+                }
             } else {
-                //faire attaquer l'ennemie entre le pet ou le joueur
-                //faire attaquer le joueur
+                if (testAttack(enemy)) {
+                    if (random.nextBoolean()) {
+                        player.getCharacteristics().setHealth(player.getCharacteristics().getHealth() - enemyStrength);
+                    } else {
+                        player.getPet().getCharacteristics().setHealth(player.getPet().getCharacteristics().getHealth() - enemyStrength);
+                    }
+                }
             }
             return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
         }
@@ -117,19 +138,29 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
     public void attackWithoutPet(Player player, LivingEntity enemy) {
         int playerSpeed = player.getSpeed();
         int playerStrength = player.getSrength();
-        int playerAccuracy = player.getAccuracy();
         int enemySpeed = enemy.getSpeed();
         int enemyStrength = enemy.getSrength();
-        int ennemyAccuracy = enemy.getAccuracy();
 
         if (playerSpeed > enemySpeed) {
-            //vérifier si le joueur touche ennemie
-            //si touche retirer pv enemie
-            //même chose avec l'ennemie
+            if (testAttack(player)) {
+                enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - playerStrength);
+            }
+            if (testAttack(enemy)) {
+                player.getCharacteristics().setHealth(player.getCharacteristics().getHealth() - enemyStrength);
+            }
         } else {
-            //vérifier si l'ennemie touche le joueur
-            //si touche retirer pv joueur
-            //même chose avec joueur
+            if (testAttack(enemy)) {
+                player.getCharacteristics().setHealth(player.getCharacteristics().getHealth() - enemyStrength);
+            }
+            if (testAttack(player)) {
+                enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - playerStrength);
+            }
         }
+    }
+
+    public boolean testAttack(LivingEntity entity) {
+        int Accuracy = entity.getAccuracy();
+        // TODO voir comment on gère la précision
+        return true;
     }
 }
