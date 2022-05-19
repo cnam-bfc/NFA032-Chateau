@@ -2,7 +2,7 @@ package net.cnam.chateau.gui.event;
 
 import net.cnam.chateau.entity.LivingEntity;
 
-public class BlockEvent {
+public abstract class BlockEvent {
 
     private final LivingEntity entity;
 

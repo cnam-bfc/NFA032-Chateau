@@ -3,8 +3,9 @@ package net.cnam.chateau.structure.block;
 import net.cnam.chateau.entity.LivingEntity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.event.BlockEvent;
 import net.cnam.chateau.gui.event.BlockListener;
+import net.cnam.chateau.gui.event.EntityEnterBlockEvent;
+import net.cnam.chateau.gui.event.EntityLeaveBlockEvent;
 
 /**
  * Class permettant de créer un block Porte (Door) pour la map.
@@ -25,7 +26,7 @@ public class DownStair extends Block implements BlockListener {
     }
 
     @Override
-    public void onEntityEnterBlock(BlockEvent event) {
+    public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         LivingEntity entity = event.getEntity();
         if (entity instanceof Player player) {
             // TODO Faire descendre d'étage le joueur
@@ -33,7 +34,7 @@ public class DownStair extends Block implements BlockListener {
     }
 
     @Override
-    public void onEntityLeaveBlock(BlockEvent event) {
+    public void onEntityLeaveBlock(EntityLeaveBlockEvent event) {
     }
 
     public boolean isLocked() {

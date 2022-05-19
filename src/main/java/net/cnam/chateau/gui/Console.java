@@ -15,7 +15,7 @@ import net.cnam.chateau.utils.console.RawConsoleInput;
 // https://en.wikipedia.org/wiki/ANSI_escape_code
 // https://github.com/htop-dev/htop/blob/d0d9f202c56c1fc8919548418b339d31a6b49c02/CRT.c#L944
 public class Console extends CPanel {
-    
+
     private final AppSettings settings;
 
     public Console(AppSettings settings) {
