@@ -102,7 +102,8 @@ public class Generator {
                 UpStair exitStair = solver.getExitStair();
                 DownStair entryStair = new DownStair();
                 exitStair.setDownStair(entryStair);
-                
+                entryStair.setUpStair(exitStair);
+
                 int xOldExit = solver.getExitRoom().getLocation().getX() + solver.getExitLocation().getX();
                 int yOldExit = solver.getExitRoom().getLocation().getY() + solver.getExitLocation().getY();
                 while (stageEntry.getLength() <= xOldExit) {
@@ -111,6 +112,43 @@ public class Generator {
                 while (stageEntry.getHeight() <= yOldExit) {
                     yOldExit -= 1;
                 }
+
+                try {
+                    firstRoom = stageEntry.getRoom(xOldExit, yOldExit);
+                } catch (CoordinatesOutOfBoundsException ex) {
+                    firstRoom = stageEntry.getRooms()[0];
+                }
+                
+            int x = random.nextInt(1, firstRoom.getLength() - 1);
+            int y = random.nextInt(1, firstRoom.getHeight() - 1);
+            boolean testDoor;
+            //vérification qu'il n'y a pas de porte à proximité sinon on décale
+            do {
+                testDoor = false;
+                if (firstRoom.getBlocks()[x + 1][y] instanceof Door) {
+                    x -= 1;
+                    testDoor = true;
+                }
+                if (firstRoom.getBlocks()[x - 1][y] instanceof Door) {
+                    x += 1;
+                    testDoor = true;
+                }
+                if (firstRoom.getBlocks()[x][y + 1] instanceof Door) {
+                    y -= 1;
+                    testDoor = true;
+                }
+                if (firstRoom.getBlocks()[x + 1][y - 1] instanceof Door) {
+                    y += 1;
+                    testDoor = true;
+                }
+                if (firstRoom.getBlocks()[x][y] != null) {
+                    x = random.nextInt(1, firstRoom.getLength() - 1);
+                    y = random.nextInt(1, firstRoom.getHeight() - 1);
+                    testDoor = true;
+                }
+            } while (testDoor);
+            firstRoom.getBlocks()[x][y] = entryStair;
+                
             }
         }
 
