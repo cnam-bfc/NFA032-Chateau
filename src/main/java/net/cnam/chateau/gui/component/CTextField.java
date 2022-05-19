@@ -1,12 +1,14 @@
 package net.cnam.chateau.gui.component;
 
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.event.KeyEvent;
+import net.cnam.chateau.gui.event.KeyListener;
 import net.cnam.chateau.utils.StringUtils;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 
-public class CTextField extends CComponent implements SelectableComponent {
+public class CTextField extends CComponent implements SelectableComponent, KeyListener {
 
     private boolean selected = true;
     private String text;
@@ -84,10 +86,12 @@ public class CTextField extends CComponent implements SelectableComponent {
     }
 
     @Override
-    public void onKeyPressed(int key) {
+    public void onKeyPressed(KeyEvent event) {
         if (!isSelected()) {
             return;
         }
+
+        int key = event.getKey();
 
         try {
             Direction direction = DirectionUtils.parseDirection(key);

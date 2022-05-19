@@ -3,12 +3,14 @@ package net.cnam.chateau.gui.component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.cnam.chateau.gui.event.KeyEvent;
+import net.cnam.chateau.gui.event.KeyListener;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.utils.direction.Orientation;
 
-public class CChoices extends CPanel implements SelectableComponent {
+public class CChoices extends CPanel implements SelectableComponent, KeyListener {
 
     private final List<SelectableComponent> selectableComponents;
 
@@ -39,19 +41,19 @@ public class CChoices extends CPanel implements SelectableComponent {
     }
 
     @Override
-    public void onKeyPressed(int key) {
+    public void onKeyPressed(KeyEvent event) {
         if (!isSelected()) {
             return;
         }
 
-        super.onKeyPressed(key);
+        super.onKeyPressed(event);
 
         if (selectableComponents.size() < 2) {
             return;
         }
 
         try {
-            Direction direction = DirectionUtils.parseDirection(key);
+            Direction direction = DirectionUtils.parseDirection(event.getKey());
             switch (this.getRenderingOrientation()) {
                 case VERTICAL -> {
                     if (direction.equals(Direction.LEFT) || direction.equals(Direction.RIGHT)) {
@@ -117,4 +119,6 @@ public class CChoices extends CPanel implements SelectableComponent {
             }
         }
     }
+    
+    // TODO Method to select a component by default
 }

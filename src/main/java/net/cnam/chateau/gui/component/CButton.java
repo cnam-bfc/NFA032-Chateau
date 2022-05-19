@@ -1,8 +1,10 @@
 package net.cnam.chateau.gui.component;
 
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.event.KeyEvent;
+import net.cnam.chateau.gui.event.KeyListener;
 
-public abstract class CButton extends CLabel implements SelectableComponent {
+public abstract class CButton extends CLabel implements SelectableComponent, KeyListener {
 
     private boolean selected = false;
 
@@ -46,8 +48,8 @@ public abstract class CButton extends CLabel implements SelectableComponent {
     }
 
     @Override
-    public void onKeyPressed(int key) {
-        super.onKeyPressed(key);
+    public void onKeyPressed(KeyEvent event) {
+        int key = event.getKey();
 
         // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal
         if (this.isSelected() && (key == 10 || key == 13)) {

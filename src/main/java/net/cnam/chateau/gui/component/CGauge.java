@@ -1,12 +1,14 @@
 package net.cnam.chateau.gui.component;
 
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.event.KeyEvent;
+import net.cnam.chateau.gui.event.KeyListener;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.utils.direction.Orientation;
 
-public class CGauge extends CFrame implements SelectableComponent {
+public class CGauge extends CFrame implements SelectableComponent, KeyListener {
 
     private final CLabel label;
     private final CProgressBar progressBar;
@@ -30,13 +32,13 @@ public class CGauge extends CFrame implements SelectableComponent {
     }
 
     @Override
-    public void onKeyPressed(int key) {
+    public void onKeyPressed(KeyEvent event) {
         if (!isSelected()) {
             return;
         }
 
         try {
-            Direction direction = DirectionUtils.parseDirection(key);
+            Direction direction = DirectionUtils.parseDirection(event.getKey());
             int value = getValue();
             switch (direction) {
                 case LEFT -> {

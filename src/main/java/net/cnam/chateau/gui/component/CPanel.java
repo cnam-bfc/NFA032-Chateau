@@ -3,9 +3,11 @@ package net.cnam.chateau.gui.component;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import net.cnam.chateau.gui.event.KeyEvent;
+import net.cnam.chateau.gui.event.KeyListener;
 import net.cnam.chateau.utils.direction.Orientation;
 
-public class CPanel extends CComponent {
+public class CPanel extends CComponent implements KeyListener {
 
     private final List<CComponent> components = new LinkedList<>();
 
@@ -183,9 +185,11 @@ public class CPanel extends CComponent {
     }
 
     @Override
-    public void onKeyPressed(int key) {
+    public void onKeyPressed(KeyEvent event) {
         for (CComponent component : components) {
-            component.onKeyPressed(key);
+            if (component instanceof KeyListener componentListener) {
+                componentListener.onKeyPressed(event);
+            }
         }
     }
 

@@ -131,10 +131,6 @@ public class CLabel extends CComponent {
         return result;
     }
 
-    @Override
-    public void onKeyPressed(int key) {
-    }
-
     public List<CColor> getColors() {
         return colors;
     }

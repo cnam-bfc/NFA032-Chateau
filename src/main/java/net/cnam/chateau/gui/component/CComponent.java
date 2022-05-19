@@ -1,9 +1,13 @@
 package net.cnam.chateau.gui.component;
 
+import java.util.LinkedList;
+import java.util.List;
+import net.cnam.chateau.gui.event.KeyListener;
 import net.cnam.chateau.utils.StringUtils;
 
 public abstract class CComponent {
 
+    private final List<KeyListener> keyListeners = new LinkedList<>();
     private HorizontalAlignment horizontalAlignment;
     private int length;
     private int height;
@@ -16,7 +20,15 @@ public abstract class CComponent {
 
     public abstract String[] render();
 
-    public abstract void onKeyPressed(int key);
+    public void addKeyListener(KeyListener keyListener) {
+        if (!keyListeners.contains(keyListener)) {
+            keyListeners.add(keyListener);
+        }
+    }
+
+    public boolean removeKeyListener(KeyListener keyListener) {
+        return keyListeners.remove(keyListener);
+    }
 
     public HorizontalAlignment getHorizontalAlignment() {
         return horizontalAlignment;

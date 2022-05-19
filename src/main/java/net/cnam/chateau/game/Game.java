@@ -16,8 +16,10 @@ import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.gui.DisplayableComponent;
+import net.cnam.chateau.gui.event.KeyEvent;
+import net.cnam.chateau.gui.event.KeyListener;
 
-public class Game extends CFrame implements DisplayableComponent {
+public class Game extends CFrame implements DisplayableComponent, KeyListener {
 
     private final Castle castle;
     private final Map map;
@@ -53,7 +55,9 @@ public class Game extends CFrame implements DisplayableComponent {
     }
 
     @Override
-    public void onKeyPressed(int key) {
+    public void onKeyPressed(KeyEvent event) {
+        int key = event.getKey();
+
         // TODO Enlever ça, temporaire
         if (key == 13 || key == 10) {
             stop();
@@ -61,7 +65,7 @@ public class Game extends CFrame implements DisplayableComponent {
         }
 
         // On transmet la touche appuyé aux composants dans cette fenêtre
-        super.onKeyPressed(key);
+        super.onKeyPressed(event);
 
         // On déplace le joueur vers la direction souhaité
         try {

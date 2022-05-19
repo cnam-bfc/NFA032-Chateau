@@ -6,6 +6,7 @@ import java.util.List;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.gui.component.CPanel;
+import net.cnam.chateau.gui.event.KeyEvent;
 import net.cnam.chateau.utils.console.RawConsoleInput;
 
 // Sources ANSI codes:
@@ -101,7 +102,7 @@ public class Console extends CPanel {
                     }
 
                     // On notifie les éléments graphiques de la touche entrée
-                    this.onKeyPressed(input);
+                    this.onKeyPressed(new KeyEvent(input));
                 } catch (IOException ex) {
                     System.out.println("ERREUR");
                     System.exit(1);

@@ -5,8 +5,10 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.DisplayableComponent;
+import net.cnam.chateau.gui.event.KeyEvent;
+import net.cnam.chateau.gui.event.KeyListener;
 
-public class Fight extends CFrame implements DisplayableComponent {
+public class Fight extends CFrame implements DisplayableComponent, KeyListener {
 
     private Player player;
     private Enemy enemy;
@@ -20,7 +22,9 @@ public class Fight extends CFrame implements DisplayableComponent {
     }
 
     @Override
-    public void onKeyPressed(int key) {
+    public void onKeyPressed(KeyEvent event) {
+        int key = event.getKey();
+
         // TODO Enlever ça, temporaire
         if (key == 13 || key == 10) {
             stopDisplaying();
@@ -28,7 +32,7 @@ public class Fight extends CFrame implements DisplayableComponent {
         }
 
         // On transmet la touche appuyé aux composants dans cette fenêtre
-        super.onKeyPressed(key);
+        super.onKeyPressed(event);
     }
 
     @Override
@@ -54,17 +58,15 @@ public class Fight extends CFrame implements DisplayableComponent {
     //le joueur choisie attaque ou fuite ou utiliser un objet
     // si le joueur attaque, le plus rapide attaque en 1er
     //une attaque peut échouer (précision)
-    
-    public void attack(Player player, LivingEntity enemy){
-        if (player.havePet()){
+    public void attack(Player player, LivingEntity enemy) {
+        if (player.havePet()) {
             attackWithPet(player, enemy);
-        }
-        else {
+        } else {
             attackWithoutPet(player, enemy);
         }
     }
-    
-    public void attackWithPet(Player player, LivingEntity enemy){
+
+    public void attackWithPet(Player player, LivingEntity enemy) {
         int playerSpeed = player.getSpeed();
         int playerStrength = player.getSrength();
         int playerAccuracy = player.getAccuracy();
@@ -74,61 +76,57 @@ public class Fight extends CFrame implements DisplayableComponent {
         int petSpeed = player.getPet().getSpeed();
         int petStrength = player.getPet().getSrength();
         int petAccuracy = player.getPet().getAccuracy();
-        
-        if (playerSpeed > enemySpeed && playerSpeed > petSpeed){
+
+        if (playerSpeed > enemySpeed && playerSpeed > petSpeed) {
             //faire attaquer joueur
-            if (enemySpeed > petSpeed){
+            if (enemySpeed > petSpeed) {
                 //faire attaquer l'ennemie entre le pet ou le joueur
                 //faire attaquer le pet
-            }
-            else {
+            } else {
                 //faire attaquer le pet
                 //faire attaquer l'ennemie entre le pet ou le joueur
             }
             return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
         }
-        
-        if (enemySpeed > playerSpeed && enemySpeed > petSpeed){
+
+        if (enemySpeed > playerSpeed && enemySpeed > petSpeed) {
             //faire attaquer l'ennemie entre le pet ou le joueur
-            if (playerSpeed > petSpeed){
+            if (playerSpeed > petSpeed) {
                 //faire attaquer le joueur
                 //faire attaquer le pet
-            }
-            else {
+            } else {
                 //faire attaquer le pet
                 //faire attaquer le joueur
             }
             return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
         }
-        
-        if (petSpeed > enemySpeed && petSpeed > playerSpeed){
+
+        if (petSpeed > enemySpeed && petSpeed > playerSpeed) {
             //faire attaquer le pet
-            if (playerSpeed > enemySpeed){
+            if (playerSpeed > enemySpeed) {
                 //faire attaquer le joueur
                 //faire attaquer l'ennemie entre le pet ou le joueur
-            }
-            else {
+            } else {
                 //faire attaquer l'ennemie entre le pet ou le joueur
                 //faire attaquer le joueur
             }
             return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
         }
     }
-    
-    public void attackWithoutPet(Player player, LivingEntity enemy){
+
+    public void attackWithoutPet(Player player, LivingEntity enemy) {
         int playerSpeed = player.getSpeed();
         int playerStrength = player.getSrength();
         int playerAccuracy = player.getAccuracy();
         int enemySpeed = enemy.getSpeed();
         int enemyStrength = enemy.getSrength();
         int ennemyAccuracy = enemy.getAccuracy();
-        
-        if (playerSpeed > enemySpeed){
+
+        if (playerSpeed > enemySpeed) {
             //vérifier si le joueur touche ennemie
             //si touche retirer pv enemie
             //même chose avec l'ennemie
-        }
-        else {
+        } else {
             //vérifier si l'ennemie touche le joueur
             //si touche retirer pv joueur
             //même chose avec joueur

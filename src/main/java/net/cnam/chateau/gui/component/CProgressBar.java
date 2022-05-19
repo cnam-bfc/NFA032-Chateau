@@ -35,10 +35,6 @@ public class CProgressBar extends CComponent {
         return result;
     }
 
-    @Override
-    public void onKeyPressed(int key) {
-    }
-
     public int getValue() {
         return value;
     }

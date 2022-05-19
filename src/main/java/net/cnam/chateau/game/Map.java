@@ -140,10 +140,6 @@ public class Map extends CComponent {
         return result;
     }
 
-    @Override
-    public void onKeyPressed(int key) {
-    }
-
     public Stage getStage() {
         return stage;
     }

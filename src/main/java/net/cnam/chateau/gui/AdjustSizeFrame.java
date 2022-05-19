@@ -3,11 +3,13 @@ package net.cnam.chateau.gui;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.event.KeyEvent;
+import net.cnam.chateau.gui.event.KeyListener;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 
-public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
+public class AdjustSizeFrame extends CFrame implements DisplayableComponent, KeyListener {
 
     private final AppSettings settings;
     private boolean sizeAdjusted = false;
@@ -28,8 +30,10 @@ public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
     }
 
     @Override
-    public void onKeyPressed(int key) {
-        super.onKeyPressed(key);
+    public void onKeyPressed(KeyEvent event) {
+        super.onKeyPressed(event);
+
+        int key = event.getKey();
 
         // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal
         if (key == 10 || key == 13) {
@@ -50,7 +54,6 @@ public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
                     settings.setConsoleHeight(settings.getConsoleHeight() - 1);
                 }
                 case BOTTOM -> {
-
                     settings.setConsoleHeight(settings.getConsoleHeight() + 1);
                 }
             }
