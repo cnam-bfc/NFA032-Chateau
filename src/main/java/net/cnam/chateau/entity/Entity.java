@@ -1,12 +1,12 @@
 package net.cnam.chateau.entity;
 
 import net.cnam.chateau.utils.Location;
-import net.cnam.chateau.item.DisplayableItem;
+import net.cnam.chateau.item.DisplayableObject;
 
 /**
  * Classe abstraite d'une entité
  */
-public abstract class Entity implements DisplayableItem {
+public abstract class Entity implements DisplayableObject {
 
     private Location location;
 
