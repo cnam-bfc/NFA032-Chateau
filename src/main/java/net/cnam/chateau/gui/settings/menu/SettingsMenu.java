@@ -17,7 +17,7 @@ public class SettingsMenu extends CFrame implements DisplayableComponent {
     public SettingsMenu(Console console, AppSettings settings, SimpleAudioPlayer menuPlayer) {
         super(new CLabel("Paramètres"), 0, 0);
 
-        CButton backButton = new BackButton(this);
+        CButton backButton = new SaveButton(console, settings, this);
         CChoices choices = new CChoices(new SelectableComponent[]{
             new ConfigureScreenButton(console),
             new ConfigureMusicButton(console, settings, menuPlayer),
