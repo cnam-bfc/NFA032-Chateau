@@ -5,7 +5,7 @@ import java.io.IOException;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.error.ErrorDialog;
+import net.cnam.chateau.gui.dialog.ErrorDialog;
 
 public class SaveButton extends CButton {
 

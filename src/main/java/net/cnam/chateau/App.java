@@ -3,7 +3,7 @@ package net.cnam.chateau;
 import java.io.File;
 import java.io.IOException;
 import net.cnam.chateau.gui.Console;
-import net.cnam.chateau.gui.error.ErrorDialog;
+import net.cnam.chateau.gui.dialog.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 
 public class App {

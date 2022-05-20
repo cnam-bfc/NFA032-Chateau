@@ -11,7 +11,7 @@ import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.component.CTextField;
-import net.cnam.chateau.gui.error.ErrorDialog;
+import net.cnam.chateau.gui.dialog.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
