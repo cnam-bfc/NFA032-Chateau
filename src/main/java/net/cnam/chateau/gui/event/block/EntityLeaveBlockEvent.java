@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.event;
+package net.cnam.chateau.gui.event.block;
 
 import net.cnam.chateau.entity.LivingEntity;
 

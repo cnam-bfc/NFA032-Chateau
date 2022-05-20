@@ -3,8 +3,8 @@ package net.cnam.chateau.gui.component;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import net.cnam.chateau.gui.event.KeyEvent;
-import net.cnam.chateau.gui.event.KeyListener;
+import net.cnam.chateau.gui.event.key.KeyEvent;
+import net.cnam.chateau.gui.event.key.KeyListener;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class CPanel extends CComponent implements KeyListener {

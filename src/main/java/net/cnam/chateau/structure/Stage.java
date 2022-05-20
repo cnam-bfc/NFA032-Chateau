@@ -4,9 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import net.cnam.chateau.entity.LivingEntity;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.gui.event.BlockListener;
-import net.cnam.chateau.gui.event.EntityEnterBlockEvent;
-import net.cnam.chateau.gui.event.EntityLeaveBlockEvent;
+import net.cnam.chateau.gui.event.block.BlockListener;
+import net.cnam.chateau.gui.event.block.EntityEnterBlockEvent;
+import net.cnam.chateau.gui.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
 

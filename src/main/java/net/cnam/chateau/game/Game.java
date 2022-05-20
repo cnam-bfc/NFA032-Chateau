@@ -16,8 +16,8 @@ import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.gui.DisplayableComponent;
-import net.cnam.chateau.gui.event.KeyEvent;
-import net.cnam.chateau.gui.event.KeyListener;
+import net.cnam.chateau.gui.event.key.KeyEvent;
+import net.cnam.chateau.gui.event.key.KeyListener;
 import net.cnam.chateau.structure.Stage;
 
 public class Game extends CFrame implements DisplayableComponent, KeyListener {

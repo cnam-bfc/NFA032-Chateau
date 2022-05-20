@@ -6,8 +6,8 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.DisplayableComponent;
-import net.cnam.chateau.gui.event.KeyEvent;
-import net.cnam.chateau.gui.event.KeyListener;
+import net.cnam.chateau.gui.event.key.KeyEvent;
+import net.cnam.chateau.gui.event.key.KeyListener;
 
 public class Fight extends CFrame implements DisplayableComponent, KeyListener {
 
