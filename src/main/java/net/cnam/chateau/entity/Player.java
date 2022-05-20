@@ -9,7 +9,7 @@ import net.cnam.chateau.structure.Stage;
 public class Player extends Personage {
 
     private Stage stage;
-    private Pet pet;// = new PepeLoiseau(new Location(this.getLocation().getX(), this.getLocation().getY()));
+    private Pet pet = new PepeLoiseau(new Location(this.getLocation().getX(), this.getLocation().getY()));
 
     /**
      * Constructeur du personnage sans arme

@@ -47,6 +47,9 @@ public class Game extends CFrame implements DisplayableComponent, KeyListener {
         } catch (CoordinatesOutOfBoundsException ex) {
         }
         firstStage.getEntities().add(0, player);
+        if (player.havePet()) {
+            firstStage.getEntities().add(1, player.getPet());
+        }
         this.map = new Map(player);
 
         this.getContentPane().getComponents().add(map);
