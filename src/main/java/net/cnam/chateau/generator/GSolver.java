@@ -9,6 +9,8 @@ import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.*;
 import net.cnam.chateau.utils.Location;
 
+// TODO mettre dans le générateur à la fin
+
 public class GSolver {
 
     private List<List<GRoom>> decompositionNiveau = new ArrayList<>();

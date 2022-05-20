@@ -8,7 +8,7 @@ import net.cnam.chateau.utils.Location;
 public class Boss_Martinez extends Enemy{
 
     public Boss_Martinez(Location location) {
-        super(new Characteristic(100,100,100,100,100), null, "Martinez", location);
+        super(new Characteristic(100,100,100,100,100), new Weapon(10, 10, 10, "Livre : \"Java pour les nuls\""), "Martinez", location);
     }
     
     @Override

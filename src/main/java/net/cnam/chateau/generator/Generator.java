@@ -28,16 +28,16 @@ import net.cnam.chateau.utils.array.ArrayUtils;
  */
 public class Generator {
 
-    private static final int MIN_SIZE_STAGE = 40; //taille mini d'un étage
-    private static final int MAX_SIZE_STAGE = 50; //taille maxi d'un étage
+    private static final int MIN_SIZE_STAGE = 25; //taille mini d'un étage
+    private static final int MAX_SIZE_STAGE = 35; //taille maxi d'un étage
     private static final int MIN_STAGE = 1; //nombre mini d'étage
     private static final int MAX_STAGE = 1; //nombre maxi d'étage
-    private static final int MIN_SIZE_ROOM = 6; //taille mini d'une pièce
+    private static final int MIN_SIZE_ROOM = 5; //taille mini d'une pièce
     private static final int NB_ITERATION_MIN = 3; //nombre de division minimum des étages
     private static final int NB_ITERATION_MAX = 5; //nombre de division maximum supplémentaire des étages
     private static final int POURCENT_DIVIDE = 10; //ajusteur pour savoir si une pièce se re divise dans la deuxième phase de division
-    private static final int MIN_BLOCKS = 3; // nombre de bloc décoratifs minimum par pièce
-    private static final int MAX_BLOCKS = 5; // nombre de bloc maximum par pièce
+    private static final int MIN_BLOCKS = 1; // nombre de bloc décoratifs minimum par pièce
+    private static final int MAX_BLOCKS = 3; // nombre de bloc maximum par pièce
     private static final int LUCK_BLOCK = 70;
 
     private final long seed;
