@@ -18,9 +18,4 @@ public abstract class DecorativeBlock extends Block {
     public Item getHiddenItem() {
         return hiddenItem;
     }
-
-    @Override
-    public boolean isSolid() {
-        return false;
-    }
 }

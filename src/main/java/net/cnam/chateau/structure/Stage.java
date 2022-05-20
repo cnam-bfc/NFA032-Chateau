@@ -311,11 +311,7 @@ public class Stage {
             throw new CoordinatesOutOfBoundsException("L'entité ne peut pas sortir de l'étage!");
         }
 
-        // Vérifier qu'il va pas sur un newBlock non translucide
         Block newBlock = this.getBlock(location);
-        if (newBlock != null && newBlock.isSolid()) {
-            return;
-        }
 
         // On notifie le nouveau block que l'entité rentre sur celui-ci
         if (newBlock != null && newBlock instanceof BlockListener blockListener) {
