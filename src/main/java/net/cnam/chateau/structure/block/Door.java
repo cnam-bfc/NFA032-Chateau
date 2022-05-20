@@ -27,11 +27,6 @@ public class Door extends Block implements BlockListener {
     }
 
     @Override
-    public boolean isSolid() {
-        return false;
-    }
-
-    @Override
     public String getCharacter() {
         if (locked) {
             return CColor.RED + "D" + CColor.RED.getForegroundReset();

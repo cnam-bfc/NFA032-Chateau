@@ -20,11 +20,6 @@ public abstract class Stair extends Block implements BlockListener {
     private Stair otherStair;
 
     @Override
-    public boolean isSolid() {
-        return locked;
-    }
-
-    @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         LivingEntity entity = event.getEntity();
         if (entity instanceof Player player) {
