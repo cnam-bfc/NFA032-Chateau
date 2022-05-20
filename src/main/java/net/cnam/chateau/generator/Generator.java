@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import net.cnam.chateau.entity.enemy.Boss_Martinez;
+import net.cnam.chateau.structure.RoomBoss;
 import net.cnam.chateau.structure.block.DownStair;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.utils.Location;
@@ -28,8 +30,8 @@ public class Generator {
 
     private static final int MIN_SIZE_STAGE = 40; //taille mini d'un étage
     private static final int MAX_SIZE_STAGE = 50; //taille maxi d'un étage
-    private static final int MIN_STAGE = 3; //nombre mini d'étage
-    private static final int MAX_STAGE = 5; //nombre maxi d'étage
+    private static final int MIN_STAGE = 1; //nombre mini d'étage
+    private static final int MAX_STAGE = 1; //nombre maxi d'étage
     private static final int MIN_SIZE_ROOM = 6; //taille mini d'une pièce
     private static final int NB_ITERATION_MIN = 3; //nombre de division minimum des étages
     private static final int NB_ITERATION_MAX = 5; //nombre de division maximum supplémentaire des étages
@@ -162,6 +164,15 @@ public class Generator {
             }
             //on ajoute au champ de l'escalier de sortie de l'étage actuellement traité, l'étage en question auquel il appartient
             solver.getExitStair().setStage(stage);
+            
+            if (i == stages.length - 1){
+                RoomBoss lastRoom = new RoomBoss();
+                Stage stageBoss = new Stage(new Room[]{lastRoom}, lastRoom.getLength(), lastRoom.getHeight());
+                lastRoom.getEntry().setOtherStair(solver.getExitStair());
+                lastRoom.getEntry().setStage(stageBoss);
+                solver.getExitStair().setOtherStair(lastRoom.getEntry());
+                stageBoss.getEntities().add(new Boss_Martinez(new Location(6, 4)));
+            }
         }
 
         return stages;
