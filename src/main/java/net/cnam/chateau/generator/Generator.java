@@ -157,7 +157,7 @@ public class Generator {
                 //on ajoute l'escalier d'entrée dans la pièce du nouvelle étage
                 firstRoom.getBlocks()[x][y] = entryStair;
                 //on récupère la location dans la pièce de l'escalier et on lui ajoute dans ses champs
-                entryStair.setLocation(new Location(x, y));
+                entryStair.setLocation(new Location(firstRoom.getLocation().getX() + x, firstRoom.getLocation().getY() + y));
 
             }
             //on ajoute au champ de l'escalier de sortie de l'étage actuellement traité, l'étage en question auquel il appartient

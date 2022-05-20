@@ -113,7 +113,7 @@ public class GSolver {
         this.exitRoom = room;
         this.exitLocation = new Location(x, y);
         this.exitStair = exitStair;
-        this.exitStair.setLocation(new Location(x, y));
+        this.exitStair.setLocation(new Location(exitRoom.getLocation().getX() + x, exitRoom.getLocation().getY() + y));
     }
 
     private GRoom findGRoom(Room room, List<GRoom> GRooms) {
