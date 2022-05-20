@@ -1,5 +1,17 @@
 package net.cnam.chateau;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class AppSettings {
 
     public static final int CONSOLE_MIN_LENGTH = 80;
@@ -25,6 +37,37 @@ public class AppSettings {
                 consoleHeight = detectedConsoleHeight;
             }
         }
+    }
+
+    public void save() throws FileNotFoundException, IOException {
+
+        FileOutputStream fluxEntree = new FileOutputStream(".\\");
+        BufferedOutputStream outTampon = new BufferedOutputStream(fluxEntree);
+        DataOutputStream out = new DataOutputStream(outTampon);
+
+        out.writeInt(this.consoleLength);
+        out.writeInt(this.consoleHeight);
+        out.writeFloat(this.musicVolume);
+        out.writeFloat(this.soundEffectsVolume);
+
+        out.close();
+        System.out.println("==> Paramètres sauvegardés <==");
+    }
+
+    public void load() throws FileNotFoundException, IOException {
+
+        FileInputStream fluxEntree = new FileInputStream(".\\");
+        BufferedInputStream inTampon = new BufferedInputStream(fluxEntree);
+        DataInputStream in = new DataInputStream(inTampon);
+        
+        this.consoleLength = in.readInt();
+        this.consoleHeight = in.readInt();
+        this.musicVolume = in.readFloat();
+        this.soundEffectsVolume = in.readFloat();
+        
+        in.close();
+        
+        System.out.println("==> Paramètres chargés <==");
     }
 
     public int getConsoleLength() {
