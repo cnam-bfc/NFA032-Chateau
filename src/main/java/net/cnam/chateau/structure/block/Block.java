@@ -1,6 +1,6 @@
 package net.cnam.chateau.structure.block;
 
-import net.cnam.chateau.item.DisplayableObject;
+import net.cnam.chateau.DisplayableObject;
 
 /**
  * Classe permettant de créer un block pour la map.

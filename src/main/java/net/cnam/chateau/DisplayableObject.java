@@ -1,4 +1,4 @@
-package net.cnam.chateau.item;
+package net.cnam.chateau;
 
 /**
  * Interface permetteant d'associer un caractère (char) à un objet

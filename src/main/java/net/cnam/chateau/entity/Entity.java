@@ -1,7 +1,7 @@
 package net.cnam.chateau.entity;
 
 import net.cnam.chateau.utils.Location;
-import net.cnam.chateau.item.DisplayableObject;
+import net.cnam.chateau.DisplayableObject;
 
 /**
  * Classe abstraite d'une entité
