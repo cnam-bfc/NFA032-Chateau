@@ -149,8 +149,7 @@ public class Generator {
                     }
                 } while (testDoor);
                 firstRoom.getBlocks()[x][y] = entryStair;
-                entryStair.setLocation(new Location(x,y));
-
+                entryStair.setLocation(new Location(x, y));
             }
             solver.getExitStair().setStage(stage);
         }
