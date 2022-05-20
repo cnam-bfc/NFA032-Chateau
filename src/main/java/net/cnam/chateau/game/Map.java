@@ -1,6 +1,7 @@
 package net.cnam.chateau.game;
 
 import net.cnam.chateau.entity.LivingEntity;
+import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.gui.component.HorizontalAlignment;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
@@ -12,15 +13,15 @@ import net.cnam.chateau.structure.block.Wall;
 
 public class Map extends CComponent {
 
-    private final Location playerLocation;
+    private final Player player;
     private Stage stage;
     private Location origin;
 
-    public Map(Stage stage, Location playerLocation) {
+    public Map(Stage stage, Player player) {
         super(HorizontalAlignment.CENTER, 0, 0);
 
         this.stage = stage;
-        this.playerLocation = playerLocation;
+        this.player = player;
         this.origin = new Location(0, 0);
     }
 
@@ -29,6 +30,8 @@ public class Map extends CComponent {
         String[] result = new String[this.getHeight()];
         int linePointer = 0;
         String emptyLine = " ".repeat(this.getLength());
+
+        Location playerLocation = player.getLocation();
 
         // Déplacer la map en fonction de la position du joueur
         // Si le joueur se rapproche du bord haut

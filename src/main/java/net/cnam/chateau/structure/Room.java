@@ -10,7 +10,7 @@ public class Room {
 
     private final Location location;
     private Block[][] blocks;
-    private boolean visited = false;
+    private boolean visited = true;
 
     /**
      * Constructeur
