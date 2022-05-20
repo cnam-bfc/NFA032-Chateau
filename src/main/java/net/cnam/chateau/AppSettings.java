@@ -14,7 +14,7 @@ public class AppSettings {
 
     public static final int CONSOLE_MIN_LENGTH = 80;
     public static final int CONSOLE_MIN_HEIGHT = 25;
-    public static final String DEFAULT_FILE_PATH = ".\\settings.dat";
+    public static final String DEFAULT_FILE_PATH = "settings.dat";
 
     private int consoleLength = CONSOLE_MIN_LENGTH;
     private int consoleHeight = CONSOLE_MIN_HEIGHT;

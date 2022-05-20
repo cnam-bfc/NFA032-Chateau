@@ -5,7 +5,7 @@ import java.io.IOException;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.error.CErrorDialog;
+import net.cnam.chateau.gui.error.ErrorDialog;
 
 public class SaveButton extends CButton {
 
@@ -24,11 +24,11 @@ public class SaveButton extends CButton {
     @Override
     public void execute() {
         settingsMenu.stopDisplaying();
+        File settingsfile = new File(AppSettings.DEFAULT_FILE_PATH);
         try {
-            File file = new File(AppSettings.DEFAULT_FILE_PATH);
-            settings.save(file);
+            settings.save(settingsfile);
         } catch (IOException ex) {
-            console.show(new CErrorDialog(CErrorDialog.Type.WARNING, "Impossible de sauvegarder les paramètres"));
+            console.show(new ErrorDialog(ErrorDialog.Type.ERROR, "Impossible de sauvegarder les paramètres dans\n" + settingsfile.getAbsolutePath()));
         }
     }
 }

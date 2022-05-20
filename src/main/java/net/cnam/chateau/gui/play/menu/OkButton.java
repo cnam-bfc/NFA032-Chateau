@@ -11,7 +11,7 @@ import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.component.CTextField;
-import net.cnam.chateau.gui.error.CErrorDialog;
+import net.cnam.chateau.gui.error.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
@@ -40,7 +40,7 @@ public class OkButton extends CButton {
         try {
             seed = Long.parseLong(seedTextField.getText());
         } catch (NumberFormatException ex) {
-            console.show(new CErrorDialog(CErrorDialog.Type.WARNING, "La seed doit être un nombre !"));
+            console.show(new ErrorDialog(ErrorDialog.Type.WARNING, "La seed doit être un nombre !"));
             return;
         }
         playMenu.stopDisplaying();

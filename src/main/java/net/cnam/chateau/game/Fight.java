@@ -10,13 +10,14 @@ import net.cnam.chateau.gui.event.KeyEvent;
 import net.cnam.chateau.gui.event.KeyListener;
 
 public class Fight extends CFrame implements DisplayableComponent, KeyListener {
-    
-    private final int ACCURACY = 20;
 
-    private Player player;
-    private Enemy enemy;
+    private static final int ACCURACY = 20;
+
+    private final Player player;
+    private final Enemy enemy;
+    private final Random random;
+
     private boolean display = true;
-    private Random random;
 
     public Fight(Player player, Enemy enemy) {
         super(0, 0);
@@ -59,6 +60,7 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
         //utiliser un objet
         //fuire
     }
+
     //TODO voir pour gérer si une entité meurt
     public void attack(Player player, LivingEntity enemy) {
         if (player.havePet()) {
@@ -162,9 +164,6 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
 
     public boolean testAttack(LivingEntity entity) {
         int Accuracy = entity.getAccuracy();
-        if (random.nextInt(0,ACCURACY) < Accuracy){
-            return true;
-        }
-        return false;
+        return random.nextInt(0, ACCURACY) < Accuracy;
     }
 }

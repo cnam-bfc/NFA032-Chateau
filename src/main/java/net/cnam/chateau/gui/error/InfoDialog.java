@@ -5,36 +5,30 @@ import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
-import net.cnam.chateau.gui.component.HorizontalAlignment;
 import net.cnam.chateau.utils.StringUtils;
 
-public class CErrorDialog extends CFrame implements DisplayableComponent {
+public class InfoDialog extends CFrame implements DisplayableComponent {
 
-    public CErrorDialog(Type type, String text) {
+    public InfoDialog(Type type, String text) {
         this(type, StringUtils.convertStringToStringArray(text));
     }
 
-    public CErrorDialog(Type type, String[] text) {
+    public InfoDialog(Type type, String[] text) {
         super(AppSettings.CONSOLE_MIN_LENGTH, AppSettings.CONSOLE_MIN_HEIGHT);
 
-        CLabel title = new CLabel("ERREUR");
+        CLabel title = new CLabel("Message");
         title.getColors().add(CColor.BOLD);
-        title.getColors().add(CColor.RED);
+        title.getColors().add(CColor.YELLOW);
         this.setTitle(title);
 
         CLabel introMessage = new CLabel(type.getTitle(), this.getLength() - 2);
         introMessage.getColors().add(CColor.BOLD);
         introMessage.getColors().add(CColor.BLINKING);
-        introMessage.getColors().add(CColor.RED);
+        introMessage.getColors().add(CColor.YELLOW);
         this.getContentPane().getComponents().add(introMessage);
 
         CLabel errorMessage = new CLabel(text, this.getLength() - 2);
-        if (type.equals(Type.EXCEPTION)) {
-            errorMessage.setHorizontalAlignment(HorizontalAlignment.LEFT);
-        } else {
-            errorMessage.getColors().add(CColor.BLINKING);
-        }
-        errorMessage.getColors().add(CColor.RED);
+        errorMessage.getColors().add(CColor.YELLOW);
         this.getContentPane().getComponents().add(errorMessage);
 
         CLabel exitMessage = new CLabel(type.getFooter(), this.getLength() - 2);
@@ -53,8 +47,7 @@ public class CErrorDialog extends CFrame implements DisplayableComponent {
     }
 
     public enum Type {
-        WARNING("\u26A0 Attention \u26A0", "Appuyez sur une touche pour continuer..."),
-        EXCEPTION("\u26A0 Une erreur fatale est survenue \u26A0", "Appuyez sur une touche pour quitter...");
+        INFO("\u24D8 Information \u24D8", "Appuyez sur une touche pour continuer...");
 
         private final String title;
         private final String footer;

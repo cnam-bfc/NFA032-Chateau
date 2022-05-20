@@ -3,7 +3,7 @@ package net.cnam.chateau;
 import java.io.File;
 import java.io.IOException;
 import net.cnam.chateau.gui.Console;
-import net.cnam.chateau.gui.error.CErrorDialog;
+import net.cnam.chateau.gui.error.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 
 public class App {
@@ -35,7 +35,7 @@ public class App {
             for (int i = 1; i <= trace.length; i++) {
                 lines[i] = "   at " + trace[i - 1];
             }
-            console.show(new CErrorDialog(CErrorDialog.Type.EXCEPTION, lines));
+            console.show(new ErrorDialog(ErrorDialog.Type.EXCEPTION, lines));
             console.finalClear(false);
         }
     }
