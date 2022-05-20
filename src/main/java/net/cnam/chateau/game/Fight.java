@@ -10,6 +10,8 @@ import net.cnam.chateau.gui.event.KeyEvent;
 import net.cnam.chateau.gui.event.KeyListener;
 
 public class Fight extends CFrame implements DisplayableComponent, KeyListener {
+    
+    private final int ACCURACY = 20;
 
     private Player player;
     private Enemy enemy;
@@ -160,7 +162,9 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
 
     public boolean testAttack(LivingEntity entity) {
         int Accuracy = entity.getAccuracy();
-        // TODO voir comment on gère la précision
-        return true;
+        if (random.nextInt(0,ACCURACY) < Accuracy){
+            return true;
+        }
+        return false;
     }
 }

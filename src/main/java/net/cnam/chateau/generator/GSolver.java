@@ -110,7 +110,6 @@ public class GSolver {
         UpStair exitStair = new UpStair();
         room.getBlocks()[x][y] = exitStair;
 
-        //à voir si je garde
         this.exitRoom = room;
         this.exitLocation = new Location(x, y);
         this.exitStair = exitStair;

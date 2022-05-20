@@ -80,22 +80,21 @@ public class Generator {
 
         // On récupère la première room
         // On place le joueur aléatoirement dans l'étage le plus haut (ou le plus bas à voir)
-        // JE SAIS VICTOR QU'ON PEUT SIMPLIFIER MAIS TQT
         Room firstRoom = stages[0].getRooms()[random.nextInt(0, stages[0].getRooms().length)];
         this.defaultLocation = getDefaultPlayerLocation(firstRoom);
 
         // On génère les passages dans chaque étage
         GSolver solver;
+
+        //On boucle sur chaque étage
+        //si c'est l'étage 1 : on met juste une sortie
         for (int i = 0; i < stages.length; i++) {
             Stage stage = stages[i];
-            List<GRoom> gRooms = generateStageWalls(stage);
+            List<GRoom> gRooms = generateStageWalls(stage); // On génère les murs et on récupère la liste des petits murs qui lie 2 pièces
+            
             // - on place les sorties
-            if (i == 0) {
-                solver = new GSolver(firstRoom, gRooms, random);
-            } else {
-                //trouver comment choisir la nouvelle room
-                solver = new GSolver(firstRoom, gRooms, random);
-            }
+            solver = new GSolver(firstRoom, gRooms, random);
+            
             //ajoute l'escalier du bas en haut
             if (i < stages.length - 1) {
                 Stage stageEntry = stages[i + 1];
@@ -107,23 +106,29 @@ public class Generator {
 
                 int xOldExit = solver.getExitRoom().getLocation().getX() + solver.getExitLocation().getX();
                 int yOldExit = solver.getExitRoom().getLocation().getY() + solver.getExitLocation().getY();
+                
+                //si xOldExit est en dehors du champ X on le recadre pour le ramener à la room la plus proche
                 while (stageEntry.getLength() <= xOldExit) {
                     xOldExit -= 1;
                 }
+                //si yOldExit est en dehors du champ Y on le recadre pour le ramener à la room la plus proche
                 while (stageEntry.getHeight() <= yOldExit) {
                     yOldExit -= 1;
                 }
 
+                //on cherche et récupère la room qui est associé aux coordonnées (xOldExit, yOldExit) par rapport à l'étage
                 try {
                     firstRoom = stageEntry.getRoom(xOldExit, yOldExit);
                 } catch (CoordinatesOutOfBoundsException ex) {
                     firstRoom = stageEntry.getRooms()[0];
                 }
 
+                //on choisit des coordonnées au hasard dans la room choisie au dessus
                 int x = random.nextInt(1, firstRoom.getLength() - 1);
                 int y = random.nextInt(1, firstRoom.getHeight() - 1);
                 boolean testDoor;
                 //vérification qu'il n'y a pas de porte à proximité sinon on décale
+                //vérification qu'il n'y a pas de block la ou on souhaite placé l'escalier
                 do {
                     testDoor = false;
                     if (firstRoom.getBlocks()[x + 1][y] instanceof Door) {
@@ -148,10 +153,14 @@ public class Generator {
                         testDoor = true;
                     }
                 } while (testDoor);
+                
+                //on ajoute l'escalier d'entrée dans la pièce du nouvelle étage
                 firstRoom.getBlocks()[x][y] = entryStair;
-                entryStair.setLocation(new Location(x,y));
+                //on récupère la location dans la pièce de l'escalier et on lui ajoute dans ses champs
+                entryStair.setLocation(new Location(x, y));
 
             }
+            //on ajoute au champ de l'escalier de sortie de l'étage actuellement traité, l'étage en question auquel il appartient
             solver.getExitStair().setStage(stage);
         }
 
