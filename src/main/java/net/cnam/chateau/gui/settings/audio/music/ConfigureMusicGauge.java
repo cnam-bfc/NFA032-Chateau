@@ -9,7 +9,7 @@ public class ConfigureMusicGauge extends CGauge {
     private final SimpleAudioPlayer menuPlayer;
 
     public ConfigureMusicGauge(AppSettings settings, SimpleAudioPlayer menuPlayer) {
-        super(AppSettings.CONSOLE_MIN_LENGTH - 10, (int) (settings.getMusicVolume() * 15), 15);
+        super(AppSettings.CONSOLE_MIN_LENGTH - 10, (int) (settings.getMusicVolume() * 20), 20);
 
         this.menuPlayer = menuPlayer;
     }

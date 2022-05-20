@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import net.cnam.chateau.audio.AudioPlayer;
 
 public class AppSettings {
 
@@ -62,6 +63,8 @@ public class AppSettings {
         this.soundEffectsVolume = in.readFloat();
 
         in.close();
+
+        AudioPlayer.volume = soundEffectsVolume;
     }
 
     public int getConsoleLength() {
@@ -100,5 +103,7 @@ public class AppSettings {
 
     public void setSoundEffectsVolume(float soundEffectsVolume) {
         this.soundEffectsVolume = soundEffectsVolume;
+
+        AudioPlayer.volume = soundEffectsVolume;
     }
 }

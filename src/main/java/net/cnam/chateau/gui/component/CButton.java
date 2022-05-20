@@ -1,5 +1,7 @@
 package net.cnam.chateau.gui.component;
 
+import net.cnam.chateau.audio.AudioPlayer;
+import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.event.key.KeyEvent;
 import net.cnam.chateau.gui.event.key.KeyListener;
@@ -53,6 +55,7 @@ public abstract class CButton extends CLabel implements SelectableComponent, Key
 
         // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal
         if (this.isSelected() && (key == 10 || key == 13)) {
+            AudioPlayer.play(SoundEffect.SELECT);
             this.execute();
         }
     }

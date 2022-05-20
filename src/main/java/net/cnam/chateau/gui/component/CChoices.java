@@ -3,6 +3,8 @@ package net.cnam.chateau.gui.component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.cnam.chateau.audio.AudioPlayer;
+import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.gui.event.key.KeyEvent;
 import net.cnam.chateau.gui.event.key.KeyListener;
 import net.cnam.chateau.utils.direction.Direction;
@@ -96,6 +98,7 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
                     }
                 }
             }
+            AudioPlayer.play(SoundEffect.HOVER);
         } catch (DirectionNotFoundException ex) {
         }
     }

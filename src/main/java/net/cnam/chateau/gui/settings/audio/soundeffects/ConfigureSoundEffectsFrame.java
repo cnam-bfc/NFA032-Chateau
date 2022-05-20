@@ -14,14 +14,14 @@ public class ConfigureSoundEffectsFrame extends CFrame implements DisplayableCom
     private boolean display = true;
 
     public ConfigureSoundEffectsFrame(AppSettings settings) {
-        super(new CLabel("Configurer le niveau sonore des  effets sonores"), 0, 0);
+        super(new CLabel("Configurer le niveau sonore des effets sonores"), 0, 0);
 
-        CGauge gauge = new CGauge(AppSettings.CONSOLE_MIN_LENGTH - 10, (int) (settings.getSoundEffectsVolume() * 15), 15);
+        CGauge gauge = new ConfigureSoundEffectsGauge(settings);
         CChoices choices = new CChoices(new SelectableComponent[]{
             gauge,
             new CChoices(new SelectableComponent[]{
                 new ConfigureSoundEffectsOkButton(this, settings, gauge),
-                new ConfigureSoundEffectsCancelButton(this)
+                new ConfigureSoundEffectsCancelButton(this, settings)
             }, Orientation.HORIZONTAL, 10)
         }, 5);
 
