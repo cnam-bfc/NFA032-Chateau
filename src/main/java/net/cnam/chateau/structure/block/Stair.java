@@ -31,7 +31,7 @@ public abstract class Stair extends Block implements BlockListener {
 
             // On ajoute le joueur dans l'autre étage
             player.setStage(otherStair.stage);
-            otherStair.stage.getEntities().add(player);
+            otherStair.stage.getEntities().add(0, player);
             player.getLocation().setX(otherStair.location.getX());
             player.getLocation().setY(otherStair.location.getY());
             try {
@@ -39,7 +39,7 @@ public abstract class Stair extends Block implements BlockListener {
             } catch (CoordinatesOutOfBoundsException ex) {
             }
             if (player.havePet()) {
-                otherStair.stage.getEntities().add(player.getPet());
+                otherStair.stage.getEntities().add(1, player.getPet());
                 player.getPet().getLocation().setX(otherStair.location.getX());
                 player.getPet().getLocation().setY(otherStair.location.getY());
             }
