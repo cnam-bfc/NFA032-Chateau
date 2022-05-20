@@ -2,7 +2,6 @@ package net.cnam.chateau.structure.block;
 
 import net.cnam.chateau.entity.LivingEntity;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.game.Map;
 import net.cnam.chateau.gui.event.BlockListener;
 import net.cnam.chateau.gui.event.EntityEnterBlockEvent;
 import net.cnam.chateau.gui.event.EntityLeaveBlockEvent;
@@ -19,7 +18,6 @@ public abstract class Stair extends Block implements BlockListener {
     private Stage stage;
     private Location location;
     private Stair otherStair;
-    private Map map;
 
     @Override
     public boolean isSolid() {
@@ -37,6 +35,7 @@ public abstract class Stair extends Block implements BlockListener {
             }
 
             // On ajoute le joueur dans l'autre étage
+            player.setStage(otherStair.stage);
             otherStair.stage.getEntities().add(player);
             player.getLocation().setX(otherStair.location.getX());
             player.getLocation().setY(otherStair.location.getY());
@@ -49,9 +48,6 @@ public abstract class Stair extends Block implements BlockListener {
                 player.getPet().getLocation().setX(otherStair.location.getX());
                 player.getPet().getLocation().setY(otherStair.location.getY());
             }
-
-            // On change d'étage sur la map
-            map.setStage(otherStair.stage);
         }
     }
 
@@ -89,13 +85,5 @@ public abstract class Stair extends Block implements BlockListener {
 
     public void setOtherStair(Stair otherStair) {
         this.otherStair = otherStair;
-    }
-
-    public Map getMap() {
-        return map;
-    }
-
-    public void setMap(Map map) {
-        this.map = map;
     }
 }

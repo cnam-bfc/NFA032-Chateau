@@ -91,10 +91,10 @@ public class Generator {
         for (int i = 0; i < stages.length; i++) {
             Stage stage = stages[i];
             List<GRoom> gRooms = generateStageWalls(stage); // On génère les murs et on récupère la liste des petits murs qui lie 2 pièces
-            
+
             // - on place les sorties
             solver = new GSolver(firstRoom, gRooms, random);
-            
+
             //ajoute l'escalier du bas en haut
             if (i < stages.length - 1) {
                 Stage stageEntry = stages[i + 1];
@@ -106,7 +106,7 @@ public class Generator {
 
                 int xOldExit = solver.getExitRoom().getLocation().getX() + solver.getExitLocation().getX();
                 int yOldExit = solver.getExitRoom().getLocation().getY() + solver.getExitLocation().getY();
-                
+
                 //si xOldExit est en dehors du champ X on le recadre pour le ramener à la room la plus proche
                 while (stageEntry.getLength() <= xOldExit) {
                     xOldExit -= 1;
@@ -153,7 +153,7 @@ public class Generator {
                         testDoor = true;
                     }
                 } while (testDoor);
-                
+
                 //on ajoute l'escalier d'entrée dans la pièce du nouvelle étage
                 firstRoom.getBlocks()[x][y] = entryStair;
                 //on récupère la location dans la pièce de l'escalier et on lui ajoute dans ses champs

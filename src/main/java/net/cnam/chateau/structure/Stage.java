@@ -301,48 +301,53 @@ public class Stage {
      * Exception levé si l'entitée tente de sortir de l'étage
      */
     public void move(LivingEntity entity, Location location) throws CoordinatesOutOfBoundsException {
-        for (LivingEntity entity2 : entities) {
-            if (entity.equals(entity2)) {
-                Location entityLocation = entity.getLocation();
-                Block oldBlock = this.getBlock(entityLocation.getX(), entityLocation.getY());
-                if (location.getX() < 0 || location.getY() < 0 || location.getX() >= this.getLength() || location.getY() >= this.getHeight()) {
-                    throw new CoordinatesOutOfBoundsException("L'entité ne peut pas sortir de l'étage!");
-                }
+        if (!entities.contains(entity)) {
+            return;
+        }
 
-                // Vérifier qu'il va pas sur un newBlock non translucide
-                Block newBlock = this.getBlock(location);
-                if (newBlock != null && newBlock.isSolid()) {
-                    return;
-                }
+        Location entityLocation = entity.getLocation();
+        Block oldBlock = this.getBlock(entityLocation.getX(), entityLocation.getY());
+        if (location.getX() < 0 || location.getY() < 0 || location.getX() >= this.getLength() || location.getY() >= this.getHeight()) {
+            throw new CoordinatesOutOfBoundsException("L'entité ne peut pas sortir de l'étage!");
+        }
 
-                // On notifie le nouveau block que l'entité rentre sur celui-ci
-                if (newBlock != null && newBlock instanceof BlockListener blockListener) {
-                    EntityEnterBlockEvent event = new EntityEnterBlockEvent(entity);
-                    blockListener.onEntityEnterBlock(event);
-                    // Si le block refuse que l'entité rentre sur son territoire on ne déplace pas l'entité
-                    if (event.isCanceled()) {
-                        return;
-                    }
-                }
+        // Vérifier qu'il va pas sur un newBlock non translucide
+        Block newBlock = this.getBlock(location);
+        if (newBlock != null && newBlock.isSolid()) {
+            return;
+        }
 
-                // On notifie l'ancien block où était l'entité que celle-ci est partie
-                if (oldBlock != null && oldBlock instanceof BlockListener blockListener) {
-                    blockListener.onEntityLeaveBlock(new EntityLeaveBlockEvent(entity));
-                }
+        // On notifie le nouveau block que l'entité rentre sur celui-ci
+        if (newBlock != null && newBlock instanceof BlockListener blockListener) {
+            EntityEnterBlockEvent event = new EntityEnterBlockEvent(entity);
+            blockListener.onEntityEnterBlock(event);
+            // Si le block refuse que l'entité rentre sur son territoire on ne déplace pas l'entité
+            if (event.isCanceled()) {
+                return;
+            }
+        }
 
-                // On sauvegarde les coordonnées 
-                Location possiblePetNewLocation = new Location(entityLocation.getX(), entityLocation.getY());
+        // On notifie l'ancien block où était l'entité que celle-ci est partie
+        if (oldBlock != null && oldBlock instanceof BlockListener blockListener) {
+            blockListener.onEntityLeaveBlock(new EntityLeaveBlockEvent(entity));
+        }
 
-                // On déplace l'entité
-                entityLocation.setX(location.getX());
-                entityLocation.setY(location.getY());
+        // On revérifie que l'entité est toujours dans l'étage car il se peut qu'un bloc comme un escalier ai fait changer l'entité d'étage
+        if (!entities.contains(entity)) {
+            return;
+        }
 
-                // Vérifier si l'entité est un joueur, si oui vérifie si il a un pet, si oui, positionne le pet à la position du joueur avant déplacement
-                if (entity instanceof Player player) {
-                    if (player.havePet() && player.getPet().isFollowingPlayer() && !player.getPet().getLocation().equals(entityLocation)) {
-                        this.move(player.getPet(), possiblePetNewLocation);
-                    }
-                }
+        // On sauvegarde les coordonnées 
+        Location possiblePetNewLocation = new Location(entityLocation.getX(), entityLocation.getY());
+
+        // On déplace l'entité
+        entityLocation.setX(location.getX());
+        entityLocation.setY(location.getY());
+
+        // Vérifier si l'entité est un joueur, si oui vérifie si il a un pet, si oui, positionne le pet à la position du joueur avant déplacement
+        if (entity instanceof Player player) {
+            if (player.havePet() && player.getPet().isFollowingPlayer() && !player.getPet().getLocation().equals(entityLocation)) {
+                this.move(player.getPet(), possiblePetNewLocation);
             }
         }
     }

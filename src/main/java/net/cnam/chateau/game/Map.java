@@ -14,13 +14,11 @@ import net.cnam.chateau.structure.block.Wall;
 public class Map extends CComponent {
 
     private final Player player;
-    private Stage stage;
-    private Location origin;
+    private final Location origin;
 
-    public Map(Stage stage, Player player) {
+    public Map(Player player) {
         super(HorizontalAlignment.CENTER, 0, 0);
 
-        this.stage = stage;
         this.player = player;
         this.origin = new Location(0, 0);
     }
@@ -32,6 +30,7 @@ public class Map extends CComponent {
         String emptyLine = " ".repeat(this.getLength());
 
         Location playerLocation = player.getLocation();
+        Stage playerStage = player.getStage();
 
         // Déplacer la map en fonction de la position du joueur
         // Si le joueur se rapproche du bord haut
@@ -46,10 +45,10 @@ public class Map extends CComponent {
         // Si le joueur se rapproche du bord bas
         while (playerLocation.getY() + 5 > origin.getY() + this.getHeight()) {
             // Et que l'on peut abaisser la map
-            if (origin.getY() + this.getHeight() + 4 <= stage.getHeight()) {
+            if (origin.getY() + this.getHeight() + 4 <= playerStage.getHeight()) {
                 origin.setY(origin.getY() + 4);
             } else {
-                int newY = stage.getHeight() - this.getHeight();
+                int newY = playerStage.getHeight() - this.getHeight();
                 if (newY >= 0) {
                     origin.setY(newY);
                 }
@@ -68,10 +67,10 @@ public class Map extends CComponent {
         // Si le joueur se rapproche du bord droit
         while (playerLocation.getX() + 5 > origin.getX() + this.getLength() / 2) {
             // Et que l'on peut bouger la map
-            if (origin.getX() + this.getLength() / 2 + 4 <= stage.getLength()) {
+            if (origin.getX() + this.getLength() / 2 + 4 <= playerStage.getLength()) {
                 origin.setX(origin.getX() + 4);
             } else {
-                int newX = stage.getLength() - this.getLength() / 2;
+                int newX = playerStage.getLength() - this.getLength() / 2;
                 if (newX >= 0) {
                     origin.setX(newX);
                 }
@@ -80,21 +79,21 @@ public class Map extends CComponent {
         }
 
         // Lignes de la console - lignes de texte au millieu
-        int paddingHeight = this.getHeight() - stage.getHeight();
+        int paddingHeight = this.getHeight() - playerStage.getHeight();
         for (int i = 0; i < paddingHeight / 2; i++) {
             result[linePointer++] = emptyLine;
         }
 
         // Colonnes de la console - colonnes de texte au milieu
-        int paddingLength = this.getLength() - stage.getLength() * 2 - 1;
+        int paddingLength = this.getLength() - playerStage.getLength() * 2 - 1;
 
-        for (int y = origin.getY(); y < stage.getHeight(); y++) {
+        for (int y = origin.getY(); y < playerStage.getHeight(); y++) {
             String line = "";
             int lineLength = 0;
             for (; lineLength < paddingLength / 2; lineLength++) {
                 line += ' ';
             }
-            for (int x = origin.getX(); x < stage.getLength(); x++) {
+            for (int x = origin.getX(); x < playerStage.getLength(); x++) {
                 if (lineLength + 2 > this.getLength()) {
                     break;
                 }
@@ -104,10 +103,10 @@ public class Map extends CComponent {
                 }
 
                 try {
-                    Block block = stage.getBlock(x, y);
-                    LivingEntity entity = stage.getEntity(x, y);
+                    Block block = playerStage.getBlock(x, y);
+                    LivingEntity entity = playerStage.getEntity(x, y);
                     // Si la location n'a pas été visité par le joueur on l'affiche pas
-                    Room[] rooms = stage.getRooms(x, y);
+                    Room[] rooms = playerStage.getRooms(x, y);
                     boolean clear = true;
                     for (Room room : rooms) {
                         if (room.isVisited()) {
@@ -121,7 +120,7 @@ public class Map extends CComponent {
                     if (x != 0) {
                         if (block instanceof Wall wall) {
                             line += wall.getCharacter();
-                        } else if (stage.getBlock(x - 1, y) instanceof Wall wall) {
+                        } else if (playerStage.getBlock(x - 1, y) instanceof Wall wall) {
                             line += wall.getCharacter();
                         } else {
                             line += ' ';
@@ -154,14 +153,5 @@ public class Map extends CComponent {
         }
 
         return result;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-        this.origin = new Location(0, 0);
     }
 }

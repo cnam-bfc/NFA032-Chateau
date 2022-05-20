@@ -4,9 +4,11 @@ import net.cnam.chateau.entity.pet.*;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.item.weapon.Weapon;
+import net.cnam.chateau.structure.Stage;
 
 public class Player extends Personage {
 
+    private Stage stage;
     private Pet pet;// = new PepeLoiseau(new Location(this.getLocation().getX(), this.getLocation().getY()));
 
     /**
@@ -39,15 +41,23 @@ public class Player extends Personage {
         return CColor.CYAN + super.getCharacter() + CColor.CYAN.getForegroundReset();
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public boolean havePet() {
+        return (this.pet != null);
+    }
+
     public Pet getPet() {
         return pet;
     }
 
     public void setPet(Pet pet) {
         this.pet = pet;
-    }
-
-    public boolean havePet() {
-        return (this.pet != null);
     }
 }
