@@ -1,12 +1,11 @@
 package net.cnam.chateau.generator;
 
-import net.cnam.chateau.structure.block.door.Door;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import static net.cnam.chateau.generator.GUtils.findPosition;
+import static net.cnam.chateau.generator.GUtils.*;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.*;
 import net.cnam.chateau.utils.Location;
@@ -18,7 +17,6 @@ public class GSolver {
     private List<List<GRoom>> decompositionNiveau = new ArrayList<>();
     private Map<GRoom, Boolean> verifDecomposition = new HashMap<>();
     private Random random;
-    private Room exitRoom;
     private UpStair exitStair;
 
     public GSolver(Room room, List<GRoom> gRooms, Random random) {
@@ -29,6 +27,9 @@ public class GSolver {
         transition.add(actualGRoom);
         decompositionNiveau.add(transition);
 
+        //On prépare la liste pour le tri topoligue
+        //True = déjà traité (ici uniquement la room de départ)
+        //False = non traité
         for (GRoom newRoom : gRooms) {
             if (newRoom == actualGRoom) {
                 verifDecomposition.put(newRoom, true);
@@ -77,10 +78,13 @@ public class GSolver {
                 decompositionNiveau.add(newLevel);
             }
         }
-        //boucle sur les Gwall des Groom
 
     }
 
+    /**
+     * Méthode pour placer la sortie de l'étage.
+     *
+     */
     private void placeExit() {
         //ici on choisie la room
         List<GRoom> rooms = decompositionNiveau.get(decompositionNiveau.size() - 1);
@@ -91,25 +95,10 @@ public class GSolver {
         int x = location.getX();
         int y = location.getY();
         
-        UpStair exitStair = new UpStair();
+        // On place l'escalier de sortie
+        this.exitStair = new UpStair();
         room.getBlocks()[x][y] = exitStair;
-
-        this.exitRoom = room;
-        this.exitStair = exitStair;
-        this.exitStair.setLocation(new Location(exitRoom.getLocation().getX() + x, exitRoom.getLocation().getY() + y));
-    }
-
-    private GRoom findGRoom(Room room, List<GRoom> GRooms) {
-        for (GRoom c : GRooms) {
-            if (room == c.getRoom()) {
-                return c;
-            }
-        }
-        return null;
-    }
-
-    public Room getExitRoom() {
-        return exitRoom;
+        this.exitStair.setLocation(new Location(room.getLocation().getX() + x, room.getLocation().getY() + y));
     }
 
     /**

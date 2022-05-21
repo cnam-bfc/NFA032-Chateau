@@ -1,5 +1,6 @@
 package net.cnam.chateau.generator;
 
+import java.util.List;
 import java.util.Random;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.Block;
@@ -11,52 +12,53 @@ import net.cnam.chateau.structure.block.door.Door;
 import net.cnam.chateau.utils.Location;
 
 public class GUtils {
-    
+
     private static final int LUCK_BLOCK = 70; // chance d'avoir un blocks rare dans la pièce
-    
+
     /**
-     * Méthode static qui cherche aléatoirement un endroit dans la room ou mettre un block.
-     * Si une porte se trouve à proximité, déplace le block.
-     * Si la position contient déjà un autre block, choisie une nouvelle position.
-     * 
+     * Méthode static qui cherche aléatoirement un endroit dans la room ou
+     * mettre un block. Si une porte se trouve à proximité, déplace le block. Si
+     * la position contient déjà un autre block, choisie une nouvelle position.
+     *
      * @param random random de la seed
      * @param room la room ou l'on doit placé le block
-     * @return la location (x,y) par rapport à la room de l'emplacement à attribué au block
+     * @return la location (x,y) par rapport à la room de l'emplacement à
+     * attribué au block
      */
-    public static Location findPosition(Random random, Room room){
+    public static Location findPosition(Random random, Room room) {
         //on choisit des coordonnées au hasard dans la room choisie au dessus
-                int x = random.nextInt(1, room.getLength() - 1);
-                int y = random.nextInt(1, room.getHeight() - 1);
-                boolean testDoor;
-                //vérification qu'il n'y a pas de porte à proximité sinon on décale
-                //vérification qu'il n'y a pas de block la ou on souhaite placé l'escalier
-                do {
-                    testDoor = false;
-                    if (room.getBlocks()[x + 1][y] instanceof Door) {
-                        x -= 1;
-                        testDoor = true;
-                    }
-                    if (room.getBlocks()[x - 1][y] instanceof Door) {
-                        x += 1;
-                        testDoor = true;
-                    }
-                    if (room.getBlocks()[x][y + 1] instanceof Door) {
-                        y -= 1;
-                        testDoor = true;
-                    }
-                    if (room.getBlocks()[x + 1][y - 1] instanceof Door) {
-                        y += 1;
-                        testDoor = true;
-                    }
-                    if (room.getBlocks()[x][y] != null) {
-                        x = random.nextInt(1, room.getLength() - 1);
-                        y = random.nextInt(1, room.getHeight() - 1);
-                        testDoor = true;
-                    }
-                } while (testDoor);
-                return new Location(x,y);
+        int x = random.nextInt(1, room.getLength() - 1);
+        int y = random.nextInt(1, room.getHeight() - 1);
+        boolean testDoor;
+        //vérification qu'il n'y a pas de porte à proximité sinon on décale
+        //vérification qu'il n'y a pas de block la ou on souhaite placé l'escalier
+        do {
+            testDoor = false;
+            if (room.getBlocks()[x + 1][y] instanceof Door) {
+                x -= 1;
+                testDoor = true;
+            }
+            if (room.getBlocks()[x - 1][y] instanceof Door) {
+                x += 1;
+                testDoor = true;
+            }
+            if (room.getBlocks()[x][y + 1] instanceof Door) {
+                y -= 1;
+                testDoor = true;
+            }
+            if (room.getBlocks()[x + 1][y - 1] instanceof Door) {
+                y += 1;
+                testDoor = true;
+            }
+            if (room.getBlocks()[x][y] != null) {
+                x = random.nextInt(1, room.getLength() - 1);
+                y = random.nextInt(1, room.getHeight() - 1);
+                testDoor = true;
+            }
+        } while (testDoor);
+        return new Location(x, y);
     }
-    
+
     /**
      * Méthode pour choisir le bloc à placer dans la pièce.
      *
@@ -85,5 +87,22 @@ public class GUtils {
         }
         return null;
     }
-    
+
+    // TODO voir si on la laisse ici ou dans le Solver
+    /**
+     * Méthode permettant de retrouver une Room dans une liste de GRooms.
+     *
+     * @param room la pièce à retrouver
+     * @param GRooms la liste de pièce à vérifier
+     * @return la GRoom associée à la pièce
+     */
+    public static GRoom findGRoom(Room room, List<GRoom> GRooms) {
+        for (GRoom c : GRooms) {
+            if (room == c.getRoom()) {
+                return c;
+            }
+        }
+        return null;
+    }
+
 }
