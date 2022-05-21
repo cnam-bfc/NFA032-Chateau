@@ -67,10 +67,6 @@ public abstract class Entity implements DisplayableObject {
         this.stage = stage;
         this.location = location;
         this.name = name;
-
-        if (!stage.getEntities().contains(this)) {
-            stage.getEntities().add(this);
-        }
     }
 
     /**
@@ -156,6 +152,10 @@ public abstract class Entity implements DisplayableObject {
      * @param damagePoints Points de dégâts
      */
     public void damage(int damagePoints) {
+        if (damagePoints < 0) {
+            return;
+        }
+
         this.health -= damagePoints;
         if (this.health <= 0) {
             this.kill();

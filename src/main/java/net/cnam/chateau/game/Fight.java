@@ -80,11 +80,11 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
 
         // SI le joueur est le premier à attaquer
         if (playerSpeed > enemySpeed && playerSpeed > petSpeed) {
-            if (testAttack(player)) {
+            if (attackIsSuccess(player)) {
                 enemy.damage(playerStrength);
             }
             if (enemySpeed > petSpeed) {
-                if (testAttack(enemy)) {
+                if (attackIsSuccess(enemy)) {
                     if (random.nextBoolean()) {
                         player.damage(enemyStrength);
                     } else {
@@ -92,7 +92,7 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
                     }
                 }
             } else {
-                if (testAttack(player.getPet())) {
+                if (attackIsSuccess(player.getPet())) {
                     enemy.damage(petStrength);
                 }
             }
@@ -101,7 +101,7 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
 
         // SI l'ennemie joueur est le premier à attaquer
         if (enemySpeed > playerSpeed && enemySpeed > petSpeed) {
-            if (testAttack(enemy)) {
+            if (attackIsSuccess(enemy)) {
                 if (random.nextBoolean()) {
                     player.damage(enemyStrength);
                 } else {
@@ -109,11 +109,11 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
                 }
             }
             if (playerSpeed > petSpeed) {
-                if (testAttack(player)) {
+                if (attackIsSuccess(player)) {
                     enemy.damage(playerStrength);
                 }
             } else {
-                if (testAttack(player.getPet())) {
+                if (attackIsSuccess(player.getPet())) {
                     enemy.damage(petStrength);
                 }
             }
@@ -123,11 +123,11 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
         // SI le pet est le premier à attaquer
         if (petSpeed > enemySpeed && petSpeed > playerSpeed) {
             if (playerSpeed > enemySpeed) {
-                if (testAttack(player.getPet())) {
+                if (attackIsSuccess(player.getPet())) {
                     enemy.damage(petStrength);
                 }
             } else {
-                if (testAttack(enemy)) {
+                if (attackIsSuccess(enemy)) {
                     if (random.nextBoolean()) {
                         player.damage(enemyStrength);
                     } else {
@@ -146,23 +146,23 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
         int enemyStrength = enemy.getStrength();
 
         if (playerSpeed > enemySpeed) {
-            if (testAttack(player)) {
+            if (attackIsSuccess(player)) {
                 enemy.damage(playerStrength);
             }
-            if (testAttack(enemy)) {
+            if (attackIsSuccess(enemy)) {
                 player.damage(enemyStrength);
             }
         } else {
-            if (testAttack(enemy)) {
+            if (attackIsSuccess(enemy)) {
                 player.damage(enemyStrength);
             }
-            if (testAttack(player)) {
+            if (attackIsSuccess(player)) {
                 enemy.damage(playerStrength);
             }
         }
     }
 
-    public boolean testAttack(Entity entity) {
+    private boolean attackIsSuccess(Entity entity) {
         int Accuracy = entity.getAccuracy();
         return random.nextInt(0, ACCURACY) < Accuracy;
     }
