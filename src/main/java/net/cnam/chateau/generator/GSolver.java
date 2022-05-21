@@ -1,5 +1,6 @@
 package net.cnam.chateau.generator;
 
+import net.cnam.chateau.structure.block.door.Door;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -4,7 +4,7 @@ import net.cnam.chateau.structure.block.decorative.Table;
 import net.cnam.chateau.structure.block.decorative.Wardrobe;
 import net.cnam.chateau.structure.block.decorative.Chest;
 import net.cnam.chateau.structure.block.decorative.Bed;
-import net.cnam.chateau.structure.block.Door;
+import net.cnam.chateau.structure.block.door.Door;
 import net.cnam.chateau.structure.block.Wall;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.Stage;
@@ -39,6 +39,7 @@ public class Generator {
     private static final int MIN_BLOCKS = 1; // nombre de bloc décoratifs minimum par pièce
     private static final int MAX_BLOCKS = 3; // nombre de bloc maximum par pièce
     private static final int LUCK_BLOCK = 70;
+    // TODO pendant la relecture / réecriture : ajouter une taille max de pièces
 
     private final long seed;
     private final Random random;
