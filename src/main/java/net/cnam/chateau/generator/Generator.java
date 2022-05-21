@@ -1,9 +1,5 @@
 package net.cnam.chateau.generator;
 
-import net.cnam.chateau.structure.block.decorative.Table;
-import net.cnam.chateau.structure.block.decorative.Wardrobe;
-import net.cnam.chateau.structure.block.decorative.Chest;
-import net.cnam.chateau.structure.block.decorative.Bed;
 import net.cnam.chateau.structure.block.door.Door;
 import net.cnam.chateau.structure.block.Wall;
 import net.cnam.chateau.structure.block.Block;
@@ -17,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import net.cnam.chateau.entity.enemy.boss.BossMartinez;
+import static net.cnam.chateau.generator.GUtils.*;
 import net.cnam.chateau.structure.RoomBoss;
 import net.cnam.chateau.structure.block.DownStair;
 import net.cnam.chateau.structure.block.UpStair;
@@ -30,15 +27,14 @@ public class Generator {
 
     private static final int MIN_SIZE_STAGE = 25; //taille mini d'un étage
     private static final int MAX_SIZE_STAGE = 35; //taille maxi d'un étage
-    private static final int MIN_STAGE = 1; //nombre mini d'étage
-    private static final int MAX_STAGE = 1; //nombre maxi d'étage
+    private static final int MIN_STAGE = 2; //nombre mini d'étage
+    private static final int MAX_STAGE = 2; //nombre maxi d'étage
     private static final int MIN_SIZE_ROOM = 5; //taille mini d'une pièce
     private static final int NB_ITERATION_MIN = 3; //nombre de division minimum des étages
     private static final int NB_ITERATION_MAX = 5; //nombre de division maximum supplémentaire des étages
     private static final int POURCENT_DIVIDE = 10; //ajusteur pour savoir si une pièce se re divise dans la deuxième phase de division
     private static final int MIN_BLOCKS = 1; // nombre de bloc décoratifs minimum par pièce
     private static final int MAX_BLOCKS = 3; // nombre de bloc maximum par pièce
-    private static final int LUCK_BLOCK = 70;
     // TODO pendant la relecture / réecriture : ajouter une taille max de pièces
 
     private final long seed;
@@ -55,6 +51,7 @@ public class Generator {
         this.random = new Random(seed);
     }
 
+    //DONE
     /**
      * Méthode qui génère un chateau de A à Z. Appelle la méthode qui génère des
      * étages
@@ -66,15 +63,17 @@ public class Generator {
     }
 
     /**
-     * Méthode qui génère des étages.Appelle la méthode qui génère un étage
+     * Méthode qui génère des étages fini.
      *
-     * @return un tableau d'étage
+     * @return un tableau d'étage qui composera le chateau (salle de boss non comprise)
      */
     public Stage[] generateStages() {
         Stage[] stages = new Stage[this.random.nextInt(MIN_STAGE, MAX_STAGE + 1)];
 
+        //Pour chaque étage on le génère
         for (int i = 0; i < stages.length; i++) {
             Stage stage = generateStage();
+            //Pour chaque room de chaque étage on la génère
             for (Room room : stage.getRooms()) {
                 generateRoom(room);
             }
@@ -108,8 +107,8 @@ public class Generator {
                 entryStair.setOtherStair(exitStair);
                 entryStair.setStage(stageEntry);
 
-                int xOldExit = solver.getExitRoom().getLocation().getX() + solver.getExitLocation().getX();
-                int yOldExit = solver.getExitRoom().getLocation().getY() + solver.getExitLocation().getY();
+                int xOldExit = solver.getExitStair().getLocation().getX();
+                int yOldExit = solver.getExitStair().getLocation().getY();
 
                 //si xOldExit est en dehors du champ X on le recadre pour le ramener à la room la plus proche
                 while (stageEntry.getLength() <= xOldExit) {
@@ -127,36 +126,10 @@ public class Generator {
                     firstRoom = stageEntry.getRooms()[0];
                 }
 
-                //on choisit des coordonnées au hasard dans la room choisie au dessus
-                int x = random.nextInt(1, firstRoom.getLength() - 1);
-                int y = random.nextInt(1, firstRoom.getHeight() - 1);
-                boolean testDoor;
-                //vérification qu'il n'y a pas de porte à proximité sinon on décale
-                //vérification qu'il n'y a pas de block la ou on souhaite placé l'escalier
-                do {
-                    testDoor = false;
-                    if (firstRoom.getBlocks()[x + 1][y] instanceof Door) {
-                        x -= 1;
-                        testDoor = true;
-                    }
-                    if (firstRoom.getBlocks()[x - 1][y] instanceof Door) {
-                        x += 1;
-                        testDoor = true;
-                    }
-                    if (firstRoom.getBlocks()[x][y + 1] instanceof Door) {
-                        y -= 1;
-                        testDoor = true;
-                    }
-                    if (firstRoom.getBlocks()[x + 1][y - 1] instanceof Door) {
-                        y += 1;
-                        testDoor = true;
-                    }
-                    if (firstRoom.getBlocks()[x][y] != null) {
-                        x = random.nextInt(1, firstRoom.getLength() - 1);
-                        y = random.nextInt(1, firstRoom.getHeight() - 1);
-                        testDoor = true;
-                    }
-                } while (testDoor);
+                // On regarde ou on peut placer l'escalier d'entrée de l'étage et on récupère les coordoonnées
+                Location location = findPosition(this.random, firstRoom);
+                int x = location.getX();
+                int y = location.getY();
 
                 //on ajoute l'escalier d'entrée dans la pièce du nouvelle étage
                 firstRoom.getBlocks()[x][y] = entryStair;
@@ -330,73 +303,18 @@ public class Generator {
     }
 
     /**
-     * Méthode permettant de générer l'intérieur d'une pièce. Met un nombre
-     * aléatoire de bloc dans la pièce.
+     * Méthode permettant de générer l'intérieur d'une pièce. 
+     * Met un nombre aléatoire de bloc dans la pièce défini entre deux bornes
      *
      * @param room la pièce à remplir
      */
     public void generateRoom(Room room) {
         int numberBlocks = random.nextInt(MIN_BLOCKS, MAX_BLOCKS + 1);
+        // On ajoute dans la pièce le nombre de blocs défini au dessus
         for (int i = 0; i < numberBlocks; i++) {
-            int x = random.nextInt(1, room.getLength() - 1);
-            int y = random.nextInt(1, room.getHeight() - 1);
-            boolean testDoor;
-            //vérification qu'il n'y a pas de porte à proximité sinon on décale
-            do {
-                testDoor = false;
-                if (room.getBlocks()[x + 1][y] instanceof Door) {
-                    x -= 1;
-                    testDoor = true;
-                }
-                if (room.getBlocks()[x - 1][y] instanceof Door) {
-                    x += 1;
-                    testDoor = true;
-                }
-                if (room.getBlocks()[x][y + 1] instanceof Door) {
-                    y -= 1;
-                    testDoor = true;
-                }
-                if (room.getBlocks()[x + 1][y - 1] instanceof Door) {
-                    y += 1;
-                    testDoor = true;
-                }
-                if (room.getBlocks()[x][y] != null) {
-                    x = random.nextInt(1, room.getLength() - 1);
-                    y = random.nextInt(1, room.getHeight() - 1);
-                    testDoor = true;
-                }
-            } while (testDoor);
-            room.getBlocks()[x][y] = pickRandomBlock();
+            Location location = findPosition(this.random, room);
+            room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock(this.random);
         }
-    }
-
-    /**
-     * Méthode pour choisir le bloc à placer dans la pièce.
-     *
-     * @return renvoie un block aléatoire
-     */
-    public Block pickRandomBlock() {
-
-        if (random.nextInt(1, 101) > LUCK_BLOCK) {
-            switch (random.nextInt(1, 3)) {
-                case 1 -> {
-                    return new Chest();
-                }
-                case 2 -> {
-                    return new Bed();
-                }
-            }
-        } else {
-            switch (random.nextInt(1, 3)) {
-                case 1 -> {
-                    return new Wardrobe();
-                }
-                case 2 -> {
-                    return new Table();
-                }
-            }
-        }
-        return null;
     }
 
     /**

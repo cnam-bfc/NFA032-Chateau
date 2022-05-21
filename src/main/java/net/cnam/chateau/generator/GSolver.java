@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import static net.cnam.chateau.generator.GUtils.findPosition;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.*;
 import net.cnam.chateau.utils.Location;
@@ -18,7 +19,6 @@ public class GSolver {
     private Map<GRoom, Boolean> verifDecomposition = new HashMap<>();
     private Random random;
     private Room exitRoom;
-    private Location exitLocation;
     private UpStair exitStair;
 
     public GSolver(Room room, List<GRoom> gRooms, Random random) {
@@ -41,6 +41,11 @@ public class GSolver {
 
     }
 
+    /**
+     * Méthode qui effectue un tri topologique en partant de la Room de départ de l'étage.
+     * Permet de classer les rooms en fonction de l'accessibilité.
+     * 
+     */
     private void triTopo() {
         //boucle sur la liste contenant les listes représentant les différents niveau topolique
         for (int i = 0; i < decompositionNiveau.size(); i++) {
@@ -81,40 +86,15 @@ public class GSolver {
         List<GRoom> rooms = decompositionNiveau.get(decompositionNiveau.size() - 1);
         Room room = rooms.get(random.nextInt(0, rooms.size())).getRoom();
 
-        //ici on place l'escalier aléatoirement dans la room
-        //vérification qu'il n'y a pas de porte à proximité sinon on décale
-        int x = random.nextInt(1, room.getLength() - 1);
-        int y = random.nextInt(1, room.getHeight() - 1);
-        boolean testDoor;
-        do {
-            testDoor = false;
-            if (room.getBlocks()[x + 1][y] instanceof Door) {
-                x -= 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x - 1][y] instanceof Door) {
-                x += 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x][y + 1] instanceof Door) {
-                y -= 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x + 1][y - 1] instanceof Door) {
-                y += 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x][y] != null) {
-                x = random.nextInt(1, room.getLength() - 1);
-                y = random.nextInt(1, room.getHeight() - 1);
-                testDoor = true;
-            }
-        } while (testDoor);
+        //On récupère un emplacement ou il est possible de placer la porte de sortie de l'étage
+        Location location = findPosition(this.random, room);
+        int x = location.getX();
+        int y = location.getY();
+        
         UpStair exitStair = new UpStair();
         room.getBlocks()[x][y] = exitStair;
 
         this.exitRoom = room;
-        this.exitLocation = new Location(x, y);
         this.exitStair = exitStair;
         this.exitStair.setLocation(new Location(exitRoom.getLocation().getX() + x, exitRoom.getLocation().getY() + y));
     }
@@ -132,10 +112,11 @@ public class GSolver {
         return exitRoom;
     }
 
-    public Location getExitLocation() {
-        return exitLocation;
-    }
-
+    /**
+     * Getter pour récupérer la porte de sortie de l'étage
+     * 
+     * @return un escalier qui monte (UpStair)
+     */
     public UpStair getExitStair() {
         return exitStair;
     }
