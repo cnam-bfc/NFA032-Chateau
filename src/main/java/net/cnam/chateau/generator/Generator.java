@@ -51,7 +51,6 @@ public class Generator {
         this.random = new Random(seed);
     }
 
-    //DONE
     /**
      * Méthode qui génère un chateau de A à Z. Appelle la méthode qui génère des
      * étages
@@ -154,19 +153,21 @@ public class Generator {
     }
 
     /**
-     * Méthode qui génère un étage.
+     * Méthode qui génère un étage en procédant à des découpes.
      *
      * @return un étage
      */
     public Stage generateStage() {
+        // On défini la taille que fera l'étage entre 2 bornes (constantes) 
         int stageLength = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE + 1);
         int stageWidth = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE + 1);
 
+        // On créer un tableau contenant la room de base permettant la découpe de l'étage
         Room[] rooms = new Room[1];
-        rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageWidth]); //room de base
+        rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageWidth]);
         Block[][] blocksMainRoom = rooms[0].getBlocks();
 
-        // On génère les murs de la pièce
+        // On génère les murs de la première pièce
         for (int x = 0; x < blocksMainRoom.length; x++) {
             for (int y = 0; y < blocksMainRoom[x].length; y++) {
                 if ((x == 0 || x == blocksMainRoom.length - 1 || y == 0 || y == blocksMainRoom[x].length - 1) && blocksMainRoom[x][y] == null) {
@@ -175,28 +176,149 @@ public class Generator {
             }
         }
 
-        //fais un minimum d'itération de découpe des pièces
+        // On procède à la découpe des pièces avec un minimum et un maximum d'itération (constantes)
         int pourcentage = 0;
         for (int i = 0; i < NB_ITERATION_MAX; i++) {
-            // Pour chaque pièce, on là divise
+            // A chaque tour de boucle, si on a fait le nombre d'itération minimum, on ajoute un pourcentage de division
+            // Le pourcentage sert à définir si oui ou non on tente de diviser la pièce
             if (i >= NB_ITERATION_MIN) {
                 pourcentage += POURCENT_DIVIDE;
             }
             int nbRooms = rooms.length;
             for (int j = 0; j < nbRooms; j++) {
-                if (pourcentage != 0 && this.random.nextInt(1, 100 + 1) + pourcentage > 50) {
+                if (pourcentage != 0 && this.random.nextInt(1, 101) + pourcentage > 50) {
                     continue;
                 }
+                //on tente de diviser la pièce
                 Room roomDivided = divideRoom(rooms[j]);
-                // Si la pièce n'a pas pu être divisé
                 if (roomDivided == null) {
                     continue;
                 }
+                // Si la pièce a été divisé, on ajoute la nouvelle pièce au tableau
                 rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided);
             }
         }
-
         return new Stage(rooms, stageLength, stageWidth);
+    }
+    
+    /**
+     * Méthode permettant de définir le sens de découpe. Découpe dans le sens ou
+     * la pièce est la plus longue Si longueur = largeur : découpe random
+     *
+     * @param room la pièce à découper
+     * @return un couple de pièce résultant de la pièce passé en paramètre
+     */
+    public Room divideRoom(Room room) {
+        if (room.getLength() > room.getHeight()) {
+            return divideRoomLength(room);
+        }
+        if (room.getLength() < room.getHeight()) {
+            return divideRoomWidth(room);
+        }
+        if (this.random.nextBoolean()) {
+            return divideRoomLength(room);
+        }
+        return divideRoomWidth(room);
+    }
+
+    /**
+     * Méthode pour diviser une pièce en deux pièces en découpant en longueur.
+     * Si renvoie null c'est que la taille de la pièce n'est pas suffisante pour
+     * être divisé
+     *
+     * @param roomLeft la pièce à diviser, qui va devenir la pièce de gauche
+     * @return roomRight la pièce pièce de droite
+     */
+    public Room divideRoomLength(Room roomLeft) {
+        if (roomLeft.getLength() / 2 <= MIN_SIZE_ROOM) {
+            return null;
+        }
+        int cut = random.nextInt(MIN_SIZE_ROOM, roomLeft.getLength() - MIN_SIZE_ROOM + 1);
+
+        Block[][] oldBlocks = roomLeft.getBlocks();
+
+        for (int y = 1; y < oldBlocks[0].length - 1; y++) {
+            oldBlocks[cut][y] = new Wall();
+        }
+
+        // Nouvelle pièce à gauche
+        Block[][] newBlocksRoomLeft = new Block[cut + 1][roomLeft.getHeight()];
+        // Nouvelle pièce à droite
+        Block[][] newBlocksRoomRight = new Block[roomLeft.getLength() - cut][roomLeft.getHeight()];
+
+        for (int x = 0; x < oldBlocks.length; x++) {
+            for (int y = 0; y < oldBlocks[0].length; y++) {
+                if (x <= cut) {
+                    newBlocksRoomLeft[x][y] = oldBlocks[x][y];
+                }
+                if (x >= cut) {
+                    newBlocksRoomRight[x - cut][y] = oldBlocks[x][y];
+                }
+            }
+        }
+
+        Room roomRight = new Room(new Location(roomLeft.getLocation().getX() + cut, roomLeft.getLocation().getY()), newBlocksRoomRight);
+        roomLeft.setBlocks(newBlocksRoomLeft);
+
+        return roomRight;
+    }
+
+    /**
+     * Méthode pour diviser une pièce en deux pièces en découpant en largeur. Si
+     * renvoie null c'est que la taille de la pièce n'est pas suffisante pour
+     * être divisé
+     *
+     * @param roomTop la pièce à diviser
+     * @return un couple de pièce résultant de la découpe de la pièce passé en
+     * paramètre
+     */
+    public Room divideRoomWidth(Room roomTop) {
+        if (roomTop.getHeight() / 2 <= MIN_SIZE_ROOM) {
+            return null;
+        }
+        int cut = random.nextInt(MIN_SIZE_ROOM, roomTop.getHeight() - MIN_SIZE_ROOM + 1);
+
+        Block[][] oldBlocks = roomTop.getBlocks();
+
+        for (int x = 1; x < oldBlocks.length - 1; x++) {
+            oldBlocks[x][cut] = new Wall();
+        }
+
+        // Nouvelle pièce en haut
+        Block[][] newBlocksRoomTop = new Block[roomTop.getLength()][cut + 1];
+        // Nouvelle pièce en bas
+        Block[][] newBlocksRoomBot = new Block[roomTop.getLength()][oldBlocks[0].length - cut];
+
+        for (int x = 0; x < oldBlocks.length; x++) {
+            for (int y = 0; y < oldBlocks[0].length; y++) {
+                if (y <= cut) {
+                    newBlocksRoomTop[x][y] = oldBlocks[x][y];
+                }
+                if (y >= cut) {
+                    newBlocksRoomBot[x][y - cut] = oldBlocks[x][y];
+                }
+            }
+        }
+
+        Room roomBot = new Room(new Location(roomTop.getLocation().getX(), roomTop.getLocation().getY() + cut), newBlocksRoomBot);
+        roomTop.setBlocks(newBlocksRoomTop);
+
+        return roomBot;
+    }
+    
+    /**
+     * Méthode permettant de générer l'intérieur d'une pièce. 
+     * Met un nombre aléatoire de bloc dans la pièce défini entre deux bornes
+     *
+     * @param room la pièce à remplir
+     */
+    public void generateRoom(Room room) {
+        int numberBlocks = random.nextInt(MIN_BLOCKS, MAX_BLOCKS + 1);
+        // On ajoute dans la pièce le nombre de blocs défini au dessus
+        for (int i = 0; i < numberBlocks; i++) {
+            Location location = findPosition(this.random, room);
+            room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock(this.random);
+        }
     }
 
     private List<GRoom> generateStageWalls(Stage generatedStage) {
@@ -303,162 +425,14 @@ public class Generator {
     }
 
     /**
-     * Méthode permettant de générer l'intérieur d'une pièce. 
-     * Met un nombre aléatoire de bloc dans la pièce défini entre deux bornes
-     *
-     * @param room la pièce à remplir
-     */
-    public void generateRoom(Room room) {
-        int numberBlocks = random.nextInt(MIN_BLOCKS, MAX_BLOCKS + 1);
-        // On ajoute dans la pièce le nombre de blocs défini au dessus
-        for (int i = 0; i < numberBlocks; i++) {
-            Location location = findPosition(this.random, room);
-            room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock(this.random);
-        }
-    }
-
-    /**
-     * Méthode permettant de définir le sens de découpe. Découpe dans le sens ou
-     * la pièce est la plus longue Si longueur = largeur : découpe random
-     *
-     * @param room la pièce à découper
-     * @return un couple de pièce résultant de la pièce passé en paramètre
-     */
-    public Room divideRoom(Room room) {
-        if (room.getLength() > room.getHeight()) {
-            return divideRoomLength(room);
-        }
-        if (room.getLength() < room.getHeight()) {
-            return divideRoomWidth(room);
-        }
-        if (this.random.nextBoolean()) {
-            return divideRoomLength(room);
-        }
-        return divideRoomWidth(room);
-    }
-
-    /**
-     * Méthode pour diviser une pièce en deux pièces en découpant en longueur.
-     * Si renvoie null c'est que la taille de la pièce n'est pas suffisante pour
-     * être divisé
-     *
-     * @param roomLeft la pièce à diviser, qui va devenir la pièce de gauche
-     * @return roomRight la pièce pièce de droite
-     */
-    public Room divideRoomLength(Room roomLeft) {
-        if (roomLeft.getLength() / 2 <= MIN_SIZE_ROOM) {
-            return null;
-        }
-        int cut = random.nextInt(MIN_SIZE_ROOM, roomLeft.getLength() - MIN_SIZE_ROOM + 1);
-
-        Block[][] oldBlocks = roomLeft.getBlocks();
-
-        for (int y = 1; y < oldBlocks[0].length - 1; y++) {
-            oldBlocks[cut][y] = new Wall();
-        }
-
-        // Nouvelle pièce à gauche
-        Block[][] newBlocksRoomLeft = new Block[cut + 1][roomLeft.getHeight()];
-        // Nouvelle pièce à droite
-        Block[][] newBlocksRoomRight = new Block[roomLeft.getLength() - cut][roomLeft.getHeight()];
-
-        for (int x = 0; x < oldBlocks.length; x++) {
-            for (int y = 0; y < oldBlocks[0].length; y++) {
-                if (x <= cut) {
-                    newBlocksRoomLeft[x][y] = oldBlocks[x][y];
-                }
-                if (x >= cut) {
-                    newBlocksRoomRight[x - cut][y] = oldBlocks[x][y];
-                }
-            }
-        }
-
-        Room roomRight = new Room(new Location(roomLeft.getLocation().getX() + cut, roomLeft.getLocation().getY()), newBlocksRoomRight);
-        roomLeft.setBlocks(newBlocksRoomLeft);
-
-        return roomRight;
-    }
-
-    /**
-     * Méthode pour diviser une pièce en deux pièces en découpant en largeur. Si
-     * renvoie null c'est que la taille de la pièce n'est pas suffisante pour
-     * être divisé
-     *
-     * @param roomTop la pièce à diviser
-     * @return un couple de pièce résultant de la découpe de la pièce passé en
-     * paramètre
-     */
-    public Room divideRoomWidth(Room roomTop) {
-        if (roomTop.getHeight() / 2 <= MIN_SIZE_ROOM) {
-            return null;
-        }
-        int cut = random.nextInt(MIN_SIZE_ROOM, roomTop.getHeight() - MIN_SIZE_ROOM + 1);
-
-        Block[][] oldBlocks = roomTop.getBlocks();
-
-        for (int x = 1; x < oldBlocks.length - 1; x++) {
-            oldBlocks[x][cut] = new Wall();
-        }
-
-        // Nouvelle pièce en haut
-        Block[][] newBlocksRoomTop = new Block[roomTop.getLength()][cut + 1];
-        // Nouvelle pièce en bas
-        Block[][] newBlocksRoomBot = new Block[roomTop.getLength()][oldBlocks[0].length - cut];
-
-        for (int x = 0; x < oldBlocks.length; x++) {
-            for (int y = 0; y < oldBlocks[0].length; y++) {
-                if (y <= cut) {
-                    newBlocksRoomTop[x][y] = oldBlocks[x][y];
-                }
-                if (y >= cut) {
-                    newBlocksRoomBot[x][y - cut] = oldBlocks[x][y];
-                }
-            }
-        }
-
-        Room roomBot = new Room(new Location(roomTop.getLocation().getX(), roomTop.getLocation().getY() + cut), newBlocksRoomBot);
-        roomTop.setBlocks(newBlocksRoomTop);
-
-        return roomBot;
-    }
-
-    /**
-     * Méthode pour placer le player dans la première room.
+     * Méthode pour placer le player dans la première room de façon aléatoire.
      *
      * @param room room de départ
      * @return La location dans l'étage
      */
     public Location getDefaultPlayerLocation(Room room) {
-        int x = random.nextInt(1, room.getLength() - 1);
-        int y = random.nextInt(1, room.getHeight() - 1);
-        boolean testDoor;
-        //vérification qu'il n'y a pas de porte à proximité sinon on décale.
-        //Vérifie également qu'il n'y a pas de de bloc à la position ou l'on se place
-        do {
-            testDoor = false;
-            if (room.getBlocks()[x + 1][y] instanceof Door) {
-                x -= 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x - 1][y] instanceof Door) {
-                x += 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x][y + 1] instanceof Door) {
-                y -= 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x + 1][y - 1] instanceof Door) {
-                y += 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x][y] != null) {
-                x = random.nextInt(1, room.getLength() - 1);
-                y = random.nextInt(1, room.getHeight() - 1);
-                testDoor = true;
-            }
-        } while (testDoor);
-        return new Location(room.getLocation().getX() + x, room.getLocation().getY() + y);
+        Location location = findPosition(this.random, room);
+        return new Location(room.getLocation().getX() + location.getX(), room.getLocation().getY() + location.getY());
     }
 
     /**
