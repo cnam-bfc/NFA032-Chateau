@@ -134,7 +134,7 @@ public abstract class Entity implements DisplayableObject {
             this.stage.getEntities().remove(this);
             // On l'ajoute dans le nouvel étage
             this.stage = stage;
-            if (renderPriority != -1) {
+            if (renderPriority != -1 && renderPriority <= this.stage.getEntities().size()) {
                 this.stage.getEntities().add(renderPriority, this);
             } else {
                 this.stage.getEntities().add(this);
