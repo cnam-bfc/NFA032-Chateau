@@ -1,9 +1,13 @@
 package net.cnam.chateau.generator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.Block;
+import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.structure.block.decorative.Bed;
 import net.cnam.chateau.structure.block.decorative.Chest;
 import net.cnam.chateau.structure.block.decorative.Table;
@@ -103,6 +107,82 @@ public class GUtils {
             }
         }
         return null;
+    }
+    
+    /**
+     * Méthode qui effectue un tri topologique en partant de la Room de départ de l'étage.
+     * Permet de classer les rooms en fonction de l'accessibilité.
+     * 
+     */
+    public static UpStair triTopo(Room room, List<GRoom> gRooms, Random random) {
+        
+        List<List<GRoom>> decompositionNiveau = new ArrayList<>();
+        Map<GRoom, Boolean> verifDecomposition = new HashMap<>();
+        
+        List<GRoom> transition = new ArrayList<>();
+        GRoom actualGRoom = findGRoom(room, gRooms);
+        transition.add(actualGRoom);
+        decompositionNiveau.add(transition);
+
+        //On prépare la liste pour le tri topoligue
+        //True = déjà traité (ici uniquement la room de départ)
+        //False = non traité
+        for (GRoom newRoom : gRooms) {
+            if (newRoom == actualGRoom) {
+                verifDecomposition.put(newRoom, true);
+            }
+            verifDecomposition.put(newRoom, false);
+        }
+        
+        //boucle sur la liste contenant les listes représentant les différents niveau topolique
+        for (int i = 0; i < decompositionNiveau.size(); i++) {
+
+            if (!verifDecomposition.containsValue(false)) {
+                break;
+            }
+
+            List<GRoom> actualLevel = decompositionNiveau.get(i);
+            List<GRoom> newLevel = new ArrayList<>();
+
+            //On boucle sur toutes les GRoom du niveau actuelle et on récupère pour chacune les pièces adjacentes
+            for (int j = 0; j < actualLevel.size(); j++) {
+                List<GRoom> gRoomsAdja = actualLevel.get(j).roomAdjacent();
+
+                //on boucle sur tout les Gwall de la Groom, et on vérifie si les pièces accessible sont déjà "visité"
+                //si Oui, on continue
+                //Si non, on passe dans le hashset, le boolean en true et on l'ajoute à la nouvelle liste
+                for (GRoom c : gRoomsAdja) {
+                    if (!verifDecomposition.get(c)) {
+                        verifDecomposition.replace(c, true);
+                        newLevel.add(c);
+                    }
+                }
+
+            }
+
+            if (!newLevel.isEmpty()) {
+                decompositionNiveau.add(newLevel);
+            }
+        }
+        return placeExit(decompositionNiveau, random);
+
+    }
+    
+    private static UpStair placeExit(List<List<GRoom>> decompositionNiveau, Random random) {
+        //ici on choisie la room
+        List<GRoom> rooms = decompositionNiveau.get(decompositionNiveau.size() - 1);
+        Room room = rooms.get(random.nextInt(0, rooms.size())).getRoom();
+
+        //On récupère un emplacement ou il est possible de placer la porte de sortie de l'étage
+        Location location = findPosition(random, room);
+        int x = location.getX();
+        int y = location.getY();
+        
+        // On place l'escalier de sortie
+        UpStair exitStair = new UpStair();
+        room.getBlocks()[x][y] = exitStair;
+        exitStair.setLocation(new Location(room.getLocation().getX() + x, room.getLocation().getY() + y));
+        return exitStair;
     }
 
 }

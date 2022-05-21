@@ -1,10 +1,11 @@
-package net.cnam.chateau.generator;
+package net.cnam.corbeille;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import net.cnam.chateau.generator.GRoom;
 import static net.cnam.chateau.generator.GUtils.*;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.*;

@@ -64,7 +64,8 @@ public class Generator {
     /**
      * Méthode qui génère des étages fini.
      *
-     * @return un tableau d'étage qui composera le chateau (salle de boss non comprise)
+     * @return un tableau d'étage qui composera le chateau (salle de boss non
+     * comprise)
      */
     public Stage[] generateStages() {
         Stage[] stages = new Stage[this.random.nextInt(MIN_STAGE, MAX_STAGE + 1)];
@@ -85,40 +86,37 @@ public class Generator {
         firstRoom.setVisible(true);
         this.playerStartLocation = getDefaultPlayerLocation(firstRoom);
 
-        // On génère les passages dans chaque étage
-        GSolver solver;
-
         //On boucle sur chaque étage
-        //si c'est l'étage 1 : on met juste une sortie
         for (int i = 0; i < stages.length; i++) {
             Stage stage = stages[i];
             List<GRoom> gRooms = generateStageWalls(stage); // On génère les murs et on récupère la liste des petits murs qui lie 2 pièces
 
-            // - on place les sorties
-            solver = new GSolver(firstRoom, gRooms, random);
+            // On place les sorties
+            // Si c'est l'étage 1 : on met juste une sortie
+            UpStair exitStair  = triTopo(firstRoom, gRooms, random);
 
             //ajoute l'escalier du bas en haut
             if (i < stages.length - 1) {
                 Stage stageEntry = stages[i + 1];
-                UpStair exitStair = solver.getExitStair();
                 DownStair entryStair = new DownStair();
-                exitStair.setOtherStair(entryStair);
                 entryStair.setOtherStair(exitStair);
                 entryStair.setStage(stageEntry);
+                exitStair.setOtherStair(entryStair);
 
-                int xOldExit = solver.getExitStair().getLocation().getX();
-                int yOldExit = solver.getExitStair().getLocation().getY();
+                // On gère le placement de l'escalier à l'étage du dessus en essayant de rendre la position un minimum cohérente
+                int xOldExit = exitStair.getLocation().getX();
+                int yOldExit = exitStair.getLocation().getY();
 
-                //si xOldExit est en dehors du champ X on le recadre pour le ramener à la room la plus proche
+                // Si xOldExit est en dehors du champ X on le recadre pour le ramener à la room la plus proche
                 while (stageEntry.getLength() <= xOldExit) {
                     xOldExit -= 1;
                 }
-                //si yOldExit est en dehors du champ Y on le recadre pour le ramener à la room la plus proche
+                // Si yOldExit est en dehors du champ Y on le recadre pour le ramener à la room la plus proche
                 while (stageEntry.getHeight() <= yOldExit) {
                     yOldExit -= 1;
                 }
 
-                //on cherche et récupère la room qui est associé aux coordonnées (xOldExit, yOldExit) par rapport à l'étage
+                // On cherche et récupère la room qui est associé aux coordonnées (xOldExit, yOldExit) par rapport à l'étage
                 try {
                     firstRoom = stageEntry.getRoom(xOldExit, yOldExit);
                 } catch (CoordinatesOutOfBoundsException ex) {
@@ -136,15 +134,16 @@ public class Generator {
                 entryStair.setLocation(new Location(firstRoom.getLocation().getX() + x, firstRoom.getLocation().getY() + y));
 
             }
-            //on ajoute au champ de l'escalier de sortie de l'étage actuellement traité, l'étage en question auquel il appartient
-            solver.getExitStair().setStage(stage);
+            // On ajoute au champ de l'escalier de sortie de l'étage actuellement traité, l'étage en question auquel il appartient
+            exitStair.setStage(stage);
 
+            // Si on arrive au dernir étage, on ajoute un étage supplémentaire pour accueillir la pièce du boss
             if (i == stages.length - 1) {
                 RoomBoss lastRoom = new RoomBoss();
                 Stage stageBoss = new Stage(new Room[]{lastRoom}, lastRoom.getLength(), lastRoom.getHeight());
-                lastRoom.getEntry().setOtherStair(solver.getExitStair());
+                lastRoom.getEntry().setOtherStair(exitStair);
                 lastRoom.getEntry().setStage(stageBoss);
-                solver.getExitStair().setOtherStair(lastRoom.getEntry());
+                exitStair.setOtherStair(lastRoom.getEntry());
                 stageBoss.getEntities().add(new BossMartinez(stageBoss, new Location(6, 4)));
             }
         }
@@ -200,7 +199,7 @@ public class Generator {
         }
         return new Stage(rooms, stageLength, stageWidth);
     }
-    
+
     /**
      * Méthode permettant de définir le sens de découpe. Découpe dans le sens ou
      * la pièce est la plus longue Si longueur = largeur : découpe random
@@ -305,10 +304,10 @@ public class Generator {
 
         return roomBot;
     }
-    
+
     /**
-     * Méthode permettant de générer l'intérieur d'une pièce. 
-     * Met un nombre aléatoire de bloc dans la pièce défini entre deux bornes
+     * Méthode permettant de générer l'intérieur d'une pièce. Met un nombre
+     * aléatoire de bloc dans la pièce défini entre deux bornes
      *
      * @param room la pièce à remplir
      */
@@ -319,6 +318,17 @@ public class Generator {
             Location location = findPosition(this.random, room);
             room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock(this.random);
         }
+    }
+
+    /**
+     * Méthode pour placer le player dans la première room de façon aléatoire.
+     *
+     * @param room room de départ
+     * @return La location dans l'étage
+     */
+    public Location getDefaultPlayerLocation(Room room) {
+        Location location = findPosition(this.random, room);
+        return new Location(room.getLocation().getX() + location.getX(), room.getLocation().getY() + location.getY());
     }
 
     private List<GRoom> generateStageWalls(Stage generatedStage) {
@@ -422,17 +432,6 @@ public class Generator {
             stage.setBlock(breakPoint.getX(), breakPoint.getY(), new Door(stage, wall.getRoomOne().getRoom(), wall.getRoomTwo().getRoom()));
         } catch (CoordinatesOutOfBoundsException ex) {
         }
-    }
-
-    /**
-     * Méthode pour placer le player dans la première room de façon aléatoire.
-     *
-     * @param room room de départ
-     * @return La location dans l'étage
-     */
-    public Location getDefaultPlayerLocation(Room room) {
-        Location location = findPosition(this.random, room);
-        return new Location(room.getLocation().getX() + location.getX(), room.getLocation().getY() + location.getY());
     }
 
     /**
