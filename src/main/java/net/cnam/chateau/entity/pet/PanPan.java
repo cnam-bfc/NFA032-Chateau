@@ -1,25 +1,27 @@
 package net.cnam.chateau.entity.pet;
 
-import net.cnam.chateau.entity.Characteristic;
+import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
 public class PanPan extends Pet {
-    
+
     private boolean power = true;
 
-    //TODO Voir pour faire suivre le joueur dans la location
-    public PanPan() {
-        super(new Characteristic(50,50,10,10,10), "PanPan", null);
+    public PanPan(Stage stage, Location location) {
+        super(stage, location, "PanPan");
     }
-    
+
     @Override
-    public void power(){
-        if (!power) return;
+    public void power() {
+        if (!power) {
+            return;
+        }
         //TODO détere un objet aléatoire rare
         power = false;
     }
-    
-    public String scream(){
+
+    @Override
+    public String scream() {
         return "Knknknkn";
     }
 }

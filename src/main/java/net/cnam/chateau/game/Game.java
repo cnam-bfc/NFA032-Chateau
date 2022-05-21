@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.generator.Generator;
@@ -19,6 +20,7 @@ import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.event.key.KeyEvent;
 import net.cnam.chateau.gui.event.key.KeyListener;
 import net.cnam.chateau.structure.Stage;
+import net.cnam.chateau.utils.Location;
 
 public class Game extends CFrame implements DisplayableComponent, KeyListener {
 
@@ -28,26 +30,19 @@ public class Game extends CFrame implements DisplayableComponent, KeyListener {
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
 
-    public Game(AppSettings settings, Player player) {
-        this(settings, player, new Random().nextLong());
+    public Game(AppSettings settings) {
+        this(settings, new Random().nextLong());
     }
 
-    public Game(AppSettings settings, Player player, long seed) {
+    public Game(AppSettings settings, long seed) {
         super(0, 0);
 
         Generator generator = new Generator(seed);
         this.castle = generator.generateCastle();
-        this.player = player;
-        this.player.getLocation().setX(castle.getDefaultPlayerLocation().getX());
-        this.player.getLocation().setY(castle.getDefaultPlayerLocation().getY());
         Stage firstStage = this.castle.getStages()[0];
-        this.player.setStage(firstStage);
-        try {
-            firstStage.getRoom(castle.getDefaultPlayerLocation()).setVisited(true);
-        } catch (CoordinatesOutOfBoundsException ex) {
-        }
+        this.player = new Player(this, firstStage, new Location(castle.getPlayerStartLocation().getX(), castle.getPlayerStartLocation().getY()), "Joueur");
         firstStage.getEntities().add(0, player);
-        if (player.havePet()) {
+        if (player.hasPet()) {
             firstStage.getEntities().add(1, player.getPet());
         }
         this.map = new Map(player);
@@ -67,35 +62,30 @@ public class Game extends CFrame implements DisplayableComponent, KeyListener {
 
     @Override
     public void onKeyPressed(KeyEvent event) {
-        int key = event.getKey();
-
-        // TODO Enlever ça, temporaire
-        if (key == 13 || key == 10) {
-            stop();
-            return;
-        }
-
         // On transmet la touche appuyé aux composants dans cette fenêtre
         super.onKeyPressed(event);
 
         // On déplace le joueur vers la direction souhaité
         try {
-            Direction direction = DirectionUtils.parseDirection(key);
+            Direction direction = DirectionUtils.parseDirection(event.getKey());
+            int x = player.getLocation().getX();
+            int y = player.getLocation().getY();
             switch (direction) {
                 case TOP -> {
-                    player.getStage().move(player, 0, -1);
+                    y--;
                 }
                 case RIGHT -> {
-                    player.getStage().move(player, 1, 0);
+                    x++;
                 }
                 case BOTTOM -> {
-                    player.getStage().move(player, 0, 1);
+                    y++;
                 }
                 case LEFT -> {
-                    player.getStage().move(player, -1, 0);
+                    x--;
                 }
             }
-        } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException ex) {
+            player.teleport(new Location(x, y));
+        } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ex) {
         }
     }
 

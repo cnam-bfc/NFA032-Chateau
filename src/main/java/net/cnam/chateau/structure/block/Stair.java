@@ -1,7 +1,6 @@
 package net.cnam.chateau.structure.block;
 
-import net.cnam.chateau.entity.LivingEntity;
-import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.gui.event.block.BlockListener;
 import net.cnam.chateau.gui.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.gui.event.block.EntityLeaveBlockEvent;
@@ -21,28 +20,9 @@ public abstract class Stair extends Block implements BlockListener {
 
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
-        LivingEntity entity = event.getEntity();
-        if (entity instanceof Player player) {
-            // On enlève le joueur de l'étage courant
-            stage.getEntities().remove(player);
-            if (player.havePet()) {
-                stage.getEntities().remove(player.getPet());
-            }
-
-            // On ajoute le joueur dans l'autre étage
-            player.setStage(otherStair.stage);
-            otherStair.stage.getEntities().add(0, player);
-            player.getLocation().setX(otherStair.location.getX());
-            player.getLocation().setY(otherStair.location.getY());
-            try {
-                otherStair.stage.getRoom(otherStair.location).setVisited(true);
-            } catch (CoordinatesOutOfBoundsException ex) {
-            }
-            if (player.havePet()) {
-                otherStair.stage.getEntities().add(1, player.getPet());
-                player.getPet().getLocation().setX(otherStair.location.getX());
-                player.getPet().getLocation().setY(otherStair.location.getY());
-            }
+        try {
+            event.getEntity().teleport(otherStair.stage, otherStair.location);
+        } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ex) {
         }
     }
 

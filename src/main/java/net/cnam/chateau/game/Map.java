@@ -1,6 +1,6 @@
 package net.cnam.chateau.game;
 
-import net.cnam.chateau.entity.LivingEntity;
+import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.gui.component.HorizontalAlignment;
@@ -14,13 +14,15 @@ import net.cnam.chateau.structure.block.Wall;
 public class Map extends CComponent {
 
     private final Player player;
-    private final Location origin;
+    private Location origin;
+    private Stage previousRenderedStage;
 
     public Map(Player player) {
         super(HorizontalAlignment.CENTER, 0, 0);
 
         this.player = player;
         this.origin = new Location(0, 0);
+        this.previousRenderedStage = player.getStage();
     }
 
     @Override
@@ -31,6 +33,12 @@ public class Map extends CComponent {
 
         Location playerLocation = player.getLocation();
         Stage playerStage = player.getStage();
+
+        // On reset l'origine du rendu de la map si le joueur à changé d'étage pour éviter que la map soit trop décalé à gauche
+        if (previousRenderedStage != playerStage) {
+            this.origin = new Location(0, 0);
+            previousRenderedStage = playerStage;
+        }
 
         // Déplacer la map en fonction de la position du joueur
         // Si le joueur se rapproche du bord haut
@@ -104,12 +112,12 @@ public class Map extends CComponent {
 
                 try {
                     Block block = playerStage.getBlock(x, y);
-                    LivingEntity entity = playerStage.getEntity(x, y);
+                    Entity entity = playerStage.getEntity(x, y);
                     // Si la location n'a pas été visité par le joueur on l'affiche pas
                     Room[] rooms = playerStage.getRooms(x, y);
                     boolean clear = true;
                     for (Room room : rooms) {
-                        if (room.isVisited()) {
+                        if (room.isVisible()) {
                             clear = false;
                         }
                     }

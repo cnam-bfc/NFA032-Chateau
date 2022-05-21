@@ -2,11 +2,7 @@ package net.cnam.chateau.structure;
 
 import java.util.LinkedList;
 import java.util.List;
-import net.cnam.chateau.entity.LivingEntity;
-import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.gui.event.block.BlockListener;
-import net.cnam.chateau.gui.event.block.EntityEnterBlockEvent;
-import net.cnam.chateau.gui.event.block.EntityLeaveBlockEvent;
+import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
 
@@ -15,11 +11,10 @@ import net.cnam.chateau.structure.block.Block;
  */
 public class Stage {
 
-    private final List<LivingEntity> entities = new LinkedList<>();
-
-    private Room[] rooms;
-    private int length;
-    private int height;
+    private final List<Entity> entities = new LinkedList<>();
+    private final Room[] rooms;
+    private final int length;
+    private final int height;
 
     /**
      * Constructeur
@@ -241,7 +236,7 @@ public class Stage {
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
      */
-    public LivingEntity getEntity(Location location) throws CoordinatesOutOfBoundsException {
+    public Entity getEntity(Location location) throws CoordinatesOutOfBoundsException {
         return this.getEntity(location.getX(), location.getY());
     }
 
@@ -255,7 +250,7 @@ public class Stage {
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
      */
-    public LivingEntity getEntity(int x, int y) throws CoordinatesOutOfBoundsException {
+    public Entity getEntity(int x, int y) throws CoordinatesOutOfBoundsException {
         if (x < 0) {
             throw new CoordinatesOutOfBoundsException("x doit être positif");
         }
@@ -269,7 +264,7 @@ public class Stage {
             throw new CoordinatesOutOfBoundsException("y doit inférieur à " + this.getHeight() + " (" + y + ")");
         }
 
-        for (LivingEntity entity : entities) {
+        for (Entity entity : entities) {
             Location entityLocation = entity.getLocation();
             if (entityLocation.getX() == x && entityLocation.getY() == y) {
                 return entity;
@@ -280,105 +275,11 @@ public class Stage {
     }
 
     /**
-     * Méthode permettant de faire bouger une entité dans l'étage
-     *
-     * @param entity L'entité à faire bouger
-     * @param relX Déplacement relatif à faire au niveau de l'abscisse
-     * @param relY Déplacement relatif à faire au niveau de l'ordonnée
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
-     * Exception levé si l'entitée tente de sortir de l'étage
-     */
-    public void move(LivingEntity entity, int relX, int relY) throws CoordinatesOutOfBoundsException {
-        move(entity, new Location(entity.getLocation().getX() + relX, entity.getLocation().getY() + relY));
-    }
-
-    /**
-     * Méthode permettant de faire bouger une entité dans l'étage
-     *
-     * @param entity L'entité à faire bouger
-     * @param location Location où doit aller l'entité
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
-     * Exception levé si l'entitée tente de sortir de l'étage
-     */
-    public void move(LivingEntity entity, Location location) throws CoordinatesOutOfBoundsException {
-        if (!entities.contains(entity)) {
-            return;
-        }
-
-        Location entityLocation = entity.getLocation();
-        Block oldBlock = this.getBlock(entityLocation.getX(), entityLocation.getY());
-        if (location.getX() < 0 || location.getY() < 0 || location.getX() >= this.getLength() || location.getY() >= this.getHeight()) {
-            throw new CoordinatesOutOfBoundsException("L'entité ne peut pas sortir de l'étage!");
-        }
-
-        Block newBlock = this.getBlock(location);
-
-        // On notifie le nouveau block que l'entité rentre sur celui-ci
-        if (newBlock != null && newBlock instanceof BlockListener blockListener) {
-            EntityEnterBlockEvent event = new EntityEnterBlockEvent(entity);
-            blockListener.onEntityEnterBlock(event);
-            // Si le block refuse que l'entité rentre sur son territoire on ne déplace pas l'entité
-            if (event.isCanceled()) {
-                return;
-            }
-        }
-
-        // On notifie l'ancien block où était l'entité que celle-ci est partie
-        if (oldBlock != null && oldBlock instanceof BlockListener blockListener) {
-            blockListener.onEntityLeaveBlock(new EntityLeaveBlockEvent(entity));
-        }
-
-        // On revérifie que l'entité est toujours dans l'étage car il se peut qu'un bloc comme un escalier ai fait changer l'entité d'étage
-        if (!entities.contains(entity)) {
-            return;
-        }
-
-        // On sauvegarde les coordonnées 
-        Location possiblePetNewLocation = new Location(entityLocation.getX(), entityLocation.getY());
-
-        // On déplace l'entité
-        entityLocation.setX(location.getX());
-        entityLocation.setY(location.getY());
-
-        // Vérifier si l'entité est un joueur, si oui vérifie si il a un pet, si oui, positionne le pet à la position du joueur avant déplacement
-        if (entity instanceof Player player) {
-            if (player.havePet() && player.getPet().isFollowingPlayer() && !player.getPet().getLocation().equals(entityLocation)) {
-                this.move(player.getPet(), possiblePetNewLocation);
-            }
-        }
-    }
-
-//    @Override
-//    public String[] render() {
-//        String[] result = new String[this.getHeight()];
-//
-//        for (int y = 0; y < this.getHeight(); y++) {
-//            String line = "";
-//            for (int x = 0; x < this.getLength(); x++) {
-//                try {
-//                    Block newBlock = getBlock(x, y);
-//                    LivingEntity entity = getEntity(x, y);
-//                    if (entity != null) {
-//                        line += entity.getCharacter();
-//                    } else if (newBlock != null) {
-//                        line += newBlock.getCharacter();
-//                    } else {
-//                        line += ' ';
-//                    }
-//                } catch (CoordinatesOutOfBoundsException ex) {
-//                }
-//            }
-//            result[y] = line;
-//        }
-//
-//        return result;
-//    }
-    /**
      * Méthode permettant de récupérer les entités dans l'étage
      *
      * @return La liste des entités
      */
-    public List<LivingEntity> getEntities() {
+    public List<Entity> getEntities() {
         return entities;
     }
 
@@ -395,24 +296,7 @@ public class Stage {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
-
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    /**
-     * Méthode permettant de définir les pièces de l'étage
-     *
-     * @param rooms
-     */
-    public void setRooms(Room[] rooms) {
-        this.rooms = rooms;
     }
 }

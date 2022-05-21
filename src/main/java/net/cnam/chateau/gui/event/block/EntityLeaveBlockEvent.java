@@ -1,10 +1,10 @@
 package net.cnam.chateau.gui.event.block;
 
-import net.cnam.chateau.entity.LivingEntity;
+import net.cnam.chateau.entity.Entity;
 
 public class EntityLeaveBlockEvent extends BlockEvent {
 
-    public EntityLeaveBlockEvent(LivingEntity entity) {
+    public EntityLeaveBlockEvent(Entity entity) {
         super(entity);
     }
 }

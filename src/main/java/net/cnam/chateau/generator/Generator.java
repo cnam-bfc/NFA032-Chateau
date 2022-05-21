@@ -40,7 +40,7 @@ public class Generator {
 
     private final long seed;
     private final Random random;
-    private Location defaultLocation;
+    private Location playerStartLocation;
 
     /**
      * Constructeur
@@ -59,7 +59,7 @@ public class Generator {
      * @return un Chateau
      */
     public Castle generateCastle() {
-        return new Castle(this.generateStages(), this.defaultLocation, seed);
+        return new Castle(this.generateStages(), this.playerStartLocation, seed);
     }
 
     /**
@@ -81,7 +81,8 @@ public class Generator {
         // On récupère la première room
         // On place le joueur aléatoirement dans l'étage le plus haut (ou le plus bas à voir)
         Room firstRoom = stages[0].getRooms()[random.nextInt(0, stages[0].getRooms().length)];
-        this.defaultLocation = getDefaultPlayerLocation(firstRoom);
+        firstRoom.setVisible(true);
+        this.playerStartLocation = getDefaultPlayerLocation(firstRoom);
 
         // On génère les passages dans chaque étage
         GSolver solver;

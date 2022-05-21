@@ -1,16 +1,16 @@
 package net.cnam.chateau.gui.event.block;
 
-import net.cnam.chateau.entity.LivingEntity;
+import net.cnam.chateau.entity.Entity;
 
 public abstract class BlockEvent {
 
-    private final LivingEntity entity;
+    private final Entity entity;
 
-    public BlockEvent(LivingEntity entity) {
+    public BlockEvent(Entity entity) {
         this.entity = entity;
     }
 
-    public LivingEntity getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 }

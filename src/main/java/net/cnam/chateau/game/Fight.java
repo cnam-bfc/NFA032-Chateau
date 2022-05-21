@@ -1,7 +1,7 @@
 package net.cnam.chateau.game;
 
 import java.util.Random;
-import net.cnam.chateau.entity.LivingEntity;
+import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.gui.component.CFrame;
@@ -62,38 +62,38 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
     }
 
     //TODO voir pour gérer si une entité meurt
-    public void attack(Player player, LivingEntity enemy) {
-        if (player.havePet()) {
-            attackWithPet(player, enemy);
+    public void attack() {
+        if (player.hasPet()) {
+            attackWithPet();
         } else {
-            attackWithoutPet(player, enemy);
+            attackWithoutPet();
         }
     }
 
-    public void attackWithPet(Player player, LivingEntity enemy) {
+    private void attackWithPet() {
         int playerSpeed = player.getSpeed();
-        int playerStrength = player.getSrength();
+        int playerStrength = player.getStrength();
         int enemySpeed = enemy.getSpeed();
-        int enemyStrength = enemy.getSrength();
+        int enemyStrength = enemy.getStrength();
         int petSpeed = player.getPet().getSpeed();
-        int petStrength = player.getPet().getSrength();
+        int petStrength = player.getPet().getStrength();
 
         // SI le joueur est le premier à attaquer
         if (playerSpeed > enemySpeed && playerSpeed > petSpeed) {
             if (testAttack(player)) {
-                enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - playerStrength);
+                enemy.damage(playerStrength);
             }
             if (enemySpeed > petSpeed) {
                 if (testAttack(enemy)) {
                     if (random.nextBoolean()) {
-                        player.getCharacteristics().setHealth(player.getCharacteristics().getHealth() - enemyStrength);
+                        player.damage(enemyStrength);
                     } else {
-                        player.getPet().getCharacteristics().setHealth(player.getPet().getCharacteristics().getHealth() - enemyStrength);
+                        player.getPet().damage(enemyStrength);
                     }
                 }
             } else {
                 if (testAttack(player.getPet())) {
-                    enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - petStrength);
+                    enemy.damage(petStrength);
                 }
             }
             return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
@@ -103,18 +103,18 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
         if (enemySpeed > playerSpeed && enemySpeed > petSpeed) {
             if (testAttack(enemy)) {
                 if (random.nextBoolean()) {
-                    player.getCharacteristics().setHealth(player.getCharacteristics().getHealth() - enemyStrength);
+                    player.damage(enemyStrength);
                 } else {
-                    player.getPet().getCharacteristics().setHealth(player.getPet().getCharacteristics().getHealth() - enemyStrength);
+                    player.getPet().damage(enemyStrength);
                 }
             }
             if (playerSpeed > petSpeed) {
                 if (testAttack(player)) {
-                    enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - playerStrength);
+                    enemy.damage(playerStrength);
                 }
             } else {
                 if (testAttack(player.getPet())) {
-                    enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - petStrength);
+                    enemy.damage(petStrength);
                 }
             }
             return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
@@ -124,14 +124,14 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
         if (petSpeed > enemySpeed && petSpeed > playerSpeed) {
             if (playerSpeed > enemySpeed) {
                 if (testAttack(player.getPet())) {
-                    enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - petStrength);
+                    enemy.damage(petStrength);
                 }
             } else {
                 if (testAttack(enemy)) {
                     if (random.nextBoolean()) {
-                        player.getCharacteristics().setHealth(player.getCharacteristics().getHealth() - enemyStrength);
+                        player.damage(enemyStrength);
                     } else {
-                        player.getPet().getCharacteristics().setHealth(player.getPet().getCharacteristics().getHealth() - enemyStrength);
+                        player.getPet().damage(enemyStrength);
                     }
                 }
             }
@@ -139,30 +139,30 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
         }
     }
 
-    public void attackWithoutPet(Player player, LivingEntity enemy) {
+    private void attackWithoutPet() {
         int playerSpeed = player.getSpeed();
-        int playerStrength = player.getSrength();
+        int playerStrength = player.getStrength();
         int enemySpeed = enemy.getSpeed();
-        int enemyStrength = enemy.getSrength();
+        int enemyStrength = enemy.getStrength();
 
         if (playerSpeed > enemySpeed) {
             if (testAttack(player)) {
-                enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - playerStrength);
+                enemy.damage(playerStrength);
             }
             if (testAttack(enemy)) {
-                player.getCharacteristics().setHealth(player.getCharacteristics().getHealth() - enemyStrength);
+                player.damage(enemyStrength);
             }
         } else {
             if (testAttack(enemy)) {
-                player.getCharacteristics().setHealth(player.getCharacteristics().getHealth() - enemyStrength);
+                player.damage(enemyStrength);
             }
             if (testAttack(player)) {
-                enemy.getCharacteristics().setHealth(enemy.getCharacteristics().getHealth() - playerStrength);
+                enemy.damage(playerStrength);
             }
         }
     }
 
-    public boolean testAttack(LivingEntity entity) {
+    public boolean testAttack(Entity entity) {
         int Accuracy = entity.getAccuracy();
         return random.nextInt(0, ACCURACY) < Accuracy;
     }

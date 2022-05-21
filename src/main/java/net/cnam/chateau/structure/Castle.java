@@ -10,18 +10,18 @@ public class Castle {
     private final Stage[] stages;
     private final long seed;
 
-    private final Location defaultPlayerLocation;
+    private final Location playerStartLocation;
 
     /**
      * Constructeur
      *
      * @param stages Tableau des étages du chateau
-     * @param defaultPlayerLocation Position du joueur par défaut
+     * @param playerStartLocation Départ du joueur
      * @param seed La graine de génération du chateau
      */
-    public Castle(Stage[] stages, Location defaultPlayerLocation, long seed) {
+    public Castle(Stage[] stages, Location playerStartLocation, long seed) {
         this.stages = stages;
-        this.defaultPlayerLocation = defaultPlayerLocation;
+        this.playerStartLocation = playerStartLocation;
         this.seed = seed;
     }
 
@@ -43,7 +43,7 @@ public class Castle {
         return seed;
     }
 
-    public Location getDefaultPlayerLocation() {
-        return defaultPlayerLocation;
+    public Location getPlayerStartLocation() {
+        return playerStartLocation;
     }
 }

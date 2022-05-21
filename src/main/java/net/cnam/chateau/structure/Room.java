@@ -10,7 +10,7 @@ public class Room {
 
     private final Location location;
     private Block[][] blocks;
-    private boolean visited = false;
+    private boolean visible = false;
 
     /**
      * Constructeur
@@ -53,12 +53,12 @@ public class Room {
         return blocks[0].length;
     }
 
-    public boolean isVisited() {
-        return visited;
+    public boolean isVisible() {
+        return visible;
     }
 
-    public void setVisited(boolean visited) {
-        this.visited = visited;
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
 //    @Override

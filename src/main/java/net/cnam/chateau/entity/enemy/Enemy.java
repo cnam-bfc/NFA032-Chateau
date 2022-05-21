@@ -1,34 +1,38 @@
 package net.cnam.chateau.entity.enemy;
 
-import net.cnam.chateau.entity.Characteristic;
-import net.cnam.chateau.entity.LivingEntity;
+import net.cnam.chateau.entity.Entity;
+import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
-import net.cnam.chateau.item.weapon.Weapon;
 
 /**
  * Classe d'un ennemi
  */
-public abstract class Enemy extends LivingEntity {
+public abstract class Enemy extends Entity {
 
     /**
-     * Constructeur d'un ennemie sans arme
+     * Constructeur
      *
-     * @param characteristics
-     * @param location
+     * @param stage L'étage où il se situe
+     * @param location Coordonnées où il se situe
+     * @param name Le nom
+     * @param health La santé
+     * @param resistance La résistance
+     * @param strength La force
+     * @param accuracy La précision
+     * @param speed La rapidité
      */
-    public Enemy(Characteristic characteristics, String nom, Location location) {
-        super(characteristics, nom, location);
+    public Enemy(Stage stage, Location location, String name, int health, int resistance, int strength, int accuracy, int speed) {
+        super(stage, location, name, health, resistance, strength, accuracy, speed);
     }
 
     /**
-     * Constructeur d'un ennemie avec arme
+     * Constructeur
      *
-     * @param characteristics
-     * @param weapon
-     * @param location
+     * @param stage L'étage où se situe l'ennemi
+     * @param location Coordonnées de l'ennemi
+     * @param name Le nom de l'ennemi
      */
-    public Enemy(Characteristic characteristics, Weapon weapon, String nom, Location location) {
-        super(characteristics, weapon, nom, location);
+    public Enemy(Stage stage, Location location, String name) {
+        super(stage, location, name);
     }
-
 }

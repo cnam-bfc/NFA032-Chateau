@@ -71,9 +71,9 @@ public class Door extends Block implements BlockListener {
             try {
                 Room room = stage.getRoom(player.getLocation());
                 if (room == roomOne) {
-                    roomTwo.setVisited(true);
+                    roomTwo.setVisible(true);
                 } else if (room == roomTwo) {
-                    roomOne.setVisited(true);
+                    roomOne.setVisible(true);
                 }
             } catch (CoordinatesOutOfBoundsException ex) {
             }
