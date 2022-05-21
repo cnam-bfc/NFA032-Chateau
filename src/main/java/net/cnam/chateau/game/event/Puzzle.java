@@ -70,4 +70,14 @@ public class Puzzle {
         }
         return puzzles.remove(new Random().nextInt(0, puzzles.size()));
     }
+    
+    /**
+     * Méthode pour vérifier si la réponse du joueur est juste.
+     * 
+     * @param answer Couple d'une réponse
+     * @return un boolean
+     */
+    public boolean isRight(Couple<String, Boolean> answer){
+        return answer.getElemTwo();
+    }
 }
