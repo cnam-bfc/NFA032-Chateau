@@ -1,5 +1,6 @@
 package net.cnam.chateau.generator;
 
+import net.cnam.chateau.structure.block.door.Door;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.Random;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.*;
 import net.cnam.chateau.utils.Location;
+
+// TODO mettre dans le générateur à la fin
 
 public class GSolver {
 

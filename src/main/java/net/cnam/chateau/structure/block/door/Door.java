@@ -1,4 +1,4 @@
-package net.cnam.chateau.structure.block;
+package net.cnam.chateau.structure.block.door;
 
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.CColor;
@@ -8,6 +8,7 @@ import net.cnam.chateau.gui.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
+import net.cnam.chateau.structure.block.Block;
 
 /**
  * Class permettant de créer un block Porte (Door) pour la map.
@@ -18,8 +19,6 @@ public class Door extends Block implements BlockListener {
     private final Room roomOne;
     private final Room roomTwo;
 
-    private boolean locked = false;
-
     public Door(Stage stage, Room roomOne, Room roomTwo) {
         this.stage = stage;
         this.roomOne = roomOne;
@@ -28,7 +27,7 @@ public class Door extends Block implements BlockListener {
 
     @Override
     public String getCharacter() {
-        if (locked) {
+        if (isLocked()) {
             return CColor.RED + "D" + CColor.RED.getForegroundReset();
         } else {
             return CColor.GREEN + "D" + CColor.GREEN.getForegroundReset();
@@ -48,26 +47,12 @@ public class Door extends Block implements BlockListener {
     }
 
     public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
+        return false;
     }
 
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
-        if (locked) {
-            event.setCanceled(true);
-            if (event.getEntity() instanceof Player player) {
-                // TODO Afficher menu enigme pour ouvrir la porte
-                // Si l'énigme est réussi
-                //event.setCanceled(false);
-            }
-            return;
-        }
-
-        if (event.getEntity() instanceof Player player) {
+        if (!isLocked() && event.getEntity() instanceof Player player) {
             try {
                 Room room = stage.getRoom(player.getLocation());
                 if (room == roomOne) {

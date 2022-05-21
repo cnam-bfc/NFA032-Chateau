@@ -4,7 +4,7 @@ import net.cnam.chateau.structure.block.decorative.Table;
 import net.cnam.chateau.structure.block.decorative.Wardrobe;
 import net.cnam.chateau.structure.block.decorative.Chest;
 import net.cnam.chateau.structure.block.decorative.Bed;
-import net.cnam.chateau.structure.block.Door;
+import net.cnam.chateau.structure.block.door.Door;
 import net.cnam.chateau.structure.block.Wall;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.Stage;
@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import net.cnam.chateau.entity.enemy.boss.BossMartinez;
+import net.cnam.chateau.structure.RoomBoss;
 import net.cnam.chateau.structure.block.DownStair;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.utils.Location;
@@ -26,17 +28,18 @@ import net.cnam.chateau.utils.array.ArrayUtils;
  */
 public class Generator {
 
-    private static final int MIN_SIZE_STAGE = 40; //taille mini d'un étage
-    private static final int MAX_SIZE_STAGE = 50; //taille maxi d'un étage
-    private static final int MIN_STAGE = 3; //nombre mini d'étage
-    private static final int MAX_STAGE = 5; //nombre maxi d'étage
-    private static final int MIN_SIZE_ROOM = 6; //taille mini d'une pièce
+    private static final int MIN_SIZE_STAGE = 25; //taille mini d'un étage
+    private static final int MAX_SIZE_STAGE = 35; //taille maxi d'un étage
+    private static final int MIN_STAGE = 1; //nombre mini d'étage
+    private static final int MAX_STAGE = 1; //nombre maxi d'étage
+    private static final int MIN_SIZE_ROOM = 5; //taille mini d'une pièce
     private static final int NB_ITERATION_MIN = 3; //nombre de division minimum des étages
     private static final int NB_ITERATION_MAX = 5; //nombre de division maximum supplémentaire des étages
     private static final int POURCENT_DIVIDE = 10; //ajusteur pour savoir si une pièce se re divise dans la deuxième phase de division
-    private static final int MIN_BLOCKS = 3; // nombre de bloc décoratifs minimum par pièce
-    private static final int MAX_BLOCKS = 5; // nombre de bloc maximum par pièce
+    private static final int MIN_BLOCKS = 1; // nombre de bloc décoratifs minimum par pièce
+    private static final int MAX_BLOCKS = 3; // nombre de bloc maximum par pièce
     private static final int LUCK_BLOCK = 70;
+    // TODO pendant la relecture / réecriture : ajouter une taille max de pièces
 
     private final long seed;
     private final Random random;
@@ -163,6 +166,15 @@ public class Generator {
             }
             //on ajoute au champ de l'escalier de sortie de l'étage actuellement traité, l'étage en question auquel il appartient
             solver.getExitStair().setStage(stage);
+
+            if (i == stages.length - 1) {
+                RoomBoss lastRoom = new RoomBoss();
+                Stage stageBoss = new Stage(new Room[]{lastRoom}, lastRoom.getLength(), lastRoom.getHeight());
+                lastRoom.getEntry().setOtherStair(solver.getExitStair());
+                lastRoom.getEntry().setStage(stageBoss);
+                solver.getExitStair().setOtherStair(lastRoom.getEntry());
+                stageBoss.getEntities().add(new BossMartinez(stageBoss, new Location(6, 4)));
+            }
         }
 
         return stages;
