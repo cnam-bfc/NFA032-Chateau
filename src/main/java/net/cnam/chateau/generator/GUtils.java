@@ -10,6 +10,7 @@ import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.structure.block.decorative.Bed;
 import net.cnam.chateau.structure.block.decorative.Chest;
+import net.cnam.chateau.structure.block.decorative.DecorativeBlock;
 import net.cnam.chateau.structure.block.decorative.Table;
 import net.cnam.chateau.structure.block.decorative.Wardrobe;
 import net.cnam.chateau.structure.block.door.Door;
@@ -38,19 +39,19 @@ public class GUtils {
         //vérification qu'il n'y a pas de block la ou on souhaite placé l'escalier
         do {
             testDoor = false;
-            if (room.getBlocks()[x + 1][y] instanceof Door) {
+            if (room.getBlocks()[x + 1][y] instanceof Door || room.getBlocks()[x + 1][y] instanceof DecorativeBlock) {
                 x -= 1;
                 testDoor = true;
             }
-            if (room.getBlocks()[x - 1][y] instanceof Door) {
+            if (room.getBlocks()[x - 1][y] instanceof Door || room.getBlocks()[x - 1][y] instanceof DecorativeBlock) {
                 x += 1;
                 testDoor = true;
             }
-            if (room.getBlocks()[x][y + 1] instanceof Door) {
+            if (room.getBlocks()[x][y + 1] instanceof Door || room.getBlocks()[x][y + 1] instanceof DecorativeBlock) {
                 y -= 1;
                 testDoor = true;
             }
-            if (room.getBlocks()[x + 1][y - 1] instanceof Door) {
+            if (room.getBlocks()[x][y - 1] instanceof Door || room.getBlocks()[x][y - 1] instanceof DecorativeBlock) {
                 y += 1;
                 testDoor = true;
             }
