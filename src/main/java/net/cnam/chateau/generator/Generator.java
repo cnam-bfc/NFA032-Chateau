@@ -29,13 +29,13 @@ public class Generator {
     private static final int MAX_SIZE_STAGE = 35; //taille maxi d'un étage
     private static final int MIN_STAGE = 2; //nombre mini d'étage
     private static final int MAX_STAGE = 2; //nombre maxi d'étage
-    private static final int MIN_SIZE_ROOM = 5; //taille mini d'une pièce
+    private static final int MIN_SIZE_ROOM = 6; //taille mini d'une pièce
+    private static final int MAX_SIZE_ROOM = MIN_SIZE_ROOM * 2 + 1; //taille max d'une pièce
     private static final int NB_ITERATION_MIN = 3; //nombre de division minimum des étages
     private static final int NB_ITERATION_MAX = 5; //nombre de division maximum supplémentaire des étages
     private static final int POURCENT_DIVIDE = 10; //ajusteur pour savoir si une pièce se re divise dans la deuxième phase de division
     private static final int MIN_BLOCKS = 1; // nombre de bloc décoratifs minimum par pièce
     private static final int MAX_BLOCKS = 3; // nombre de bloc maximum par pièce
-    // TODO pendant la relecture / réecriture : ajouter une taille max de pièces
 
     private final long seed;
     private final Random random;
@@ -197,7 +197,27 @@ public class Generator {
                 rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided);
             }
         }
+        rooms = verifyRoomSize(rooms);
         return new Stage(rooms, stageLength, stageWidth);
+    }
+
+    /**
+     * 
+     * Méthode permettant de vérifier que les pièces ne sont pas trop grande, sinon division
+     *
+     * @param tableau de pièce d'un étage
+     */
+    public Room[] verifyRoomSize(Room[] rooms){
+        for (int i = 0 ; i < rooms.length ; i++){
+            while (rooms[i].getLength() > MAX_SIZE_ROOM || rooms[i].getHeight() > MAX_SIZE_ROOM ){
+                Room roomDivided = divideRoom(rooms[i]);
+                if (roomDivided == null) {
+                    continue;
+                }
+                rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided);
+            }
+        }
+        return rooms;
     }
 
     /**
