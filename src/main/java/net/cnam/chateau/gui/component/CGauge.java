@@ -1,7 +1,7 @@
 package net.cnam.chateau.gui.component;
 
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.event.key.KeyEvent;
+import net.cnam.chateau.gui.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.event.key.KeyListener;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
@@ -32,7 +32,7 @@ public class CGauge extends CFrame implements SelectableComponent, KeyListener {
     }
 
     @Override
-    public void onKeyPressed(KeyEvent event) {
+    public void onKeyPressed(KeyPressedEvent event) {
         if (!isSelected()) {
             return;
         }

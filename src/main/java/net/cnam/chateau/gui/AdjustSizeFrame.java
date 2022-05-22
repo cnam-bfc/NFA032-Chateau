@@ -3,7 +3,7 @@ package net.cnam.chateau.gui;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
-import net.cnam.chateau.gui.event.key.KeyEvent;
+import net.cnam.chateau.gui.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.event.key.KeyListener;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
@@ -30,7 +30,7 @@ public class AdjustSizeFrame extends CFrame implements DisplayableComponent, Key
     }
 
     @Override
-    public void onKeyPressed(KeyEvent event) {
+    public void onKeyPressed(KeyPressedEvent event) {
         super.onKeyPressed(event);
 
         int key = event.getKey();

@@ -17,7 +17,7 @@ import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.gui.DisplayableComponent;
-import net.cnam.chateau.gui.event.key.KeyEvent;
+import net.cnam.chateau.gui.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.event.key.KeyListener;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
@@ -61,7 +61,7 @@ public class Game extends CFrame implements DisplayableComponent, KeyListener {
     }
 
     @Override
-    public void onKeyPressed(KeyEvent event) {
+    public void onKeyPressed(KeyPressedEvent event) {
         // On transmet la touche appuyé aux composants dans cette fenêtre
         super.onKeyPressed(event);
 

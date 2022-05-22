@@ -1,10 +1,10 @@
 package net.cnam.chateau.gui.event.key;
 
-public class KeyEvent {
+public class KeyPressedEvent {
 
     private final int key;
 
-    public KeyEvent(int key) {
+    public KeyPressedEvent(int key) {
         this.key = key;
     }
 

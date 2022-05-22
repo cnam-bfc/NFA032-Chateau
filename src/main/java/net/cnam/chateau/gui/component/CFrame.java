@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.component;
 
-import net.cnam.chateau.gui.event.key.KeyEvent;
+import net.cnam.chateau.gui.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.event.key.KeyListener;
 
 // ┌┐└┘├┤─│┴┯
@@ -69,7 +69,7 @@ public class CFrame extends CComponent implements KeyListener {
     }
 
     @Override
-    public void onKeyPressed(KeyEvent event) {
+    public void onKeyPressed(KeyPressedEvent event) {
         this.contentPane.onKeyPressed(event);
     }
 

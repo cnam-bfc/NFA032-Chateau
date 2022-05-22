@@ -3,7 +3,7 @@ package net.cnam.chateau.gui.component;
 import net.cnam.chateau.audio.AudioPlayer;
 import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.event.key.KeyEvent;
+import net.cnam.chateau.gui.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.event.key.KeyListener;
 
 public abstract class CButton extends CLabel implements SelectableComponent, KeyListener {
@@ -50,7 +50,7 @@ public abstract class CButton extends CLabel implements SelectableComponent, Key
     }
 
     @Override
-    public void onKeyPressed(KeyEvent event) {
+    public void onKeyPressed(KeyPressedEvent event) {
         int key = event.getKey();
 
         // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal

@@ -6,7 +6,7 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.DisplayableComponent;
-import net.cnam.chateau.gui.event.key.KeyEvent;
+import net.cnam.chateau.gui.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.event.key.KeyListener;
 
 public class Fight extends CFrame implements DisplayableComponent, KeyListener {
@@ -28,7 +28,7 @@ public class Fight extends CFrame implements DisplayableComponent, KeyListener {
     }
 
     @Override
-    public void onKeyPressed(KeyEvent event) {
+    public void onKeyPressed(KeyPressedEvent event) {
         int key = event.getKey();
 
         // TODO Enlever ça, temporaire
