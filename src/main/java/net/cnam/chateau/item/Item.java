@@ -1,5 +1,7 @@
 package net.cnam.chateau.item;
 
+import net.cnam.chateau.entity.Entity;
+
 public class Item implements PortableItem {
 
     private String name;
@@ -20,5 +22,14 @@ public class Item implements PortableItem {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public String getName() {
+        return name;
+    }
 
+    @Override
+    public void destroy(Entity entity) {
+        // TODO mettre une phrase pour dire l'item est détruit
+        entity.setItem(null);
+    }   
 }

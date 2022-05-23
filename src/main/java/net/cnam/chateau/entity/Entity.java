@@ -4,6 +4,7 @@ import net.cnam.chateau.DisplayableObject;
 import net.cnam.chateau.gui.event.block.BlockListener;
 import net.cnam.chateau.gui.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.gui.event.block.EntityLeaveBlockEvent;
+import net.cnam.chateau.item.Item;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
@@ -31,6 +32,7 @@ public abstract class Entity implements DisplayableObject {
     private int strength = DEFAULT_STRENGTH;
     private int accuracy = DEFAULT_ACCURACY;
     private int speed = DEFAULT_SPEED;
+    private Item item;
 
     private int renderPriority = -1;
 
@@ -293,6 +295,28 @@ public abstract class Entity implements DisplayableObject {
             totalSpeed += this.getWeapon().getSpeed();
         }
         return totalSpeed;
+    }
+
+    /**
+     * Méthode permettant de récupérer l'item que possède l'entité.
+     *
+     * @return un Item
+     */
+    public Item getItem() {
+        return item;
+    }
+
+    /**
+     * Méthode qui permet de définir l'item porté par l'entité
+     * 
+     * @param item un Item
+     */
+    public void setItem(Item item) {
+        this.item = item;
+    }
+    
+    public boolean haveItem() {
+        return (this.getItem() != null);
     }
 
     /**

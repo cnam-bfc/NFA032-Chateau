@@ -9,12 +9,12 @@ import net.cnam.chateau.gui.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 
-public class Door_Sage extends Door {
+public class DoorSage extends Door {
     
     private Sage sage;
     private Puzzle puzzle;
 
-    public Door_Sage(Stage stage, Room roomOne, Room roomTwo) {
+    public DoorSage(Stage stage, Room roomOne, Room roomTwo) {
         super(stage, roomOne, roomTwo);
         // TODO aller chercher un enigme aléatoire non déjà posé
     }
