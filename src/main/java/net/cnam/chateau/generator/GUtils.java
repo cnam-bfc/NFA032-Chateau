@@ -39,23 +39,11 @@ public class GUtils {
         //vérification qu'il n'y a pas de block la ou on souhaite placé l'escalier
         do {
             testDoor = false;
-            if (room.getBlocks()[x + 1][y] instanceof Door || room.getBlocks()[x + 1][y] instanceof DecorativeBlock) {
-                x -= 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x - 1][y] instanceof Door || room.getBlocks()[x - 1][y] instanceof DecorativeBlock) {
-                x += 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x][y + 1] instanceof Door || room.getBlocks()[x][y + 1] instanceof DecorativeBlock) {
-                y -= 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x][y - 1] instanceof Door || room.getBlocks()[x][y - 1] instanceof DecorativeBlock) {
-                y += 1;
-                testDoor = true;
-            }
-            if (room.getBlocks()[x][y] != null) {
+            if (room.getBlocks()[x][y] != null
+                    || room.getBlocks()[x][y - 1] instanceof Door
+                    || room.getBlocks()[x][y + 1] instanceof Door
+                    || room.getBlocks()[x - 1][y] instanceof Door
+                    || room.getBlocks()[x + 1][y] instanceof Door) {
                 x = random.nextInt(1, room.getLength() - 1);
                 y = random.nextInt(1, room.getHeight() - 1);
                 testDoor = true;
