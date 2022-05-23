@@ -32,8 +32,8 @@ public class GUtils {
      */
     public static Location findPosition(Random random, Room room) {
         //on choisit des coordonnées au hasard dans la room choisie au dessus
-        int x = random.nextInt(1, room.getLength());
-        int y = random.nextInt(1, room.getHeight());
+        int x = random.nextInt(1, room.getLength() - 1);
+        int y = random.nextInt(1, room.getHeight() - 1);
         boolean testDoor;
         //vérification qu'il n'y a pas de porte à proximité sinon on décale
         //vérification qu'il n'y a pas de block la ou on souhaite placé l'escalier
