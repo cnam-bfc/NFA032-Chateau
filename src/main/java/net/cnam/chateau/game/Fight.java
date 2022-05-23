@@ -4,10 +4,10 @@ import java.util.Random;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
+import net.cnam.chateau.event.key.KeyListener;
+import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.DisplayableComponent;
-import net.cnam.chateau.gui.event.key.KeyPressedEvent;
-import net.cnam.chateau.gui.event.key.KeyListener;
 
 public class Fight extends CFrame implements DisplayableComponent, KeyListener {
 

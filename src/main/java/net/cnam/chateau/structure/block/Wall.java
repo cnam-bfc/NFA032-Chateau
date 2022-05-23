@@ -1,9 +1,9 @@
 package net.cnam.chateau.structure.block;
 
+import net.cnam.chateau.event.block.BlockListener;
+import net.cnam.chateau.event.block.EntityEnterBlockEvent;
+import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.event.block.BlockListener;
-import net.cnam.chateau.gui.event.block.EntityEnterBlockEvent;
-import net.cnam.chateau.gui.event.block.EntityLeaveBlockEvent;
 
 /**
  * Class permettant de créer un block Mur (Wall) pour la map.

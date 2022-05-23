@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.event.key;
+package net.cnam.chateau.event.key;
 
 public interface KeyListener {
 

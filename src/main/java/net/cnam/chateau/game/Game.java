@@ -8,6 +8,8 @@ import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.event.key.KeyListener;
+import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.generator.Generator;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
@@ -17,8 +19,6 @@ import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.gui.DisplayableComponent;
-import net.cnam.chateau.gui.event.key.KeyPressedEvent;
-import net.cnam.chateau.gui.event.key.KeyListener;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 

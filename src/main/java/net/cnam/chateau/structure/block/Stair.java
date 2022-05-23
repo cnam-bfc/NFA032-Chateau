@@ -1,9 +1,9 @@
 package net.cnam.chateau.structure.block;
 
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
-import net.cnam.chateau.gui.event.block.BlockListener;
-import net.cnam.chateau.gui.event.block.EntityEnterBlockEvent;
-import net.cnam.chateau.gui.event.block.EntityLeaveBlockEvent;
+import net.cnam.chateau.event.block.BlockListener;
+import net.cnam.chateau.event.block.EntityEnterBlockEvent;
+import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;

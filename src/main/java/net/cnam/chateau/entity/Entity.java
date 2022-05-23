@@ -1,15 +1,20 @@
 package net.cnam.chateau.entity;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import net.cnam.chateau.DisplayableObject;
-import net.cnam.chateau.gui.event.block.BlockListener;
-import net.cnam.chateau.gui.event.block.EntityEnterBlockEvent;
-import net.cnam.chateau.gui.event.block.EntityLeaveBlockEvent;
-import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.event.block.BlockListener;
+import net.cnam.chateau.event.block.EntityEnterBlockEvent;
+import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
+import net.cnam.chateau.event.entity.EntityApprochEvent;
+import net.cnam.chateau.event.entity.EntityListener;
 import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Stair;
+import net.cnam.chateau.utils.Location;
 
 /**
  * Classe d'une entité
@@ -37,16 +42,17 @@ public abstract class Entity implements DisplayableObject {
     /**
      * Constructeur
      *
-     * @param stage L'étage où elle se situe
-     * @param location Coordonnées où elle se situe
-     * @param name Le nom
-     * @param health La santé
+     * @param stage      L'étage où elle se situe
+     * @param location   Coordonnées où elle se situe
+     * @param name       Le nom
+     * @param health     La santé
      * @param resistance La résistance
-     * @param strength La force
-     * @param accuracy La précision
-     * @param speed La rapidité
+     * @param strength   La force
+     * @param accuracy   La précision
+     * @param speed      La rapidité
      */
-    public Entity(Stage stage, Location location, String name, int health, int resistance, int strength, int accuracy, int speed) {
+    public Entity(Stage stage, Location location, String name, int health, int resistance, int strength, int accuracy,
+            int speed) {
         this(stage, location, name);
 
         this.health = health;
@@ -59,9 +65,9 @@ public abstract class Entity implements DisplayableObject {
     /**
      * Constructeur
      *
-     * @param stage L'étage où se situe l'entité
+     * @param stage    L'étage où se situe l'entité
      * @param location Coordonnées de l'entité
-     * @param name Le nom de l'entité
+     * @param name     Le nom de l'entité
      */
     public Entity(Stage stage, Location location, String name) {
         this.stage = stage;
@@ -74,9 +80,19 @@ public abstract class Entity implements DisplayableObject {
      *
      * @param location Les coordonnées de destination
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
-     * Exception levé si l'entité veut être téléporté hors de l'étage
+     *                                                                    Exception
+     *                                                                    levé si
+     *                                                                    l'entité
+     *                                                                    veut être
+     *                                                                    téléporté
+     *                                                                    hors de
+     *                                                                    l'étage
      * @throws net.cnam.chateau.entity.EntityAlreadyTeleportedException
-     * Exception levé si l'entité à déjà été téléporté
+     *                                                                    Exception
+     *                                                                    levé si
+     *                                                                    l'entité à
+     *                                                                    déjà été
+     *                                                                    téléporté
      */
     public void teleport(Location location) throws CoordinatesOutOfBoundsException, EntityAlreadyTeleportedException {
         teleport(stage, location);
@@ -86,16 +102,28 @@ public abstract class Entity implements DisplayableObject {
      * Méthode permettant de téléporter l'entité dans un étage à des coordonées
      * précises.
      *
-     * @param stage L'étage de destination
+     * @param stage    L'étage de destination
      * @param location Les coordonnées de destination
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
-     * Exception levé si l'entité veut être téléporté hors de l'étage
+     *                                                                    Exception
+     *                                                                    levé si
+     *                                                                    l'entité
+     *                                                                    veut être
+     *                                                                    téléporté
+     *                                                                    hors de
+     *                                                                    l'étage
      * @throws net.cnam.chateau.entity.EntityAlreadyTeleportedException
-     * Exception levé si l'entité à déjà été téléporté
+     *                                                                    Exception
+     *                                                                    levé si
+     *                                                                    l'entité à
+     *                                                                    déjà été
+     *                                                                    téléporté
      */
-    public void teleport(Stage stage, Location location) throws CoordinatesOutOfBoundsException, EntityAlreadyTeleportedException {
+    public void teleport(Stage stage, Location location)
+            throws CoordinatesOutOfBoundsException, EntityAlreadyTeleportedException {
         // On vérifie que les coordonnées de destination sont valides
-        if (location.getX() < 0 || location.getY() < 0 || location.getX() >= stage.getLength() || location.getY() >= stage.getHeight()) {
+        if (location.getX() < 0 || location.getY() < 0 || location.getX() >= stage.getLength()
+                || location.getY() >= stage.getHeight()) {
             throw new CoordinatesOutOfBoundsException("L'entité ne peut pas sortir de l'étage!");
         }
 
@@ -106,12 +134,14 @@ public abstract class Entity implements DisplayableObject {
         Block oldLocationBlock = this.stage.getBlock(this.location);
         Block newLocationBlock = stage.getBlock(location);
         // On notifie le nouveau block que l'entité rentre sur celui-ci
-        // sauf si l'entité à changé d'étage et que le bloc est un escalier (sinon on boucle)
+        // sauf si l'entité à changé d'étage et que le bloc est un escalier (sinon on
+        // boucle)
         if (!(this.stage != stage && newLocationBlock instanceof Stair)) {
             if (newLocationBlock != null && newLocationBlock instanceof BlockListener blockListener) {
                 EntityEnterBlockEvent event = new EntityEnterBlockEvent(this);
                 blockListener.onEntityEnterBlock(event);
-                // Si le block refuse que l'entité rentre sur son territoire on ne déplace pas l'entité
+                // Si le block refuse que l'entité rentre sur son territoire on ne déplace pas
+                // l'entité
                 if (event.isCanceled()) {
                     return;
                 }
@@ -124,7 +154,8 @@ public abstract class Entity implements DisplayableObject {
         }
 
         // Si le joueur à été téléporté entre temps on annulé la suite
-        if (saveEntityStage != this.stage || saveEntityX != this.location.getX() || saveEntityY != this.location.getY()) {
+        if (saveEntityStage != this.stage || saveEntityX != this.location.getX()
+                || saveEntityY != this.location.getY()) {
             throw new EntityAlreadyTeleportedException("L'entité à déjà été téléporté");
         }
 
@@ -144,6 +175,40 @@ public abstract class Entity implements DisplayableObject {
         // On déplace l'entité aux coordonnées désirés
         this.location.setX(location.getX());
         this.location.setY(location.getY());
+
+        // On notifie les entités aux alentours que l'entité à été déplacé
+        EntityApprochEvent entityApprochEvent = new EntityApprochEvent(this);
+        for (Entity entity : getNearbyEntities()) {
+            if (entity instanceof EntityListener listener) {
+                listener.onEntityApprochEvent(entityApprochEvent);
+            }
+        }
+    }
+
+    /**
+     * Méthode permettant de récupérer les entités aux alentours de cette entité
+     * 
+     * @return La liste des entités aux alentours
+     */
+    public List<Entity> getNearbyEntities() {
+        List<Entity> nearbyEntities = new LinkedList<>();
+
+        for (Entity entity : stage.getEntities()) {
+            if (entity.getLocation().getX() == location.getX() + 1 && entity.getLocation().getY() == location.getY()) {
+                nearbyEntities.add(entity);
+            } else if (entity.getLocation().getX() == location.getX() - 1
+                    && entity.getLocation().getY() == location.getY()) {
+                nearbyEntities.add(entity);
+            } else if (entity.getLocation().getX() == location.getX()
+                    && entity.getLocation().getY() == location.getY() + 1) {
+                nearbyEntities.add(entity);
+            } else if (entity.getLocation().getX() == location.getX()
+                    && entity.getLocation().getY() == location.getY() - 1) {
+                nearbyEntities.add(entity);
+            }
+        }
+
+        return nearbyEntities;
     }
 
     /**
