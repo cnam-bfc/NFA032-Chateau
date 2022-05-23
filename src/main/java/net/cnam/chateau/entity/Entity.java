@@ -9,6 +9,7 @@ import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.event.entity.EntityApprochEvent;
 import net.cnam.chateau.event.entity.EntityListener;
+import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.item.Item;
 import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
@@ -197,8 +198,9 @@ public abstract class Entity implements DisplayableObject {
      * Méthode permettant d'infliger des points de dégâts à l'entité.
      *
      * @param damagePoints Points de dégâts
+     * @throws EntityDeadException Exception levé si l'entité meurt
      */
-    public void damage(int damagePoints) {
+    public void damage(int damagePoints) throws EntityDeadException {
         if (damagePoints < 0) {
             return;
         }
@@ -206,6 +208,7 @@ public abstract class Entity implements DisplayableObject {
         this.health -= damagePoints;
         if (this.health <= 0) {
             this.kill();
+            throw new EntityDeadException(this, name + " est mort");
         }
     }
 
@@ -215,6 +218,15 @@ public abstract class Entity implements DisplayableObject {
     public void kill() {
         // On enlève cette entité de l'étage
         this.stage.getEntities().remove(this);
+    }
+
+    /**
+     * Méthode permettant de savoir si l'entitié est morte.
+     * 
+     * @return Vrai si l'entité est morte, faux sinonw
+     */
+    public boolean isDead() {
+        return health <= 0;
     }
 
     /**
