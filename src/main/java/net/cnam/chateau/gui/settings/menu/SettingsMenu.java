@@ -23,7 +23,6 @@ public class SettingsMenu extends CFrame implements DisplayableComponent {
             new ConfigureMusicButton(console, settings, menuPlayer),
             new ConfigureSoundEffectsButton(console, settings),
             backButton,
-            new DebugGeneratorButton(),
             new DebugKeysButton()
         }, 1);
         choices.select(backButton);

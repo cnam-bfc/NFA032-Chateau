@@ -1,6 +1,7 @@
 package net.cnam.chateau.entity.enemy;
 
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
@@ -12,11 +13,12 @@ public class Zombie extends Enemy {
     /**
      * Constructeur
      *
-     * @param stage L'étage où se situe le zombie
+     * @param console  La console
+     * @param stage    L'étage où se situe le zombie
      * @param location Coordonnées du zombie
      */
-    public Zombie(Stage stage, Location location) {
-        super(stage, location, "Twilette");
+    public Zombie(Console console, Stage stage, Location location) {
+        super(console, stage, location, "Twilette");
     }
 
     /**

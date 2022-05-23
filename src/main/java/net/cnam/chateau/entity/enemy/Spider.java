@@ -1,6 +1,7 @@
 package net.cnam.chateau.entity.enemy;
 
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
@@ -12,11 +13,12 @@ public class Spider extends Enemy {
     /**
      * Constructeur
      *
-     * @param stage L'étage où se situe l'arraignée
+     * @param console  La console
+     * @param stage    L'étage où se situe l'arraignée
      * @param location Coordonnées de l'arraignée
      */
-    public Spider(Stage stage, Location location) {
-        super(stage, location, "Maurice");
+    public Spider(Console console, Stage stage, Location location) {
+        super(console, stage, location, "Maurice");
     }
 
     /**

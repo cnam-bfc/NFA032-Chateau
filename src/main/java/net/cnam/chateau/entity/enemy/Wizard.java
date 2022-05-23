@@ -2,6 +2,7 @@ package net.cnam.chateau.entity.enemy;
 
 import java.util.Random;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
@@ -14,13 +15,14 @@ public class Wizard extends Enemy {
      * Constructeur permettant de créer un sorcier à partir de ceux en
      * énumération.
      *
-     * @param stage l'étage de la sorcière
+     * @param console  La console
+     * @param stage    l'étage de la sorcière
      * @param location l'emplacement de l'entité dans l'étage
-     * @param random objet random associé à la seed du Château
+     * @param random   objet random associé à la seed du Château
      */
-    public Wizard(Stage stage, Location location, Random random) {
-        //TODO Donner des caractéristiques random à la sorcière
-        super(stage, location, "");
+    public Wizard(Console console, Stage stage, Location location, Random random) {
+        // TODO Donner des caractéristiques random à la sorcière
+        super(console, stage, location, "");
 
         WizardEnum type = WizardEnum.values()[random.nextInt(WizardEnum.values().length)];
         this.setName(type.getName());
