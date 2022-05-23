@@ -211,7 +211,7 @@ public class Generator {
      * 
      * Méthode permettant de vérifier que les pièces ne sont pas trop grande, sinon division
      *
-     * @param tableau de pièce d'un étage
+     * @param rooms tableau de pièce d'un étage
      */
     public Room[] verifyRoomSize(Room[] rooms){
         for (int i = 0 ; i < rooms.length ; i++){

@@ -1,7 +1,6 @@
 package net.cnam.chateau.gui;
 
 import net.cnam.chateau.AppSettings;
-import net.cnam.chateau.event.key.KeyListener;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
@@ -9,7 +8,7 @@ import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 
-public class AdjustSizeFrame extends CFrame implements DisplayableComponent, KeyListener {
+public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
 
     private final AppSettings settings;
     private boolean sizeAdjusted = false;

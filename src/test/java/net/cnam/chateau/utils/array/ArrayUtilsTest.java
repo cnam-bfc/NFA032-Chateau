@@ -1,6 +1,5 @@
 package net.cnam.chateau.utils.array;
 
-import net.cnam.chateau.utils.array.ArrayUtils;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
