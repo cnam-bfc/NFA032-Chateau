@@ -13,6 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import net.cnam.chateau.entity.enemy.boss.BossMartinez;
+import net.cnam.chateau.gui.Console;
+
 import static net.cnam.chateau.generator.GUtils.*;
 import net.cnam.chateau.structure.RoomBoss;
 import net.cnam.chateau.structure.block.DownStair;
@@ -37,6 +39,7 @@ public class Generator {
     private static final int MIN_BLOCKS = 1; // nombre de bloc décoratifs minimum par pièce
     private static final int MAX_BLOCKS = 3; // nombre de bloc maximum par pièce
 
+    private final Console console;
     private final long seed;
     private final Random random;
     private Location playerStartLocation;
@@ -44,9 +47,11 @@ public class Generator {
     /**
      * Constructeur
      *
+     * @param console La console
      * @param seed long qui permet de générer la carte de façon procédural
      */
-    public Generator(long seed) {
+    public Generator(Console console, long seed) {
+        this.console = console;
         this.seed = seed;
         this.random = new Random(seed);
     }
@@ -144,7 +149,7 @@ public class Generator {
                 lastRoom.getEntry().setOtherStair(exitStair);
                 lastRoom.getEntry().setStage(stageBoss);
                 exitStair.setOtherStair(lastRoom.getEntry());
-                stageBoss.getEntities().add(new BossMartinez(stageBoss, new Location(6, 4)));
+                stageBoss.getEntities().add(new BossMartinez(console, stageBoss, new Location(6, 4)));
             }
         }
 

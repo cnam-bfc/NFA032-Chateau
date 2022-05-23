@@ -1,7 +1,7 @@
-package net.cnam.chateau.gui.event.block;
+package net.cnam.chateau.event.block;
 
 import net.cnam.chateau.entity.Entity;
-import net.cnam.chateau.gui.event.CancelableEvent;
+import net.cnam.chateau.event.CancelableEvent;
 
 public class EntityEnterBlockEvent extends BlockEvent implements CancelableEvent {
 

@@ -8,6 +8,7 @@ import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.generator.Generator;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
@@ -16,13 +17,12 @@ import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
+import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.DisplayableComponent;
-import net.cnam.chateau.gui.event.key.KeyPressedEvent;
-import net.cnam.chateau.gui.event.key.KeyListener;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
-public class Game extends CFrame implements DisplayableComponent, KeyListener {
+public class Game extends CFrame implements DisplayableComponent {
 
     private final Castle castle;
     private final Map map;
@@ -30,14 +30,14 @@ public class Game extends CFrame implements DisplayableComponent, KeyListener {
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
 
-    public Game(AppSettings settings) {
-        this(settings, new Random().nextLong());
+    public Game(Console console, AppSettings settings) {
+        this(console, settings, new Random().nextLong());
     }
 
-    public Game(AppSettings settings, long seed) {
+    public Game(Console console, AppSettings settings, long seed) {
         super(0, 0);
 
-        Generator generator = new Generator(seed);
+        Generator generator = new Generator(console, seed);
         this.castle = generator.generateCastle();
         Stage firstStage = this.castle.getStages()[0];
         this.player = new Player(this, firstStage, new Location(castle.getPlayerStartLocation().getX(), castle.getPlayerStartLocation().getY()), "Joueur");

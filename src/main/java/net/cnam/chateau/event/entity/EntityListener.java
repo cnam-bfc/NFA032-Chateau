@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.event.entity;
+package net.cnam.chateau.event.entity;
 
 public interface EntityListener {
 

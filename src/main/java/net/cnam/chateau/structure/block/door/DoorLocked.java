@@ -1,10 +1,10 @@
 package net.cnam.chateau.structure.block.door;
 
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.game.event.Key;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.Console;
-import net.cnam.chateau.gui.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.gui.play.door.DoorMenu;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;

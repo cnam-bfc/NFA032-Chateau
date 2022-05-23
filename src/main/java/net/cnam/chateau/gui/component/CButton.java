@@ -2,9 +2,9 @@ package net.cnam.chateau.gui.component;
 
 import net.cnam.chateau.audio.AudioPlayer;
 import net.cnam.chateau.audio.SoundEffect;
+import net.cnam.chateau.event.key.KeyListener;
+import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.event.key.KeyPressedEvent;
-import net.cnam.chateau.gui.event.key.KeyListener;
 
 public abstract class CButton extends CLabel implements SelectableComponent, KeyListener {
 

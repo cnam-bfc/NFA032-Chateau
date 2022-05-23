@@ -44,7 +44,7 @@ public class OkButton extends CButton {
         if (audioPlayer != null) {
             audioPlayer.stop();
         }
-        Game game = new Game(settings, seed);
+        Game game = new Game(console, settings, seed);
         console.show(game);
         if (audioPlayer != null) {
             try {

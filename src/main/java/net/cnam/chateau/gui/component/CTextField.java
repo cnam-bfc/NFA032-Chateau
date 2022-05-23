@@ -1,8 +1,8 @@
 package net.cnam.chateau.gui.component;
 
+import net.cnam.chateau.event.key.KeyListener;
+import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.event.key.KeyPressedEvent;
-import net.cnam.chateau.gui.event.key.KeyListener;
 import net.cnam.chateau.utils.StringUtils;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;

@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.event.block;
+package net.cnam.chateau.event.block;
 
 public interface BlockListener {
 

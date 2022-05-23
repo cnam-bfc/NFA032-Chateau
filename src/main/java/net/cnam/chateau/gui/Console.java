@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.gui.component.CPanel;
-import net.cnam.chateau.gui.event.key.KeyPressedEvent;
 import net.cnam.chateau.utils.console.RawConsoleInput;
 
 // Sources ANSI codes:
