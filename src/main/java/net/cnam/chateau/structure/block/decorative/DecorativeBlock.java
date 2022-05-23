@@ -18,4 +18,8 @@ public abstract class DecorativeBlock extends Block {
     public Item getHiddenItem() {
         return hiddenItem;
     }
+
+    public void setHiddenItem(Item hiddenItem) {
+        this.hiddenItem = hiddenItem;
+    }
 }

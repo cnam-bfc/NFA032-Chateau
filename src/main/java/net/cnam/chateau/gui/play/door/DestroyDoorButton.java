@@ -24,7 +24,6 @@ public class DestroyDoorButton extends CButton {
         if (door.tryDestroy()){
             door.setLock(false);
             // message : vous avez réussi à enfoncer la porte
-            this.menu.stopDisplay();
             
         }
         else {
@@ -35,6 +34,7 @@ public class DestroyDoorButton extends CButton {
             }
             // la porte est trop solide vous vous êtes bléssé
         }
+        this.menu.stopDisplay();
     }
     
 }

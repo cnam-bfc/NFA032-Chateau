@@ -24,12 +24,31 @@ public class DoorLocked extends Door {
 
     public DoorLocked(Console console, Stage stage, Room roomOne, Room roomTwo, Key key) {
         super(stage, roomOne, roomTwo);
-        
+
         this.console = console;
         this.key = key;
     }
     
+    public boolean hasTryDestroy() {
+        return tryDestroyDoor;
+    }
+
+    public boolean tryDestroy() {
+        this.tryDestroyDoor = true;
+        return (Math.random() * 100 > 75);
+    }
+
+    public Key getKey() {
+        return key;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
     
+    public void setLock(boolean lock) {
+        this.lock = lock;
+    }
 
     @Override
     public boolean isLocked() {
@@ -47,35 +66,10 @@ public class DoorLocked extends Door {
 
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
-        super.onEntityEnterBlock(event);
-
-        if (event.getEntity() instanceof Player player) {
+        if (event.getEntity() instanceof Player player && this.lock) {
             console.show(new DoorMenu(player, this));
         }
-    }
 
-    public boolean hasTryDestroy() {
-        return tryDestroyDoor;
-    }
-
-    public boolean tryDestroy() {
-        this.tryDestroyDoor = true;
-        return (Math.random() * 100 > 75);
-    }
-
-    public boolean isLock() {
-        return lock;
-    }
-
-    public Key getKey() {
-        return key;
-    }
-
-    public void setLock(boolean lock) {
-        this.lock = lock;
-    }
-
-    public void setKey(Key key) {
-        this.key = key;
+        super.onEntityEnterBlock(event);
     }
 }
