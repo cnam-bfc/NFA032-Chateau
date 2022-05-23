@@ -1,8 +1,8 @@
 package net.cnam.chateau.entity.pet;
 
 import net.cnam.chateau.entity.Entity;
+import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
 /**
@@ -10,18 +10,19 @@ import net.cnam.chateau.utils.Location;
  */
 public abstract class Pet extends Entity {
 
+    private final Player player;
     private boolean followPlayer = true;
 
     /**
      * Constructeur
      *
-     * @param stage L'étage où se situe le pet
-     * @param location Coordonnées du pet
-     * @param name Le nom du pet
+     * @param player Le joeur qui possède le pet
+     * @param name   Le nom du pet
      */
-    public Pet(Stage stage, Location location, String name) {
-        super(stage, location, name);
+    public Pet(Player player, String name) {
+        super(player.getStage(), new Location(player.getLocation().getX(), player.getLocation().getY()), name);
 
+        this.player = player;
         this.setRenderPriority(1);
     }
 
@@ -33,6 +34,14 @@ public abstract class Pet extends Entity {
     @Override
     public String getCharacter() {
         return CColor.BLUE + "P" + CColor.BLUE.getForegroundReset();
+    }
+
+    @Override
+    public void kill() {
+        super.kill();
+
+        if (player.getPet() == this)
+            player.setPet(null);
     }
 
     public abstract void power();

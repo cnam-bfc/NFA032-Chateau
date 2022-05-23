@@ -1,14 +1,13 @@
 package net.cnam.chateau.entity.pet;
 
-import net.cnam.chateau.structure.Stage;
-import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.entity.Player;
 
 public class Idefix extends Pet {
 
     private boolean power = true;
 
-    public Idefix(Stage stage, Location location) {
-        super(stage, location, "Idefix");
+    public Idefix(Player player) {
+        super(player, "Idefix");
     }
 
     @Override
@@ -16,7 +15,7 @@ public class Idefix extends Pet {
         if (!power) {
             return;
         }
-        //TODO Augmente temporairement la force (potion dans asterix et obelix) 
+        // TODO Augmente temporairement la force (potion dans asterix et obelix)
         power = false;
     }
 

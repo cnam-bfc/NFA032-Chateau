@@ -55,21 +55,24 @@ public class Fight extends CFrame implements DisplayableComponent {
     }
 
     public void chooseAction() {
-        //texte Attaquer
-        //utiliser un objet
-        //fuire
+        // texte Attaquer
+        // utiliser un objet
+        // fuire
     }
 
-    //TODO voir pour gérer si une entité meurt
     public void attack() {
-        if (player.hasPet()) {
-            attackWithPet();
-        } else {
-            attackWithoutPet();
+        try {
+            if (player.hasPet()) {
+                attackWithPet();
+            } else {
+                attackWithoutPet();
+            }
+        } catch (EntityDeadException e) {
+            stopDisplaying();
         }
     }
 
-    private void attackWithPet() {
+    private void attackWithPet() throws EntityDeadException {
         int playerSpeed = player.getSpeed();
         int playerStrength = player.getStrength();
         int enemySpeed = enemy.getSpeed();
@@ -87,7 +90,10 @@ public class Fight extends CFrame implements DisplayableComponent {
                     if (random.nextBoolean()) {
                         player.damage(enemyStrength);
                     } else {
-                        player.getPet().damage(enemyStrength);
+                        try {
+                            player.getPet().damage(enemyStrength);
+                        } catch (EntityDeadException e) {
+                        }
                     }
                 }
             } else {
@@ -95,7 +101,8 @@ public class Fight extends CFrame implements DisplayableComponent {
                     enemy.damage(petStrength);
                 }
             }
-            return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
+            return; // return car on sait jamais si on met des malus faut pas plusieurs attack /
+                    // round
         }
 
         // SI l'ennemie joueur est le premier à attaquer
@@ -104,7 +111,10 @@ public class Fight extends CFrame implements DisplayableComponent {
                 if (random.nextBoolean()) {
                     player.damage(enemyStrength);
                 } else {
-                    player.getPet().damage(enemyStrength);
+                    try {
+                        player.getPet().damage(enemyStrength);
+                    } catch (EntityDeadException e) {
+                    }
                 }
             }
             if (playerSpeed > petSpeed) {
@@ -116,7 +126,8 @@ public class Fight extends CFrame implements DisplayableComponent {
                     enemy.damage(petStrength);
                 }
             }
-            return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
+            return; // return car on sait jamais si on met des malus faut pas plusieurs attack /
+                    // round
         }
 
         // SI le pet est le premier à attaquer
@@ -130,15 +141,19 @@ public class Fight extends CFrame implements DisplayableComponent {
                     if (random.nextBoolean()) {
                         player.damage(enemyStrength);
                     } else {
-                        player.getPet().damage(enemyStrength);
+                        try {
+                            player.getPet().damage(enemyStrength);
+                        } catch (EntityDeadException e) {
+                        }
                     }
                 }
             }
-            return; //return car on sait jamais si on met des malus faut pas plusieurs attack / round
+            return; // return car on sait jamais si on met des malus faut pas plusieurs attack /
+                    // round
         }
     }
 
-    private void attackWithoutPet() {
+    private void attackWithoutPet() throws EntityDeadException {
         int playerSpeed = player.getSpeed();
         int playerStrength = player.getStrength();
         int enemySpeed = enemy.getSpeed();

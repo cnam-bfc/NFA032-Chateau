@@ -2,6 +2,7 @@ package net.cnam.chateau.gui.play.door;
 
 import java.util.Random;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.structure.block.door.DoorLocked;
 
@@ -28,7 +29,10 @@ public class DestroyDoorButton extends CButton {
         }
         else {
             int damage = new Random().nextInt(5,11);
-            player.damage(damage);
+            try {
+                player.damage(damage);
+            } catch (EntityDeadException e) {
+            }
             // la porte est trop solide vous vous êtes bléssé
         }
     }

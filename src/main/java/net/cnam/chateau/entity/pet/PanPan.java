@@ -1,14 +1,13 @@
 package net.cnam.chateau.entity.pet;
 
-import net.cnam.chateau.structure.Stage;
-import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.entity.Player;
 
 public class PanPan extends Pet {
 
     private boolean power = true;
 
-    public PanPan(Stage stage, Location location) {
-        super(stage, location, "PanPan");
+    public PanPan(Player player) {
+        super(player, "PanPan");
     }
 
     @Override
@@ -16,7 +15,7 @@ public class PanPan extends Pet {
         if (!power) {
             return;
         }
-        //TODO détere un objet aléatoire rare
+        // TODO détere un objet aléatoire rare
         power = false;
     }
 

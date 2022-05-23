@@ -1,14 +1,13 @@
 package net.cnam.chateau.entity.pet;
 
-import net.cnam.chateau.structure.Stage;
-import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.entity.Player;
 
 public class ChatPotte extends Pet {
 
     private boolean power = true;
 
-    public ChatPotte(Stage stage, Location location) {
-        super(stage, location, "ChatPotte");
+    public ChatPotte(Player player) {
+        super(player, "ChatPotte");
     }
 
     @Override
@@ -16,7 +15,7 @@ public class ChatPotte extends Pet {
         if (!power) {
             return;
         }
-        //TODO Vole l'arme de l'adversaire
+        // TODO Vole l'arme de l'adversaire
         power = false;
     }
 

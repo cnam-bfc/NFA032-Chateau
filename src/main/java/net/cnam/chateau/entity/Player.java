@@ -20,10 +20,10 @@ public class Player extends Entity {
     /**
      * Constructeur
      *
-     * @param game La partie dans laquelle le joueur se situe
-     * @param stage L'étage où se situe l'entité
+     * @param game     La partie dans laquelle le joueur se situe
+     * @param stage    L'étage où se situe l'entité
      * @param location Coordonnées de l'entité
-     * @param name Le nom de l'entité
+     * @param name     Le nom de l'entité
      */
     public Player(Game game, Stage stage, Location location, String name) {
         super(stage, location, name);
@@ -33,11 +33,12 @@ public class Player extends Entity {
         this.setRenderPriority(0);
 
         // TODO Temporaire à retirer par la suite
-        pet = new PepeLoiseau(this.getStage(), new Location(this.getLocation().getX(), this.getLocation().getY()));
+        pet = new PepeLoiseau(this);
     }
 
     @Override
-    public void teleport(Stage stage, Location location) throws CoordinatesOutOfBoundsException, EntityAlreadyTeleportedException {
+    public void teleport(Stage stage, Location location)
+            throws CoordinatesOutOfBoundsException, EntityAlreadyTeleportedException {
         Stage oldPlayerStage = this.getStage();
         Location oldPlayerLocation = new Location(this.getLocation().getX(), this.getLocation().getY());
 
