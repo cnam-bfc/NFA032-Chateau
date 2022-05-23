@@ -19,14 +19,14 @@ public class DoorMenu extends CFrame implements DisplayableComponent{
         SelectableComponent[] selectableComponent = new SelectableComponent[0];
         
         if (player.haveItem()) {
-            ArrayUtils.addOnBottomOfArray(selectableComponent, new UseObjectButton(player, door, this));
+            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new UseObjectButton(player, door, this));
         }
         
         if (!door.hasTryDestroy()) {
-            ArrayUtils.addOnBottomOfArray(selectableComponent, new DestroyDoorButton(player, door, this));
+            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new DestroyDoorButton(player, door, this));
         }
         
-        ArrayUtils.addOnBottomOfArray(selectableComponent, new LeaveButton(this));
+        selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new LeaveButton(this));
         
         CChoices choices = new CChoices(selectableComponent,1);
         

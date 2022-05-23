@@ -52,7 +52,9 @@ public class Door extends Block implements BlockListener {
 
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
-        if (!isLocked() && event.getEntity() instanceof Player player) {
+        if (isLocked()) {
+            event.setCanceled(true);
+        } else if (event.getEntity() instanceof Player player) {
             try {
                 Room room = stage.getRoom(player.getLocation());
                 if (room == roomOne) {

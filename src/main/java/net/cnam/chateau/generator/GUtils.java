@@ -5,8 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.cnam.chateau.game.event.Key;
 import net.cnam.chateau.gui.Console;
+import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.UpStair;
@@ -193,9 +196,13 @@ public class GUtils {
 
         // on vérifie toutes les portes et on les locks
         for (int x = 0; x < room.getLength(); x++) {
-            for (int y = 0; x < room.getHeight(); y++) {
+            for (int y = 0; y < room.getHeight(); y++) {
                 if (room.getBlocks()[x][y] instanceof Door transition) {
                     room.getBlocks()[x][y] = new DoorLocked(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key);
+                    try {
+                        transition.getStage().setBlock(room.getLocation().getX() + x, room.getLocation().getY() + y ,new DoorLocked(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key));
+                    } catch (CoordinatesOutOfBoundsException ex) {
+                    }
                 }
             }
         }
@@ -203,7 +210,7 @@ public class GUtils {
         // on choisit une pièce au hasard entre celle du début et celle du tri topo, différent de celle déjà selectionné
         Room keyRoom;
         do {
-            List<GRoom> rooms = decompositionNiveau.get(random.nextInt(0, decompositionNiveau.size() - 1));
+            List<GRoom> rooms = decompositionNiveau.get(random.nextInt(0, decompositionNiveau.size()));
             keyRoom = rooms.get(random.nextInt(0, rooms.size())).getRoom();
         } while (keyRoom == room);
         Location location = findPosition(random, keyRoom);
