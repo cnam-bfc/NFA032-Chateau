@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import net.cnam.chateau.game.event.Key;
+import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.UpStair;
@@ -14,6 +16,7 @@ import net.cnam.chateau.structure.block.decorative.DecorativeBlock;
 import net.cnam.chateau.structure.block.decorative.Table;
 import net.cnam.chateau.structure.block.decorative.Wardrobe;
 import net.cnam.chateau.structure.block.door.Door;
+import net.cnam.chateau.structure.block.door.DoorLocked;
 import net.cnam.chateau.utils.Location;
 
 public class GUtils {
@@ -97,17 +100,17 @@ public class GUtils {
         }
         return null;
     }
-    
+
     /**
-     * Méthode qui effectue un tri topologique en partant de la Room de départ de l'étage.
-     * Permet de classer les rooms en fonction de l'accessibilité.
-     * 
+     * Méthode qui effectue un tri topologique en partant de la Room de départ
+     * de l'étage. Permet de classer les rooms en fonction de l'accessibilité.
+     *
      */
-    public static UpStair triTopo(Room room, List<GRoom> gRooms, Random random) {
-        
+    public static UpStair triTopo(Console console, Room room, List<GRoom> gRooms, Random random) {
+
         List<List<GRoom>> decompositionNiveau = new ArrayList<>();
         Map<GRoom, Boolean> verifDecomposition = new HashMap<>();
-        
+
         List<GRoom> transition = new ArrayList<>();
         GRoom actualGRoom = findGRoom(room, gRooms);
         transition.add(actualGRoom);
@@ -122,7 +125,7 @@ public class GUtils {
             }
             verifDecomposition.put(newRoom, false);
         }
-        
+
         //boucle sur la liste contenant les listes représentant les différents niveau topolique
         for (int i = 0; i < decompositionNiveau.size(); i++) {
 
@@ -153,20 +156,23 @@ public class GUtils {
                 decompositionNiveau.add(newLevel);
             }
         }
-        return placeExit(decompositionNiveau, random);
+        return placeExit(console, decompositionNiveau, random);
 
     }
-    
-    private static UpStair placeExit(List<List<GRoom>> decompositionNiveau, Random random) {
+
+    private static UpStair placeExit(Console console, List<List<GRoom>> decompositionNiveau, Random random) {
         //ici on choisie la room
         List<GRoom> rooms = decompositionNiveau.get(decompositionNiveau.size() - 1);
         Room room = rooms.get(random.nextInt(0, rooms.size())).getRoom();
+
+        //on ferme la pièce et on cache la clé dans une autre pièce
+        hideKey(console, room, decompositionNiveau, random);
 
         //On récupère un emplacement ou il est possible de placer la porte de sortie de l'étage
         Location location = findPosition(random, room);
         int x = location.getX();
         int y = location.getY();
-        
+
         // On place l'escalier de sortie
         UpStair exitStair = new UpStair();
         room.getBlocks()[x][y] = exitStair;
@@ -174,4 +180,35 @@ public class GUtils {
         return exitStair;
     }
 
+    /**
+     * Méthode qui permet de fermet la salle de l'escalier et caché une clé dans une autre salle.
+     * 
+     * @param console la console
+     * @param room la room de sortie de l'étage
+     * @param decompositionNiveau la décomposition des gRoom en niveau par rapport à l'entrée
+     * @param random le random utilisé pour la graine de la carte
+     */
+    private static void hideKey(Console console, Room room, List<List<GRoom>> decompositionNiveau, Random random) {
+        Key key = new Key();
+
+        // on vérifie toutes les portes et on les locks
+        for (int x = 0; x < room.getLength(); x++) {
+            for (int y = 0; x < room.getHeight(); y++) {
+                if (room.getBlocks()[x][y] instanceof Door transition) {
+                    room.getBlocks()[x][y] = new DoorLocked(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key);
+                }
+            }
+        }
+
+        // on choisit une pièce au hasard entre celle du début et celle du tri topo, différent de celle déjà selectionné
+        Room keyRoom;
+        do {
+            List<GRoom> rooms = decompositionNiveau.get(random.nextInt(0, decompositionNiveau.size() - 1));
+            keyRoom = rooms.get(random.nextInt(0, rooms.size())).getRoom();
+        } while (keyRoom == room);
+        Location location = findPosition(random, keyRoom);
+        int x = location.getX();
+        int y = location.getY();
+        keyRoom.getBlocks()[x][y] = new Chest(key); // TODO à modif pour faire varier block
+    }
 }

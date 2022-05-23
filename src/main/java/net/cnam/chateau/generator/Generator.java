@@ -98,7 +98,7 @@ public class Generator {
 
             // On place les sorties
             // Si c'est l'étage 1 : on met juste une sortie
-            UpStair exitStair  = triTopo(firstRoom, gRooms, random);
+            UpStair exitStair  = triTopo(this.console, firstRoom, gRooms, random);
 
             //ajoute l'escalier du bas en haut
             if (i < stages.length - 1) {
@@ -140,6 +140,7 @@ public class Generator {
 
             }
             // On ajoute au champ de l'escalier de sortie de l'étage actuellement traité, l'étage en question auquel il appartient
+            // également on ferme la pièce et on cache une clé dans une des pièces antérieur
             exitStair.setStage(stage);
 
             // Si on arrive au dernir étage, on ajoute un étage supplémentaire pour accueillir la pièce du boss

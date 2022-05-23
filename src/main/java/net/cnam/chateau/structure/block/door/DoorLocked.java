@@ -22,11 +22,11 @@ public class DoorLocked extends Door {
         this.console = console;
     }
 
-    public DoorLocked(Key key, Console console, Stage stage, Room roomOne, Room roomTwo) {
+    public DoorLocked(Console console, Stage stage, Room roomOne, Room roomTwo, Key key) {
         super(stage, roomOne, roomTwo);
         
-        this.key = key;
         this.console = console;
+        this.key = key;
     }
     
     
