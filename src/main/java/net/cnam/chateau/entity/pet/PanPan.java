@@ -9,6 +9,10 @@ public class PanPan extends Pet {
     public PanPan(Player player) {
         super(player, "PanPan");
     }
+    
+    public PanPan() {
+        super("PanPan");
+    }
 
     @Override
     public void power() {

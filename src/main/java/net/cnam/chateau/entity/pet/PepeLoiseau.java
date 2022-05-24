@@ -9,6 +9,11 @@ public class PepeLoiseau extends Pet {
     public PepeLoiseau(Player player) {
         super(player, "Pepe Loiseau");
     }
+    
+    public PepeLoiseau() {
+        super("Pepe Loiseau");
+    }
+
 
     @Override
     public void power() {

@@ -1,25 +1,33 @@
 package net.cnam.chateau.structure.block.container;
 
+import java.util.Random;
+import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.gui.Console;
+import net.cnam.chateau.gui.play.cage.CageMenu;
 import net.cnam.chateau.structure.block.Block;
 
 /**
- * Class permettant de créer un block Cage (cage qui contient un pet) pour la map.
+ * Class permettant de créer un block Cage (cage qui contient un pet) pour la
+ * map.
  */
-public class Cage extends Block implements BlockListener  {
-    
+public class Cage extends Block implements BlockListener {
+
     private final String name = "Cage";
     private Console console;
     private Pet pet;
 
-    public Cage(Console console) {
+    public Cage(Console console, Random random) {
         this.console = console;
+
+        if (random.nextBoolean()) {
+            this.pet = Pet.getAPet(random);
+        }
     }
-    
+
     public Cage(Console console, Pet pet) {
         this.console = console;
         this.pet = pet;
@@ -32,11 +40,11 @@ public class Cage extends Block implements BlockListener  {
     public void setPet(Pet pet) {
         this.pet = pet;
     }
-    
-    public boolean hasPet(){
+
+    public boolean hasPet() {
         return pet != null;
     }
-    
+
     @Override
     public String getCharacter() {
         return "P";
@@ -44,6 +52,9 @@ public class Cage extends Block implements BlockListener  {
 
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
+        if (event.getEntity() instanceof Player player && (player.hasPet() || this.hasPet())) {
+            console.show(new CageMenu(player, this));
+        }
     }
 
     @Override

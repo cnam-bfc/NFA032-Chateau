@@ -9,6 +9,10 @@ public class Ouini extends Pet {
     public Ouini(Player player) {
         super(player, "Ouini");
     }
+    
+    public Ouini() {
+        super("Ouini");
+    }
 
     @Override
     public void power() {

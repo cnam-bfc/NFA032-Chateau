@@ -9,6 +9,10 @@ public class ChatPotte extends Pet {
     public ChatPotte(Player player) {
         super(player, "ChatPotte");
     }
+    
+    public ChatPotte() {
+        super("ChatPotte");
+    }
 
     @Override
     public void power() {

@@ -28,7 +28,7 @@ public class Puzzle {
         answersInit.add(new Couple<>("2,71828", false));
         answersInit.add(new Couple<>("1,435991", false));
         answersInit.add(new Couple<>("0,834626", false));
-        puzzles.add(new Puzzle("Je suis la constante d'Archimède", answersInit));
+        puzzles.add(new Puzzle("Je suis la constante d'Archimède, qui suis-je ?", answersInit));
 
         answersInit = new ArrayList<>();
         answersInit.add(new Couple<>("Cnam", true));

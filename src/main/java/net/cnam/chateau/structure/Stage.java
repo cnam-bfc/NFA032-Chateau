@@ -282,6 +282,14 @@ public class Stage {
     public List<Entity> getEntities() {
         return entities;
     }
+    
+    public void addEntity(Entity entity){
+        entities.add(entity);
+    }
+    
+    public void delEntity(Entity entity){
+        entities.remove(entity);
+    }
 
     /**
      * Méthode permettant de récupérer les pièces de l'étage

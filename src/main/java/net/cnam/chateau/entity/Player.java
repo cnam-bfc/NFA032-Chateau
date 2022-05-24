@@ -33,7 +33,7 @@ public class Player extends Entity {
         this.setRenderPriority(0);
 
         // TODO Temporaire à retirer par la suite
-        pet = new PepeLoiseau(this);
+        // pet = new PepeLoiseau(this);
     }
 
     @Override

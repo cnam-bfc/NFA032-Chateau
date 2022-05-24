@@ -3,6 +3,7 @@ package net.cnam.chateau;
 import java.io.File;
 import java.io.IOException;
 import net.cnam.chateau.entity.Sage;
+import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
@@ -23,6 +24,7 @@ public class App {
         }
         this.console = new Console(settings);
         Sage.initSages();
+        Pet.createListPet();
     }
 
     public void start() {

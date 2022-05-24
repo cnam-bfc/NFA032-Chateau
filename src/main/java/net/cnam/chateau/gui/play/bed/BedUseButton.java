@@ -16,6 +16,7 @@ public class BedUseButton extends CButton {
         
         this.menu = menu;
         this.bed = bed;
+        this.player = player;
     }
     
     /**

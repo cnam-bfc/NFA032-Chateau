@@ -61,7 +61,7 @@ public class GUtils {
     public static Block pickRandomBlock(Console console, Random random) {
 
         if (random.nextInt(1, 101) > LUCK_BLOCK) {
-            switch (random.nextInt(1, 4)) {
+            switch (random.nextInt(1, 5)) {
                 case 1 -> {
                     return new Chest(console);
                 }
@@ -70,6 +70,9 @@ public class GUtils {
                 }
                 case 3 -> {
                     return new Bed(console);
+                }
+                case 4 -> {
+                    return new Cage(console, random);
                 }
             }
         } else {

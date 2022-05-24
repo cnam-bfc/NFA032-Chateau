@@ -29,7 +29,7 @@ public abstract class Entity implements DisplayableObject {
     private static final int DEFAULT_ACCURACY = 15;
     private static final int DEFAULT_SPEED = 15;
 
-    private final Location location;
+    private Location location;
     private Stage stage;
     private String name;
     private Weapon weapon;
@@ -403,4 +403,14 @@ public abstract class Entity implements DisplayableObject {
     protected void setRenderPriority(int renderPriority) {
         this.renderPriority = renderPriority;
     }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    
+    
 }

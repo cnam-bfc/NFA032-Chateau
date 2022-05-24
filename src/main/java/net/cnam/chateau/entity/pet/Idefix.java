@@ -9,6 +9,10 @@ public class Idefix extends Pet {
     public Idefix(Player player) {
         super(player, "Idefix");
     }
+    
+    public Idefix() {
+        super("Idefix");
+    }
 
     @Override
     public void power() {

@@ -9,6 +9,10 @@ public class Babe extends Pet {
     public Babe(Player player) {
         super(player, "Babe");
     }
+    
+    public Babe() {
+        super("Babe");
+    }
 
     @Override
     public void power() {
