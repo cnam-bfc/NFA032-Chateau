@@ -20,15 +20,15 @@ public class BlockMenu extends CFrame implements DisplayableComponent{
         SelectableComponent[] selectableComponent = new SelectableComponent[0];
         
         if (player.haveItem() && block.hasItem()) {
-            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new BlockReplaceItemButton(player, block, this));
+            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new BlockReplaceItemButton(this, player, block));
         }
         
         if (player.haveItem() && !block.hasItem()) {
-            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new BlockPutItemButton(player, block, this));
+            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new BlockPutItemButton(this, player, block));
         }
 
         if (!player.haveItem() && block.hasItem()) {
-            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new BlockTakeItemButton(player, block, this));
+            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new BlockTakeItemButton(this, player, block));
         }
         
         selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new BlockLeaveButton(this));
