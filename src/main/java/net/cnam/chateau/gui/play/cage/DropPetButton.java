@@ -1,8 +1,9 @@
 package net.cnam.chateau.gui.play.cage;
 
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.structure.block.container.Cage;
+import net.cnam.chateau.structure.block.Cage;
 
 public class DropPetButton extends CButton {
 
@@ -10,7 +11,7 @@ public class DropPetButton extends CButton {
     private Player player;
     private Cage cage;
 
-    public DropPetButton(CageMenu menu, Player player, Cage cage){
+    public DropPetButton(CageMenu menu, Player player, Cage cage) {
         super("Deposer " + player.getPet().getName());
 
         this.menu = menu;
@@ -20,9 +21,12 @@ public class DropPetButton extends CButton {
 
     @Override
     public void execute() {
-        cage.setPet(player.getPet());
+        Pet pet = player.getPet();
+
+        cage.setPet(pet);
         player.setPet(null);
-        cage.getPet().getStage().delEntity(cage.getPet());
+        pet.getStage().getEntities().remove(pet);
+
         this.menu.stopDisplay();
     }
 }

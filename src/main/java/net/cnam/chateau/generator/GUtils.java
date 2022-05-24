@@ -10,6 +10,7 @@ import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.Block;
+import net.cnam.chateau.structure.block.Cage;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.structure.block.decorative.*;
 import net.cnam.chateau.structure.block.container.*;

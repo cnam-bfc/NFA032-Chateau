@@ -5,20 +5,20 @@ import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.structure.block.decorative.Bed;
 import net.cnam.chateau.entity.Player;
 
-public class BedUseButton extends CButton {
+public class UseBedButton extends CButton {
 
     private BedMenu menu;
     private Bed bed;
     Player player;
 
-    public BedUseButton(BedMenu menu, Bed bed, Player player) {
-        super("Utiliser le lit");
-        
+    public UseBedButton(BedMenu menu, Bed bed, Player player) {
+        super("Dormir");
+
         this.menu = menu;
         this.bed = bed;
         this.player = player;
     }
-    
+
     /**
      * Méthode permettant d'utiliser un lit pour restaurer de la vie. Le lit est
      * utilisable une seule fois. S'il est déjà utilisé rien ne se passe S'il
@@ -30,5 +30,5 @@ public class BedUseButton extends CButton {
         bed.setUsed(true);
         player.health(new Random().nextInt(5, 16));
         this.menu.stopDisplay();
-    }  
+    }
 }

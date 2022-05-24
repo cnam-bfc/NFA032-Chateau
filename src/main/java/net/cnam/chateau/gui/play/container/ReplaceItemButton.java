@@ -1,17 +1,17 @@
-package net.cnam.chateau.gui.play.blockcontainer;
+package net.cnam.chateau.gui.play.container;
 
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.item.Item;
-import net.cnam.chateau.structure.block.container.BlockContainer;
+import net.cnam.chateau.structure.block.container.Container;
 
-public class BlockReplaceItemButton extends CButton {
+public class ReplaceItemButton extends CButton {
 
-    private BlockMenu menu;
+    private ContainerMenu menu;
     private Player player;
-    private BlockContainer block;
+    private Container block;
 
-    public BlockReplaceItemButton(BlockMenu menu, Player player, BlockContainer block){
+    public ReplaceItemButton(ContainerMenu menu, Player player, Container block) {
         super("Remplacer " + player.getItem().getName() + " avec " + block.getHiddenItem().getName());
 
         this.menu = menu;

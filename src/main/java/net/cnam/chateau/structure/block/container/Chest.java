@@ -6,14 +6,14 @@ import net.cnam.chateau.item.Item;
 /**
  * Class permettant de créer un block Coffre (Chest) pour la map.
  */
-public class Chest extends BlockContainer {
-    
+public class Chest extends Container {
+
     public Chest(Console console) {
-        super(console, "Chest", null);
+        this(console, null);
     }
 
     public Chest(Console console, Item hiddenItem) {
-        super(console, "Chest", hiddenItem);
+        super(console, "Coffre", hiddenItem);
     }
 
     @Override
