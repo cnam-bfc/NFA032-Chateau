@@ -1,8 +1,10 @@
 package net.cnam.chateau.gui.play.cage;
 
+import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.component.CButton;
+import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.block.Cage;
 import net.cnam.chateau.utils.Location;
 
@@ -29,8 +31,10 @@ public class TakePetButton extends CButton {
 
         // On ajoute le pet au joueur
         player.setPet(pet);
-        pet.setStage(player.getStage());
-        pet.setLocation(new Location(player.getLocation().getX(), player.getLocation().getY()));
+        try {
+            pet.teleport(player.getStage(), new Location(player.getLocation().getX(), player.getLocation().getY()));
+        } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException e) {
+        }
         player.getStage().getEntities().add(pet);
 
         this.menu.stopDisplay();

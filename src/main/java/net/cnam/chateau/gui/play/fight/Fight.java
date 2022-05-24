@@ -1,13 +1,19 @@
 package net.cnam.chateau.gui.play.fight;
 
+import java.nio.channels.SelectableChannel;
 import java.util.Random;
+
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.game.EntityDeadException;
+import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
+import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.component.SelectableComponent;
+import net.cnam.chateau.utils.array.ArrayUtils;
 
 public class Fight extends CFrame implements DisplayableComponent {
 
@@ -20,7 +26,7 @@ public class Fight extends CFrame implements DisplayableComponent {
     private boolean display = true;
 
     public Fight(Player player, Enemy enemy) {
-        super(0, 0);
+        super(new CLabel("Combat avec " + enemy.getName()), 0, 0);
 
         this.player = player;
         this.enemy = enemy;
@@ -56,9 +62,17 @@ public class Fight extends CFrame implements DisplayableComponent {
     }
 
     public void chooseAction() {
-        // texte Attaquer
-        // utiliser un objet
-        // fuire
+        this.getContentPane().getComponents().clear();
+
+        SelectableComponent[] components = new SelectableComponent[] { new AttackButton() };
+        if (player.haveItem()) {
+            components = ArrayUtils.addOnBottomOfArray(components, new UseItemButton(player.getItem()));
+        }
+        components = ArrayUtils.addOnBottomOfArray(components, new RunAwayButton());
+
+        CChoices choices = new CChoices(components, 1);
+
+        this.getContentPane().getComponents().add(choices);
     }
 
     public void attack() {

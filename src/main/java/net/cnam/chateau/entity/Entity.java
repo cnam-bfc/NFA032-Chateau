@@ -110,6 +110,26 @@ public abstract class Entity implements DisplayableObject {
             throw new CoordinatesOutOfBoundsException("L'entité ne peut pas sortir de l'étage!");
         }
 
+        if (this.location == null) {
+            this.location = new Location(0, 0);
+        }
+
+        if (this.stage == null) {
+            this.stage = stage;
+        }
+
+        // On notifie les entités aux alentours que l'entité à été déplacé
+        EntityApprochEvent entityApprochEvent = new EntityApprochEvent(this);
+        for (Entity entity : getNearbyEntities()) {
+            if (entity instanceof EntityListener listener) {
+                listener.onEntityApprochEvent(entityApprochEvent);
+
+                if (entityApprochEvent.isCanceled()) {
+                    return;
+                }
+            }
+        }
+
         Stage saveEntityStage = this.stage;
         int saveEntityX = this.location.getX();
         int saveEntityY = this.location.getY();
@@ -121,11 +141,11 @@ public abstract class Entity implements DisplayableObject {
         // boucle)
         if (!(this.stage != stage && newLocationBlock instanceof Stair)) {
             if (newLocationBlock != null && newLocationBlock instanceof BlockListener blockListener) {
-                EntityEnterBlockEvent event = new EntityEnterBlockEvent(this);
-                blockListener.onEntityEnterBlock(event);
+                EntityEnterBlockEvent entityEnterBlockEvent = new EntityEnterBlockEvent(this);
+                blockListener.onEntityEnterBlock(entityEnterBlockEvent);
                 // Si le block refuse que l'entité rentre sur son territoire on ne déplace pas
                 // l'entité
-                if (event.isCanceled()) {
+                if (entityEnterBlockEvent.isCanceled()) {
                     return;
                 }
             }
@@ -158,14 +178,6 @@ public abstract class Entity implements DisplayableObject {
         // On déplace l'entité aux coordonnées désirés
         this.location.setX(location.getX());
         this.location.setY(location.getY());
-
-        // On notifie les entités aux alentours que l'entité à été déplacé
-        EntityApprochEvent entityApprochEvent = new EntityApprochEvent(this);
-        for (Entity entity : getNearbyEntities()) {
-            if (entity instanceof EntityListener listener) {
-                listener.onEntityApprochEvent(entityApprochEvent);
-            }
-        }
     }
 
     /**
@@ -187,6 +199,8 @@ public abstract class Entity implements DisplayableObject {
                 nearbyEntities.add(entity);
             } else if (entity.getLocation().getX() == location.getX()
                     && entity.getLocation().getY() == location.getY() - 1) {
+                nearbyEntities.add(entity);
+            } else if (entity.getLocation().equals(location)) {
                 nearbyEntities.add(entity);
             }
         }
@@ -218,14 +232,13 @@ public abstract class Entity implements DisplayableObject {
      * @param health entier, point de vie supplémentaire
      */
     public void health(int health){
-        if (health < 0){
+        if (health < 0) {
             return;
         }
         
-        if (this.health + health > 100){
+        if (this.health + health > 100) {
             this.health = 100;
-        }
-        else {
+        } else {
             this.health += health;
         }
     }
@@ -403,14 +416,4 @@ public abstract class Entity implements DisplayableObject {
     protected void setRenderPriority(int renderPriority) {
         this.renderPriority = renderPriority;
     }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-    
-    
 }
