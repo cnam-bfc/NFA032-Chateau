@@ -1,10 +1,10 @@
 package net.cnam.chateau.gui.play.door;
 
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.structure.block.door.DoorLocked;
 import net.cnam.chateau.utils.array.ArrayUtils;

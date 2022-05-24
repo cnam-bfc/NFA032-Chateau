@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui;
+package net.cnam.chateau.gui.component;
 
 public interface DisplayableComponent {
 

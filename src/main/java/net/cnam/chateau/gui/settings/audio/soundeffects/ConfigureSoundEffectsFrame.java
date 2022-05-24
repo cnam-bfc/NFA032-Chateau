@@ -1,11 +1,11 @@
 package net.cnam.chateau.gui.settings.audio.soundeffects;
 
 import net.cnam.chateau.AppSettings;
-import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CGauge;
 import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.utils.direction.Orientation;
 

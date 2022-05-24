@@ -8,8 +8,8 @@ import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.CChoices;
-import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.component.SelectableComponent;
 
 public class MainMenu extends CFrame implements DisplayableComponent {

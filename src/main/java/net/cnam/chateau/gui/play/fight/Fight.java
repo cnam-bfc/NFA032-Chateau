@@ -7,7 +7,7 @@ import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.DisplayableComponent;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 
 public class Fight extends CFrame implements DisplayableComponent {
 

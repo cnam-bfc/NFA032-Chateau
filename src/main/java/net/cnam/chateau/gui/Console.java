@@ -7,6 +7,7 @@ import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.gui.component.CPanel;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.utils.console.RawConsoleInput;
 
 // Sources ANSI codes:
