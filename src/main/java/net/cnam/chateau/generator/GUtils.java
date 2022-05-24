@@ -11,10 +11,8 @@ import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.UpStair;
-import net.cnam.chateau.structure.block.decorative.Bed;
-import net.cnam.chateau.structure.block.container.Chest;
-import net.cnam.chateau.structure.block.decorative.Table;
-import net.cnam.chateau.structure.block.container.Wardrobe;
+import net.cnam.chateau.structure.block.decorative.*;
+import net.cnam.chateau.structure.block.container.*;
 import net.cnam.chateau.structure.block.door.Door;
 import net.cnam.chateau.structure.block.door.DoorLocked;
 import net.cnam.chateau.utils.Location;
@@ -63,21 +61,27 @@ public class GUtils {
     public static Block pickRandomBlock(Console console, Random random) {
 
         if (random.nextInt(1, 101) > LUCK_BLOCK) {
-            switch (random.nextInt(1, 3)) {
+            switch (random.nextInt(1, 4)) {
                 case 1 -> {
                     return new Chest(console);
                 }
                 case 2 -> {
                     return new Wardrobe(console);
                 }
+                case 3 -> {
+                    return new Bed(console);
+                }
             }
         } else {
-            switch (random.nextInt(1, 3)) {
+            switch (random.nextInt(1, 4)) {
                 case 1 -> {
-                    return new Bed();
+                    return new Seat();
                 }
                 case 2 -> {
                     return new Table();
+                }
+                case 3 -> {
+                    return new Desk();
                 }
             }
         }

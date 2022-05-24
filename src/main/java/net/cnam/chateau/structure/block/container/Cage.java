@@ -5,7 +5,6 @@ import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.gui.Console;
-import net.cnam.chateau.item.Item;
 import net.cnam.chateau.structure.block.Block;
 
 /**
