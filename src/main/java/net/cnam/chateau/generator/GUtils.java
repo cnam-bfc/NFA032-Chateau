@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.cnam.chateau.game.event.Key;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
@@ -14,17 +12,16 @@ import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.structure.block.decorative.Bed;
-import net.cnam.chateau.structure.block.decorative.Chest;
-import net.cnam.chateau.structure.block.decorative.DecorativeBlock;
+import net.cnam.chateau.structure.block.container.Chest;
 import net.cnam.chateau.structure.block.decorative.Table;
-import net.cnam.chateau.structure.block.decorative.Wardrobe;
+import net.cnam.chateau.structure.block.container.Wardrobe;
 import net.cnam.chateau.structure.block.door.Door;
 import net.cnam.chateau.structure.block.door.DoorLocked;
 import net.cnam.chateau.utils.Location;
 
 public class GUtils {
 
-    private static final int LUCK_BLOCK = 70; // chance d'avoir un blocks rare dans la pièce
+    private static final int LUCK_BLOCK = 80; // chance d'avoir un blocks rare dans la pièce
 
     /**
      * Méthode static qui cherche aléatoirement un endroit dans la room ou
@@ -63,21 +60,21 @@ public class GUtils {
      *
      * @return renvoie un block aléatoire
      */
-    public static Block pickRandomBlock(Random random) {
+    public static Block pickRandomBlock(Console console, Random random) {
 
         if (random.nextInt(1, 101) > LUCK_BLOCK) {
             switch (random.nextInt(1, 3)) {
                 case 1 -> {
-                    return new Chest();
+                    return new Chest(console);
                 }
                 case 2 -> {
-                    return new Bed();
+                    return new Wardrobe(console);
                 }
             }
         } else {
             switch (random.nextInt(1, 3)) {
                 case 1 -> {
-                    return new Wardrobe();
+                    return new Bed();
                 }
                 case 2 -> {
                     return new Table();
@@ -216,6 +213,6 @@ public class GUtils {
         Location location = findPosition(random, keyRoom);
         int x = location.getX();
         int y = location.getY();
-        keyRoom.getBlocks()[x][y] = new Chest(key); // TODO à modif pour faire varier block
+        keyRoom.getBlocks()[x][y] = new Chest(console, key); // TODO à modif pour faire varier block
     }
 }

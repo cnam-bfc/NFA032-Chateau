@@ -1,17 +1,11 @@
 package net.cnam.chateau.structure.block.decorative;
 
-import net.cnam.chateau.item.Item;
-
 public class Bed extends DecorativeBlock {
 
     private boolean used = false;
 
     public Bed() {
-        this(null);
-    }
-
-    public Bed(Item hiddenItem) {
-        super("Bed", hiddenItem);
+        super("Bed");
     }
 
     @Override
@@ -36,4 +30,5 @@ public class Bed extends DecorativeBlock {
     public boolean isUsed() {
         return used;
     }
+
 }

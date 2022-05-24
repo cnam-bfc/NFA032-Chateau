@@ -1,17 +1,11 @@
 package net.cnam.chateau.structure.block.decorative;
 
-import net.cnam.chateau.item.Item;
-
 public class Table extends DecorativeBlock {
-
+    
     public Table() {
-        this(null);
+        super("Table");
     }
-
-    public Table(Item hiddenItem) {
-        super("Table", hiddenItem);
-    }
-
+    
     @Override
     public String getCharacter() {
         return "T";

@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.play.block;
+package net.cnam.chateau.gui.play.blockcontainer;
 
 import net.cnam.chateau.gui.component.CButton;
 

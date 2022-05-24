@@ -1,17 +1,17 @@
-package net.cnam.chateau.gui.play.block;
+package net.cnam.chateau.gui.play.blockcontainer;
 
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.structure.block.decorative.DecorativeBlock;
+import net.cnam.chateau.structure.block.container.BlockContainer;
 
 public class BlockTakeItemButton extends CButton {
 
     private BlockMenu menu;
     private Player player;
-    private DecorativeBlock block;
+    private BlockContainer block;
 
-    public BlockTakeItemButton(BlockMenu menu, Player player, DecorativeBlock block){
-        super("Prendre " + block.getName());
+    public BlockTakeItemButton(BlockMenu menu, Player player, BlockContainer block){
+        super("Prendre " + block.getHiddenItem().getName());
 
         this.menu = menu;
         this.player = player;
