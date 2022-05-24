@@ -11,7 +11,7 @@ public class Bed extends DecorativeBlock {
     }
 
     public Bed(Item hiddenItem) {
-        super(hiddenItem);
+        super("Bed", hiddenItem);
     }
 
     @Override

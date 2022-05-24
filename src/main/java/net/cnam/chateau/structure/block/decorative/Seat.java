@@ -9,7 +9,7 @@ public class Seat extends DecorativeBlock {
     }
 
     public Seat(Item hiddenItem) {
-        super(hiddenItem);
+        super("Seat", hiddenItem);
     }
 
     @Override

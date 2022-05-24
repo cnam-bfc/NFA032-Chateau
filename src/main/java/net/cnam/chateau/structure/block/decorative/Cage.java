@@ -12,7 +12,7 @@ public class Cage extends DecorativeBlock {
     }
 
     public Cage(Item hiddenItem) {
-        super(hiddenItem);
+        super("Cage", hiddenItem);
     }
 
     @Override

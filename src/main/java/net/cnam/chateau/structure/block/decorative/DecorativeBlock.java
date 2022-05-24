@@ -6,8 +6,10 @@ import net.cnam.chateau.structure.block.Block;
 public abstract class DecorativeBlock extends Block {
 
     private Item hiddenItem;
+    private String name;
 
-    public DecorativeBlock(Item hiddenItem) {
+    public DecorativeBlock(String name ,Item hiddenItem) {
+        this.name = name;
         this.hiddenItem = hiddenItem;
     }
 
@@ -21,5 +23,9 @@ public abstract class DecorativeBlock extends Block {
 
     public void setHiddenItem(Item hiddenItem) {
         this.hiddenItem = hiddenItem;
+    }
+
+    public String getName(){
+        return this.name;
     }
 }

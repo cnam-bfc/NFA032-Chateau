@@ -9,7 +9,7 @@ public class Wardrobe extends DecorativeBlock {
     }
 
     public Wardrobe(Item hiddenItem) {
-        super(hiddenItem);
+        super("Wardrobe", hiddenItem);
     }
 
     @Override

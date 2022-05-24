@@ -12,7 +12,7 @@ public class Chest extends DecorativeBlock {
     }
 
     public Chest(Item hiddenItem) {
-        super(hiddenItem);
+        super("Chest", hiddenItem);
     }
 
     @Override

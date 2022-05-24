@@ -12,7 +12,7 @@ public class Hole extends DecorativeBlock {
     }
 
     public Hole(Item hiddenItem) {
-        super(hiddenItem);
+        super("Hole", hiddenItem);
     }
 
     @Override
