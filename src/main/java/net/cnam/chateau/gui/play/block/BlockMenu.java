@@ -7,7 +7,6 @@ import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.structure.block.decorative.DecorativeBlock;
-import net.cnam.chateau.structure.block.door.DoorLocked;
 import net.cnam.chateau.utils.array.ArrayUtils;
 
 public class BlockMenu extends CFrame implements DisplayableComponent{
