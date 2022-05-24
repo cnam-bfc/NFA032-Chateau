@@ -1,5 +1,6 @@
 package net.cnam.chateau.structure.block.container;
 
+import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
@@ -12,13 +13,29 @@ import net.cnam.chateau.structure.block.Block;
  */
 public class Cage extends Block implements BlockListener  {
     
-    private Item hiddenItem;
     private final String name = "Cage";
     private Console console;
+    private Pet pet;
 
-    public Cage(Item hiddenItem, Console console) {
-        this.hiddenItem = hiddenItem;
+    public Cage(Console console) {
         this.console = console;
+    }
+    
+    public Cage(Console console, Pet pet) {
+        this.console = console;
+        this.pet = pet;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+    
+    public boolean hasPet(){
+        return pet != null;
     }
     
     @Override
