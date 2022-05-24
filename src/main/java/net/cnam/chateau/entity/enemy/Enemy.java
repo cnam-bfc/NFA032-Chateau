@@ -4,8 +4,8 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.event.entity.EntityApprochEvent;
 import net.cnam.chateau.event.entity.EntityListener;
-import net.cnam.chateau.game.Fight;
 import net.cnam.chateau.gui.Console;
+import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
