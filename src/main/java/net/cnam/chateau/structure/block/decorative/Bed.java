@@ -4,6 +4,7 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
+import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.play.bed.BedMenu;
 
@@ -19,7 +20,12 @@ public class Bed extends DecorativeBlock implements BlockListener {
 
     @Override
     public String getCharacter() {
-        return "B";
+            if (this.used){
+                return CColor.BRIGHT_RED + "B" + CColor.BRIGHT_RED.getForegroundReset();
+            }
+            else {
+                return CColor.GREEN + "B" + CColor.GREEN.getForegroundReset();
+            }
     }
 
     public void setUsed(boolean used) {

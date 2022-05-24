@@ -7,6 +7,7 @@ import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
+import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.play.cage.CageMenu;
 
@@ -18,6 +19,7 @@ public class Cage extends Block implements BlockListener {
 
     private Console console;
     private Pet pet;
+    private boolean visited;
 
     public Cage(Console console, Random random) {
         this.console = console;
@@ -46,11 +48,20 @@ public class Cage extends Block implements BlockListener {
 
     @Override
     public String getCharacter() {
-        return "P";
+        if (this.visited){
+            if (this.hasPet()){
+                return CColor.BRIGHT_RED + "P" + CColor.BRIGHT_RED.getForegroundReset();
+            }
+            else {
+                return CColor.GREEN + "P" + CColor.GREEN.getForegroundReset();
+            }
+        }
+        return "P" ;
     }
 
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
+        visited = true;
         if (event.getEntity() instanceof Player player && (player.hasPet() || this.hasPet())) {
             console.show(new CageMenu(player, this));
         }

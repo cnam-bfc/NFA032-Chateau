@@ -18,6 +18,6 @@ public class Chest extends Container {
 
     @Override
     public String getCharacter() {
-        return "C";
+        return super.getCharacter("C");
     }
 }
