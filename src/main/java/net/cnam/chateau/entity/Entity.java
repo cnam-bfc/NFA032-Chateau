@@ -211,6 +211,24 @@ public abstract class Entity implements DisplayableObject {
             throw new EntityDeadException(this, name + " est mort");
         }
     }
+    
+    /**
+     * Méthode permettant de soigner une entité.
+     * 
+     * @param health entier, point de vie supplémentaire
+     */
+    public void health(int health){
+        if (health < 0){
+            return;
+        }
+        
+        if (this.health + health > 100){
+            this.health = 100;
+        }
+        else {
+            this.health += health;
+        }
+    }
 
     /**
      * Méthode permettant de tuer l'entité.

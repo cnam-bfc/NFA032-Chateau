@@ -21,7 +21,7 @@ public class BedMenu extends CFrame implements DisplayableComponent{
         super(new CLabel("Porte bloquee") ,0 ,0);
         
         CChoices choices = new CChoices(new SelectableComponent[]{
-            new BedUseButton(this, bed),
+            new BedUseButton(this, bed, player),
             new BedLeaveButton(this)
         },1);
         
