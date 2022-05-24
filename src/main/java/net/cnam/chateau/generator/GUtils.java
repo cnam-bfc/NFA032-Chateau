@@ -35,11 +35,11 @@ public class GUtils {
         //on choisit des coordonnées au hasard dans la room choisie au dessus
         int x = random.nextInt(1, room.getLength() - 1);
         int y = random.nextInt(1, room.getHeight() - 1);
-        boolean testDoor;
+        boolean testPosition;
         //vérification qu'il n'y a pas de porte à proximité sinon on décale
         //vérification qu'il n'y a pas de block la ou on souhaite placé l'escalier
         do {
-            testDoor = false;
+            testPosition = false;
             if (room.getBlocks()[x][y] != null
                     || room.getBlocks()[x][y - 1] instanceof Door
                     || room.getBlocks()[x][y + 1] instanceof Door
@@ -47,9 +47,9 @@ public class GUtils {
                     || room.getBlocks()[x + 1][y] instanceof Door) {
                 x = random.nextInt(1, room.getLength() - 1);
                 y = random.nextInt(1, room.getHeight() - 1);
-                testDoor = true;
+                testPosition = true;
             }
-        } while (testDoor);
+        } while (testPosition);
         return new Location(x, y);
     }
 
@@ -91,7 +91,6 @@ public class GUtils {
         return null;
     }
 
-    // TODO voir si on la laisse ici ou dans le Solver
     /**
      * Méthode permettant de retrouver une Room dans une liste de GRooms.
      *

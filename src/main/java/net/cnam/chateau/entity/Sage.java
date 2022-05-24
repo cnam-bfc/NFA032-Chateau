@@ -10,13 +10,13 @@ import net.cnam.chateau.utils.Location;
 public class Sage extends Entity {
 
     public static List<Sage> sages = new LinkedList<>();
-    public static List<String> puzzles = new LinkedList<>();
 
     public static void initSages() {
-        sages.add(new Sage(null, null, null));
-        sages.add(new Sage(null, null, null));
-        sages.add(new Sage(null, null, null));
-        sages.add(new Sage(null, null, null));
+        sages.add(new Sage(null, null, "Dumbledore"));
+        sages.add(new Sage(null, null, "Merlin"));
+        sages.add(new Sage(null, null, "Kristof"));
+        sages.add(new Sage(null, null, "Sage Gris"));
+        sages.add(new Sage(null, null, "Salomon"));
 
         //Si le fichier csv existe :
         //Boucler dessus et ajouter les sages à la liste.

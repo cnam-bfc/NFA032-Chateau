@@ -66,7 +66,7 @@ public class Puzzle {
      */
     public static Puzzle getAPuzzle() {
         if (puzzles.isEmpty()) {
-            // TODO traiter le cas ou il n'y a plus d'énigme
+            return null;
         }
         return puzzles.remove(new Random().nextInt(0, puzzles.size()));
     }
