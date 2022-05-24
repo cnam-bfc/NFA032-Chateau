@@ -15,6 +15,6 @@ public class Wardrobe extends Container {
 
     @Override
     public String getCharacter() {
-        return "W";
+        return super.getCharacter("W");
     }
 }

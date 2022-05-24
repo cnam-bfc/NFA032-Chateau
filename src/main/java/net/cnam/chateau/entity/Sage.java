@@ -14,7 +14,7 @@ public class Sage extends Entity {
     public static void initSages() {
         sages.add(new Sage(null, null, "Dumbledore"));
         sages.add(new Sage(null, null, "Merlin"));
-        sages.add(new Sage(null, null, "Kristof"));
+        sages.add(new Sage(null, null, "Kristoff"));
         sages.add(new Sage(null, null, "Sage Gris"));
         sages.add(new Sage(null, null, "Salomon"));
 
