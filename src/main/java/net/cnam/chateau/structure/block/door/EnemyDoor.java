@@ -1,25 +1,25 @@
 package net.cnam.chateau.structure.block.door;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.enemy.Enemy;
-import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 
 public class EnemyDoor extends Door {
     
-    private Console console;
+    private App app;
     private Enemy enemy;
 
-    public EnemyDoor(Console console, Stage stage, Room roomOne, Room roomTwo) {
+    public EnemyDoor(App app, Stage stage, Room roomOne, Room roomTwo) {
         super(stage, roomOne, roomTwo);
 
-        this.console = console;
+        this.app = app;
     }
 
-    public EnemyDoor(Console console, Enemy enemy, Stage stage, Room roomOne, Room roomTwo) {
+    public EnemyDoor(App app, Enemy enemy, Stage stage, Room roomOne, Room roomTwo) {
         super(stage, roomOne, roomTwo);
         
-        this.console = console;
+        this.app = app;
         this.enemy = enemy;
     }
     
