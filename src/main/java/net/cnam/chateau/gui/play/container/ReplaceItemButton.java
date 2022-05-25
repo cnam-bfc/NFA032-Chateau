@@ -7,9 +7,9 @@ import net.cnam.chateau.structure.block.container.Container;
 
 public class ReplaceItemButton extends CButton {
 
-    private ContainerMenu menu;
-    private Player player;
-    private Container block;
+    private final ContainerMenu menu;
+    private final Player player;
+    private final Container block;
 
     public ReplaceItemButton(ContainerMenu menu, Player player, Container block) {
         super("Remplacer " + player.getItem().getName() + " avec " + block.getHiddenItem().getName());

@@ -4,7 +4,7 @@ import net.cnam.chateau.gui.component.CButton;
 
 public class LeaveCageButton extends CButton {
 
-    private CageMenu menu;
+    private final CageMenu menu;
 
     public LeaveCageButton(CageMenu menu) {
         super("Quitter");

@@ -7,8 +7,8 @@ import net.cnam.chateau.entity.Player;
 
 public class UseBedButton extends CButton {
 
-    private BedMenu menu;
-    private Bed bed;
+    private final BedMenu menu;
+    private final Bed bed;
     Player player;
 
     public UseBedButton(BedMenu menu, Bed bed, Player player) {

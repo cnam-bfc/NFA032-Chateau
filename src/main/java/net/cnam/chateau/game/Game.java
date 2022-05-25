@@ -1,12 +1,8 @@
 package net.cnam.chateau.game;
 
-import java.io.IOException;
-import java.util.Random;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
+import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
-import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.generator.Generator;
@@ -15,12 +11,17 @@ import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.structure.Castle;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
+import net.cnam.chateau.structure.Stage;
+import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
-import net.cnam.chateau.gui.Console;
-import net.cnam.chateau.structure.Stage;
-import net.cnam.chateau.utils.Location;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.util.Random;
 
 public class Game extends CFrame implements DisplayableComponent {
 
@@ -30,15 +31,14 @@ public class Game extends CFrame implements DisplayableComponent {
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
 
-    public Game(Console console, AppSettings settings) {
-        this(console, settings, new Random().nextLong());
+    public Game(App app) {
+        this(app, new Random().nextLong());
     }
 
-    public Game(Console console, AppSettings settings, long seed) {
+    public Game(App app, long seed) {
         super(0, 0);
 
-        Generator generator = new Generator(console, 
-        seed);
+        Generator generator = new Generator(app, seed);
         this.castle = generator.generateCastle();
         Stage firstStage = this.castle.getStages()[0];
         this.player = new Player(this, firstStage, new Location(castle.getPlayerStartLocation().getX(), castle.getPlayerStartLocation().getY()), "Joueur");
@@ -53,11 +53,12 @@ public class Game extends CFrame implements DisplayableComponent {
         this.setTitle(new CLabel("Jeu\n(seed: " + this.castle.getSeed() + ")"));
 
         try {
-            this.audioPlayer = new SimpleAudioPlayer("/songs/Stranger Things 3 - The Game Soundtrack - Russian Farm Base.wav");
-            audioPlayer.setVolume(settings.getMusicVolume());
+            this.audioPlayer = new SimpleAudioPlayer(Music.GAME.getFilePath());
+            audioPlayer.setVolume(app.getSettings().getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ex) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
+                 IllegalArgumentException ignored) {
         }
     }
 
@@ -72,21 +73,13 @@ public class Game extends CFrame implements DisplayableComponent {
             int x = player.getLocation().getX();
             int y = player.getLocation().getY();
             switch (direction) {
-                case TOP -> {
-                    y--;
-                }
-                case RIGHT -> {
-                    x++;
-                }
-                case BOTTOM -> {
-                    y++;
-                }
-                case LEFT -> {
-                    x--;
-                }
+                case TOP -> y--;
+                case RIGHT -> x++;
+                case BOTTOM -> y++;
+                case LEFT -> x--;
             }
             player.teleport(new Location(x, y));
-        } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ex) {
+        } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ignored) {
         }
     }
 
@@ -136,5 +129,9 @@ public class Game extends CFrame implements DisplayableComponent {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public SimpleAudioPlayer getAudioPlayer() {
+        return audioPlayer;
     }
 }

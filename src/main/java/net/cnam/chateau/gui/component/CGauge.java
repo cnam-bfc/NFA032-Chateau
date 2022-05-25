@@ -57,7 +57,7 @@ public class CGauge extends CFrame implements SelectableComponent, KeyListener {
                     setValue(value);
                 }
             }
-        } catch (DirectionNotFoundException ex) {
+        } catch (DirectionNotFoundException ignored) {
         }
     }
 
@@ -71,7 +71,7 @@ public class CGauge extends CFrame implements SelectableComponent, KeyListener {
                     + CColor.REVERSE
                     + line.substring(1, line.length() - 1)
                     + CColor.REVERSE.getForegroundReset()
-                    + line.substring(line.length() - 1, line.length());
+                    + line.substring(line.length() - 1);
         }
 
         return result;

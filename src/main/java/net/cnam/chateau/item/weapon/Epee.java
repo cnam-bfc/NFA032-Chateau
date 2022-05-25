@@ -22,8 +22,8 @@ public class Epee extends Weapon {
 
     private String generateName() {
         int total = super.getPower() + super.getSpeed() + super.getAccuracy();
-        int mediumWeapon = (int) ((MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 2);
-        int greatWeapon = mediumWeapon + (int) ((MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 4);
+        int mediumWeapon = (MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 2;
+        int greatWeapon = mediumWeapon + ((MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 4);
         if (total < mediumWeapon) {
             return "Epee te";
         } else if (total < greatWeapon) {

@@ -1,10 +1,5 @@
 package net.cnam.chateau.generator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 import net.cnam.chateau.game.event.Key;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
@@ -12,11 +7,17 @@ import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Cage;
 import net.cnam.chateau.structure.block.UpStair;
-import net.cnam.chateau.structure.block.decorative.*;
-import net.cnam.chateau.structure.block.container.*;
+import net.cnam.chateau.structure.block.container.Chest;
+import net.cnam.chateau.structure.block.container.Wardrobe;
+import net.cnam.chateau.structure.block.decorative.Bed;
+import net.cnam.chateau.structure.block.decorative.Desk;
+import net.cnam.chateau.structure.block.decorative.Seat;
+import net.cnam.chateau.structure.block.decorative.Table;
 import net.cnam.chateau.structure.block.door.Door;
 import net.cnam.chateau.structure.block.door.LockedDoor;
 import net.cnam.chateau.utils.Location;
+
+import java.util.*;
 
 public class GUtils {
 
@@ -28,7 +29,7 @@ public class GUtils {
      * la position contient déjà un autre block, choisie une nouvelle position.
      *
      * @param random random de la seed
-     * @param room la room ou l'on doit placé le block
+     * @param room   la room ou l'on doit placé le block
      * @return la location (x,y) par rapport à la room de l'emplacement à
      * attribué au block
      */
@@ -95,7 +96,7 @@ public class GUtils {
     /**
      * Méthode permettant de retrouver une Room dans une liste de GRooms.
      *
-     * @param room la pièce à retrouver
+     * @param room   la pièce à retrouver
      * @param GRooms la liste de pièce à vérifier
      * @return la GRoom associée à la pièce
      */
@@ -111,7 +112,6 @@ public class GUtils {
     /**
      * Méthode qui effectue un tri topologique en partant de la Room de départ
      * de l'étage. Permet de classer les rooms en fonction de l'accessibilité.
-     *
      */
     public static UpStair triTopo(Console console, Room room, List<GRoom> gRooms, Random random) {
 
@@ -164,7 +164,6 @@ public class GUtils {
             }
         }
         return placeExit(console, decompositionNiveau, random);
-
     }
 
     private static UpStair placeExit(Console console, List<List<GRoom>> decompositionNiveau, Random random) {
@@ -189,11 +188,11 @@ public class GUtils {
 
     /**
      * Méthode qui permet de fermet la salle de l'escalier et caché une clé dans une autre salle.
-     * 
-     * @param console la console
-     * @param room la room de sortie de l'étage
+     *
+     * @param console             la console
+     * @param room                la room de sortie de l'étage
      * @param decompositionNiveau la décomposition des gRoom en niveau par rapport à l'entrée
-     * @param random le random utilisé pour la graine de la carte
+     * @param random              le random utilisé pour la graine de la carte
      */
     private static void hideKey(Console console, Room room, List<List<GRoom>> decompositionNiveau, Random random) {
         Key key = new Key();
@@ -204,8 +203,8 @@ public class GUtils {
                 if (room.getBlocks()[x][y] instanceof Door transition) {
                     room.getBlocks()[x][y] = new LockedDoor(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key);
                     try {
-                        transition.getStage().setBlock(room.getLocation().getX() + x, room.getLocation().getY() + y ,new LockedDoor(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key));
-                    } catch (CoordinatesOutOfBoundsException ex) {
+                        transition.getStage().setBlock(room.getLocation().getX() + x, room.getLocation().getY() + y, new LockedDoor(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key));
+                    } catch (CoordinatesOutOfBoundsException ignored) {
                     }
                 }
             }

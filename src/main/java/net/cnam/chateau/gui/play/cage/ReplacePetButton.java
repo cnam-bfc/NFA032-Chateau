@@ -10,9 +10,9 @@ import net.cnam.chateau.utils.Location;
 
 public class ReplacePetButton extends CButton {
 
-    private CageMenu menu;
-    private Player player;
-    private Cage cage;
+    private final CageMenu menu;
+    private final Player player;
+    private final Cage cage;
 
     public ReplacePetButton(CageMenu menu, Player player, Cage cage) {
         super("Remplacer " + player.getPet().getName() + " avec " + cage.getPet().getName());
@@ -33,7 +33,7 @@ public class ReplacePetButton extends CButton {
             player.getStage().getEntities().add(pet);
         try {
             pet.teleport(player.getStage(), new Location(player.getLocation().getX(), player.getLocation().getY()));
-        } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException e) {
+        } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ignored) {
         }
 
         this.menu.stopDisplay();

@@ -4,7 +4,7 @@ import net.cnam.chateau.gui.component.CButton;
 
 public class LeaveButton extends CButton {
     
-    private DoorMenu menu;
+    private final DoorMenu menu;
     
     public LeaveButton(DoorMenu menu) {
         super("Partir");
@@ -15,5 +15,4 @@ public class LeaveButton extends CButton {
     public void execute() {
         this.menu.stopDisplay();
     }
-    
 }

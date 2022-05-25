@@ -10,12 +10,12 @@ public enum WeaponEnum {
     LE_RATEAU("Rateau", 4, 0, 8),
     LA_GROSSE_PELLE("La grosse pelle !", 5, 5, 5);
 
-    private String name;
-    private int power;
-    private int accuracy;
-    private int speed;
+    private final String name;
+    private final int power;
+    private final int accuracy;
+    private final int speed;
 
-    private WeaponEnum(String name, int power, int accuracy, int speed) {
+    WeaponEnum(String name, int power, int accuracy, int speed) {
         this.name = name;
         this.power = power;
         this.accuracy = accuracy;

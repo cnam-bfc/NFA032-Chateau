@@ -42,15 +42,15 @@ public enum CColor {
     private final int foregroundResetCode;
     private final int backgroundResetCode;
 
-    private CColor(int foregroundCode) {
+    CColor(int foregroundCode) {
         this(foregroundCode, foregroundCode + 10);
     }
 
-    private CColor(int foregroundCode, int backgroundCode) {
+    CColor(int foregroundCode, int backgroundCode) {
         this(foregroundCode, backgroundCode, FOREGROUND_RESET_CODE, BACKGROUND_RESET_CODE);
     }
 
-    private CColor(int foregroundCode, int backgroundCode, int foregroundResetCode, int backgroundResetCode) {
+    CColor(int foregroundCode, int backgroundCode, int foregroundResetCode, int backgroundResetCode) {
         this.foregroundCode = foregroundCode;
         this.backgroundCode = backgroundCode;
         this.foregroundResetCode = foregroundResetCode;

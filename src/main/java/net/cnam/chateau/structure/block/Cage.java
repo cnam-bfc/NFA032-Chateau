@@ -17,7 +17,7 @@ import net.cnam.chateau.gui.play.cage.CageMenu;
  */
 public class Cage extends Block implements BlockListener {
 
-    private Console console;
+    private final Console console;
     private Pet pet;
     private boolean visited;
 

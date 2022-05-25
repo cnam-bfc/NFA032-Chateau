@@ -50,8 +50,8 @@ public class Puzzle {
         // next = fausses réponses min 1, max 4
     }
 
-    private String question;
-    private List<Couple<String, Boolean>> answers;
+    private final String question;
+    private final List<Couple<String, Boolean>> answers;
 
     public Puzzle(String question, List<Couple<String, Boolean>> answers) {
         this.question = question;
@@ -62,7 +62,7 @@ public class Puzzle {
      * Prends une énigme au hasard. Prends l'énigme dans la liste des énigmes et
      * la supprime de la liste.
      *
-     * @return
+     * @return un puzzle
      */
     public static Puzzle getAPuzzle() {
         if (puzzles.isEmpty()) {

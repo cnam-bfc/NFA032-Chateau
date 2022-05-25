@@ -3,6 +3,8 @@ package net.cnam.chateau.gui.play.menu;
 import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.Console;
@@ -14,17 +16,15 @@ import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 public class OkButton extends CButton {
 
-    private final Console console;
-    private final AppSettings settings;
+    private final App app;
     private final PlayMenu playMenu;
     private final MainMenu mainMenu;
     private final CTextField seedTextField;
 
-    public OkButton(Console console, AppSettings settings, PlayMenu playMenu, MainMenu mainMenu, CTextField seedTextField) {
+    public OkButton(App app, PlayMenu playMenu, MainMenu mainMenu, CTextField seedTextField) {
         super("Lancer la partie");
 
-        this.console = console;
-        this.settings = settings;
+        this.app = app;
         this.playMenu = playMenu;
         this.mainMenu = mainMenu;
         this.seedTextField = seedTextField;
@@ -36,7 +36,7 @@ public class OkButton extends CButton {
         try {
             seed = Long.parseLong(seedTextField.getText());
         } catch (NumberFormatException ex) {
-            console.show(new ErrorDialog(ErrorDialog.Type.WARNING, "La seed doit être un nombre !"));
+            app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "La seed doit être un nombre !"));
             return;
         }
         playMenu.stopDisplaying();
@@ -44,12 +44,14 @@ public class OkButton extends CButton {
         if (audioPlayer != null) {
             audioPlayer.stop();
         }
-        Game game = new Game(console, settings, seed);
-        console.show(game);
+        Game game = new Game(app, seed);
+        app.setCurrentGame(game);
+        app.getConsole().show(game);
+        app.setCurrentGame(null);
         if (audioPlayer != null) {
             try {
                 audioPlayer.restart();
-            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ignored) {
             }
         }
     }

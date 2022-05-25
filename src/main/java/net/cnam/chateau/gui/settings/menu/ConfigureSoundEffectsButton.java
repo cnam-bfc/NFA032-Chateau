@@ -1,5 +1,6 @@
 package net.cnam.chateau.gui.settings.menu;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
@@ -7,18 +8,16 @@ import net.cnam.chateau.gui.settings.audio.soundeffects.ConfigureSoundEffectsFra
 
 public class ConfigureSoundEffectsButton extends CButton {
 
-    private final Console console;
-    private final AppSettings settings;
+    private final App app;
 
-    public ConfigureSoundEffectsButton(Console console, AppSettings settings) {
+    public ConfigureSoundEffectsButton(App app) {
         super("Configurer le volume des effects sonores");
 
-        this.console = console;
-        this.settings = settings;
+        this.app = app;
     }
 
     @Override
     public void execute() {
-        console.show(new ConfigureSoundEffectsFrame(settings));
+        app.getConsole().show(new ConfigureSoundEffectsFrame(app.getSettings()));
     }
 }

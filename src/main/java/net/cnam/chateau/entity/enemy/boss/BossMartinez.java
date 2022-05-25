@@ -1,5 +1,6 @@
 package net.cnam.chateau.entity.enemy.boss;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.item.weapon.Weapon;
@@ -11,12 +12,12 @@ public class BossMartinez extends Boss {
     /**
      * Constructeur
      *
-     * @param console  La console
+     * @param app      L'application
      * @param stage    L'étage où il se situe
      * @param location Coordonnées où il se situe
      */
-    public BossMartinez(Console console, Stage stage, Location location) {
-        super(console, stage, location, "Martinez", 100, 100, 100, 100, 100);
+    public BossMartinez(App app, Stage stage, Location location) {
+        super(app, stage, location, "Martinez", 100, 100, 100, 100, 100);
 
         this.setWeapon(new Weapon(10, 10, 10, "Livre : \"Java pour les nuls\""));
     }

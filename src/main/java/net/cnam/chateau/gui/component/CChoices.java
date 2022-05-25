@@ -99,7 +99,7 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
                 }
             }
             AudioPlayer.play(SoundEffect.HOVER);
-        } catch (DirectionNotFoundException ex) {
+        } catch (DirectionNotFoundException ignored) {
         }
     }
 

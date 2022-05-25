@@ -12,9 +12,9 @@ import net.cnam.chateau.structure.block.Block;
 
 public abstract class Container extends Block implements BlockListener {
 
-    private Item hiddenItem;
     private final String name;
-    private Console console;
+    private final Console console;
+    private Item hiddenItem;
     private boolean opened = false;
 
     public Container(Console console, String name, Item hiddenItem) {

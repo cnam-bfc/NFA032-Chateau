@@ -1,7 +1,7 @@
 package net.cnam.chateau;
 
 /**
- * Interface permetteant d'associer un caractère (char) à un objet
+ * Interface permettant d'associer un caractère (char) à un objet
  */
 public interface DisplayableObject {
 
@@ -10,5 +10,5 @@ public interface DisplayableObject {
      *
      * @return le caractère
      */
-    public String getCharacter();
+    String getCharacter();
 }

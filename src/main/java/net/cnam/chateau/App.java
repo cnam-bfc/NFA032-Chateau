@@ -5,6 +5,7 @@ import java.io.IOException;
 import net.cnam.chateau.entity.Sage;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.entity.pet.Pet;
+import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
@@ -13,6 +14,7 @@ public class App {
 
     private final AppSettings settings;
     private final Console console;
+    private Game currentGame;
 
     public App() {
         this.settings = new AppSettings();
@@ -21,7 +23,7 @@ public class App {
             if (settingsFile.exists()) {
                 this.settings.load(settingsFile);
             }
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
         }
         this.console = new Console(settings);
         // Initialisation de toutes les listes static
@@ -33,7 +35,7 @@ public class App {
 
     public void start() {
         try {
-            MainMenu mainMenu = new MainMenu(console, settings);
+            MainMenu mainMenu = new MainMenu(this);
             console.show(mainMenu);
             console.finalClear(true);
         } catch (Exception ex) {
@@ -46,5 +48,21 @@ public class App {
             console.show(new ErrorDialog(ErrorDialog.Type.EXCEPTION, lines));
             console.finalClear(false);
         }
+    }
+
+    public AppSettings getSettings() {
+        return settings;
+    }
+
+    public Console getConsole() {
+        return console;
+    }
+
+    public Game getCurrentGame() {
+        return currentGame;
+    }
+
+    public void setCurrentGame(Game currentGame) {
+        this.currentGame = currentGame;
     }
 }
