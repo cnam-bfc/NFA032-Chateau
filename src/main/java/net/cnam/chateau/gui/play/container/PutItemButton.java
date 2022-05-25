@@ -6,9 +6,9 @@ import net.cnam.chateau.structure.block.container.Container;
 
 public class PutItemButton extends CButton {
 
-    private ContainerMenu menu;
-    private Player player;
-    private Container block;
+    private final ContainerMenu menu;
+    private final Player player;
+    private final Container block;
 
     public PutItemButton(ContainerMenu menu, Player player, Container block) {
         super("Déposer " + player.getItem().getName() + " dans " + block.getName());

@@ -6,9 +6,9 @@ import net.cnam.chateau.structure.block.door.LockedDoor;
 
 public class UseObjectButton extends CButton {
     
-    private Player player;
-    private LockedDoor door;
-    private DoorMenu menu;
+    private final Player player;
+    private final LockedDoor door;
+    private final DoorMenu menu;
 
     public UseObjectButton(Player player, LockedDoor door, DoorMenu menu) {
         super("Utiliser : " + player.getItem().getName());
@@ -25,8 +25,7 @@ public class UseObjectButton extends CButton {
             player.setItem(null);
             // Todo message porte ouverte, objet détruit
             this.menu.stopDisplay();
-        }
-        else {
+        } else {
             // Message : Ce n'est pas une clé !
         }
     }

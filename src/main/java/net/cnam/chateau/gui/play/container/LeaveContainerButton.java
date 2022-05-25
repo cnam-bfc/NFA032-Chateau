@@ -5,7 +5,7 @@ import net.cnam.chateau.structure.block.container.Container;
 
 public class LeaveContainerButton extends CButton {
     
-    private ContainerMenu menu;
+    private final ContainerMenu menu;
     
     public LeaveContainerButton(ContainerMenu menu, Container block) {
         super("Quitter");

@@ -8,12 +8,12 @@ import net.cnam.chateau.structure.block.door.LockedDoor;
 
 public class DestroyDoorButton extends CButton {
     
-    private LockedDoor door;
-    private Player player;
-    private DoorMenu menu;
+    private final LockedDoor door;
+    private final Player player;
+    private final DoorMenu menu;
 
     public DestroyDoorButton(Player player, LockedDoor door, DoorMenu menu) {
-        super("Essayer de detruire la porte !");
+        super("Essayer de détruire la porte !");
         
         this.door = door;
         this.player = player;
@@ -30,7 +30,7 @@ public class DestroyDoorButton extends CButton {
             int damage = new Random().nextInt(5,11);
             try {
                 player.damage(damage);
-            } catch (EntityDeadException e) {
+            } catch (EntityDeadException ignored) {
             }
             // la porte est trop solide vous vous êtes bléssé
         }

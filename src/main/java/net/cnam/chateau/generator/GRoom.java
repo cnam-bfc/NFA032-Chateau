@@ -12,8 +12,8 @@ import net.cnam.chateau.utils.direction.Orientation;
 public class GRoom {
 
     private final List<GRoomWall> walls = new LinkedList<>();
-    private Room room;
-    private List<GWall> gWalls = new ArrayList<>();
+    private final List<GWall> gWalls = new ArrayList<>();
+    private final Room room;
 
     private int mazeNb;
 
@@ -25,25 +25,25 @@ public class GRoom {
 
         // Génération des murs de la pièce
         // Mur de gauche
-        // Si il n'est pas sur la bordure gauche de l'étage
+        // S'il n'est pas sur la bordure gauche de l'étage
         if (roomLocation.getX() != 0) {
             Location wallLocation = new Location(roomLocation.getX(), roomLocation.getY() + 1);
             walls.add(new GRoomWall(wallLocation, Orientation.VERTICAL, room.getHeight() - 2, this));
         }
         // Mur du haut
-        // Si il n'est pas sur la bordure haute de l'étage
+        // S'il n'est pas sur la bordure haute de l'étage
         if (roomLocation.getY() != 0) {
             Location wallLocation = new Location(roomLocation.getX() + 1, roomLocation.getY());
             walls.add(new GRoomWall(wallLocation, Orientation.HORIZONTAL, room.getLength() - 2, this));
         }
         // Mur de droite
-        // Si il n'est pas sur la bordure droite de l'étage
+        // S'il n'est pas sur la bordure droite de l'étage
         if (roomLocation.getX() + room.getLength() != stage.getLength()) {
             Location wallLocation = new Location(roomLocation.getX() + room.getLength() - 1, roomLocation.getY() + 1);
             walls.add(new GRoomWall(wallLocation, Orientation.VERTICAL, room.getHeight() - 2, this));
         }
         // Mur du bas
-        // Si il n'est pas sur la bordure basse de l'étage
+        // S'il n'est pas sur la bordure basse de l'étage
         if (roomLocation.getY() + room.getHeight() != stage.getHeight()) {
             Location wallLocation = new Location(roomLocation.getX() + 1, roomLocation.getY() + room.getHeight() - 1);
             walls.add(new GRoomWall(wallLocation, Orientation.HORIZONTAL, room.getLength() - 2, this));
@@ -93,7 +93,7 @@ public class GRoom {
     }
     
     public ArrayList<GRoom> roomAdjacent(){
-        ArrayList<GRoom> result = new ArrayList();
+        ArrayList<GRoom> result = new ArrayList<>();
         for(GWall c : this.gWalls ){ 
             if (c.isBreaked()){
                 if (c.getRoomOne() != this) result.add(c.getRoomOne());

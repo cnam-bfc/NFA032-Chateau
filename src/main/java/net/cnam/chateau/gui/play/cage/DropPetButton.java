@@ -7,12 +7,12 @@ import net.cnam.chateau.structure.block.Cage;
 
 public class DropPetButton extends CButton {
 
-    private CageMenu menu;
-    private Player player;
-    private Cage cage;
+    private final CageMenu menu;
+    private final Player player;
+    private final Cage cage;
 
     public DropPetButton(CageMenu menu, Player player, Cage cage) {
-        super("Deposer " + player.getPet().getName());
+        super("Déposer " + player.getPet().getName());
 
         this.menu = menu;
         this.player = player;

@@ -10,8 +10,8 @@ import net.cnam.chateau.gui.play.bed.BedMenu;
 
 public class Bed extends DecorativeBlock implements BlockListener {
 
+    private final Console console;
     private boolean used = false;
-    private Console console;
 
     public Bed(Console console) {
         super("Bed");

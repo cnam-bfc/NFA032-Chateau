@@ -7,7 +7,7 @@ import net.cnam.chateau.structure.Stage;
 
 public class EnemyDoor extends Door {
     
-    private Console console;
+    private final Console console;
     private Enemy enemy;
 
     public EnemyDoor(Console console, Stage stage, Room roomOne, Room roomTwo) {
@@ -22,7 +22,4 @@ public class EnemyDoor extends Door {
         this.console = console;
         this.enemy = enemy;
     }
-    
-    
-
 }

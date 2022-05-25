@@ -5,5 +5,5 @@ package net.cnam.chateau.utils.direction;
  */
 public enum Orientation {
     HORIZONTAL,
-    VERTICAL;
+    VERTICAL
 }

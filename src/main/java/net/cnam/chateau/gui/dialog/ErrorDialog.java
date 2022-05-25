@@ -58,7 +58,7 @@ public class ErrorDialog extends CFrame implements DisplayableComponent {
         private final String title;
         private final String footer;
 
-        private Type(String text, String footer) {
+        Type(String text, String footer) {
             this.title = text;
             this.footer = footer;
         }

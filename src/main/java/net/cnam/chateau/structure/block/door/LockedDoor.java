@@ -11,10 +11,10 @@ import net.cnam.chateau.structure.Stage;
 
 public class LockedDoor extends Door {
 
+    private final Console console;
     private boolean lock = true;
     private boolean tryDestroyDoor = false;
     private Key key;
-    private Console console;
 
     public LockedDoor(Console console, Stage stage, Room roomOne, Room roomTwo) {
         super(stage, roomOne, roomTwo);
