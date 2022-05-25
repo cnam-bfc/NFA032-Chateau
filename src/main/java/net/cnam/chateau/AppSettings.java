@@ -57,6 +57,11 @@ public class AppSettings {
         BufferedInputStream inTampon = new BufferedInputStream(fluxEntree);
         DataInputStream in = new DataInputStream(inTampon);
 
+        if (in.available() < 4) {
+            in.close();
+            return;
+        }
+
         this.consoleLength = in.readInt();
         this.consoleHeight = in.readInt();
         this.musicVolume = in.readFloat();
