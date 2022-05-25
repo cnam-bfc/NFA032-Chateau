@@ -29,7 +29,8 @@ public class ReplacePetButton extends CButton {
         cage.setPet(player.getPet());
 
         player.setPet(pet);
-        player.getStage().getEntities().add(pet);
+        if (!player.getStage().getEntities().contains(pet))
+            player.getStage().getEntities().add(pet);
         try {
             pet.teleport(player.getStage(), new Location(player.getLocation().getX(), player.getLocation().getY()));
         } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException e) {
