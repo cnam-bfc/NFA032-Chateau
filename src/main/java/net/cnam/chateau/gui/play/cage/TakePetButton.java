@@ -35,7 +35,8 @@ public class TakePetButton extends CButton {
             pet.teleport(player.getStage(), new Location(player.getLocation().getX(), player.getLocation().getY()));
         } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException e) {
         }
-        player.getStage().getEntities().add(pet);
+        if (!player.getStage().getEntities().contains(pet))
+            player.getStage().getEntities().add(pet);
 
         this.menu.stopDisplay();
     }

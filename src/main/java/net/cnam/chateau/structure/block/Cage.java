@@ -51,8 +51,7 @@ public class Cage extends Block implements BlockListener {
         if (this.visited){
             if (this.hasPet()){
                 return CColor.BRIGHT_RED + "P" + CColor.BRIGHT_RED.getForegroundReset();
-            }
-            else {
+            } else {
                 return CColor.GREEN + "P" + CColor.GREEN.getForegroundReset();
             }
         }
