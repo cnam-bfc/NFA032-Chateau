@@ -23,6 +23,7 @@ public class Fight extends CFrame implements DisplayableComponent {
     private final Random random;
 
     private boolean display = true;
+    private boolean over = false;
 
     public Fight(Player player, Enemy enemy) {
         super(new CLabel("Combat avec " + enemy.getName()), 0, 0);
@@ -76,6 +77,10 @@ public class Fight extends CFrame implements DisplayableComponent {
         this.getContentPane().getComponents().add(choices);
     }
 
+    public boolean isOver() {
+        return over;
+    }
+
     public void attack() {
         try {
             if (player.hasPet()) {
@@ -84,6 +89,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                 attackWithoutPet();
             }
         } catch (EntityDeadException e) {
+            over = true;
             stopDisplaying();
         }
     }
