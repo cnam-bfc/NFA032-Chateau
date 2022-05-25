@@ -20,7 +20,7 @@ public class App {
             if (settingsFile.exists()) {
                 this.settings.load(settingsFile);
             }
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
         }
         this.console = new Console(settings);
         Sage.initSages();
