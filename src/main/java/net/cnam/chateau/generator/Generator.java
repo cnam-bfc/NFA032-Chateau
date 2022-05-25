@@ -91,7 +91,7 @@ public class Generator {
 
             // On place les sorties
             // Si c'est l'étage 1 : on met juste une sortie
-            UpStair exitStair = triTopo(app.getConsole(), firstRoom, gRooms, random);
+            UpStair exitStair = triTopo(app, firstRoom, gRooms, random);
 
             //ajoute l'escalier du bas en haut
             if (i < stages.length - 1) {

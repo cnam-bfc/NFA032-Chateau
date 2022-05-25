@@ -1,5 +1,6 @@
 package net.cnam.chateau.gui.play.container;
 
+import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
@@ -11,29 +12,29 @@ import net.cnam.chateau.utils.array.ArrayUtils;
 public class ContainerMenu extends CFrame implements DisplayableComponent {
     private boolean display = true;
 
-    public ContainerMenu(Player player, Container block) {
+    public ContainerMenu(AppSettings settings, Player player, Container block) {
         super(0, 0, block.getName());
 
         SelectableComponent[] selectableComponent = new SelectableComponent[0];
 
         if (player.haveItem() && block.hasItem()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent,
-                    new ReplaceItemButton(this, player, block));
+                    new ReplaceItemButton(settings, this, player, block));
         }
 
         if (player.haveItem() && !block.hasItem()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent,
-                    new PutItemButton(this, player, block));
+                    new PutItemButton(settings, this, player, block));
         }
 
         if (!player.haveItem() && block.hasItem()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent,
-                    new TakeItemButton(this, player, block));
+                    new TakeItemButton(settings, this, player, block));
         }
 
-        selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new LeaveContainerButton(this));
+        selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new LeaveContainerButton(settings, this));
 
-        CChoices choices = new CChoices(selectableComponent, 1);
+        CChoices choices = new CChoices(settings, selectableComponent, 1);
 
         this.getContentPane().getComponents().add(choices);
     }

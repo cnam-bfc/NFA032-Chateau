@@ -1,9 +1,13 @@
 package net.cnam.chateau.gui.settings.audio.soundeffects;
 
 import net.cnam.chateau.AppSettings;
-import net.cnam.chateau.audio.AudioPlayer;
 import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.gui.component.CGauge;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 public class ConfigureSoundEffectsGauge extends CGauge {
     public ConfigureSoundEffectsGauge(AppSettings settings) {
@@ -14,7 +18,12 @@ public class ConfigureSoundEffectsGauge extends CGauge {
     public void setValue(int value) {
         super.setValue(value);
 
-        AudioPlayer.volume = (float) this.getValue() / this.getMaxValue();
-        AudioPlayer.play(SoundEffect.HOVER);
+        try {
+            SimpleAudioPlayer audioPlayer = new SimpleAudioPlayer(SoundEffect.HOVER.getFilePath());
+            audioPlayer.setVolume((float) this.getValue() / this.getMaxValue());
+            audioPlayer.play();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
+                 IllegalArgumentException ignored) {
+        }
     }
 }

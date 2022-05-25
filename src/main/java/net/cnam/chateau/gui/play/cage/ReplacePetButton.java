@@ -1,5 +1,6 @@
 package net.cnam.chateau.gui.play.cage;
 
+import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.pet.Pet;
@@ -13,8 +14,8 @@ public class ReplacePetButton extends CButton {
     private final Player player;
     private final Cage cage;
 
-    public ReplacePetButton(CageMenu menu, Player player, Cage cage) {
-        super("Remplacer " + player.getPet().getName() + " avec " + cage.getPet().getName());
+    public ReplacePetButton(AppSettings settings, CageMenu menu, Player player, Cage cage) {
+        super(settings, "Remplacer " + player.getPet().getName() + " avec " + cage.getPet().getName());
 
         this.menu = menu;
         this.player = player;

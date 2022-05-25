@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.play.fight;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
@@ -21,6 +21,7 @@ import java.util.Random;
 public class Fight extends CFrame implements DisplayableComponent {
     private static final int ACCURACY = 20;
 
+    private final App app;
     private final Player player;
     private final Enemy enemy;
     private final Random random;
@@ -28,15 +29,16 @@ public class Fight extends CFrame implements DisplayableComponent {
     private boolean display = true;
     private boolean over = false;
 
-    public Fight(AppSettings settings, Player player, Enemy enemy) {
+    public Fight(App app, Player player, Enemy enemy) {
         super(0, 0, "Combat avec " + enemy.getName());
 
+        this.app = app;
         this.player = player;
         this.enemy = enemy;
         this.random = new Random();
         try {
             this.audioPlayer = new SimpleAudioPlayer(Music.FIGHT.getFilePath());
-            audioPlayer.setVolume(settings.getMusicVolume());
+            audioPlayer.setVolume(app.getSettings().getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
@@ -66,13 +68,13 @@ public class Fight extends CFrame implements DisplayableComponent {
     public void chooseAction() {
         this.getContentPane().getComponents().clear();
 
-        SelectableComponent[] components = new SelectableComponent[]{new AttackButton(this)};
+        SelectableComponent[] components = new SelectableComponent[]{new AttackButton(app.getSettings(), this)};
         if (player.haveItem()) {
-            components = ArrayUtils.addOnBottomOfArray(components, new UseItemButton(player.getItem()));
+            components = ArrayUtils.addOnBottomOfArray(components, new UseItemButton(app.getSettings(), player.getItem()));
         }
-        components = ArrayUtils.addOnBottomOfArray(components, new RunAwayButton(this));
+        components = ArrayUtils.addOnBottomOfArray(components, new RunAwayButton(app.getSettings(), this));
 
-        CChoices choices = new CChoices(components, 1);
+        CChoices choices = new CChoices(app.getSettings(), components, 1);
 
         this.getContentPane().getComponents().add(choices);
     }

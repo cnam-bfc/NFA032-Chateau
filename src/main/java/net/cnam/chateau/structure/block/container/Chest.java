@@ -1,6 +1,6 @@
 package net.cnam.chateau.structure.block.container;
 
-import net.cnam.chateau.gui.Console;
+import net.cnam.chateau.App;
 import net.cnam.chateau.item.Item;
 
 /**
@@ -8,12 +8,12 @@ import net.cnam.chateau.item.Item;
  */
 public class Chest extends Container {
 
-    public Chest(Console console) {
-        this(console, null);
+    public Chest(App app) {
+        this(app, null);
     }
 
-    public Chest(Console console, Item hiddenItem) {
-        super(console, "Coffre", hiddenItem);
+    public Chest(App app, Item hiddenItem) {
+        super(app, "Coffre", hiddenItem);
     }
 
     @Override

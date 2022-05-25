@@ -28,10 +28,10 @@ public class MainMenu extends CFrame implements DisplayableComponent {
                  IllegalArgumentException ignored) {
         }
 
-        CChoices choices = new CChoices(new SelectableComponent[]{
+        CChoices choices = new CChoices(app.getSettings(), new SelectableComponent[]{
                 new PlayButton(app, this),
                 new SettingsButton(app, audioPlayer),
-                new QuitButton(this)
+                new QuitButton(app.getSettings(), this)
         }, 1);
 
         this.getContentPane().getComponents().add(choices);

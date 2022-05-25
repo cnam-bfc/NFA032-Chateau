@@ -1,33 +1,40 @@
 package net.cnam.chateau.gui.component;
 
-import net.cnam.chateau.audio.AudioPlayer;
+import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.event.key.KeyListener;
 import net.cnam.chateau.event.key.KeyPressedEvent;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.utils.direction.Orientation;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CChoices extends CPanel implements SelectableComponent, KeyListener {
+    private final AppSettings appSettings;
     private final List<SelectableComponent> selectableComponents;
 
     private boolean selected = true;
 
-    public CChoices(SelectableComponent[] components) {
-        this(components, 0);
+    public CChoices(AppSettings appSettings, SelectableComponent[] components) {
+        this(appSettings, components, 0);
     }
 
-    public CChoices(SelectableComponent[] components, int spacing) {
-        this(components, Orientation.VERTICAL, spacing);
+    public CChoices(AppSettings appSettings, SelectableComponent[] components, int spacing) {
+        this(appSettings, components, Orientation.VERTICAL, spacing);
     }
 
-    public CChoices(SelectableComponent[] components, Orientation orientation, int spacing) {
+    public CChoices(AppSettings appSettings, SelectableComponent[] components, Orientation orientation, int spacing) {
         super(Arrays.copyOf(components, components.length, CComponent[].class), orientation, spacing);
+
+        this.appSettings = appSettings;
 
         for (int i = 0; i < components.length; i++) {
             SelectableComponent component = components[i];
@@ -98,7 +105,13 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
                     }
                 }
             }
-            AudioPlayer.play(SoundEffect.HOVER);
+            try {
+                SimpleAudioPlayer audioPlayer = new SimpleAudioPlayer(SoundEffect.HOVER.getFilePath());
+                audioPlayer.setVolume(appSettings.getSoundEffectsVolume());
+                audioPlayer.play();
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
+                     IllegalArgumentException ignored) {
+            }
         } catch (DirectionNotFoundException ignored) {
         }
     }

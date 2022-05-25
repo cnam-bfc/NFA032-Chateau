@@ -12,11 +12,11 @@ public class ConfigureMusicFrame extends CFrame implements DisplayableComponent 
         super(0, 0, "Configurer le niveau sonore de la musique");
 
         CGauge gauge = new ConfigureMusicGauge(settings, menuPlayer);
-        CChoices choices = new CChoices(new SelectableComponent[]{
+        CChoices choices = new CChoices(settings, new SelectableComponent[]{
                 gauge,
-                new CChoices(new SelectableComponent[]{
-                        new ConfigureMusicOkButton(this, settings, gauge),
-                        new ConfigureMusicCancelButton(this, settings, menuPlayer)
+                new CChoices(settings, new SelectableComponent[]{
+                        new ConfigureMusicOkButton(settings, this, gauge),
+                        new ConfigureMusicCancelButton(settings, this, menuPlayer)
                 }, Orientation.HORIZONTAL, 10)
         }, 5);
 

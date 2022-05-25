@@ -5,15 +5,15 @@ import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.component.CGauge;
 
 public class ConfigureMusicOkButton extends CButton {
-    private final ConfigureMusicFrame configureMusicFrame;
     private final AppSettings settings;
+    private final ConfigureMusicFrame configureMusicFrame;
     private final CGauge gauge;
 
-    public ConfigureMusicOkButton(ConfigureMusicFrame configureMusicFrame, AppSettings settings, CGauge gauge) {
-        super("Valider");
+    public ConfigureMusicOkButton(AppSettings settings, ConfigureMusicFrame configureMusicFrame, CGauge gauge) {
+        super(settings, "Valider");
 
-        this.configureMusicFrame = configureMusicFrame;
         this.settings = settings;
+        this.configureMusicFrame = configureMusicFrame;
         this.gauge = gauge;
     }
 
