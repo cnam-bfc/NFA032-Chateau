@@ -2,15 +2,15 @@ package net.cnam.chateau.gui.play.door;
 
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.structure.block.door.DoorLocked;
+import net.cnam.chateau.structure.block.door.LockedDoor;
 
 public class UseObjectButton extends CButton {
     
     private Player player;
-    private DoorLocked door;
+    private LockedDoor door;
     private DoorMenu menu;
 
-    public UseObjectButton(Player player, DoorLocked door, DoorMenu menu) {
+    public UseObjectButton(Player player, LockedDoor door, DoorMenu menu) {
         super("Utiliser : " + player.getItem().getName());
         
         this.player = player;

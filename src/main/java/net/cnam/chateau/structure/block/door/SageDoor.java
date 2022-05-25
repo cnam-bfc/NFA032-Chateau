@@ -8,12 +8,12 @@ import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 
-public class DoorSage extends Door {
+public class SageDoor extends Door {
     
     private Sage sage;
     private Puzzle puzzle;
 
-    public DoorSage(Stage stage, Room roomOne, Room roomTwo) {
+    public SageDoor(Stage stage, Room roomOne, Room roomTwo) {
         super(stage, roomOne, roomTwo);
         // TODO aller chercher un enigme aléatoire non déjà posé
     }

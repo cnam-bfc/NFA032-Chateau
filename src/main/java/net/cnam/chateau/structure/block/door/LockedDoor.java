@@ -9,20 +9,20 @@ import net.cnam.chateau.gui.play.door.DoorMenu;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 
-public class DoorLocked extends Door {
+public class LockedDoor extends Door {
 
     private boolean lock = true;
     private boolean tryDestroyDoor = false;
     private Key key;
     private Console console;
 
-    public DoorLocked(Console console, Stage stage, Room roomOne, Room roomTwo) {
+    public LockedDoor(Console console, Stage stage, Room roomOne, Room roomTwo) {
         super(stage, roomOne, roomTwo);
 
         this.console = console;
     }
 
-    public DoorLocked(Console console, Stage stage, Room roomOne, Room roomTwo, Key key) {
+    public LockedDoor(Console console, Stage stage, Room roomOne, Room roomTwo, Key key) {
         super(stage, roomOne, roomTwo);
 
         this.console = console;

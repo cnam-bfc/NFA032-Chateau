@@ -15,7 +15,7 @@ import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.structure.block.decorative.*;
 import net.cnam.chateau.structure.block.container.*;
 import net.cnam.chateau.structure.block.door.Door;
-import net.cnam.chateau.structure.block.door.DoorLocked;
+import net.cnam.chateau.structure.block.door.LockedDoor;
 import net.cnam.chateau.utils.Location;
 
 public class GUtils {
@@ -202,9 +202,9 @@ public class GUtils {
         for (int x = 0; x < room.getLength(); x++) {
             for (int y = 0; y < room.getHeight(); y++) {
                 if (room.getBlocks()[x][y] instanceof Door transition) {
-                    room.getBlocks()[x][y] = new DoorLocked(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key);
+                    room.getBlocks()[x][y] = new LockedDoor(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key);
                     try {
-                        transition.getStage().setBlock(room.getLocation().getX() + x, room.getLocation().getY() + y ,new DoorLocked(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key));
+                        transition.getStage().setBlock(room.getLocation().getX() + x, room.getLocation().getY() + y ,new LockedDoor(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key));
                     } catch (CoordinatesOutOfBoundsException ex) {
                     }
                 }
