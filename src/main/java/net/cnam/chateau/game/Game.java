@@ -130,4 +130,8 @@ public class Game extends CFrame implements DisplayableComponent {
     public Player getPlayer() {
         return player;
     }
+
+    public SimpleAudioPlayer getAudioPlayer() {
+        return audioPlayer;
+    }
 }

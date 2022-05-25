@@ -5,7 +5,7 @@ public enum Music {
     GAME("Stranger Things 3 - The Game Soundtrack - Russian Farm Base.wav"),
     FIGHT("Final Fantasy 10 - Battle Theme.wav");
 
-    private static final String basePath = "songs/";
+    private static final String basePath = "/songs/";
     private final String fileName;
 
     Music(String fileName) {

@@ -45,7 +45,9 @@ public class OkButton extends CButton {
             audioPlayer.stop();
         }
         Game game = new Game(app, seed);
+        app.setCurrentGame(game);
         app.getConsole().show(game);
+        app.setCurrentGame(null);
         if (audioPlayer != null) {
             try {
                 audioPlayer.restart();

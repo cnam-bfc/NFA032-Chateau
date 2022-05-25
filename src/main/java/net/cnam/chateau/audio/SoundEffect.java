@@ -4,7 +4,7 @@ public enum SoundEffect {
     HOVER("button_hover.wav"),
     SELECT("Undertale - select.wav");
 
-    private static final String basePath = "sound/";
+    private static final String basePath = "/sound/";
     private final String fileName;
 
     SoundEffect(String fileName) {

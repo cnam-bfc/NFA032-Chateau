@@ -1,15 +1,18 @@
 package net.cnam.chateau.entity.enemy;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.event.entity.EntityApprochEvent;
 import net.cnam.chateau.event.entity.EntityListener;
-import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 /**
  * Classe d'un ennemi
@@ -57,7 +60,17 @@ public abstract class Enemy extends Entity implements EntityListener {
     public void onEntityApprochEvent(EntityApprochEvent event) {
         if (event.getEntity() instanceof Player player) {
             Fight fight = new Fight(app.getSettings(), player, this);
+            SimpleAudioPlayer gamePlayer = app.getCurrentGame().getAudioPlayer();
+            if (gamePlayer != null) {
+                gamePlayer.stop();
+            }
             app.getConsole().show(fight);
+            if (gamePlayer != null) {
+                try {
+                    gamePlayer.restart();
+                } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ignored) {
+                }
+            }
             if (!fight.isOver()) {
                 event.setCanceled(true);
             }
