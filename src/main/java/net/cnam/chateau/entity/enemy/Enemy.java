@@ -9,11 +9,25 @@ import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Classe d'un ennemi
  */
 public abstract class Enemy extends Entity implements EntityListener {
 
+    public static List<Enemy> specialEnemys = new LinkedList<>();
+
+    public static void initSpecialEnemys(Console console){
+        specialEnemys.add(new Demogorgon(console, null, null, "Chef demogorgon : Demo-Bob", 100,100,100,100,100));
+        specialEnemys.add(new Harpy(console, null, null, "Cheffe harpie : Senga-Eiram", 100,100,100,100,100));
+        specialEnemys.add(new HeadlessKnight(console, null, null, "Chef chevalier sans tete : 720-headshot", 100,100,100,100,100));
+        specialEnemys.add(new Morbol(console, null, null, "Chef morbol : Gilou", 100,100,100,100,100));
+        specialEnemys.add(new Spider(console, null, null, "Chef araignée : Aragog", 100,100,100,100,100));
+        specialEnemys.add(new Werewolf(console, null, null, "Cheffe loup-garou : Aela", 100,100,100,100,100));
+        specialEnemys.add(new Zombie(console, null, null, "Chef zombie : Maxime", 100,100,100,100,100));
+    }
     private final Console console;
 
     /**
