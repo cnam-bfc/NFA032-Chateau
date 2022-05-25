@@ -6,14 +6,14 @@ import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.SelectableComponent;
-import net.cnam.chateau.structure.block.door.DoorLocked;
+import net.cnam.chateau.structure.block.door.LockedDoor;
 import net.cnam.chateau.utils.array.ArrayUtils;
 
 public class DoorMenu extends CFrame implements DisplayableComponent{
     
     private boolean display = true;
 
-    public DoorMenu(Player player, DoorLocked door) {
+    public DoorMenu(Player player, LockedDoor door) {
         super(new CLabel("Porte bloquee") ,0 ,0);
         
         SelectableComponent[] selectableComponent = new SelectableComponent[0];
