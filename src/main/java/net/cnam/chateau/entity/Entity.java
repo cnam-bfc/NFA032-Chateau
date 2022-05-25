@@ -222,7 +222,9 @@ public abstract class Entity implements DisplayableObject {
      */
     public void kill() {
         // On enlève cette entité de l'étage
-        this.stage.getEntities().remove(this);
+        if (this.stage != null) {
+            this.stage.getEntities().remove(this);
+        }
     }
 
     /**
