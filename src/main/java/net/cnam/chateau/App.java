@@ -3,6 +3,7 @@ package net.cnam.chateau;
 import java.io.File;
 import java.io.IOException;
 import net.cnam.chateau.entity.Sage;
+import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.Console;
@@ -25,8 +26,11 @@ public class App {
         } catch (IOException ignored) {
         }
         this.console = new Console(settings);
+        // Initialisation de toutes les listes static
         Sage.initSages();
         Pet.createListPet();
+        Enemy.initSpecialEnemys(console);
+
     }
 
     public void start() {
