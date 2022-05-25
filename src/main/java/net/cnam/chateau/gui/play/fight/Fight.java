@@ -1,7 +1,10 @@
 package net.cnam.chateau.gui.play.fight;
 
+import java.io.IOException;
 import java.util.Random;
 
+import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
@@ -13,6 +16,10 @@ import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.utils.array.ArrayUtils;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Fight extends CFrame implements DisplayableComponent {
 
@@ -21,16 +28,23 @@ public class Fight extends CFrame implements DisplayableComponent {
     private final Player player;
     private final Enemy enemy;
     private final Random random;
-
+    private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
     private boolean over = false;
 
-    public Fight(Player player, Enemy enemy) {
+    public Fight(AppSettings settings, Player player, Enemy enemy) {
         super(new CLabel("Combat avec " + enemy.getName()), 0, 0);
 
         this.player = player;
         this.enemy = enemy;
         this.random = new Random();
+        try {
+            this.audioPlayer = new SimpleAudioPlayer(Music.FIGHT.getFilePath());
+            audioPlayer.setVolume(settings.getMusicVolume());
+            audioPlayer.setLoop(true);
+            audioPlayer.play();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ignored) {
+        }
 
         chooseAction();
     }
@@ -41,7 +55,7 @@ public class Fight extends CFrame implements DisplayableComponent {
 
         // TODO Enlever ça, temporaire
         if (key == 13 || key == 10) {
-            stopDisplaying();
+            stop();
             return;
         }
 
@@ -59,8 +73,11 @@ public class Fight extends CFrame implements DisplayableComponent {
         return true;
     }
 
-    public void stopDisplaying() {
+    public void stop() {
         display = false;
+        if (audioPlayer != null) {
+            audioPlayer.stop();
+        }
     }
 
     public void chooseAction() {
@@ -90,7 +107,7 @@ public class Fight extends CFrame implements DisplayableComponent {
             }
         } catch (EntityDeadException e) {
             over = true;
-            stopDisplaying();
+            stop();
         }
     }
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CFrame;
@@ -21,7 +22,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
         super(new CLabel("Menu principal"), 0, 0);
 
         try {
-            this.audioPlayer = new SimpleAudioPlayer("/songs/Stranger Things 3 - The Game Soundtrack - Hess Farm.wav");
+            this.audioPlayer = new SimpleAudioPlayer(Music.MENU.getFilePath());
             audioPlayer.setVolume(settings.getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();

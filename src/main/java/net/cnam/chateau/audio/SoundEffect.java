@@ -1,16 +1,17 @@
 package net.cnam.chateau.audio;
 
 public enum SoundEffect {
-    HOVER("/sound/button_hover.wav"),
-    SELECT("/sound/Undertale - select.wav");
+    HOVER("button_hover.wav"),
+    SELECT("Undertale - select.wav");
 
-    private final String filePath;
+    private static final String basePath = "sound/";
+    private final String fileName;
 
-    private SoundEffect(String filePath) {
-        this.filePath = filePath;
+    SoundEffect(String fileName) {
+        this.fileName = fileName;
     }
 
     public String getFilePath() {
-        return filePath;
+        return basePath + fileName;
     }
 }

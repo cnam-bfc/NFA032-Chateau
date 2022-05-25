@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.entity.Player;
@@ -53,11 +54,11 @@ public class Game extends CFrame implements DisplayableComponent {
         this.setTitle(new CLabel("Jeu\n(seed: " + this.castle.getSeed() + ")"));
 
         try {
-            this.audioPlayer = new SimpleAudioPlayer("/songs/Stranger Things 3 - The Game Soundtrack - Russian Farm Base.wav");
+            this.audioPlayer = new SimpleAudioPlayer(Music.GAME.getFilePath());
             audioPlayer.setVolume(settings.getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ex) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ignored) {
         }
     }
 
