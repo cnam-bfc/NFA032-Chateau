@@ -25,9 +25,9 @@ public abstract class Entity implements DisplayableObject {
 
     private static final int DEFAULT_HEALTH = 100;
     private static final int DEFAULT_RESISTANCE = 50;
-    private static final int DEFAULT_STRENGTH = 15;
+    private static final int DEFAULT_STRENGTH = 1000;
     private static final int DEFAULT_ACCURACY = 15;
-    private static final int DEFAULT_SPEED = 15;
+    private static final int DEFAULT_SPEED = 150;
 
     private Location location;
     private Stage stage;

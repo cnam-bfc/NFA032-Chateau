@@ -225,16 +225,17 @@ public class GUtils {
     }
 
     public static Door getDoor(Random random, Stage stage, Room roomOne, Room roomTwo, App app){
-        int randomInt = random.nextInt(1,100);
+        return new EnemyDoor(app, stage, roomOne, roomTwo, random);
+ /*       int randomInt = random.nextInt(1,100);
         if (randomInt < 80){
             return new Door(stage, roomOne, roomTwo);
         } else if (randomInt < 86){
             return new SageDoor(stage, roomOne, roomTwo);
         } else if (randomInt < 91) {
-            return new EnemyDoor(app, stage, roomOne, roomTwo);
+            return new EnemyDoor(app, stage, roomOne, roomTwo, random);
         } else {
             return new TrappedDoor(stage, roomOne, roomTwo);
-        }
+        }*/
     }
 
 }

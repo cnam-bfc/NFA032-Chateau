@@ -11,7 +11,7 @@ public class EnemyUtils {
     private static final int LUCK_SPECIAL_ENNEMY = 80; // entier à dépasser sur un random entre 1 et 100
 
     public static Enemy getAEnemy(App app, Stage stage, Location location) {
-        if (new Random().nextInt(1, 101) > LUCK_SPECIAL_ENNEMY || Enemy.specialEnemys.isEmpty()) {
+        if (new Random().nextInt(1, 101) > LUCK_SPECIAL_ENNEMY && Enemy.specialEnemys.isEmpty()) {
             return getSpecialEnemy(app, stage, location, new Random());
         } else {
             return getRandomEnemy(app, stage, location, new Random());
@@ -19,7 +19,7 @@ public class EnemyUtils {
     }
 
     public static Enemy getAEnemy(App app, Stage stage, Location location, Random random) {
-        if (random.nextInt(1, 101) > LUCK_SPECIAL_ENNEMY || Enemy.specialEnemys.isEmpty()) {
+        if (random.nextInt(1, 101) > LUCK_SPECIAL_ENNEMY && !Enemy.specialEnemys.isEmpty()) {
             return getSpecialEnemy(app, stage, location, random);
         } else {
             return getRandomEnemy(app, stage, location, random);
@@ -49,7 +49,7 @@ public class EnemyUtils {
     }
 
     public static Enemy getSpecialEnemy(App app, Stage stage, Location location, Random random) {
-        if (Enemy.specialEnemys != null) {
+        if (!Enemy.specialEnemys.isEmpty()) {
             return Enemy.specialEnemys.remove(random.nextInt(0, Enemy.specialEnemys.size()));
         }
         return null;
