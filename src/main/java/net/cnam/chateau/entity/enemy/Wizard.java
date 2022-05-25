@@ -23,12 +23,6 @@ public class Wizard extends Enemy {
     public Wizard(Console console, Stage stage, Location location, Random random) {
         // TODO Donner des caractéristiques random à la sorcière
         super(console, stage, location, "");
-
-        WizardEnum type = WizardEnum.values()[random.nextInt(WizardEnum.values().length)];
-        this.setName(type.getName());
-        if (type.getWeapon() != null) {
-            this.setWeapon(type.getWeapon());
-        }
     }
 
     /**
