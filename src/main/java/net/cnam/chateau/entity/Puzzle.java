@@ -44,6 +44,44 @@ public class Puzzle {
         answersInit.add(new Couple<>("Alban", false));
         puzzles.add(new Puzzle("Quel nom du héro principal dans Harry Potter", answersInit));
 
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("5 fruits et légumes par jour", true));
+        answersInit.add(new Couple<>("ses morts", false));
+        answersInit.add(new Couple<>("3 fruits et légumes par jour", false));
+        answersInit.add(new Couple<>("Le fiak de victor", false));
+        puzzles.add(new Puzzle("il faut manger", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Une casserole avec de l'eau", true));
+        answersInit.add(new Couple<>("Un casserole avec du beurre", false));
+        answersInit.add(new Couple<>("Une poêle", false));
+        answersInit.add(new Couple<>("Une chaussure", false));
+        puzzles.add(new Puzzle("Dans quoi cuit-on les pâtes ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("7", true));
+        answersInit.add(new Couple<>("10", false));
+        answersInit.add(new Couple<>("5", false));
+        answersInit.add(new Couple<>("3", false));
+        puzzles.add(new Puzzle("Combien de coup de fouet pour dresser Victor", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("VS code", true));
+        answersInit.add(new Couple<>("NetBeans", false));
+        answersInit.add(new Couple<>("Intellij", false));
+        puzzles.add(new Puzzle("Le pire IDE : ", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("9", true));
+        answersInit.add(new Couple<>("12", false));
+        puzzles.add(new Puzzle("1+2(4)", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Ismail/Melvin/Célian", true));
+        answersInit.add(new Couple<>("Melvin/Célian/Ismail", false));
+        answersInit.add(new Couple<>("Célian/Melvin/Ismail", false));
+        puzzles.add(new Puzzle("Dans quel ordre sont parties les candidats de Cnam-Lanta", answersInit));
+
         //Faire code pour ajouter des énigmes dispos sur un CSV,
         // premier = question
         // deuxième = rep
