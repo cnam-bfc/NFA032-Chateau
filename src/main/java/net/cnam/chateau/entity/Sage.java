@@ -2,7 +2,7 @@ package net.cnam.chateau.entity;
 
 import java.util.LinkedList;
 import java.util.List;
-import net.cnam.chateau.game.event.Puzzle;
+
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;

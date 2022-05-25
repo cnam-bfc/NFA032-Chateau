@@ -3,7 +3,7 @@ package net.cnam.chateau.structure.block.door;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.Sage;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
-import net.cnam.chateau.game.event.Puzzle;
+import net.cnam.chateau.entity.Puzzle;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;

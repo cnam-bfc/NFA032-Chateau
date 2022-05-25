@@ -1,4 +1,4 @@
-package net.cnam.chateau.game.event;
+package net.cnam.chateau.entity;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

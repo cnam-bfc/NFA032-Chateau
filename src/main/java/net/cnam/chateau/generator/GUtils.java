@@ -1,14 +1,13 @@
 package net.cnam.chateau.generator;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.game.event.Key;
+import net.cnam.chateau.item.Key;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Cage;
-import net.cnam.chateau.structure.block.TrappedChest;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.structure.block.container.Chest;
 import net.cnam.chateau.structure.block.container.Wardrobe;
