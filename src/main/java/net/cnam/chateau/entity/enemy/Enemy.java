@@ -56,6 +56,9 @@ public abstract class Enemy extends Entity implements EntityListener {
         if (event.getEntity() instanceof Player player) {
             Fight fight = new Fight(player, this);
             console.show(fight);
+            if (!fight.isOver()) {
+                event.setCanceled(true);
+            }
         }
     }
 }
