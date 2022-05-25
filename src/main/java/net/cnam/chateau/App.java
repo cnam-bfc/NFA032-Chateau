@@ -29,7 +29,7 @@ public class App {
 
     public void start() {
         try {
-            MainMenu mainMenu = new MainMenu(console, settings);
+            MainMenu mainMenu = new MainMenu(this);
             console.show(mainMenu);
             console.finalClear(true);
         } catch (Exception ex) {
@@ -42,5 +42,13 @@ public class App {
             console.show(new ErrorDialog(ErrorDialog.Type.EXCEPTION, lines));
             console.finalClear(false);
         }
+    }
+
+    public AppSettings getSettings() {
+        return settings;
+    }
+
+    public Console getConsole() {
+        return console;
     }
 }

@@ -1,26 +1,19 @@
 package net.cnam.chateau.generator;
 
-import net.cnam.chateau.structure.block.door.Door;
-import net.cnam.chateau.structure.block.Wall;
-import net.cnam.chateau.structure.block.Block;
-import net.cnam.chateau.structure.Stage;
-import net.cnam.chateau.structure.Room;
-import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
-import net.cnam.chateau.structure.Castle;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.enemy.boss.BossMartinez;
-import net.cnam.chateau.gui.Console;
-
-import static net.cnam.chateau.generator.GUtils.*;
-import net.cnam.chateau.structure.RoomBoss;
+import net.cnam.chateau.structure.*;
+import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.DownStair;
 import net.cnam.chateau.structure.block.UpStair;
+import net.cnam.chateau.structure.block.Wall;
+import net.cnam.chateau.structure.block.door.Door;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.array.ArrayUtils;
+
+import java.util.*;
+
+import static net.cnam.chateau.generator.GUtils.*;
 
 /**
  * Classe pour la génération de la map
@@ -39,7 +32,7 @@ public class Generator {
     private static final int MIN_BLOCKS = 1; // nombre de bloc décoratifs minimum par pièce
     private static final int MAX_BLOCKS = 3; // nombre de bloc maximum par pièce
 
-    private final Console console;
+    private final App app;
     private final long seed;
     private final Random random;
     private Location playerStartLocation;
@@ -47,11 +40,11 @@ public class Generator {
     /**
      * Constructeur
      *
-     * @param console La console
+     * @param app  L'application
      * @param seed long qui permet de générer la carte de façon procédural
      */
-    public Generator(Console console, long seed) {
-        this.console = console;
+    public Generator(App app, long seed) {
+        this.app = app;
         this.seed = seed;
         this.random = new Random(seed);
     }
@@ -98,7 +91,7 @@ public class Generator {
 
             // On place les sorties
             // Si c'est l'étage 1 : on met juste une sortie
-            UpStair exitStair  = triTopo(this.console, firstRoom, gRooms, random);
+            UpStair exitStair = triTopo(app.getConsole(), firstRoom, gRooms, random);
 
             //ajoute l'escalier du bas en haut
             if (i < stages.length - 1) {
@@ -150,7 +143,7 @@ public class Generator {
                 lastRoom.getEntry().setOtherStair(exitStair);
                 lastRoom.getEntry().setStage(stageBoss);
                 exitStair.setOtherStair(lastRoom.getEntry());
-                stageBoss.getEntities().add(new BossMartinez(console, stageBoss, new Location(6, 4)));
+                stageBoss.getEntities().add(new BossMartinez(app, stageBoss, new Location(6, 4)));
             }
         }
 
@@ -165,11 +158,11 @@ public class Generator {
     public Stage generateStage() {
         // On défini la taille que fera l'étage entre 2 bornes (constantes) 
         int stageLength = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE + 1);
-        int stageWidth = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE + 1);
+        int stageHeight = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE + 1);
 
         // On créer un tableau contenant la room de base permettant la découpe de l'étage
         Room[] rooms = new Room[1];
-        rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageWidth]);
+        rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageHeight]);
         Block[][] blocksMainRoom = rooms[0].getBlocks();
 
         // On génère les murs de la première pièce
@@ -204,18 +197,17 @@ public class Generator {
             }
         }
         rooms = verifyRoomSize(rooms);
-        return new Stage(rooms, stageLength, stageWidth);
+        return new Stage(rooms, stageLength, stageHeight);
     }
 
     /**
-     * 
      * Méthode permettant de vérifier que les pièces ne sont pas trop grande, sinon division
      *
      * @param rooms tableau de pièce d'un étage
      */
-    public Room[] verifyRoomSize(Room[] rooms){
-        for (int i = 0 ; i < rooms.length ; i++){
-            while (rooms[i].getLength() > MAX_SIZE_ROOM || rooms[i].getHeight() > MAX_SIZE_ROOM ){
+    public Room[] verifyRoomSize(Room[] rooms) {
+        for (int i = 0; i < rooms.length; i++) {
+            while (rooms[i].getLength() > MAX_SIZE_ROOM || rooms[i].getHeight() > MAX_SIZE_ROOM) {
                 Room roomDivided = divideRoom(rooms[i]);
                 if (roomDivided == null) {
                     continue;
@@ -342,7 +334,7 @@ public class Generator {
         // On ajoute dans la pièce le nombre de blocs défini au dessus
         for (int i = 0; i < numberBlocks; i++) {
             Location location = findPosition(this.random, room);
-            room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock(console, this.random);
+            room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock(app.getConsole(), this.random);
         }
     }
 
@@ -456,7 +448,7 @@ public class Generator {
             }
             Location breakPoint = possibleBreakPoints.remove(random.nextInt(possibleBreakPoints.size()));
             stage.setBlock(breakPoint.getX(), breakPoint.getY(), new Door(stage, wall.getRoomOne().getRoom(), wall.getRoomTwo().getRoom()));
-        } catch (CoordinatesOutOfBoundsException ex) {
+        } catch (CoordinatesOutOfBoundsException ignored) {
         }
     }
 

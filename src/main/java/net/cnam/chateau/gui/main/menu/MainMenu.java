@@ -3,6 +3,8 @@ package net.cnam.chateau.gui.main.menu;
 import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
@@ -18,20 +20,20 @@ public class MainMenu extends CFrame implements DisplayableComponent {
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
 
-    public MainMenu(Console console, AppSettings settings) {
+    public MainMenu(App app) {
         super(new CLabel("Menu principal"), 0, 0);
 
         try {
             this.audioPlayer = new SimpleAudioPlayer(Music.MENU.getFilePath());
-            audioPlayer.setVolume(settings.getMusicVolume());
+            audioPlayer.setVolume(app.getSettings().getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ex) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ignored) {
         }
 
         CChoices choices = new CChoices(new SelectableComponent[]{
-            new PlayButton(console, settings, this),
-            new SettingsButton(console, settings, audioPlayer),
+            new PlayButton(app, this),
+            new SettingsButton(app, audioPlayer),
             new QuitButton(this)
         }, 1);
 
