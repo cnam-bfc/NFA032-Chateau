@@ -7,7 +7,6 @@ import net.cnam.chateau.utils.Location;
 import java.util.Random;
 
 public class Demogorgon extends Enemy {
-
     private static final int MIN_HEALTH = 20;
     private static final int MAX_HEALTH = 40;
     private static final int MIN_RESISTANCE = 2;
@@ -33,11 +32,8 @@ public class Demogorgon extends Enemy {
         super(app, stage, location, name, health, resistance, strength, accuracy, speed);
     }
 
-
     @Override
     public String getCharacter() {
         return "D";
     }
-
-
 }

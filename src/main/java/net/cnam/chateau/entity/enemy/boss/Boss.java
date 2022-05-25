@@ -7,7 +7,6 @@ import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
 public abstract class Boss extends Enemy {
-
     /**
      * Constructeur
      *

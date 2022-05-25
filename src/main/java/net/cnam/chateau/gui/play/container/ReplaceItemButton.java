@@ -6,7 +6,6 @@ import net.cnam.chateau.item.Item;
 import net.cnam.chateau.structure.block.container.Container;
 
 public class ReplaceItemButton extends CButton {
-
     private final ContainerMenu menu;
     private final Player player;
     private final Container block;

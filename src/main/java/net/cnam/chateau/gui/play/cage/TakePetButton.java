@@ -9,7 +9,6 @@ import net.cnam.chateau.structure.block.Cage;
 import net.cnam.chateau.utils.Location;
 
 public class TakePetButton extends CButton {
-
     private final CageMenu menu;
     private final Player player;
     private final Cage cage;

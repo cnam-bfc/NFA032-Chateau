@@ -1,8 +1,5 @@
 package net.cnam.chateau.gui;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.component.CComponent;
@@ -10,13 +7,16 @@ import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.utils.console.RawConsoleInput;
 
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
 // Sources ANSI codes:
 // https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 // https://askubuntu.com/questions/558280/changing-colour-of-text-and-background-of-terminal
 // https://en.wikipedia.org/wiki/ANSI_escape_code
 // https://github.com/htop-dev/htop/blob/d0d9f202c56c1fc8919548418b339d31a6b49c02/CRT.c#L944
 public class Console extends CPanel {
-
     private final AppSettings settings;
 
     public Console(AppSettings settings) {
@@ -65,40 +65,30 @@ public class Console extends CPanel {
                     int input = RawConsoleInput.read(true);
 
                     // Ce bout de code est nécessaire pour interpreter les caractères "spéciaux" sous linux
-                    // Si un caractère d'échappemment est entré
+                    // Si un caractère d'échappement est entré
                     // 91 = [
                     if (input == 27 && RawConsoleInput.read(false) == 91) {
                         switch (RawConsoleInput.read(false)) {
                             // 51 = 3
                             case 51 -> {
-                                switch (RawConsoleInput.read(false)) {
-                                    // 126 = ~
-                                    case 126 -> {
-                                        // 57427 = suppr
-                                        input = 57427;
-                                    }
+                                // 126 = ~
+                                if (RawConsoleInput.read(false) == 126) {
+                                    // 57427 = suppr
+                                    input = 57427;
                                 }
                             }
                             // 65 = A
-                            case 65 -> {
-                                // 57416 = Flèche du haut
-                                input = 57416;
-                            }
+                            case 65 -> // 57416 = Flèche du haut
+                                    input = 57416;
                             // 66 = B
-                            case 66 -> {
-                                // 57424 = Flèche du bas
-                                input = 57424;
-                            }
+                            case 66 -> // 57424 = Flèche du bas
+                                    input = 57424;
                             // 67 = C
-                            case 67 -> {
-                                // 57421 = Flèche de droite
-                                input = 57421;
-                            }
+                            case 67 -> // 57421 = Flèche de droite
+                                    input = 57421;
                             // 68 = D
-                            case 68 -> {
-                                // 57419 = Flèche de gauche
-                                input = 57419;
-                            }
+                            case 68 -> // 57419 = Flèche de gauche
+                                    input = 57419;
                         }
                     }
 
@@ -119,7 +109,7 @@ public class Console extends CPanel {
     // Méthode pour effacer la console
     private void clear() {
         for (int i = 0; i < this.getHeight() - 1; i++) {
-            // On déplace le curseur sur la ligne au dessus
+            // On déplace le curseur sur la ligne au-dessus
             System.out.print("\033[F");
         }
         // On efface le terminal à partir du curseur
@@ -138,7 +128,7 @@ public class Console extends CPanel {
 
         try {
             RawConsoleInput.resetConsoleMode();
-        } catch (IOException ex) {
+        } catch (IOException ignored) {
         }
     }
 }

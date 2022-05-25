@@ -3,7 +3,6 @@ package net.cnam.chateau.gui.component;
 import net.cnam.chateau.gui.CColor;
 
 public class CProgressBar extends CComponent {
-
     private int value;
     private int maxValue;
 

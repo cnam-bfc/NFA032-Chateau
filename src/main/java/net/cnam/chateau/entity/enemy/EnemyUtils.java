@@ -7,7 +7,6 @@ import net.cnam.chateau.utils.Location;
 import java.util.Random;
 
 public class EnemyUtils {
-
     private static final int LUCK_SPECIAL_ENNEMY = 80; // entier à dépasser sur un random entre 1 et 100
 
     public static Enemy getAEnemy(App app, Stage stage, Location location) {

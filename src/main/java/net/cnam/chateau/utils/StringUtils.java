@@ -4,12 +4,11 @@ package net.cnam.chateau.utils;
  * Classe utilitaire permettant de manipuler des chaines de caractères
  */
 public class StringUtils {
-
     /**
-     * Retourne une chaine de caractères centré
+     * Retourne une chaine de caractères centrée
      *
-     * @param input La chaine de caractères initiale
-     * @param spacer Caractère pour remplir la ligne
+     * @param input     La chaine de caractères initiale
+     * @param spacer    Caractère pour remplir la ligne
      * @param minLength Longueur minimale de la chaine retournée
      * @return La chaine de caractère centré
      */
@@ -18,52 +17,52 @@ public class StringUtils {
     }
 
     /**
-     * Retourne une chaine de caractères centré
+     * Retourne une chaine de caractères centrée
      *
-     * @param input La chaine de caractères initiale
-     * @param spacer Caractère pour remplir la ligne
+     * @param input     La chaine de caractères initiale
+     * @param spacer    Caractère pour remplir la ligne
      * @param separator Caractère de chaque côté du texte
      * @param minLength Longueur minimale de la chaine retournée
      * @return La chaine de caractère centré
      */
     public static String centerString(String input, char spacer, char separator, int minLength) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
-        // Longueur du input
+        // Longueur de l'input
         int minimumLength = input.length();
         if (separator != Character.MIN_VALUE) {
-            // + 2 pour les 2 separator (qui doivent êtres retourne obligatoirement)
+            // + 2 pour les 2 separator (qui doivent être retourné obligatoirement)
             minimumLength += 2;
         }
         if (minimumLength > minLength) {
             minLength = minimumLength;
         }
 
-        // Bourage avec des spacer pour qu'il y ai au moins minLength caractères dans la ligne
-        // Longeur à retourner - La longueur du texte (input)
+        // Bourrage avec des spacer pour qu'il y ait au moins minLength caractères dans la ligne
+        // Longueur à retourner - La longueur du texte (input)
         int paddingLength = minLength - input.length();
         if (separator != Character.MIN_VALUE) {
-            // - 2 pour les 2 separator (qui doivent êtres retourne obligatoirement)
+            // - 2 pour les 2 separator (qui doivent être retourné obligatoirement)
             paddingLength -= 2;
         }
         for (int i = 0; i < paddingLength / 2; i++) {
-            result += spacer;
+            result.append(spacer);
         }
 
         if (separator != Character.MIN_VALUE) {
-            result += separator;
+            result.append(separator);
         }
-        result += input;
+        result.append(input);
         if (separator != Character.MIN_VALUE) {
-            result += separator;
+            result.append(separator);
         }
 
-        // Bourage avec des spacer pour qu'il y ai au moins minLength caractères dans la ligne + un si la division de paddingLength à un reste
+        // Bourrage avec des spacer pour qu'il y ait au moins minLength caractères dans la ligne + un si la division de paddingLength à un reste
         for (int i = 0; i < paddingLength / 2 + paddingLength % 2; i++) {
-            result += spacer;
+            result.append(spacer);
         }
 
-        return result;
+        return result.toString();
     }
 
     /**
@@ -85,19 +84,19 @@ public class StringUtils {
      * @return Les chaines de caractère concaténé en une seule chaine
      */
     public static String convertStringArrayToString(String[] table) {
-        String output = "";
+        StringBuilder output = new StringBuilder();
 
         for (int i = 0; i < table.length; i++) {
             String str = table[i];
 
-            output += str;
+            output.append(str);
 
             if (i != table.length - 1) {
-                output += "\n";
+                output.append("\n");
             }
         }
 
-        return output;
+        return output.toString();
     }
 
     /**

@@ -1,21 +1,18 @@
 package net.cnam.chateau.gui.play.menu;
 
-import java.io.IOException;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import net.cnam.chateau.App;
-import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.game.Game;
-import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.component.CTextField;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
-public class OkButton extends CButton {
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
+public class OkButton extends CButton {
     private final App app;
     private final PlayMenu playMenu;
     private final MainMenu mainMenu;

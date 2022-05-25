@@ -5,7 +5,6 @@ package net.cnam.chateau.gui;
 // https://askubuntu.com/questions/558280/changing-colour-of-text-and-background-of-terminal
 // https://en.wikipedia.org/wiki/ANSI_escape_code
 public enum CColor {
-
     RESET(0, 0, 0, 0),
     BOLD(1, 1, 22, 22),
     DIM(2, 2, 22, 22),

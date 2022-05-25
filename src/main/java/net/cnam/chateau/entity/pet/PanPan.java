@@ -1,15 +1,8 @@
 package net.cnam.chateau.entity.pet;
 
-import net.cnam.chateau.entity.Player;
-
 public class PanPan extends Pet {
-
     private boolean power = true;
 
-    public PanPan(Player player) {
-        super(player, "PanPan");
-    }
-    
     public PanPan() {
         super("PanPan");
     }
@@ -21,10 +14,5 @@ public class PanPan extends Pet {
         }
         // TODO détere un objet aléatoire rare
         power = false;
-    }
-
-    @Override
-    public String scream() {
-        return "Knknknkn";
     }
 }

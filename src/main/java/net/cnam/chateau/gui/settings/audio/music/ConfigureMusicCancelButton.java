@@ -5,7 +5,6 @@ import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 public class ConfigureMusicCancelButton extends CButton {
-
     private final ConfigureMusicFrame configureMusicFrame;
     private final AppSettings settings;
     private final SimpleAudioPlayer menuPlayer;
@@ -24,7 +23,7 @@ public class ConfigureMusicCancelButton extends CButton {
 
         try {
             menuPlayer.setVolume(settings.getMusicVolume());
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 }

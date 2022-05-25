@@ -8,7 +8,6 @@ import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
 public class BossMartinez extends Boss {
-
     /**
      * Constructeur
      *

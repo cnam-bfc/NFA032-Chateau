@@ -6,7 +6,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 public class AudioPlayer {
-
     public static float volume = 1f;
 
     public static void play(SoundEffect soundEffect) {

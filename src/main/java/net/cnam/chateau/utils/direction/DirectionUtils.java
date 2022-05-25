@@ -1,7 +1,6 @@
 package net.cnam.chateau.utils.direction;
 
 public class DirectionUtils {
-
     public static Direction parseDirection(int input) throws DirectionNotFoundException {
         switch (input) {
             // 57416 = Flèche haut ; 122 = z ; 90 = Z

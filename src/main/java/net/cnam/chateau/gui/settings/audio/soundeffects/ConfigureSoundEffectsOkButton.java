@@ -5,7 +5,6 @@ import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.component.CGauge;
 
 public class ConfigureSoundEffectsOkButton extends CButton {
-
     private final ConfigureSoundEffectsFrame configureSoundEffectsFrame;
     private final AppSettings settings;
     private final CGauge gauge;

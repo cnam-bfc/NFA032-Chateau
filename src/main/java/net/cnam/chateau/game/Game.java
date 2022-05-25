@@ -8,6 +8,7 @@ import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.generator.Generator;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.structure.Castle;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
@@ -21,19 +22,13 @@ import net.cnam.chateau.utils.direction.DirectionUtils;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.util.Random;
 
 public class Game extends CFrame implements DisplayableComponent {
-
     private final Castle castle;
     private final Map map;
     private final Player player;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
-
-    public Game(App app) {
-        this(app, new Random().nextLong());
-    }
 
     public Game(App app, long seed) {
         super(0, 0);
@@ -50,7 +45,10 @@ public class Game extends CFrame implements DisplayableComponent {
 
         this.getContentPane().getComponents().add(map);
 
-        this.setTitle(new CLabel("Jeu\n(seed: " + this.castle.getSeed() + ")"));
+        CLabel title = new CLabel("Jeu\n(seed: " + this.castle.getSeed() + ")");
+        CPanel header = new CPanel(0, title.getHeight());
+        header.getComponents().add(title);
+        this.setHeader(header);
 
         try {
             this.audioPlayer = new SimpleAudioPlayer(Music.GAME.getFilePath());
@@ -64,10 +62,10 @@ public class Game extends CFrame implements DisplayableComponent {
 
     @Override
     public void onKeyPressed(KeyPressedEvent event) {
-        // On transmet la touche appuyé aux composants dans cette fenêtre
+        // On transmet la touche appuyée aux composants dans cette fenêtre
         super.onKeyPressed(event);
 
-        // On déplace le joueur vers la direction souhaité
+        // On déplace le joueur vers la direction souhaitée
         try {
             Direction direction = DirectionUtils.parseDirection(event.getKey());
             int x = player.getLocation().getX();
@@ -79,7 +77,8 @@ public class Game extends CFrame implements DisplayableComponent {
                 case LEFT -> x--;
             }
             player.teleport(new Location(x, y));
-        } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ignored) {
+        } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException |
+                 EntityAlreadyTeleportedException ignored) {
         }
     }
 
@@ -104,19 +103,14 @@ public class Game extends CFrame implements DisplayableComponent {
     public void setHeight(int height) {
         super.setHeight(height);
 
-        int mapHeight = height - 2;
-        if (this.getTitle() != null) {
-            mapHeight -= this.getTitle().getHeight();
-            mapHeight--;
-        }
-        this.map.setHeight(mapHeight);
+        this.map.setHeight(this.getContentPane().getHeight());
     }
 
     @Override
     public void setLength(int length) {
         super.setLength(length);
 
-        this.map.setLength(length - 2);
+        this.map.setLength(this.getContentPane().getLength());
     }
 
     public Castle getCastle() {

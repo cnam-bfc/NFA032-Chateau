@@ -6,7 +6,6 @@ import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.structure.block.Cage;
 
 public class DropPetButton extends CButton {
-
     private final CageMenu menu;
     private final Player player;
     private final Cage cage;

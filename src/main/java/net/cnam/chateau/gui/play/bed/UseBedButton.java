@@ -1,15 +1,15 @@
 package net.cnam.chateau.gui.play.bed;
 
-import java.util.Random;
+import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.structure.block.decorative.Bed;
-import net.cnam.chateau.entity.Player;
+
+import java.util.Random;
 
 public class UseBedButton extends CButton {
-
     private final BedMenu menu;
     private final Bed bed;
-    Player player;
+    private final Player player;
 
     public UseBedButton(BedMenu menu, Bed bed, Player player) {
         super("Dormir");
@@ -22,13 +22,13 @@ public class UseBedButton extends CButton {
     /**
      * Méthode permettant d'utiliser un lit pour restaurer de la vie. Le lit est
      * utilisable une seule fois. S'il est déjà utilisé rien ne se passe S'il
-     * n'a pas était utilisé passe la variable used (booleenne) à true et
+     * n'a pas était utilisé passe la variable used (booléenne) à true et
      * restaure de la vie au joueur
      */
     @Override
     public void execute() {
         bed.setUsed(true);
-        player.health(new Random().nextInt(5, 16));
+        player.heal(new Random().nextInt(5, 16));
         this.menu.stopDisplay();
     }
 }

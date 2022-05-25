@@ -1,18 +1,10 @@
 package net.cnam.chateau;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import net.cnam.chateau.audio.AudioPlayer;
 
-public class AppSettings {
+import java.io.*;
 
+public class AppSettings {
     public static final int CONSOLE_MIN_LENGTH = 80;
     public static final int CONSOLE_MIN_HEIGHT = 25;
     public static final String DEFAULT_FILE_PATH = "settings.dat";

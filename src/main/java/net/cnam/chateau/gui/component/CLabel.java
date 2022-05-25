@@ -1,12 +1,12 @@
 package net.cnam.chateau.gui.component;
 
-import java.util.LinkedList;
-import java.util.List;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.utils.StringUtils;
 
-public class CLabel extends CComponent {
+import java.util.LinkedList;
+import java.util.List;
 
+public class CLabel extends CComponent {
     private final List<CColor> colors = new LinkedList<>();
     private String[] textLines;
 
@@ -61,13 +61,13 @@ public class CLabel extends CComponent {
     }
 
     private static String[] formatLines(String[] lines, int length) {
-        List<String> linesFormated = new LinkedList<>();
+        List<String> linesFormatted = new LinkedList<>();
 
         for (String line : lines) {
             boolean first = true;
             while (line.length() > length) {
                 first = false;
-                linesFormated.add(line.substring(0, length));
+                linesFormatted.add(line.substring(0, length));
                 line = line.substring(length);
             }
 
@@ -75,11 +75,11 @@ public class CLabel extends CComponent {
                 if (!first) {
                     line = line + " ".repeat(length - line.length());
                 }
-                linesFormated.add(line);
+                linesFormatted.add(line);
             }
         }
 
-        return linesFormated.toArray(String[]::new);
+        return linesFormatted.toArray(String[]::new);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class CLabel extends CComponent {
         int linePointer = 0;
         String emptyLine = " ".repeat(this.getLength());
 
-        // Lignes de la console - lignes de texte au millieu
+        // Lignes de la console - lignes de texte au milieu
         int paddingHeight = this.getHeight() - textLines.length;
         for (int i = 0; i < paddingHeight / 2; i++) {
             result[linePointer++] = emptyLine;
@@ -104,15 +104,9 @@ public class CLabel extends CComponent {
                 textLine = textLine.substring(0, length);
             } else if (lineLength < this.getLength()) {
                 switch (this.getHorizontalAlignment()) {
-                    case LEFT -> {
-                        textLine += " ".repeat(length - textLine.length());
-                    }
-                    case CENTER -> {
-                        textLine = StringUtils.centerString(textLine, ' ', length);
-                    }
-                    case RIGHT -> {
-                        textLine = " ".repeat(length - textLine.length()) + textLine;
-                    }
+                    case LEFT -> textLine += " ".repeat(length - textLine.length());
+                    case CENTER -> textLine = StringUtils.centerString(textLine, ' ', length);
+                    case RIGHT -> textLine = " ".repeat(length - textLine.length()) + textLine;
                 }
             }
 
@@ -123,7 +117,7 @@ public class CLabel extends CComponent {
             }
         }
 
-        // Bourage à la fin
+        // Bourrage à la fin
         for (; linePointer < result.length; linePointer++) {
             result[linePointer] = emptyLine;
         }

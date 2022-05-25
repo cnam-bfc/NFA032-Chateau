@@ -1,15 +1,14 @@
 package net.cnam.chateau.gui.component;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import net.cnam.chateau.event.key.KeyListener;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.utils.direction.Orientation;
 
-public class CPanel extends CComponent implements KeyListener {
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
+public class CPanel extends CComponent implements KeyListener {
     private final List<CComponent> components = new LinkedList<>();
 
     private Orientation renderOrientation;
@@ -49,7 +48,7 @@ public class CPanel extends CComponent implements KeyListener {
                 }
                 this.setHeight(height);
 
-                // Calcul de la longeur
+                // Calcul de la longueur
                 int length = 0;
                 for (CComponent component : components) {
                     if (component.getLength() > length) {
@@ -62,7 +61,7 @@ public class CPanel extends CComponent implements KeyListener {
                 // Calcul de la hauteur
                 this.setHeight(1);
 
-                // Calcul de la longeur
+                // Calcul de la longueur
                 int length = 0;
                 for (CComponent component : components) {
                     length += component.getLength();
@@ -89,7 +88,7 @@ public class CPanel extends CComponent implements KeyListener {
                     contentLines += component.getHeight();
                 }
 
-                // Lignes du panel - lignes de texte au millieu
+                // Lignes du panel - lignes de texte au milieu
                 int paddingHeight = this.getHeight() - contentLines;
                 int paddingNb = this.getComponents().size() - 1;
                 if (renderMainPadding) {
@@ -102,7 +101,7 @@ public class CPanel extends CComponent implements KeyListener {
                     CComponent component = componentsIterator.next();
 
                     // Espace de padding
-                    // + 1 pour le padding automatique (bourage) de fin
+                    // + 1 pour le padding automatique (bourrage) de fin
                     if (i != 0 || renderMainPadding) {
                         for (int j = 0; j < paddingHeight / paddingNb; j++) {
                             result[linePointer++] = emptyLine;
@@ -147,18 +146,17 @@ public class CPanel extends CComponent implements KeyListener {
                     paddingNb += 2;
                 }
 
-                String line = "";
+                StringBuilder line = new StringBuilder();
                 int lineLength = 0;
                 Iterator<CComponent> componentIterator = this.getComponents().iterator();
-                mainLoop:
                 for (int i = 0; componentIterator.hasNext(); i++) {
                     CComponent component = componentIterator.next();
 
                     // Espace de padding
-                    // + 1 pour le padding automatique (bourage) de fin
+                    // + 1 pour le padding automatique (bourrage) de fin
                     if (i != 0 || renderMainPadding) {
                         for (int j = 0; j < paddingLength / paddingNb; j++) {
-                            line += ' ';
+                            line.append(' ');
                             lineLength++;
                         }
                     }
@@ -168,16 +166,16 @@ public class CPanel extends CComponent implements KeyListener {
                         continue;
                     }
                     lineLength += component.getLength();
-                    line += component.render()[0];
+                    line.append(component.render()[0]);
                 }
                 for (; lineLength < this.getLength(); lineLength++) {
-                    line += ' ';
+                    line.append(' ');
                 }
-                result[linePointer++] = line;
+                result[linePointer++] = line.toString();
             }
         }
 
-        // Bourage à la fin
+        // Bourrage à la fin
         for (; linePointer < result.length; linePointer++) {
             result[linePointer] = emptyLine;
         }

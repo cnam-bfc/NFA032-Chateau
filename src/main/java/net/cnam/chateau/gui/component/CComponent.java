@@ -3,7 +3,6 @@ package net.cnam.chateau.gui.component;
 import net.cnam.chateau.utils.StringUtils;
 
 public abstract class CComponent {
-
     private HorizontalAlignment horizontalAlignment;
     private int length;
     private int height;
@@ -22,11 +21,6 @@ public abstract class CComponent {
 
     public void setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
         this.horizontalAlignment = horizontalAlignment;
-    }
-
-    public void setSize(int length, int height) {
-        this.setLength(length);
-        this.setHeight(height);
     }
 
     public int getLength() {

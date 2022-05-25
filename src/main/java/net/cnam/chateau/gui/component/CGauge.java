@@ -9,7 +9,6 @@ import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class CGauge extends CFrame implements SelectableComponent, KeyListener {
-
     private final CLabel label;
     private final CProgressBar progressBar;
     private boolean selected = true;

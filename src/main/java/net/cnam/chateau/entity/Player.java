@@ -1,18 +1,17 @@
 package net.cnam.chateau.entity;
 
-import net.cnam.chateau.entity.pet.*;
+import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
-import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.Stage;
+import net.cnam.chateau.utils.Location;
 
 /**
  * Classe d'un joueur
  */
 public class Player extends Entity {
-
     private final Game game;
 
     private Pet pet;
@@ -31,9 +30,6 @@ public class Player extends Entity {
         this.game = game;
 
         this.setRenderPriority(0);
-
-        // TODO Temporaire à retirer par la suite
-        // pet = new PepeLoiseau(this);
     }
 
     @Override

@@ -14,5 +14,6 @@ public class UseItemButton extends CButton {
 
     @Override
     public void execute() {
+        // TODO Use item in fight
     }
 }

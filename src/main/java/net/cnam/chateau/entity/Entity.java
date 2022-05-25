@@ -1,13 +1,10 @@
 package net.cnam.chateau.entity;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import net.cnam.chateau.DisplayableObject;
 import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
-import net.cnam.chateau.event.entity.EntityApprochEvent;
+import net.cnam.chateau.event.entity.EntityApproachEvent;
 import net.cnam.chateau.event.entity.EntityListener;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.item.Item;
@@ -18,11 +15,13 @@ import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Stair;
 import net.cnam.chateau.utils.Location;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Classe d'une entité
  */
 public abstract class Entity implements DisplayableObject {
-
     private static final int DEFAULT_HEALTH = 100;
     private static final int DEFAULT_RESISTANCE = 50;
     private static final int DEFAULT_STRENGTH = 15;
@@ -45,17 +44,17 @@ public abstract class Entity implements DisplayableObject {
     /**
      * Constructeur
      *
-     * @param stage L'étage où elle se situe
-     * @param location Coordonnées où elle se situe
-     * @param name Le nom
-     * @param health La santé
+     * @param stage      L'étage où elle se situe
+     * @param location   Coordonnées où elle se situe
+     * @param name       Le nom
+     * @param health     La santé
      * @param resistance La résistance
-     * @param strength La force
-     * @param accuracy La précision
-     * @param speed La rapidité
+     * @param strength   La force
+     * @param accuracy   La précision
+     * @param speed      La rapidité
      */
     public Entity(Stage stage, Location location, String name, int health, int resistance, int strength, int accuracy,
-            int speed) {
+                  int speed) {
         this(stage, location, name);
 
         this.health = health;
@@ -68,9 +67,9 @@ public abstract class Entity implements DisplayableObject {
     /**
      * Constructeur
      *
-     * @param stage L'étage où se situe l'entité
+     * @param stage    L'étage où se situe l'entité
      * @param location Coordonnées de l'entité
-     * @param name Le nom de l'entité
+     * @param name     Le nom de l'entité
      */
     public Entity(Stage stage, Location location, String name) {
         this.stage = stage;
@@ -82,10 +81,8 @@ public abstract class Entity implements DisplayableObject {
      * Méthode permettant de téléporter l'entité à des coordonées précises.
      *
      * @param location Les coordonnées de destination
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
-     * Exception levé si l'entité veut être téléporté hors de l'étage
-     * @throws net.cnam.chateau.entity.EntityAlreadyTeleportedException
-     * Exception levé si l'entité à déjà été téléporté
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception levé si l'entité veut être téléporté hors de l'étage
+     * @throws net.cnam.chateau.entity.EntityAlreadyTeleportedException   Exception levé si l'entité à déjà été téléporté
      */
     public void teleport(Location location) throws CoordinatesOutOfBoundsException, EntityAlreadyTeleportedException {
         teleport(stage, location);
@@ -95,12 +92,10 @@ public abstract class Entity implements DisplayableObject {
      * Méthode permettant de téléporter l'entité dans un étage à des coordonées
      * précises.
      *
-     * @param stage L'étage de destination
+     * @param stage    L'étage de destination
      * @param location Les coordonnées de destination
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
-     * Exception levé si l'entité veut être téléporté hors de l'étage
-     * @throws net.cnam.chateau.entity.EntityAlreadyTeleportedException
-     * Exception levé si l'entité à déjà été téléporté
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception levé si l'entité veut être téléporté hors de l'étage
+     * @throws net.cnam.chateau.entity.EntityAlreadyTeleportedException   Exception levé si l'entité à déjà été téléporté
      */
     public void teleport(Stage stage, Location location)
             throws CoordinatesOutOfBoundsException, EntityAlreadyTeleportedException {
@@ -126,12 +121,12 @@ public abstract class Entity implements DisplayableObject {
         }
 
         // On notifie les entités aux alentours que l'entité à été déplacé
-        EntityApprochEvent entityApprochEvent = new EntityApprochEvent(this);
+        EntityApproachEvent entityApproachEvent = new EntityApproachEvent(this);
         for (Entity entity : nearbyEntities) {
             if (entity instanceof EntityListener listener) {
-                listener.onEntityApprochEvent(entityApprochEvent);
+                listener.onEntityApproachEvent(entityApproachEvent);
 
-                if (entityApprochEvent.isCanceled()) {
+                if (entityApproachEvent.isCanceled()) {
                     return;
                 }
             }
@@ -207,10 +202,10 @@ public abstract class Entity implements DisplayableObject {
 
     /**
      * Méthode permettant de soigner une entité.
-     * 
+     *
      * @param health entier, point de vie supplémentaire
      */
-    public void health(int health) {
+    public void heal(int health) {
         if (health < 0) {
             return;
         }
@@ -232,7 +227,7 @@ public abstract class Entity implements DisplayableObject {
 
     /**
      * Méthode permettant de savoir si l'entitié est morte.
-     * 
+     *
      * @return Vrai si l'entité est morte, faux sinonw
      */
     public boolean isDead() {
@@ -286,7 +281,7 @@ public abstract class Entity implements DisplayableObject {
 
     /**
      * Méthode qui permet de récupérer l'arme de l'entité.
-     *
+     * <p>
      * Retourne null si l'entité ne possède pas d'arme, null est équivalent aux
      * mains nues
      *
@@ -298,7 +293,7 @@ public abstract class Entity implements DisplayableObject {
 
     /**
      * Méthode qui permet de définir l'arme possédé par l'entité.
-     *
+     * <p>
      * null est équivalent aux mains nues
      *
      * @param weapon la nouvelle arme

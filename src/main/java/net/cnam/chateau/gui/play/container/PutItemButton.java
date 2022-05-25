@@ -5,7 +5,6 @@ import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.structure.block.container.Container;
 
 public class PutItemButton extends CButton {
-
     private final ContainerMenu menu;
     private final Player player;
     private final Container block;

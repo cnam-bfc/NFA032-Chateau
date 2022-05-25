@@ -1,16 +1,14 @@
 package net.cnam.chateau.gui.settings.menu;
 
-import java.io.File;
-import java.io.IOException;
-
 import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
-import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 
-public class SaveButton extends CButton {
+import java.io.File;
+import java.io.IOException;
 
+public class SaveButton extends CButton {
     private final App app;
     private final SettingsMenu settingsMenu;
 

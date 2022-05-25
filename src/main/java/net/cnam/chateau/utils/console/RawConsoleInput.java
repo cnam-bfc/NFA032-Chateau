@@ -1,6 +1,8 @@
 package net.cnam.chateau.utils.console;
 
-import java.io.InputStream;
+import com.sun.jna.*;
+import com.sun.jna.ptr.IntByReference;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -9,19 +11,13 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
 import java.util.Arrays;
 import java.util.List;
-import com.sun.jna.LastErrorException;
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import com.sun.jna.Structure;
-import com.sun.jna.Pointer;
-import com.sun.jna.ptr.IntByReference;
 
 /**
  * RawConsoleInput is a class to read a character from the console without
  * any echo or special character handling.
- * 
- * Source: https://www.source-code.biz/snippets/java/RawConsoleInput/
- * 
+ * <p>
+ * Source: <a href="https://www.source-code.biz/snippets/java/RawConsoleInput/">URL</a>
+ *
  * @author Christian d'Heureuse
  */
 public class RawConsoleInput {
@@ -37,15 +33,13 @@ public class RawConsoleInput {
      * Reads a character from the console without echo.
      * System.exit(0) is called if the user presses the Ctrl+C key.
      *
-     * @param wait
-     *             <code>true</code> to wait until an input character is available,
+     * @param wait <code>true</code> to wait until an input character is available,
      *             <code>false</code> to return immediately if no character is
      *             available.
-     * @return
-     *         -2 if <code>wait</code> is <code>false</code> and no character is
-     *         available.
-     *         -1 on EOF.
-     *         Otherwise an Unicode character code within the range 0 to 0xFFFF.
+     * @return -2 if <code>wait</code> is <code>false</code> and no character is
+     * available.
+     * -1 on EOF.
+     * Otherwise an Unicode character code within the range 0 to 0xFFFF.
      */
     public static int read(boolean wait) throws IOException {
         int key;
@@ -80,17 +74,13 @@ public class RawConsoleInput {
     }
 
     private static void registerShutdownHook() {
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                shutdownHook();
-            }
-        });
+        Runtime.getRuntime().addShutdownHook(new Thread(RawConsoleInput::shutdownHook));
     }
 
     private static void shutdownHook() {
         try {
             resetConsoleMode();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -115,7 +105,7 @@ public class RawConsoleInput {
         }
         consoleModeAltered = true;
         setConsoleMode(consoleHandle, originalConsoleMode & ~Kernel32Defs.ENABLE_PROCESSED_INPUT);
-        // ENABLE_PROCESSED_INPUT must remain off to prevent Ctrl-C from beeing
+        // ENABLE_PROCESSED_INPUT must remain off to prevent Ctrl-C from being
         // processed by the system
         // while the program is not within getwch().
         if (!wait && msvcrt._kbhit() == 0) {
@@ -139,7 +129,7 @@ public class RawConsoleInput {
         return c;
     } // normal key
 
-    private static synchronized void initWindows() throws IOException {
+    private static synchronized void initWindows() {
         if (initDone) {
             return;
         }
@@ -190,7 +180,7 @@ public class RawConsoleInput {
         consoleModeAltered = false;
     }
 
-    private static interface Msvcrt extends Library {
+    private interface Msvcrt extends Library {
         int _kbhit();
 
         int _getwch();
@@ -207,7 +197,7 @@ public class RawConsoleInput {
         static final int ENABLE_WINDOW_INPUT = 0x0008;
     }
 
-    private static interface Kernel32 extends Library {
+    private interface Kernel32 extends Library {
         int GetConsoleMode(Pointer hConsoleHandle, IntByReference lpMode);
 
         int SetConsoleMode(Pointer hConsoleHandle, int dwMode);
@@ -234,24 +224,24 @@ public class RawConsoleInput {
     private static int readUnix(boolean wait) throws IOException {
         initUnix();
         if (!stdinIsConsole) { // STDIN is not a console
-            return readSingleCharFromByteStream(System.in);
+            return readSingleCharFromByteStream();
         }
         consoleModeAltered = true;
-        setTerminalAttrs(stdinFd, rawTermios); // switch off canonical mode, echo and signals
+        setTerminalAttrs(rawTermios); // switch off canonical mode, echo and signals
         try {
             if (!wait && System.in.available() == 0) {
                 return -2;
             } // no input available
-            return readSingleCharFromByteStream(System.in);
+            return readSingleCharFromByteStream();
         } finally {
-            setTerminalAttrs(stdinFd, intermediateTermios);
+            setTerminalAttrs(intermediateTermios);
         }
     } // reset some console attributes
 
-    private static Termios getTerminalAttrs(int fd) throws IOException {
+    private static Termios getTerminalAttrs() throws IOException {
         Termios termios = new Termios();
         try {
-            int rc = libc.tcgetattr(fd, termios);
+            int rc = libc.tcgetattr(RawConsoleInput.stdinFd, termios);
             if (rc != 0) {
                 throw new RuntimeException("tcgetattr() failed.");
             }
@@ -261,9 +251,9 @@ public class RawConsoleInput {
         return termios;
     }
 
-    private static void setTerminalAttrs(int fd, Termios termios) throws IOException {
+    private static void setTerminalAttrs(Termios termios) throws IOException {
         try {
-            int rc = libc.tcsetattr(fd, LibcDefs.TCSANOW, termios);
+            int rc = libc.tcsetattr(RawConsoleInput.stdinFd, LibcDefs.TCSANOW, termios);
             if (rc != 0) {
                 throw new RuntimeException("tcsetattr() failed.");
             }
@@ -272,14 +262,14 @@ public class RawConsoleInput {
         }
     }
 
-    private static int readSingleCharFromByteStream(InputStream inputStream) throws IOException {
+    private static int readSingleCharFromByteStream() throws IOException {
         byte[] inBuf = new byte[4];
         int inLen = 0;
         while (true) {
             if (inLen >= inBuf.length) { // input buffer overflow
                 return invalidKey;
             }
-            int b = inputStream.read(); // read next byte
+            int b = System.in.read(); // read next byte
             if (b == -1) { // EOF
                 return -1;
             }
@@ -314,7 +304,7 @@ public class RawConsoleInput {
         stdinIsConsole = libc.isatty(stdinFd) == 1;
         charsetDecoder = Charset.defaultCharset().newDecoder();
         if (stdinIsConsole) {
-            originalTermios = getTerminalAttrs(stdinFd);
+            originalTermios = getTerminalAttrs();
             rawTermios = new Termios(originalTermios);
             rawTermios.c_lflag &= ~(LibcDefs.ICANON | LibcDefs.ECHO | LibcDefs.ECHONL | LibcDefs.ISIG);
             intermediateTermios = new Termios(rawTermios);
@@ -330,7 +320,7 @@ public class RawConsoleInput {
         if (!initDone || !stdinIsConsole || !consoleModeAltered) {
             return;
         }
-        setTerminalAttrs(stdinFd, originalTermios);
+        setTerminalAttrs(originalTermios);
         consoleModeAltered = false;
     }
 
@@ -369,7 +359,7 @@ public class RawConsoleInput {
         static final int TCSANOW = 0;
     }
 
-    private static interface Libc extends Library {
+    private interface Libc extends Library {
         // termios.h
         int tcgetattr(int fd, Termios termios) throws LastErrorException;
 

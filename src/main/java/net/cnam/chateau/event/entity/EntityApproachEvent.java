@@ -3,13 +3,12 @@ package net.cnam.chateau.event.entity;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.event.CancelableEvent;
 
-public class EntityApprochEvent implements CancelableEvent {
-
+public class EntityApproachEvent implements CancelableEvent {
     private final Entity entity;
 
     private boolean cancel = false;
 
-    public EntityApprochEvent(Entity entity) {
+    public EntityApproachEvent(Entity entity) {
         this.entity = entity;
     }
 

@@ -7,7 +7,6 @@ package net.cnam.chateau.utils;
  * @param <B> Type de B
  */
 public class Couple<A, B> {
-
     private A ElemOne;
     private B ElemTwo;
 

@@ -1,13 +1,12 @@
 package net.cnam.chateau.entity.enemy;
 
-import java.util.Random;
-
 import net.cnam.chateau.App;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
-public class Werewolf extends Enemy {
+import java.util.Random;
 
+public class Werewolf extends Enemy {
     private static final int MIN_HEALTH = 20;
     private static final int MAX_HEALTH = 40;
     private static final int MIN_RESISTANCE = 2;
@@ -29,15 +28,12 @@ public class Werewolf extends Enemy {
     }
 
     public Werewolf(App app, Stage stage, Location location, String name, int health, int resistance,
-                  int strength, int accuracy, int speed) {
+                    int strength, int accuracy, int speed) {
         super(app, stage, location, name, health, resistance, strength, accuracy, speed);
     }
-
-
 
     @Override
     public String getCharacter() {
         return "W";
     }
-
 }

@@ -1,18 +1,13 @@
 package net.cnam.chateau.gui.play.fight;
 
-import java.io.IOException;
-import java.util.Random;
-
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
-import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.utils.array.ArrayUtils;
@@ -20,9 +15,10 @@ import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.util.Random;
 
 public class Fight extends CFrame implements DisplayableComponent {
-
     private static final int ACCURACY = 20;
 
     private final Player player;
@@ -33,7 +29,7 @@ public class Fight extends CFrame implements DisplayableComponent {
     private boolean over = false;
 
     public Fight(AppSettings settings, Player player, Enemy enemy) {
-        super(new CLabel("Combat avec " + enemy.getName()), 0, 0);
+        super(0, 0, "Combat avec " + enemy.getName());
 
         this.player = player;
         this.enemy = enemy;
@@ -43,24 +39,11 @@ public class Fight extends CFrame implements DisplayableComponent {
             audioPlayer.setVolume(settings.getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ignored) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
+                 IllegalArgumentException ignored) {
         }
 
         chooseAction();
-    }
-
-    @Override
-    public void onKeyPressed(KeyPressedEvent event) {
-        int key = event.getKey();
-
-        // TODO Enlever ça, temporaire
-        if (key == 13 || key == 10) {
-            stop();
-            return;
-        }
-
-        // On transmet la touche appuyé aux composants dans cette fenêtre
-        super.onKeyPressed(event);
     }
 
     @Override
@@ -83,11 +66,11 @@ public class Fight extends CFrame implements DisplayableComponent {
     public void chooseAction() {
         this.getContentPane().getComponents().clear();
 
-        SelectableComponent[] components = new SelectableComponent[] { new AttackButton() };
+        SelectableComponent[] components = new SelectableComponent[]{new AttackButton(this)};
         if (player.haveItem()) {
             components = ArrayUtils.addOnBottomOfArray(components, new UseItemButton(player.getItem()));
         }
-        components = ArrayUtils.addOnBottomOfArray(components, new RunAwayButton());
+        components = ArrayUtils.addOnBottomOfArray(components, new RunAwayButton(this));
 
         CChoices choices = new CChoices(components, 1);
 
@@ -131,7 +114,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                     } else {
                         try {
                             player.getPet().damage(enemyStrength);
-                        } catch (EntityDeadException e) {
+                        } catch (EntityDeadException ignored) {
                         }
                     }
                 }
@@ -140,8 +123,8 @@ public class Fight extends CFrame implements DisplayableComponent {
                     enemy.damage(petStrength);
                 }
             }
-            return; // return car on sait jamais si on met des malus faut pas plusieurs attack /
-                    // round
+            return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack /
+            // round
         }
 
         // SI l'ennemie joueur est le premier à attaquer
@@ -152,7 +135,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                 } else {
                     try {
                         player.getPet().damage(enemyStrength);
-                    } catch (EntityDeadException e) {
+                    } catch (EntityDeadException ignored) {
                     }
                 }
             }
@@ -165,8 +148,8 @@ public class Fight extends CFrame implements DisplayableComponent {
                     enemy.damage(petStrength);
                 }
             }
-            return; // return car on sait jamais si on met des malus faut pas plusieurs attack /
-                    // round
+            return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack /
+            // round
         }
 
         // SI le pet est le premier à attaquer
@@ -182,13 +165,13 @@ public class Fight extends CFrame implements DisplayableComponent {
                     } else {
                         try {
                             player.getPet().damage(enemyStrength);
-                        } catch (EntityDeadException e) {
+                        } catch (EntityDeadException ignored) {
                         }
                     }
                 }
             }
-            return; // return car on sait jamais si on met des malus faut pas plusieurs attack /
-                    // round
+            return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack /
+            // round
         }
     }
 

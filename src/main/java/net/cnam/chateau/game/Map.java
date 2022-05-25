@@ -7,12 +7,11 @@ import net.cnam.chateau.gui.component.HorizontalAlignment;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
-import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Wall;
+import net.cnam.chateau.utils.Location;
 
 public class Map extends CComponent {
-
     private final Player player;
     private Location origin;
     private Stage previousRenderedStage;
@@ -96,10 +95,10 @@ public class Map extends CComponent {
         int paddingLength = this.getLength() - playerStage.getLength() * 2 - 1;
 
         for (int y = origin.getY(); y < playerStage.getHeight(); y++) {
-            String line = "";
+            StringBuilder line = new StringBuilder();
             int lineLength = 0;
             for (; lineLength < paddingLength / 2; lineLength++) {
-                line += ' ';
+                line.append(' ');
             }
             for (int x = origin.getX(); x < playerStage.getLength(); x++) {
                 if (lineLength + 2 > this.getLength()) {
@@ -127,29 +126,29 @@ public class Map extends CComponent {
                     }
                     if (x != 0) {
                         if (block instanceof Wall wall) {
-                            line += wall.getCharacter();
+                            line.append(wall.getCharacter());
                         } else if (playerStage.getBlock(x - 1, y) instanceof Wall wall) {
-                            line += wall.getCharacter();
+                            line.append(wall.getCharacter());
                         } else {
-                            line += ' ';
+                            line.append(' ');
                         }
                     }
                     if (entity != null) {
-                        line += entity.getCharacter();
+                        line.append(entity.getCharacter());
                     } else if (block != null) {
-                        line += block.getCharacter();
+                        line.append(block.getCharacter());
                     } else {
-                        line += ' ';
+                        line.append(' ');
                     }
                 } catch (CoordinatesOutOfBoundsException ex) {
                     break;
                 }
             }
             for (; lineLength < this.getLength(); lineLength++) {
-                line += ' ';
+                line.append(' ');
             }
             if (linePointer < result.length) {
-                result[linePointer++] = line;
+                result[linePointer++] = line.toString();
             } else {
                 break;
             }

@@ -1,7 +1,5 @@
 package net.cnam.chateau;
 
-import java.io.File;
-import java.io.IOException;
 import net.cnam.chateau.entity.Sage;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.entity.pet.Pet;
@@ -10,8 +8,10 @@ import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 
-public class App {
+import java.io.File;
+import java.io.IOException;
 
+public class App {
     private final AppSettings settings;
     private final Console console;
     private Game currentGame;

@@ -4,7 +4,6 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.event.CancelableEvent;
 
 public class EntityEnterBlockEvent extends BlockEvent implements CancelableEvent {
-
     private boolean cancel = false;
 
     public EntityEnterBlockEvent(Entity entity) {

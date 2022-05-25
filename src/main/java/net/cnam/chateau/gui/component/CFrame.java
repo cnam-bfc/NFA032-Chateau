@@ -2,36 +2,30 @@ package net.cnam.chateau.gui.component;
 
 import net.cnam.chateau.event.key.KeyListener;
 import net.cnam.chateau.event.key.KeyPressedEvent;
+import net.cnam.chateau.utils.StringUtils;
 
 // ┌┐└┘├┤─│┴┯
 public class CFrame extends CComponent implements KeyListener {
-
-    private CLabel title;
+    private CPanel header;
     private CPanel contentPane;
+    private CLabel footer;
 
     public CFrame(int length, int height) {
-        this(HorizontalAlignment.CENTER, length, height);
+        super(null, length, height);
+
+        this.contentPane = new CPanel(0, 0);
+
+        autoResize();
     }
 
-    public CFrame(HorizontalAlignment horizontalAlignment, int length, int height) {
-        this(horizontalAlignment, null, length, height);
-    }
+    public CFrame(int length, int height, String title) {
+        this(length, height);
 
-    public CFrame(CLabel title, int length, int height) {
-        this(HorizontalAlignment.CENTER, title, length, height);
-    }
+        String[] titleLines = StringUtils.convertStringToStringArray(title);
+        CPanel header = new CPanel(0, titleLines.length);
+        header.getComponents().add(new CLabel(titleLines));
 
-    public CFrame(HorizontalAlignment horizontalAlignment, CLabel title, int length, int height) {
-        super(horizontalAlignment, length, height);
-
-        this.title = title;
-        int panelHeight = height - 2;
-        if (title != null) {
-            this.title.setLength(length);
-            panelHeight -= title.getHeight();
-            panelHeight--;
-        }
-        this.contentPane = new CPanel(length - 2, panelHeight);
+        setHeader(header);
     }
 
     @Override
@@ -40,20 +34,30 @@ public class CFrame extends CComponent implements KeyListener {
         int linePointer = 0;
 
         linePointer = renderAddLine(result, linePointer, '┌' + "─".repeat(this.getLength() - 2) + '┐');
-        if (title != null) {
-            String[] titleRender = title.render();
-            for (int i = 0; i < title.getHeight(); i++) {
-                if (i < titleRender.length) {
-                    linePointer = renderAddLine(result, linePointer, '│' + titleRender[i] + '│');
-                } else {
-                    linePointer = renderAddLine(result, linePointer, '│' + " ".repeat(this.getLength() - 2) + '│');
-                }
+
+        // Header
+        if (this.header != null && this.header.getHeight() > 0) {
+            String[] headerRender = this.header.render();
+            for (String line : headerRender) {
+                linePointer = renderAddLine(result, linePointer, '│' + line + '│');
             }
             linePointer = renderAddLine(result, linePointer, '├' + "─".repeat(this.getLength() - 2) + '┤');
         }
-        for (String str : contentPane.render()) {
-            linePointer = renderAddLine(result, linePointer, '│' + str + '│');
+
+        // Content
+        for (String line : contentPane.render()) {
+            linePointer = renderAddLine(result, linePointer, '│' + line + '│');
         }
+
+        // Footer
+        if (this.footer != null && this.footer.getHeight() > 0) {
+            linePointer = renderAddLine(result, linePointer, '├' + "─".repeat(this.getLength() - 2) + '┤');
+            String[] footerRender = this.footer.render();
+            for (String line : footerRender) {
+                linePointer = renderAddLine(result, linePointer, '│' + line + '│');
+            }
+        }
+
         renderAddLine(result, linePointer, '└' + "─".repeat(this.getLength() - 2) + '┘');
 
         return result;
@@ -73,23 +77,14 @@ public class CFrame extends CComponent implements KeyListener {
         this.contentPane.onKeyPressed(event);
     }
 
-    public boolean hasTitle() {
-        return title != null;
+    public CPanel getHeader() {
+        return header;
     }
 
-    public CLabel getTitle() {
-        return title;
-    }
+    public void setHeader(CPanel header) {
+        this.header = header;
 
-    public void setTitle(CLabel title) {
-        this.title = title;
-        int panelHeight = this.getHeight() - 2;
-        if (this.title != null) {
-            this.title.setLength(this.getLength() - 2);
-            panelHeight -= this.title.getHeight();
-            panelHeight--;
-        }
-        this.contentPane.setHeight(panelHeight);
+        autoResize();
     }
 
     public CPanel getContentPane() {
@@ -98,37 +93,59 @@ public class CFrame extends CComponent implements KeyListener {
 
     public void setContentPane(CPanel contentPane) {
         this.contentPane = contentPane;
-        int panelHeight = this.getHeight() - 2;
-        if (title != null) {
-            panelHeight -= title.getHeight();
-            panelHeight--;
-        }
-        if (this.contentPane == null) {
-            this.contentPane = new CPanel(this.getLength() - 2, panelHeight);
-        } else {
-            this.contentPane.setSize(this.getLength() - 2, panelHeight);
-        }
+
+        autoResize();
+    }
+
+    public CLabel getFooter() {
+        return footer;
+    }
+
+    public void setFooter(CLabel footer) {
+        this.footer = footer;
+
+        autoResize();
     }
 
     @Override
     public void setLength(int length) {
         super.setLength(length);
 
-        if (this.title != null) {
-            this.title.setLength(length - 2);
-        }
-        this.contentPane.setLength(length - 2);
+        autoResize();
     }
 
     @Override
     public void setHeight(int height) {
         super.setHeight(height);
 
-        int panelHeight = height - 2;
-        if (title != null) {
-            panelHeight -= title.getHeight();
-            panelHeight--;
+        autoResize();
+    }
+
+    private void autoResize() {
+        int contentHeight = this.getHeight() - 2;
+        if (this.header != null) {
+            contentHeight -= this.header.getHeight();
+            contentHeight--;
         }
-        this.contentPane.setHeight(panelHeight);
+        if (this.footer != null) {
+            contentHeight -= this.footer.getHeight();
+            contentHeight--;
+        }
+        if (contentHeight < 0) {
+            contentHeight = 0;
+        }
+        this.contentPane.setHeight(contentHeight);
+
+        int length = this.getLength() - 2;
+        if (length < 0) {
+            length = 0;
+        }
+        if (this.header != null) {
+            this.header.setLength(length);
+        }
+        this.contentPane.setLength(length);
+        if (this.footer != null) {
+            this.footer.setLength(length);
+        }
     }
 }

@@ -9,11 +9,10 @@ import net.cnam.chateau.utils.direction.Orientation;
 import java.util.Random;
 
 public class PlayMenu extends CFrame implements DisplayableComponent {
-
     private boolean display = true;
 
     public PlayMenu(App app, MainMenu mainMenu) {
-        super(new CLabel("Créer une partie"), 0, 0);
+        super(0, 0, "Créer une partie");
 
         CTextField seedTextField = new CTextField(new Random().nextLong() + "", AppSettings.CONSOLE_MIN_LENGTH - 10);
         CButton okButton = new OkButton(app, this, mainMenu, seedTextField);

@@ -5,7 +5,6 @@ import net.cnam.chateau.gui.component.CGauge;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 public class ConfigureMusicGauge extends CGauge {
-
     private final SimpleAudioPlayer menuPlayer;
 
     public ConfigureMusicGauge(AppSettings settings, SimpleAudioPlayer menuPlayer) {
@@ -20,7 +19,7 @@ public class ConfigureMusicGauge extends CGauge {
 
         try {
             menuPlayer.setVolume((float) this.getValue() / this.getMaxValue());
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 }

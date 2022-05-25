@@ -1,8 +1,5 @@
 package net.cnam.chateau.gui.component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import net.cnam.chateau.audio.AudioPlayer;
 import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.event.key.KeyListener;
@@ -12,8 +9,11 @@ import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.utils.direction.Orientation;
 
-public class CChoices extends CPanel implements SelectableComponent, KeyListener {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+public class CChoices extends CPanel implements SelectableComponent, KeyListener {
     private final List<SelectableComponent> selectableComponents;
 
     private boolean selected = true;
@@ -83,7 +83,7 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
                         }
                     }
                 }
-                case BOTTOM ,RIGHT -> {
+                case BOTTOM, RIGHT -> {
                     for (int i = 0; i < selectableComponents.size(); i++) {
                         SelectableComponent components = selectableComponents.get(i);
                         if (components.isSelected()) {

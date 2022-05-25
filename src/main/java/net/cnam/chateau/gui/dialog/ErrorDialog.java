@@ -2,14 +2,10 @@ package net.cnam.chateau.gui.dialog;
 
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.component.CLabel;
-import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.component.HorizontalAlignment;
+import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.utils.StringUtils;
 
 public class ErrorDialog extends CFrame implements DisplayableComponent {
-
     public ErrorDialog(Type type, String text) {
         this(type, StringUtils.convertStringToStringArray(text));
     }
@@ -17,10 +13,12 @@ public class ErrorDialog extends CFrame implements DisplayableComponent {
     public ErrorDialog(Type type, String[] text) {
         super(AppSettings.CONSOLE_MIN_LENGTH, AppSettings.CONSOLE_MIN_HEIGHT);
 
-        CLabel title = new CLabel("ERREUR");
+        CLabel title = new CLabel("Erreur");
         title.getColors().add(CColor.BOLD);
         title.getColors().add(CColor.RED);
-        this.setTitle(title);
+        CPanel header = new CPanel(0, title.getHeight());
+        header.getComponents().add(title);
+        this.setHeader(header);
 
         CLabel introMessage = new CLabel(type.getTitle(), this.getLength() - 2);
         introMessage.getColors().add(CColor.BOLD);

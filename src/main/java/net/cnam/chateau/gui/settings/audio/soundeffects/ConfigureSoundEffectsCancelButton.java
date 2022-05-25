@@ -5,7 +5,6 @@ import net.cnam.chateau.audio.AudioPlayer;
 import net.cnam.chateau.gui.component.CButton;
 
 public class ConfigureSoundEffectsCancelButton extends CButton {
-
     private final ConfigureSoundEffectsFrame configureSoundEffectsFrame;
     private final AppSettings settings;
 

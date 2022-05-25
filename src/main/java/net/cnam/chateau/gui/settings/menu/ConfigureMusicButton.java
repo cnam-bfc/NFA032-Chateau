@@ -1,14 +1,11 @@
 package net.cnam.chateau.gui.settings.menu;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.AppSettings;
-import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.settings.audio.music.ConfigureMusicFrame;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 public class ConfigureMusicButton extends CButton {
-
     private final App app;
     private final SimpleAudioPlayer menuPlayer;
 

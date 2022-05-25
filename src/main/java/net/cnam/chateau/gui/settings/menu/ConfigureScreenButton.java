@@ -4,7 +4,6 @@ import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.component.CButton;
 
 public class ConfigureScreenButton extends CButton {
-
     private final Console console;
 
     public ConfigureScreenButton(Console console) {

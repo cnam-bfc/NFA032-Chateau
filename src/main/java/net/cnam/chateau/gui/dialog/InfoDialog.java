@@ -4,11 +4,11 @@ import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.utils.StringUtils;
 
 public class InfoDialog extends CFrame implements DisplayableComponent {
-
     public InfoDialog(Type type, String text) {
         this(type, StringUtils.convertStringToStringArray(text));
     }
@@ -19,7 +19,9 @@ public class InfoDialog extends CFrame implements DisplayableComponent {
         CLabel title = new CLabel("Message");
         title.getColors().add(CColor.BOLD);
         title.getColors().add(CColor.YELLOW);
-        this.setTitle(title);
+        CPanel header = new CPanel(0, title.getHeight());
+        header.getComponents().add(title);
+        this.setHeader(header);
 
         CLabel introMessage = new CLabel(type.getTitle(), this.getLength() - 2);
         introMessage.getColors().add(CColor.BOLD);

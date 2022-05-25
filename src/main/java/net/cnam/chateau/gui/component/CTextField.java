@@ -9,7 +9,6 @@ import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 
 public class CTextField extends CComponent implements SelectableComponent, KeyListener {
-
     private boolean selected = true;
     private String text;
     private int pointer;
@@ -48,7 +47,7 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
         int linePointer = 0;
         String emptyLine = " ".repeat(this.getLength());
 
-        // Lignes de la console - lignes de texte au millieu
+        // Lignes de la console - lignes de texte au milieu
         int paddingHeight = this.getHeight() - 1;
         for (int i = 0; i < paddingHeight / 2; i++) {
             result[linePointer++] = emptyLine;
@@ -77,7 +76,7 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
 
         result[linePointer++] = line;
 
-        // Bourage à la fin
+        // Bourrage à la fin
         for (; linePointer < result.length; linePointer++) {
             result[linePointer] = emptyLine;
         }
@@ -108,7 +107,7 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
                 }
             }
             return;
-        } catch (DirectionNotFoundException ex) {
+        } catch (DirectionNotFoundException ignored) {
         }
 
         if (text.length() > 0) {
@@ -126,7 +125,7 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
             }
         }
 
-        // Si caractères spéciaux alors on ajoute pas le caractère
+        // Si caractères spéciaux alors on n'ajoute pas le caractère
         // Source: https://upload.wikimedia.org/wikipedia/commons/1/1b/ASCII-Table-wide.svg
         if (key < 32 || key == 127 || key == 57427) {
             return;

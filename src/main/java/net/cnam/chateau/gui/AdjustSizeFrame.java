@@ -10,21 +10,18 @@ import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 
 public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
-
     private final AppSettings settings;
     private boolean sizeAdjusted = false;
 
     public AdjustSizeFrame(AppSettings settings) {
-        super(0, 0);
+        super(0, 0, "Réglage des dimensions de la console");
 
         this.settings = settings;
 
-        CLabel title = new CLabel("Réglage des dimensions de la console");
         CLabel instructions_1 = new CLabel(new String[]{"Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran",
-            "Pour cela vous pouvez utiliser les flèches directionnelles ou zqsd"});
+                "Pour cela vous pouvez utiliser les flèches directionnelles"});
         CLabel instructions_2 = new CLabel("Appuyez sur \"Entrée\" pour valider");
 
-        this.setTitle(title);
         this.getContentPane().getComponents().add(instructions_1);
         this.getContentPane().getComponents().add(instructions_2);
     }

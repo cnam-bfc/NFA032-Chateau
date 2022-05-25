@@ -1,16 +1,16 @@
 package net.cnam.chateau.game.event;
 
+import net.cnam.chateau.utils.Couple;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import net.cnam.chateau.utils.Couple;
 
 public class Puzzle {
-
     public static List<Puzzle> puzzles = new LinkedList<>();
 
-    public static void initPuzzles() {
+    static {
         ArrayList<Couple<String, Boolean>> answersInit = new ArrayList<>();
         answersInit.add(new Couple<>("Ronde", true));
         answersInit.add(new Couple<>("Plate", false));
@@ -44,7 +44,7 @@ public class Puzzle {
         answersInit.add(new Couple<>("Alban", false));
         puzzles.add(new Puzzle("Quel nom du héro principal dans Harry Potter", answersInit));
 
-        //Faire code pour ajouter des énigmes dispos sur un CSV,
+        // TODO Faire code pour ajouter des énigmes dispos sur un CSV,
         // premier = question
         // deuxième = rep
         // next = fausses réponses min 1, max 4
@@ -70,14 +70,14 @@ public class Puzzle {
         }
         return puzzles.remove(new Random().nextInt(0, puzzles.size()));
     }
-    
+
     /**
      * Méthode pour vérifier si la réponse du joueur est juste.
-     * 
+     *
      * @param answer Couple d'une réponse
      * @return un boolean
      */
-    public boolean isRight(Couple<String, Boolean> answer){
+    public boolean isRight(Couple<String, Boolean> answer) {
         return answer.getElemTwo();
     }
 }

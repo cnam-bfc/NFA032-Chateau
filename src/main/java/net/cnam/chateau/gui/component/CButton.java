@@ -7,7 +7,6 @@ import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.CColor;
 
 public abstract class CButton extends CLabel implements SelectableComponent, KeyListener {
-
     private boolean selected = false;
 
     public CButton(String text) {

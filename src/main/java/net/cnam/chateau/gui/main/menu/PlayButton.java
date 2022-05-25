@@ -5,7 +5,6 @@ import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.play.menu.PlayMenu;
 
 public class PlayButton extends CButton {
-
     private final App app;
     private final MainMenu mainMenu;
 

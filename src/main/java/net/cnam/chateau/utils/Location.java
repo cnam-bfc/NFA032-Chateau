@@ -1,11 +1,9 @@
 package net.cnam.chateau.utils;
 
 /**
- * Class permettant de stocker des coordonnées x,y
- *
+ * Class permettant de stocker des coordonnées x, y
  */
-public class Location extends Object {
-
+public class Location {
     private int x;
     private int y;
 
@@ -21,7 +19,7 @@ public class Location extends Object {
     }
 
     /**
-     * Méthode permettant de récupérer la cordonnées X sous forme d'entier
+     * Méthode permettant de récupérer la cordonnée X sous forme d'entier
      *
      * @return un entier (coordonnée X)
      */
@@ -30,17 +28,17 @@ public class Location extends Object {
     }
 
     /**
-     * Méthode permettant de modifier/définir la cordonnées X dans l'objet
+     * Méthode permettant de modifier/définir la cordonnée X dans l'objet
      * Location sous forme d'entier
      *
-     * @param x entier (pour cordonnée X)
+     * @param x entier (pour coordonnée X)
      */
     public void setX(int x) {
         this.x = x;
     }
 
     /**
-     * Méthode permettant de récupérer la cordonnées Y sous forme d'entier
+     * Méthode permettant de récupérer la cordonnée Y sous forme d'entier
      *
      * @return un entier (coordonnée Y)
      */
@@ -49,10 +47,10 @@ public class Location extends Object {
     }
 
     /**
-     * Méthode permettant de modifier/définir la cordonnées Y dans l'objet
+     * Méthode permettant de modifier/définir la cordonnée Y dans l'objet
      * Location sous forme d'entier
      *
-     * @param y entier (pour cordonnée Y)
+     * @param y entier (pour coordonnée Y)
      */
     public void setY(int y) {
         this.y = y;

@@ -1,28 +1,19 @@
 package net.cnam.chateau.utils.audio;
 
+import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 /**
  * SimpleAudioPlayer is a class to play a song file.
- *
+ * <p>
  * Source: https://www.geeksforgeeks.org/play-audio-file-using-java/
  *
  * @author GeeksforGeeks
  */
 public class SimpleAudioPlayer {
-
     private final Clip clip;
     private final String filePath;
-
-    private AudioInputStream audioInputStream;
 
     // to store current position
     private Long currentFrame;
@@ -49,7 +40,7 @@ public class SimpleAudioPlayer {
     }
 
     // Method to pause the audio
-    public void pause() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void pause() {
         if (!status.equals(Status.PLAYING)) {
             return;
         }
@@ -121,7 +112,7 @@ public class SimpleAudioPlayer {
 
     // Method to reset audio stream
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(SimpleAudioPlayer.class.getResourceAsStream(filePath)));
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(SimpleAudioPlayer.class.getResourceAsStream(filePath)));
         clip.open(audioInputStream);
         if (loop) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
