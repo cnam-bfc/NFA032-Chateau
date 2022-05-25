@@ -29,7 +29,7 @@ public class App {
         // Initialisation de toutes les listes static
         Sage.initSages();
         Pet.createListPet();
-        Enemy.initSpecialEnemys(console);
+        Enemy.initSpecialEnemys(this);
 
     }
 

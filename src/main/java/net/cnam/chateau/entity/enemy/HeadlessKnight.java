@@ -2,9 +2,9 @@ package net.cnam.chateau.entity.enemy;
 
 import java.util.Random;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
-import net.cnam.chateau.gui.Console;
 
 public class HeadlessKnight extends Enemy {
 
@@ -19,8 +19,8 @@ public class HeadlessKnight extends Enemy {
     private static final int MIN_SPEED = 5;
     private static final int MAX_SPEED = 10;
 
-    public HeadlessKnight(Console console, Stage stage, Location location, Random random) {
-        super(console, stage, location, "Chevalier sans tete",
+    public HeadlessKnight(App app, Stage stage, Location location, Random random) {
+        super(app, stage, location, "Chevalier sans tete",
                 random.nextInt(MIN_HEALTH, MAX_HEALTH),
                 random.nextInt(MIN_RESISTANCE, MAX_RESISTANCE),
                 random.nextInt(MIN_STRENGTH, MAX_STRENGTH),
@@ -28,9 +28,9 @@ public class HeadlessKnight extends Enemy {
                 random.nextInt(MIN_SPEED, MAX_SPEED));
     }
 
-    public HeadlessKnight(Console console, Stage stage, Location location, String name, int health, int resistance,
+    public HeadlessKnight(App app, Stage stage, Location location, String name, int health, int resistance,
                  int strength, int accuracy, int speed) {
-        super(console, stage, location, name, health, resistance, strength, accuracy, speed);
+        super(app, stage, location, name, health, resistance, strength, accuracy, speed);
     }
 
 
