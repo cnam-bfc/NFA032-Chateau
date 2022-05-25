@@ -39,7 +39,7 @@ public class AppSettings {
         }
     }
 
-    public void save(File file) throws FileNotFoundException, IOException {
+    public void save(File file) throws IOException {
         FileOutputStream fluxEntree = new FileOutputStream(file);
         BufferedOutputStream outTampon = new BufferedOutputStream(fluxEntree);
         DataOutputStream out = new DataOutputStream(outTampon);
@@ -52,7 +52,7 @@ public class AppSettings {
         out.close();
     }
 
-    public void load(File file) throws FileNotFoundException, IOException {
+    public void load(File file) throws IOException {
         FileInputStream fluxEntree = new FileInputStream(file);
         BufferedInputStream inTampon = new BufferedInputStream(fluxEntree);
         DataInputStream in = new DataInputStream(inTampon);
@@ -62,10 +62,10 @@ public class AppSettings {
             return;
         }
 
-        this.consoleLength = in.readInt();
-        this.consoleHeight = in.readInt();
-        this.musicVolume = in.readFloat();
-        this.soundEffectsVolume = in.readFloat();
+        setConsoleLength(in.readInt());
+        setConsoleHeight(in.readInt());
+        setMusicVolume(in.readFloat());
+        setSoundEffectsVolume(in.readFloat());
 
         in.close();
 

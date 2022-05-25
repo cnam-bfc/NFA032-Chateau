@@ -7,14 +7,14 @@ import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 public class AudioPlayer {
 
-    public static float volume;
+    public static float volume = 1f;
 
     public static void play(SoundEffect soundEffect) {
         try {
             SimpleAudioPlayer audioPlayer = new SimpleAudioPlayer(soundEffect.getFilePath());
             audioPlayer.setVolume(volume);
             audioPlayer.play();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ex) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ignored) {
         }
     }
 }
