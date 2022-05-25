@@ -37,7 +37,7 @@ public class Spider extends Enemy {
 
     @Override
     public String getCharacter() {
-        return "M";
+        return "S";
     }
 
 }

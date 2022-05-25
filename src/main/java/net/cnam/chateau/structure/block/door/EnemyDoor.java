@@ -47,6 +47,7 @@ public class EnemyDoor extends Door {
 
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
+        this.visited = true;
         if (event.getEntity() instanceof Player player) {
             if (this.enemy != null) {
                 Fight fight = enemy.fight(player);
