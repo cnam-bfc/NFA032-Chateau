@@ -59,21 +59,33 @@ public abstract class Enemy extends Entity implements EntityListener {
     @Override
     public void onEntityApprochEvent(EntityApprochEvent event) {
         if (event.getEntity() instanceof Player player) {
-            Fight fight = new Fight(app.getSettings(), player, this);
-            SimpleAudioPlayer gamePlayer = app.getCurrentGame().getAudioPlayer();
-            if (gamePlayer != null) {
-                gamePlayer.stop();
-            }
-            app.getConsole().show(fight);
-            if (gamePlayer != null) {
-                try {
-                    gamePlayer.restart();
-                } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ignored) {
-                }
-            }
+            Fight fight = this.fight(player);
             if (!fight.isOver()) {
                 event.setCanceled(true);
             }
         }
+    }
+
+    /**
+     * Permet de déclancher un combat avec un joueur
+     *
+     * @param player Le joueur
+     *
+     * @return Le combat terminé
+     */
+    public Fight fight(Player player) {
+        Fight fight = new Fight(app.getSettings(), player, this);
+        SimpleAudioPlayer gamePlayer = app.getCurrentGame().getAudioPlayer();
+        if (gamePlayer != null) {
+            gamePlayer.stop();
+        }
+        app.getConsole().show(fight);
+        if (gamePlayer != null) {
+            try {
+                gamePlayer.restart();
+            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ignored) {
+            }
+        }
+        return fight;
     }
 }
