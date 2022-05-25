@@ -8,6 +8,7 @@ import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Cage;
+import net.cnam.chateau.structure.block.TrappedChest;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.structure.block.container.Chest;
 import net.cnam.chateau.structure.block.container.Wardrobe;
@@ -61,21 +62,24 @@ public class GUtils {
      *
      * @return renvoie un block aléatoire
      */
-    public static Block pickRandomBlock(Console console, Random random) {
+    public static Block pickRandomBlock(App app, Random random) {
 
         if (random.nextInt(1, 101) > LUCK_BLOCK) {
-            switch (random.nextInt(1, 5)) {
+            switch (random.nextInt(1, 6)) {
                 case 1 -> {
-                    return new Chest(console);
+                    return new Chest(app.getConsole());
                 }
                 case 2 -> {
-                    return new Wardrobe(console);
+                    return new Wardrobe(app.getConsole());
                 }
                 case 3 -> {
-                    return new Bed(console);
+                    return new Bed(app.getConsole());
                 }
                 case 4 -> {
-                    return new Cage(console, random);
+                    return new Cage(app.getConsole(), random);
+                }
+                case 5 -> {
+                    return new TrappedChest(app, random);
                 }
             }
         } else {

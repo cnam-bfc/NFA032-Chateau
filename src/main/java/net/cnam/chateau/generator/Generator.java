@@ -334,7 +334,7 @@ public class Generator {
         // On ajoute dans la pièce le nombre de blocs défini au dessus
         for (int i = 0; i < numberBlocks; i++) {
             Location location = findPosition(this.random, room);
-            room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock(app.getConsole(), this.random);
+            room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock(app, this.random);
         }
     }
 

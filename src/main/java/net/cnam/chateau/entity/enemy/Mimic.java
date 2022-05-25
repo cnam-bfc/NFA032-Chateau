@@ -19,13 +19,13 @@ public class Mimic extends Enemy {
     private static final int MIN_SPEED = 5;
     private static final int MAX_SPEED = 10;
 
-    public Mimic(App app, Stage stage, Location location, Random random) {
-        super(app, stage, location, "Mimic"
-                , random.nextInt(MIN_HEALTH, MAX_HEALTH)
-                , random.nextInt(MIN_RESISTANCE, MAX_RESISTANCE)
-                , random.nextInt(MIN_STRENGTH, MAX_STRENGTH)
-                , random.nextInt(MIN_ACCURACY, MAX_ACCURACY)
-                , random.nextInt(MIN_SPEED, MAX_SPEED)
+    public Mimic(App app, Random random) {
+        super(app, null, null, "Mimic",
+                random.nextInt(MIN_HEALTH, MAX_HEALTH),
+                random.nextInt(MIN_RESISTANCE, MAX_RESISTANCE),
+                random.nextInt(MIN_STRENGTH, MAX_STRENGTH),
+                random.nextInt(MIN_ACCURACY, MAX_ACCURACY),
+                random.nextInt(MIN_SPEED, MAX_SPEED)
         );
     }
 
