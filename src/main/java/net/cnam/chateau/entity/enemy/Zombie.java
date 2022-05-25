@@ -34,6 +34,6 @@ public class Zombie extends Enemy {
 
     @Override
     public String getCharacter() {
-        return "W";
+        return "Z";
     }
 }

@@ -1,5 +1,47 @@
 package net.cnam.chateau.structure.block;
 
-public class TrappedChest {
+import net.cnam.chateau.App;
+import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.entity.enemy.Enemy;
+import net.cnam.chateau.entity.enemy.Mimic;
+import net.cnam.chateau.event.block.BlockListener;
+import net.cnam.chateau.event.block.EntityEnterBlockEvent;
+import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
+import net.cnam.chateau.gui.play.fight.Fight;
 
+import java.util.Random;
+
+public class TrappedChest extends Block implements BlockListener {
+
+    private App app;
+    private Enemy enemy;
+
+    public TrappedChest(App app, Random random) {
+        this.app = app;
+        this.enemy = new Mimic(app, random);
+    }
+
+    @Override
+    public void onEntityEnterBlock(EntityEnterBlockEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            if (this.enemy != null) {
+                Fight fight = enemy.fight(player);
+                if (!fight.isOver()) {
+                    event.setCanceled(true);
+                } else {
+                    this.enemy = null;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onEntityLeaveBlock(EntityLeaveBlockEvent event) {
+
+    }
+
+    @Override
+    public String getCharacter() {
+        return "C";
+    }
 }

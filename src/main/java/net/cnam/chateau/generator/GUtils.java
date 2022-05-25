@@ -1,11 +1,14 @@
 package net.cnam.chateau.generator;
 
-import net.cnam.chateau.game.event.Key;
+import net.cnam.chateau.App;
+import net.cnam.chateau.item.Key;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
+import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Cage;
+import net.cnam.chateau.structure.block.TrappedChest;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.structure.block.container.Chest;
 import net.cnam.chateau.structure.block.container.Wardrobe;
@@ -13,8 +16,7 @@ import net.cnam.chateau.structure.block.decorative.Bed;
 import net.cnam.chateau.structure.block.decorative.Desk;
 import net.cnam.chateau.structure.block.decorative.Seat;
 import net.cnam.chateau.structure.block.decorative.Table;
-import net.cnam.chateau.structure.block.door.Door;
-import net.cnam.chateau.structure.block.door.LockedDoor;
+import net.cnam.chateau.structure.block.door.*;
 import net.cnam.chateau.utils.Location;
 
 import java.util.*;
@@ -60,21 +62,24 @@ public class GUtils {
      *
      * @return renvoie un block aléatoire
      */
-    public static Block pickRandomBlock(Console console, Random random) {
+    public static Block pickRandomBlock(App app, Random random) {
 
         if (random.nextInt(1, 101) > LUCK_BLOCK) {
-            switch (random.nextInt(1, 5)) {
+            switch (random.nextInt(1, 6)) {
                 case 1 -> {
-                    return new Chest(console);
+                    return new Chest(app.getConsole());
                 }
                 case 2 -> {
-                    return new Wardrobe(console);
+                    return new Wardrobe(app.getConsole());
                 }
                 case 3 -> {
-                    return new Bed(console);
+                    return new Bed(app.getConsole());
                 }
                 case 4 -> {
-                    return new Cage(console, random);
+                    return new Cage(app.getConsole(), random);
+                }
+                case 5 -> {
+                    return new TrappedChest(app, random);
                 }
             }
         } else {
@@ -221,4 +226,19 @@ public class GUtils {
         int y = location.getY();
         keyRoom.getBlocks()[x][y] = new Chest(console, key); // TODO à modif pour faire varier block
     }
+
+    public static Door getDoor(Random random, Stage stage, Room roomOne, Room roomTwo, App app){
+        return new EnemyDoor(app, stage, roomOne, roomTwo, random);
+ /*       int randomInt = random.nextInt(1,100);
+        if (randomInt < 80){
+            return new Door(stage, roomOne, roomTwo);
+        } else if (randomInt < 86){
+            return new SageDoor(stage, roomOne, roomTwo);
+        } else if (randomInt < 91) {
+            return new EnemyDoor(app, stage, roomOne, roomTwo, random);
+        } else {
+            return new TrappedDoor(stage, roomOne, roomTwo);
+        }*/
+    }
+
 }
