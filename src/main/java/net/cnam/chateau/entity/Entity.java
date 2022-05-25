@@ -118,9 +118,16 @@ public abstract class Entity implements DisplayableObject {
             this.stage = stage;
         }
 
+        List<Entity> nearbyEntities = new LinkedList<>();
+        for (Entity entity : stage.getEntities()) {
+            if (entity.getLocation().equals(location)) {
+                nearbyEntities.add(entity);
+            }
+        }
+
         // On notifie les entités aux alentours que l'entité à été déplacé
         EntityApprochEvent entityApprochEvent = new EntityApprochEvent(this);
-        for (Entity entity : getNearbyEntities()) {
+        for (Entity entity : nearbyEntities) {
             if (entity instanceof EntityListener listener) {
                 listener.onEntityApprochEvent(entityApprochEvent);
 
@@ -181,34 +188,6 @@ public abstract class Entity implements DisplayableObject {
     }
 
     /**
-     * Méthode permettant de récupérer les entités aux alentours de cette entité
-     *
-     * @return La liste des entités aux alentours
-     */
-    public List<Entity> getNearbyEntities() {
-        List<Entity> nearbyEntities = new LinkedList<>();
-
-        for (Entity entity : stage.getEntities()) {
-            if (entity.getLocation().getX() == location.getX() + 1 && entity.getLocation().getY() == location.getY()) {
-                nearbyEntities.add(entity);
-            } else if (entity.getLocation().getX() == location.getX() - 1
-                    && entity.getLocation().getY() == location.getY()) {
-                nearbyEntities.add(entity);
-            } else if (entity.getLocation().getX() == location.getX()
-                    && entity.getLocation().getY() == location.getY() + 1) {
-                nearbyEntities.add(entity);
-            } else if (entity.getLocation().getX() == location.getX()
-                    && entity.getLocation().getY() == location.getY() - 1) {
-                nearbyEntities.add(entity);
-            } else if (entity.getLocation().equals(location)) {
-                nearbyEntities.add(entity);
-            }
-        }
-
-        return nearbyEntities;
-    }
-
-    /**
      * Méthode permettant d'infliger des points de dégâts à l'entité.
      *
      * @param damagePoints Points de dégâts
@@ -225,17 +204,17 @@ public abstract class Entity implements DisplayableObject {
             throw new EntityDeadException(this, name + " est mort");
         }
     }
-    
+
     /**
      * Méthode permettant de soigner une entité.
      * 
      * @param health entier, point de vie supplémentaire
      */
-    public void health(int health){
+    public void health(int health) {
         if (health < 0) {
             return;
         }
-        
+
         if (this.health + health > 100) {
             this.health = 100;
         } else {
