@@ -49,7 +49,7 @@ public class SageDoor extends Door {
         if (isLocked()) {
             return CColor.RED + sage.getCharacter() + CColor.RED.getForegroundReset();
         } else {
-            return " ";
+            return CColor.GREEN + "D" + CColor.GREEN.getForegroundReset();
         }
     }
 }
