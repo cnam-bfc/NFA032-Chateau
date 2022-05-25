@@ -1,19 +1,19 @@
 package net.cnam.chateau.gui.settings.menu;
 
-import net.cnam.chateau.gui.Console;
+import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.CButton;
 
 public class ConfigureScreenButton extends CButton {
-    private final Console console;
+    private final App app;
 
-    public ConfigureScreenButton(Console console) {
-        super("Configurer les dimensions de la fenêtre");
+    public ConfigureScreenButton(App app) {
+        super(app.getSettings(), "Configurer les dimensions de la fenêtre");
 
-        this.console = console;
+        this.app = app;
     }
 
     @Override
     public void execute() {
-        console.adjustSize();
+        app.getConsole().adjustSize();
     }
 }

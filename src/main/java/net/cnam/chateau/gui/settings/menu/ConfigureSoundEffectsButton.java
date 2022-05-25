@@ -8,7 +8,7 @@ public class ConfigureSoundEffectsButton extends CButton {
     private final App app;
 
     public ConfigureSoundEffectsButton(App app) {
-        super("Configurer le volume des effects sonores");
+        super(app.getSettings(), "Configurer le volume des effects sonores");
 
         this.app = app;
     }

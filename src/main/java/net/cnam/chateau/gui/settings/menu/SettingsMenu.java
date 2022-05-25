@@ -11,12 +11,12 @@ public class SettingsMenu extends CFrame implements DisplayableComponent {
         super(0, 0, "Paramètres");
 
         CButton backButton = new SaveButton(app, this);
-        CChoices choices = new CChoices(new SelectableComponent[]{
-                new ConfigureScreenButton(app.getConsole()),
+        CChoices choices = new CChoices(app.getSettings(), new SelectableComponent[]{
+                new ConfigureScreenButton(app),
                 new ConfigureMusicButton(app, menuPlayer),
                 new ConfigureSoundEffectsButton(app),
                 backButton,
-                new DebugKeysButton()
+                new DebugKeysButton(app.getSettings())
         }, 1);
         choices.select(backButton);
 

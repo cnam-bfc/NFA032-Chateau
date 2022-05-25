@@ -2,7 +2,6 @@ package net.cnam.chateau.generator;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.item.Key;
-import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
@@ -16,7 +15,9 @@ import net.cnam.chateau.structure.block.decorative.Bed;
 import net.cnam.chateau.structure.block.decorative.Desk;
 import net.cnam.chateau.structure.block.decorative.Seat;
 import net.cnam.chateau.structure.block.decorative.Table;
-import net.cnam.chateau.structure.block.door.*;
+import net.cnam.chateau.structure.block.door.Door;
+import net.cnam.chateau.structure.block.door.EnemyDoor;
+import net.cnam.chateau.structure.block.door.LockedDoor;
 import net.cnam.chateau.utils.Location;
 
 import java.util.*;
@@ -67,16 +68,16 @@ public class GUtils {
         if (random.nextInt(1, 101) > LUCK_BLOCK) {
             switch (random.nextInt(1, 6)) {
                 case 1 -> {
-                    return new Chest(app.getConsole());
+                    return new Chest(app);
                 }
                 case 2 -> {
-                    return new Wardrobe(app.getConsole());
+                    return new Wardrobe(app);
                 }
                 case 3 -> {
-                    return new Bed(app.getConsole());
+                    return new Bed(app);
                 }
                 case 4 -> {
-                    return new Cage(app.getConsole(), random);
+                    return new Cage(app, random);
                 }
                 case 5 -> {
                     return new TrappedChest(app, random);
@@ -118,7 +119,7 @@ public class GUtils {
      * Méthode qui effectue un tri topologique en partant de la Room de départ
      * de l'étage. Permet de classer les rooms en fonction de l'accessibilité.
      */
-    public static UpStair triTopo(Console console, Room room, List<GRoom> gRooms, Random random) {
+    public static UpStair triTopo(App app, Room room, List<GRoom> gRooms, Random random) {
 
         List<List<GRoom>> decompositionNiveau = new ArrayList<>();
         Map<GRoom, Boolean> verifDecomposition = new HashMap<>();
@@ -168,16 +169,16 @@ public class GUtils {
                 decompositionNiveau.add(newLevel);
             }
         }
-        return placeExit(console, decompositionNiveau, random);
+        return placeExit(app, decompositionNiveau, random);
     }
 
-    private static UpStair placeExit(Console console, List<List<GRoom>> decompositionNiveau, Random random) {
+    private static UpStair placeExit(App app, List<List<GRoom>> decompositionNiveau, Random random) {
         //ici on choisie la room
         List<GRoom> rooms = decompositionNiveau.get(decompositionNiveau.size() - 1);
         Room room = rooms.get(random.nextInt(0, rooms.size())).getRoom();
 
         //on ferme la pièce et on cache la clé dans une autre pièce
-        hideKey(console, room, decompositionNiveau, random);
+        hideKey(app, room, decompositionNiveau, random);
 
         //On récupère un emplacement ou il est possible de placer la porte de sortie de l'étage
         Location location = findPosition(random, room);
@@ -194,28 +195,28 @@ public class GUtils {
     /**
      * Méthode qui permet de fermet la salle de l'escalier et caché une clé dans une autre salle.
      *
-     * @param console             la console
+     * @param app                 l'application
      * @param room                la room de sortie de l'étage
      * @param decompositionNiveau la décomposition des gRoom en niveau par rapport à l'entrée
      * @param random              le random utilisé pour la graine de la carte
      */
-    private static void hideKey(Console console, Room room, List<List<GRoom>> decompositionNiveau, Random random) {
+    private static void hideKey(App app, Room room, List<List<GRoom>> decompositionNiveau, Random random) {
         Key key = new Key();
 
         // on vérifie toutes les portes et on les locks
         for (int x = 0; x < room.getLength(); x++) {
             for (int y = 0; y < room.getHeight(); y++) {
                 if (room.getBlocks()[x][y] instanceof Door transition) {
-                    room.getBlocks()[x][y] = new LockedDoor(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key);
+                    room.getBlocks()[x][y] = new LockedDoor(app, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key);
                     try {
-                        transition.getStage().setBlock(room.getLocation().getX() + x, room.getLocation().getY() + y, new LockedDoor(console, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key));
+                        transition.getStage().setBlock(room.getLocation().getX() + x, room.getLocation().getY() + y, new LockedDoor(app, transition.getStage(), transition.getRoomOne(), transition.getRoomTwo(), key));
                     } catch (CoordinatesOutOfBoundsException ignored) {
                     }
                 }
             }
         }
 
-        // on choisit une pièce au hasard entre celle du début et celle du tri topo, différent de celle déjà selectionné
+        // on choisit une pièce au hasard entre celle du début et celle du tri topo, différent de celle déjà selectionnée
         Room keyRoom;
         do {
             List<GRoom> rooms = decompositionNiveau.get(random.nextInt(0, decompositionNiveau.size()));
@@ -224,10 +225,10 @@ public class GUtils {
         Location location = findPosition(random, keyRoom);
         int x = location.getX();
         int y = location.getY();
-        keyRoom.getBlocks()[x][y] = new Chest(console, key); // TODO à modif pour faire varier block
+        keyRoom.getBlocks()[x][y] = new Chest(app, key); // TODO à modif pour faire varier block
     }
 
-    public static Door getDoor(Random random, Stage stage, Room roomOne, Room roomTwo, App app){
+    public static Door getDoor(Random random, Stage stage, Room roomOne, Room roomTwo, App app) {
         return new EnemyDoor(app, stage, roomOne, roomTwo, random);
  /*       int randomInt = random.nextInt(1,100);
         if (randomInt < 80){

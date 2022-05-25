@@ -1,12 +1,13 @@
 package net.cnam.chateau.gui.main.menu;
 
+import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CButton;
 
 public class QuitButton extends CButton {
     private final MainMenu mainMenu;
 
-    public QuitButton(MainMenu mainMenu) {
-        super("Quitter");
+    public QuitButton(AppSettings settings, MainMenu mainMenu) {
+        super(settings, "Quitter");
 
         this.mainMenu = mainMenu;
     }

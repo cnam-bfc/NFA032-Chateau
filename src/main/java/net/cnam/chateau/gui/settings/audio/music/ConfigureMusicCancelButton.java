@@ -5,15 +5,15 @@ import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 public class ConfigureMusicCancelButton extends CButton {
-    private final ConfigureMusicFrame configureMusicFrame;
     private final AppSettings settings;
+    private final ConfigureMusicFrame configureMusicFrame;
     private final SimpleAudioPlayer menuPlayer;
 
-    public ConfigureMusicCancelButton(ConfigureMusicFrame configureMusicFrame, AppSettings settings, SimpleAudioPlayer menuPlayer) {
-        super("Annuler");
+    public ConfigureMusicCancelButton(AppSettings settings, ConfigureMusicFrame configureMusicFrame, SimpleAudioPlayer menuPlayer) {
+        super(settings, "Annuler");
 
-        this.configureMusicFrame = configureMusicFrame;
         this.settings = settings;
+        this.configureMusicFrame = configureMusicFrame;
         this.menuPlayer = menuPlayer;
     }
 

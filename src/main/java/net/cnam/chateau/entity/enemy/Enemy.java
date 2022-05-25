@@ -86,7 +86,7 @@ public abstract class Enemy extends Entity implements EntityListener {
      * @return Le combat terminé
      */
     public Fight fight(Player player) {
-        Fight fight = new Fight(app.getSettings(), player, this);
+        Fight fight = new Fight(app, player, this);
         SimpleAudioPlayer gamePlayer = app.getCurrentGame().getAudioPlayer();
         if (gamePlayer != null) {
             gamePlayer.stop();

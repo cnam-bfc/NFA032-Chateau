@@ -19,7 +19,7 @@ public class OkButton extends CButton {
     private final CTextField seedTextField;
 
     public OkButton(App app, PlayMenu playMenu, MainMenu mainMenu, CTextField seedTextField) {
-        super("Lancer la partie");
+        super(app.getSettings(), "Lancer la partie");
 
         this.app = app;
         this.playMenu = playMenu;

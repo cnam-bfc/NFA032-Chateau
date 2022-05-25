@@ -1,12 +1,13 @@
 package net.cnam.chateau.gui.play.menu;
 
+import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CButton;
 
 public class BackButton extends CButton {
     private final PlayMenu playMenu;
 
-    public BackButton(PlayMenu playMenu) {
-        super("Retour");
+    public BackButton(AppSettings settings, PlayMenu playMenu) {
+        super(settings, "Retour");
 
         this.playMenu = playMenu;
     }

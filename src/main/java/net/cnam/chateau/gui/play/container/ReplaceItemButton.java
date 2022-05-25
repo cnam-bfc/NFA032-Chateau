@@ -1,5 +1,6 @@
 package net.cnam.chateau.gui.play.container;
 
+import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.item.Item;
@@ -10,8 +11,8 @@ public class ReplaceItemButton extends CButton {
     private final Player player;
     private final Container block;
 
-    public ReplaceItemButton(ContainerMenu menu, Player player, Container block) {
-        super("Remplacer " + player.getItem().getName() + " avec " + block.getHiddenItem().getName());
+    public ReplaceItemButton(AppSettings settings, ContainerMenu menu, Player player, Container block) {
+        super(settings, "Remplacer " + player.getItem().getName() + " avec " + block.getHiddenItem().getName());
 
         this.menu = menu;
         this.player = player;

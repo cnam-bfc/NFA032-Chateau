@@ -1,7 +1,5 @@
 package net.cnam.chateau;
 
-import net.cnam.chateau.audio.AudioPlayer;
-
 import java.io.*;
 
 public class AppSettings {
@@ -60,8 +58,6 @@ public class AppSettings {
         setSoundEffectsVolume(in.readFloat());
 
         in.close();
-
-        AudioPlayer.volume = soundEffectsVolume;
     }
 
     public int getConsoleLength() {
@@ -100,7 +96,5 @@ public class AppSettings {
 
     public void setSoundEffectsVolume(float soundEffectsVolume) {
         this.soundEffectsVolume = soundEffectsVolume;
-
-        AudioPlayer.volume = soundEffectsVolume;
     }
 }

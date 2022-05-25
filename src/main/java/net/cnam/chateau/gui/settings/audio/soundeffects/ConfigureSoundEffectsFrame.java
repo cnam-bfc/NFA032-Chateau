@@ -11,11 +11,11 @@ public class ConfigureSoundEffectsFrame extends CFrame implements DisplayableCom
         super(0, 0, "Configurer le niveau sonore des effets sonores");
 
         CGauge gauge = new ConfigureSoundEffectsGauge(settings);
-        CChoices choices = new CChoices(new SelectableComponent[]{
+        CChoices choices = new CChoices(settings, new SelectableComponent[]{
                 gauge,
-                new CChoices(new SelectableComponent[]{
-                        new ConfigureSoundEffectsOkButton(this, settings, gauge),
-                        new ConfigureSoundEffectsCancelButton(this, settings)
+                new CChoices(settings, new SelectableComponent[]{
+                        new ConfigureSoundEffectsOkButton(settings, this, gauge),
+                        new ConfigureSoundEffectsCancelButton(settings, this)
                 }, Orientation.HORIZONTAL, 10)
         }, 5);
 

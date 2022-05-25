@@ -1,24 +1,24 @@
 package net.cnam.chateau.structure.block.container;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.play.container.ContainerMenu;
 import net.cnam.chateau.item.Item;
 import net.cnam.chateau.structure.block.Block;
 
 public abstract class Container extends Block implements BlockListener {
 
+    private final App app;
     private final String name;
-    private final Console console;
     private Item hiddenItem;
     private boolean opened = false;
 
-    public Container(Console console, String name, Item hiddenItem) {
-        this.console = console;
+    public Container(App app, String name, Item hiddenItem) {
+        this.app = app;
         this.name = name;
         this.hiddenItem = hiddenItem;
     }
@@ -40,22 +40,21 @@ public abstract class Container extends Block implements BlockListener {
     }
 
     public String getCharacter(String string) {
-        if (this.opened){
-            if (this.hasItem()){
+        if (this.opened) {
+            if (this.hasItem()) {
                 return CColor.BRIGHT_RED + string + CColor.BRIGHT_RED.getForegroundReset();
-            }
-            else {
+            } else {
                 return CColor.GREEN + string + CColor.GREEN.getForegroundReset();
             }
         }
-        return string ;
+        return string;
     }
 
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         this.opened = true;
         if (event.getEntity() instanceof Player player && (this.hasItem() || player.haveItem())) {
-            console.show(new ContainerMenu(player, this));
+            app.getConsole().show(new ContainerMenu(app.getSettings(), player, this));
         }
     }
 
