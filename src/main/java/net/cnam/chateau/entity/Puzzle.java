@@ -1,4 +1,4 @@
-package net.cnam.chateau.game.event;
+package net.cnam.chateau.entity;
 
 import net.cnam.chateau.utils.Couple;
 
