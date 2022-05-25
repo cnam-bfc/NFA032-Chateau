@@ -1,6 +1,5 @@
 package net.cnam.chateau.gui.play.fight;
 
-import java.nio.channels.SelectableChannel;
 import java.util.Random;
 
 import net.cnam.chateau.entity.Entity;
@@ -31,6 +30,8 @@ public class Fight extends CFrame implements DisplayableComponent {
         this.player = player;
         this.enemy = enemy;
         this.random = new Random();
+
+        chooseAction();
     }
 
     @Override
