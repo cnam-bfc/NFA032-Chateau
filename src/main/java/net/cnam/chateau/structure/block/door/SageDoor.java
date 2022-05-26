@@ -64,7 +64,7 @@ public class SageDoor extends Door {
     @Override
     public String getCharacter() {
         if (!visited){
-            return CColor.GREEN + "D" + CColor.GREEN.getForegroundReset();
+            return CColor.GREEN + "A" + CColor.GREEN.getForegroundReset();
         }
         if (isLocked()) {
             return CColor.RED + sage.getCharacter() + CColor.RED.getForegroundReset();
