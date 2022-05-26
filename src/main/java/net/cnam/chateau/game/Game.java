@@ -31,10 +31,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Game extends CFrame implements DisplayableComponent {
+    private final List<Puzzle> puzzles = new ArrayList<>();
     private final Castle castle;
     private final Map map;
     private final Player player;
-    private final List<Puzzle> puzzles = new ArrayList<>();
+    private final EntityStats playerStats;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
 
@@ -62,7 +63,8 @@ public class Game extends CFrame implements DisplayableComponent {
 
         CPanel footer = new CPanel(0, 2, Orientation.HORIZONTAL, false);
 
-        EntityStats playerStats = new EntityStats(player, 50);
+        this.playerStats = new EntityStats(player);
+        playerStats.setHeight(2);
         footer.getComponents().add(playerStats);
 
         this.setFooter(footer);
@@ -201,6 +203,7 @@ public class Game extends CFrame implements DisplayableComponent {
         super.setLength(length);
 
         this.map.setLength(this.getContentPane().getLength());
+        this.playerStats.setLength(this.getContentPane().getLength());
     }
 
     public Castle getCastle() {

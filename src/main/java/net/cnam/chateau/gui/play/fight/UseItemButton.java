@@ -8,7 +8,7 @@ public class UseItemButton extends CButton {
     private final Item item;
 
     public UseItemButton(AppSettings settings, Item item) {
-        super(settings, "Utiliser " + item.getName());
+        super(settings, "Utiliser\n" + item.getName());
 
         this.item = item;
     }

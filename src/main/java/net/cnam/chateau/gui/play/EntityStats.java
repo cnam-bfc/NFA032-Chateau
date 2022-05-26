@@ -10,22 +10,17 @@ public class EntityStats extends CPanel {
     private final CLabel name;
     private final CProgressBar hpBar;
 
-    public EntityStats(Entity entity, int length) {
-        super(HorizontalAlignment.LEFT, length, 0, Orientation.VERTICAL, false);
+    public EntityStats(Entity entity) {
+        super(HorizontalAlignment.LEFT, 0, 0, Orientation.VERTICAL, false);
 
         this.entity = entity;
 
         this.name = new CLabel(HorizontalAlignment.LEFT, entity.getName());
         this.getComponents().add(name);
 
-        CLabel hpLabel = new CLabel(HorizontalAlignment.LEFT, "Vie: ");
-        hpLabel.getColors().add(CColor.RED);
-        this.hpBar = new CProgressBar(length- hpLabel.getLength(), 1, entity.getHealth(), entity.getMaxHealth());
+        this.hpBar = new CProgressBar(0, 1, entity.getHealth(), entity.getMaxHealth());
         hpBar.getColors().add(CColor.RED);
-        CPanel hp = new CPanel(HorizontalAlignment.LEFT, length, 1, Orientation.HORIZONTAL, false);
-        hp.getComponents().add(hpLabel);
-        hp.getComponents().add(hpBar);
-        this.getComponents().add(hp);
+        this.getComponents().add(hpBar);
 
         int height = 0;
         for (CComponent component : this.getComponents()) {
@@ -43,5 +38,13 @@ public class EntityStats extends CPanel {
         hpBar.setMaxValue(entity.getMaxHealth());
 
         return super.render();
+    }
+
+    @Override
+    public void setLength(int length) {
+        super.setLength(length);
+
+        name.setLength(length);
+        hpBar.setLength(length);
     }
 }

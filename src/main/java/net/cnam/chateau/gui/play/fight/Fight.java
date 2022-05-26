@@ -4,7 +4,6 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.EntityStats;
@@ -20,7 +19,6 @@ import java.util.Random;
 public class Fight extends CFrame implements DisplayableComponent {
     private static final int ACCURACY = 20;
 
-    private final App app;
     private final Player player;
     private final Entity enemy;
     private final Random random;
@@ -28,24 +26,53 @@ public class Fight extends CFrame implements DisplayableComponent {
     private boolean display = true;
     private boolean over = false;
 
-    public Fight(App app, Player player, Entity enemy) {
-        super(0, 0, "Combat avec " + enemy.getName());
+    private final CPanel leftPanel;
+    private final EntityStats playerStats;
+    private final CPanel centerPanel;
+    private final CChoices menu;
+    private final CPanel rightPanel;
+    private final EntityStats enemyStats;
+    private final CLabel logs;
 
-        this.app = app;
+    public Fight(App app, Player player, Entity enemy) {
+        super(0, 0, "Combat");
+
         this.player = player;
         this.enemy = enemy;
         this.random = new Random();
 
-        CPanel footer = new CPanel(0, 2, Orientation.HORIZONTAL, false);
+        this.getContentPane().setRenderingMainPadding(false);
+        this.getContentPane().setRenderingOrientation(Orientation.HORIZONTAL);
 
-        EntityStats playerStats = new EntityStats(player, 50);
-        footer.getComponents().add(playerStats);
+        this.leftPanel = new CPanel(0, 0);
+        this.playerStats = new EntityStats(player);
+        leftPanel.getComponents().add(playerStats);
+        this.getContentPane().getComponents().add(leftPanel);
 
-        EntityStats enemyStats = new EntityStats(enemy, 50);
-        footer.getComponents().add(enemyStats);
+        this.centerPanel = new CPanel(20, 0);
+        SelectableComponent[] components = new SelectableComponent[]{new AttackButton(app.getSettings(), this)};
+        if (player.haveItem()) {
+            components = ArrayUtils.addOnBottomOfArray(components, new UseItemButton(app.getSettings(), player.getItem()));
+        }
+        components = ArrayUtils.addOnBottomOfArray(components, new RunAwayButton(app.getSettings(), this));
+
+        this.menu = new CChoices(app.getSettings(), components, 1);
+        menu.setLength(20);
+        centerPanel.getComponents().add(menu);
+        this.getContentPane().getComponents().add(centerPanel);
+
+        this.rightPanel = new CPanel(0, 0);
+        this.enemyStats = new EntityStats(enemy);
+        rightPanel.getComponents().add(enemyStats);
+        this.getContentPane().getComponents().add(rightPanel);
+
+        CPanel footer = new CPanel(0, 0, Orientation.HORIZONTAL, false);
+
+        this.logs = new CLabel("");
+        logs.setHeight(0);
+        footer.getComponents().add(logs);
 
         this.setFooter(footer);
-
 
         try {
             this.audioPlayer = new SimpleAudioPlayer(Music.FIGHT.getFilePath());
@@ -55,8 +82,6 @@ public class Fight extends CFrame implements DisplayableComponent {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
                  IllegalArgumentException ignored) {
         }
-
-        chooseAction();
     }
 
     @Override
@@ -76,18 +101,23 @@ public class Fight extends CFrame implements DisplayableComponent {
         }
     }
 
-    public void chooseAction() {
-        this.getContentPane().getComponents().clear();
+    @Override
+    public void setLength(int length) {
+        super.setLength(length);
+        int statsLength = this.getContentPane().getLength() - this.menu.getLength() - 2;
+        this.leftPanel.setLength(statsLength / 2);
+        this.playerStats.setLength(statsLength / 2);
+        this.rightPanel.setLength(statsLength / 2);
+        this.enemyStats.setLength(statsLength / 2);
+    }
 
-        SelectableComponent[] components = new SelectableComponent[]{new AttackButton(app.getSettings(), this)};
-        if (player.haveItem()) {
-            components = ArrayUtils.addOnBottomOfArray(components, new UseItemButton(app.getSettings(), player.getItem()));
-        }
-        components = ArrayUtils.addOnBottomOfArray(components, new RunAwayButton(app.getSettings(), this));
-
-        CChoices choices = new CChoices(app.getSettings(), components, 1);
-
-        this.getContentPane().getComponents().add(choices);
+    @Override
+    public void setHeight(int height) {
+        this.getFooter().setHeight(this.logs.getHeight());
+        super.setHeight(height);
+        this.leftPanel.setHeight(this.getContentPane().getHeight());
+        this.centerPanel.setHeight(this.getContentPane().getHeight());
+        this.rightPanel.setHeight(this.getContentPane().getHeight());
     }
 
     public boolean isOver() {
