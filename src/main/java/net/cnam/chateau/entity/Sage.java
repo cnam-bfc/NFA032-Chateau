@@ -1,5 +1,7 @@
 package net.cnam.chateau.entity;
 
+import net.cnam.chateau.App;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -7,12 +9,12 @@ import java.util.Random;
 public class Sage extends Entity {
     public static List<Sage> sages = new LinkedList<>();
 
-    public static void initSages() {
-        sages.add(new Sage("Dumbledore"));
-        sages.add(new Sage("Merlin"));
-        sages.add(new Sage("Kristoff"));
-        sages.add(new Sage("Sage Gris"));
-        sages.add(new Sage("Salomon"));
+    public static void initSages(App app) {
+        sages.add(new Sage(app, "Dumbledore"));
+        sages.add(new Sage(app, "Merlin"));
+        sages.add(new Sage(app, "Kristoff"));
+        sages.add(new Sage(app, "Sage Gris"));
+        sages.add(new Sage(app, "Salomon"));
 
         // TODO Si le fichier csv existe :
         //Boucler dessus et ajouter les sages à la liste.
@@ -24,12 +26,11 @@ public class Sage extends Entity {
     /**
      * Constructeur
      *
-     * @param stage    L'étage où se situe le sage
-     * @param location Coordonnées du sage
-     * @param name     Le nom du sage
+     * @param app  L'application
+     * @param name Le nom du sage
      */
-    public Sage(String name) {
-        super(null, null, name);
+    public Sage(App app, String name) {
+        super(app, null, null, name);
 
         affectAPuzzle();
     }
@@ -54,4 +55,6 @@ public class Sage extends Entity {
     public String getCharacter() {
         return "S";
     }
+
+
 }

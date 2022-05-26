@@ -8,11 +8,7 @@ import net.cnam.chateau.event.entity.EntityListener;
 import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
-import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,8 +28,6 @@ public abstract class Enemy extends Entity implements EntityListener {
         specialEnemys.add(new Zombie(app, null, null, "Chef zombie : Maxime", 100, 100, 100, 100, 100));
     }
 
-    private final App app;
-
     /**
      * Constructeur
      *
@@ -50,9 +44,7 @@ public abstract class Enemy extends Entity implements EntityListener {
     public Enemy(App app, Stage stage, Location location, String name, int health, int resistance, int strength,
                  int accuracy,
                  int speed) {
-        super(stage, location, name, health, resistance, strength, accuracy, speed);
-
-        this.app = app;
+        super(app, stage, location, name, health, resistance, strength, accuracy, speed);
     }
 
     /**
@@ -64,9 +56,7 @@ public abstract class Enemy extends Entity implements EntityListener {
      * @param name     Le nom de l'ennemi
      */
     public Enemy(App app, Stage stage, Location location, String name) {
-        super(stage, location, name);
-
-        this.app = app;
+        super(app, stage, location, name);
     }
 
     @Override
@@ -77,27 +67,5 @@ public abstract class Enemy extends Entity implements EntityListener {
                 event.setCanceled(true);
             }
         }
-    }
-
-    /**
-     * Permet de déclancher un combat avec un joueur
-     *
-     * @param player Le joueur
-     * @return Le combat terminé
-     */
-    public Fight fight(Player player) {
-        Fight fight = new Fight(app, player, this);
-        SimpleAudioPlayer gamePlayer = app.getCurrentGame().getAudioPlayer();
-        if (gamePlayer != null) {
-            gamePlayer.stop();
-        }
-        app.getConsole().show(fight);
-        if (!player.isDead() && gamePlayer != null) {
-            try {
-                gamePlayer.restart();
-            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ignored) {
-            }
-        }
-        return fight;
     }
 }

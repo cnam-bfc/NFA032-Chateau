@@ -1,5 +1,6 @@
 package net.cnam.chateau.entity.pet;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.CColor;
@@ -14,13 +15,13 @@ import java.util.Random;
 public abstract class Pet extends Entity {
     public static List<Pet> petList = new LinkedList<>();
 
-    public static void createListPet() {
-        petList.add(new Babe());
-        petList.add(new ChatPotte());
-        petList.add(new Idefix());
-        petList.add(new Ouini());
-        petList.add(new PanPan());
-        petList.add(new PepeLoiseau());
+    public static void createListPet(App app) {
+        petList.add(new Babe(app));
+        petList.add(new ChatPotte(app));
+        petList.add(new Idefix(app));
+        petList.add(new Ouini(app));
+        petList.add(new PanPan(app));
+        petList.add(new PepeLoiseau(app));
     }
 
     public static Pet getAPet(Random random) {
@@ -36,10 +37,11 @@ public abstract class Pet extends Entity {
     /**
      * Constructeur
      *
+     * @param app  L'application
      * @param name Le nom du pet
      */
-    public Pet(String name) {
-        super(null, null, name);
+    public Pet(App app, String name) {
+        super(app, null, null, name);
 
         this.setRenderPriority(1);
     }

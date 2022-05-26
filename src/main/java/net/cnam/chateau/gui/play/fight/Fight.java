@@ -22,13 +22,13 @@ public class Fight extends CFrame implements DisplayableComponent {
 
     private final App app;
     private final Player player;
-    private final Enemy enemy;
+    private final Entity enemy;
     private final Random random;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
     private boolean over = false;
 
-    public Fight(App app, Player player, Enemy enemy) {
+    public Fight(App app, Player player, Entity enemy) {
         super(0, 0, "Combat avec " + enemy.getName());
 
         this.app = app;

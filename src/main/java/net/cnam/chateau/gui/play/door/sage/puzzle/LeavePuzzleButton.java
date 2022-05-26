@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.play.sagedoor.puzzle;
+package net.cnam.chateau.gui.play.door.sage.puzzle;
 
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CButton;

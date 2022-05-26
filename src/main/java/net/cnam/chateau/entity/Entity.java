@@ -1,5 +1,6 @@
 package net.cnam.chateau.entity;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.DisplayableObject;
 import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
@@ -7,6 +8,7 @@ import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.event.entity.EntityApproachEvent;
 import net.cnam.chateau.event.entity.EntityListener;
 import net.cnam.chateau.game.EntityDeadException;
+import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.item.Item;
 import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
@@ -14,7 +16,11 @@ import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Stair;
 import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +34,7 @@ public abstract class Entity implements DisplayableObject {
     private static final int DEFAULT_ACCURACY = 15;
     private static final int DEFAULT_SPEED = 2;
 
+    private final App app;
     private Location location;
     private Stage stage;
     private String name;
@@ -49,6 +56,7 @@ public abstract class Entity implements DisplayableObject {
     /**
      * Constructeur
      *
+     * @param app        L'application
      * @param stage      L'étage où elle se situe
      * @param location   Coordonnées où elle se situe
      * @param name       Le nom
@@ -58,9 +66,9 @@ public abstract class Entity implements DisplayableObject {
      * @param accuracy   La précision
      * @param speed      La rapidité
      */
-    public Entity(Stage stage, Location location, String name, int health, int resistance, int strength, int accuracy,
+    public Entity(App app, Stage stage, Location location, String name, int health, int resistance, int strength, int accuracy,
                   int speed) {
-        this(stage, location, name);
+        this(app, stage, location, name);
 
         this.health = health;
         this.maxHealth = health;
@@ -77,11 +85,13 @@ public abstract class Entity implements DisplayableObject {
     /**
      * Constructeur
      *
+     * @param app      L'application
      * @param stage    L'étage où se situe l'entité
      * @param location Coordonnées de l'entité
      * @param name     Le nom de l'entité
      */
-    public Entity(Stage stage, Location location, String name) {
+    public Entity(App app, Stage stage, Location location, String name) {
+        this.app = app;
         this.stage = stage;
         this.location = location;
         this.name = name;
@@ -234,6 +244,28 @@ public abstract class Entity implements DisplayableObject {
         if (this.stage != null) {
             this.stage.getEntities().remove(this);
         }
+    }
+
+    /**
+     * Permet de déclencher un combat avec un joueur
+     *
+     * @param player Le joueur
+     * @return Le combat terminé
+     */
+    public Fight fight(Player player) {
+        Fight fight = new Fight(app, player, this);
+        SimpleAudioPlayer gamePlayer = app.getCurrentGame().getAudioPlayer();
+        if (gamePlayer != null) {
+            gamePlayer.stop();
+        }
+        app.getConsole().show(fight);
+        if (!player.isDead() && gamePlayer != null) {
+            try {
+                gamePlayer.restart();
+            } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ignored) {
+            }
+        }
+        return fight;
     }
 
     /**

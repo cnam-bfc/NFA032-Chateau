@@ -1,10 +1,12 @@
 package net.cnam.chateau.entity.pet;
 
+import net.cnam.chateau.App;
+
 public class PanPan extends Pet {
     private boolean power = true;
 
-    public PanPan() {
-        super("PanPan");
+    public PanPan(App app) {
+        super(app, "PanPan");
     }
 
     @Override

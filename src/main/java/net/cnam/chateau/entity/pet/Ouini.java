@@ -1,10 +1,12 @@
 package net.cnam.chateau.entity.pet;
 
+import net.cnam.chateau.App;
+
 public class Ouini extends Pet {
     private boolean power = true;
 
-    public Ouini() {
-        super("Ouini");
+    public Ouini(App app) {
+        super(app, "Ouini");
     }
 
     @Override

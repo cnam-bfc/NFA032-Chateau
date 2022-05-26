@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.play.sagedoor;
+package net.cnam.chateau.gui.play.door.sage;
 
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.entity.Player;
@@ -22,8 +22,7 @@ public class AttackButton extends CButton {
 
     @Override
     public void execute() {
-        // TODO faire attaquer le joueur par le sage
-        // Fight fight = door.getSage().fight(player);
+        Fight fight = door.getSage().fight(player);
         this.menu.stopDisplay();
     }
 }

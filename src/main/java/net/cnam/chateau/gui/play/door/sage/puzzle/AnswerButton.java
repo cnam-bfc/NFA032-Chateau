@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.play.sagedoor.puzzle;
+package net.cnam.chateau.gui.play.door.sage.puzzle;
 
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.entity.Player;
@@ -16,7 +16,7 @@ public class AnswerButton extends CButton {
     private SageDoor door;
     private Player player;
 
-    public AnswerButton(AppSettings settings,Player player, SageDoor door, Couple<String, Boolean> answer, PuzzleMenu menu) {
+    public AnswerButton(AppSettings settings, Player player, SageDoor door, Couple<String, Boolean> answer, PuzzleMenu menu) {
         super(settings, answer.getElemOne());
 
         this.player = player;
@@ -27,13 +27,13 @@ public class AnswerButton extends CButton {
 
     @Override
     public void execute() {
-        if (answer.getElemTwo()){
+        if (answer.getElemTwo()) {
             door.setSage(null);
         } else {
             try {
                 player.damage(new Random().nextInt(5, 11));
                 door.getSage().affectAPuzzle();
-            } catch(EntityDeadException ex){
+            } catch (EntityDeadException ignored) {
             }
         }
         this.menu.stopDisplay();

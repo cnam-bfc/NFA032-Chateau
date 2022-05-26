@@ -1,12 +1,9 @@
-package net.cnam.chateau.gui.play.sagedoor.puzzle;
+package net.cnam.chateau.gui.play.door.sage.puzzle;
 
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.*;
-import net.cnam.chateau.gui.play.sagedoor.AttackButton;
-import net.cnam.chateau.gui.play.sagedoor.LeaveButton;
-import net.cnam.chateau.gui.play.sagedoor.PuzzleButton;
 import net.cnam.chateau.structure.block.door.SageDoor;
 import net.cnam.chateau.utils.array.ArrayUtils;
 

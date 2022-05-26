@@ -38,7 +38,7 @@ public class Game extends CFrame implements DisplayableComponent {
         Generator generator = new Generator(app, seed);
         this.castle = generator.generateCastle();
         Stage firstStage = this.castle.getStages()[0];
-        this.player = new Player(this, firstStage, new Location(castle.getPlayerStartLocation().getX(), castle.getPlayerStartLocation().getY()), "Joueur");
+        this.player = new Player(app, firstStage, new Location(castle.getPlayerStartLocation().getX(), castle.getPlayerStartLocation().getY()), "Joueur");
         firstStage.getEntities().add(0, player);
         if (player.hasPet()) {
             firstStage.getEntities().add(1, player.getPet());

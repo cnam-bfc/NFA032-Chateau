@@ -1,10 +1,12 @@
 package net.cnam.chateau.entity.pet;
 
+import net.cnam.chateau.App;
+
 public class PepeLoiseau extends Pet {
     private boolean power = true;
 
-    public PepeLoiseau() {
-        super("Pepe Loiseau");
+    public PepeLoiseau(App app) {
+        super(app, "Pepe Loiseau");
     }
 
     @Override

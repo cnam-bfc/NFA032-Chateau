@@ -27,8 +27,8 @@ public class App {
         }
         this.console = new Console(settings);
         // Initialisation de toutes les listes static
-        Sage.initSages();
-        Pet.createListPet();
+        Sage.initSages(this);
+        Pet.createListPet(this);
         Enemy.initSpecialEnemys(this);
 
     }

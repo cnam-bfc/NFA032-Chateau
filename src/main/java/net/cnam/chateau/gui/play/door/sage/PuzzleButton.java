@@ -1,9 +1,9 @@
-package net.cnam.chateau.gui.play.sagedoor;
+package net.cnam.chateau.gui.play.door.sage;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.play.sagedoor.puzzle.PuzzleMenu;
+import net.cnam.chateau.gui.play.door.sage.puzzle.PuzzleMenu;
 import net.cnam.chateau.structure.block.door.SageDoor;
 
 public class PuzzleButton extends CButton {

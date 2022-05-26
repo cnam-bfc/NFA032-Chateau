@@ -1,7 +1,7 @@
 package net.cnam.chateau.entity;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.pet.Pet;
-import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
@@ -12,22 +12,22 @@ import net.cnam.chateau.utils.Location;
  * Classe d'un joueur
  */
 public class Player extends Entity {
-    private final Game game;
+    private final App app;
 
     private Pet pet;
 
     /**
      * Constructeur
      *
-     * @param game     La partie dans laquelle le joueur se situe
+     * @param app      L'application
      * @param stage    L'étage où se situe l'entité
      * @param location Coordonnées de l'entité
      * @param name     Le nom de l'entité
      */
-    public Player(Game game, Stage stage, Location location, String name) {
-        super(stage, location, name);
+    public Player(App app, Stage stage, Location location, String name) {
+        super(app, stage, location, name);
 
-        this.game = game;
+        this.app = app;
 
         this.setRenderPriority(0);
     }
@@ -58,7 +58,7 @@ public class Player extends Entity {
     public void kill() {
         super.kill();
 
-        game.stop();
+        app.getCurrentGame().stop();
     }
 
     /**
