@@ -34,6 +34,7 @@ public class Fight extends CFrame implements DisplayableComponent {
     private final EntityStats enemyStats;
     private final CLabel logs;
 
+    // TODO Message quand perd, et à la fin du combat
     public Fight(App app, Player player, Entity enemy) {
         super(0, 0, "Combat");
 

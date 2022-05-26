@@ -61,10 +61,10 @@ public class Game extends CFrame implements DisplayableComponent {
         header.getComponents().add(title);
         this.setHeader(header);
 
-        CPanel footer = new CPanel(0, 2, Orientation.HORIZONTAL, false);
+        CPanel footer = new CPanel(0, 4, Orientation.HORIZONTAL, false);
 
         this.playerStats = new EntityStats(player);
-        playerStats.setHeight(2);
+        playerStats.setHeight(4);
         footer.getComponents().add(playerStats);
 
         this.setFooter(footer);

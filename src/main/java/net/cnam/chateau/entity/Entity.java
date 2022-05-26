@@ -319,7 +319,7 @@ public abstract class Entity implements DisplayableObject {
      * @return si elle a une arme
      */
     public boolean hasWeapon() {
-        return (this.weapon != null);
+        return this.weapon != null;
     }
 
     /**
