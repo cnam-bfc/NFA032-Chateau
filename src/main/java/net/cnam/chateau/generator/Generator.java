@@ -607,18 +607,18 @@ public class Generator {
 
     private Door getRandomDoor(Stage stage, Room roomOne, Room roomTwo) {
         int randomInt = random.nextInt(0, 100);
-        if (randomInt < 80) {
+        if (randomInt < 75) {
             return new Door(stage, roomOne, roomTwo);
-        } else if (randomInt < 86) {
+        } else if (randomInt < 82) {
             if (!sages.isEmpty()) {
                 return new SageDoor(app, stage, roomOne, roomTwo, getRandomSage());
             } else {
                 return new TrappedDoor(app, stage, roomOne, roomTwo, random);
             }
-        } else if (randomInt < 91) {
-            return new EnemyDoor(stage, roomOne, roomTwo, getRandomEnemy(null, null));
-        } else {
+        } else if (randomInt < 88) {
             return new TrappedDoor(app, stage, roomOne, roomTwo, random);
+        } else {
+            return new EnemyDoor(stage, roomOne, roomTwo, getRandomEnemy(null, null));
         }
     }
 
