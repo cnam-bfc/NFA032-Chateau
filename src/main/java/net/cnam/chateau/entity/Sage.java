@@ -9,15 +9,15 @@ public class Sage extends Entity {
     /**
      * Constructeur
      *
-     * @param app  L'application
-     * @param name Le nom du sage
+     * @param app    L'application
+     * @param name   Le nom du sage
+     * @param puzzle Le puzzle
      */
-    public Sage(App app, String name) {
+    public Sage(App app, String name, Puzzle puzzle) {
         super(app, null, null, name);
 
         this.app = app;
-
-        affectRandomPuzzle();
+        this.puzzle = puzzle;
     }
 
     public boolean hasPuzzle() {

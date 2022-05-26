@@ -43,7 +43,7 @@ public class Game extends CFrame implements DisplayableComponent {
 
         initPuzzles();
 
-        Generator generator = new Generator(app, seed);
+        Generator generator = new Generator(app, this, seed);
         this.castle = generator.generateCastle();
         Stage firstStage = this.castle.getStages()[0];
         this.player = new Player(app, firstStage, new Location(castle.getPlayerStartLocation().getX(), castle.getPlayerStartLocation().getY()), "Joueur");

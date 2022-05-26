@@ -10,7 +10,6 @@ import net.cnam.chateau.utils.Couple;
 import java.util.Random;
 
 public class AnswerButton extends CButton {
-
     private final PuzzleMenu menu;
     private final Couple<String, Boolean> answers;
     private final SageDoor door;

@@ -25,7 +25,7 @@ public class Player extends Entity {
      * @param name     Le nom de l'entité
      */
     public Player(App app, Stage stage, Location location, String name) {
-        super(app, stage, location, name, 1000,1000,1000,1000,1000);
+        super(app, stage, location, name, 100,50,10,10,10);
 
         this.app = app;
 

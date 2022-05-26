@@ -5,6 +5,7 @@ import net.cnam.chateau.entity.Sage;
 import net.cnam.chateau.entity.enemy.*;
 import net.cnam.chateau.entity.enemy.boss.BossMartinez;
 import net.cnam.chateau.entity.pet.*;
+import net.cnam.chateau.game.Game;
 import net.cnam.chateau.structure.*;
 import net.cnam.chateau.structure.block.*;
 import net.cnam.chateau.structure.block.container.Chest;
@@ -56,9 +57,10 @@ public class Generator {
      * Constructeur
      *
      * @param app  L'application
+     * @param game La partie
      * @param seed long qui permet de générer la carte de façon procédurale
      */
-    public Generator(App app, long seed) {
+    public Generator(App app, Game game, long seed) {
         this.app = app;
         this.seed = seed;
         this.random = new Random(seed);
@@ -81,11 +83,11 @@ public class Generator {
         specialEnemies.add(new Zombie(app, null, null, "Chef zombie : Maxime", 100, 100, 100, 100, 100));
 
         // Initialisation des sages
-        sages.add(new Sage(app, "Dumbledore"));
-        sages.add(new Sage(app, "Merlin"));
-        sages.add(new Sage(app, "Kristoff"));
-        sages.add(new Sage(app, "Sage Gris"));
-        sages.add(new Sage(app, "Salomon"));
+        sages.add(new Sage(app, "Dumbledore", game.getRandomPuzzle()));
+        sages.add(new Sage(app, "Merlin", game.getRandomPuzzle()));
+        sages.add(new Sage(app, "Kristoff", game.getRandomPuzzle()));
+        sages.add(new Sage(app, "Sage Gris", game.getRandomPuzzle()));
+        sages.add(new Sage(app, "Salomon", game.getRandomPuzzle()));
     }
 
     /**
