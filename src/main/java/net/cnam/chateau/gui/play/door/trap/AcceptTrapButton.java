@@ -27,12 +27,12 @@ public class AcceptTrapButton extends CButton {
     @Override
     public void execute() {
         if (door.getTrap() instanceof BadTrap trap) {
-            app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n\n"+
+            app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n"+
                     "Malheureusement, c'était une mauvaise idée ! \nC'était " +
             trap.getDescription() + "\nCela vous a infligé : " + trap.getDmg() + " points de dégâts !"  ));
         }
         if (door.getTrap() instanceof GoodTrap trap){
-            app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n\n"+
+            app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n"+
                     "Par chance c'était un piège bénéfique ! \nC'était " +
                     trap.getDescription() + "\nCela vous a restauré : " + trap.getHealth() + " points de vies !"  ));
         }
