@@ -123,11 +123,11 @@ public class CFrame extends CComponent implements KeyListener {
 
     private void autoResize() {
         int contentHeight = this.getHeight() - 2;
-        if (this.header != null) {
+        if (this.header != null && this.header.getHeight() > 0) {
             contentHeight -= this.header.getHeight();
             contentHeight--;
         }
-        if (this.footer != null) {
+        if (this.footer != null && this.footer.getHeight() > 0) {
             contentHeight -= this.footer.getHeight();
             contentHeight--;
         }
