@@ -11,28 +11,28 @@ import java.util.Random;
 
 public class AnswerButton extends CButton {
 
-    private PuzzleMenu menu;
-    private Couple<String, Boolean> answer;
-    private SageDoor door;
-    private Player player;
+    private final PuzzleMenu menu;
+    private final Couple<String, Boolean> answers;
+    private final SageDoor door;
+    private final Player player;
 
-    public AnswerButton(AppSettings settings, Player player, SageDoor door, Couple<String, Boolean> answer, PuzzleMenu menu) {
-        super(settings, answer.getElemOne());
+    public AnswerButton(AppSettings settings, Player player, SageDoor door, Couple<String, Boolean> answers, PuzzleMenu menu) {
+        super(settings, answers.getElemOne());
 
         this.player = player;
         this.door = door;
-        this.answer = answer;
+        this.answers = answers;
         this.menu = menu;
     }
 
     @Override
     public void execute() {
-        if (answer.getElemTwo()) {
+        if (answers.getElemTwo()) {
             door.setSage(null);
         } else {
             try {
                 player.damage(new Random().nextInt(5, 11));
-                door.getSage().affectAPuzzle();
+                door.getSage().affectRandomPuzzle();
             } catch (EntityDeadException ignored) {
             }
         }

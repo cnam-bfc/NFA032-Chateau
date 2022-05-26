@@ -5,34 +5,12 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.CColor;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 /**
  * Classe d'un pet
  */
 public abstract class Pet extends Entity {
-    public static List<Pet> petList = new LinkedList<>();
-
-    public static void createListPet(App app) {
-        petList.add(new Babe(app));
-        petList.add(new ChatPotte(app));
-        petList.add(new Idefix(app));
-        petList.add(new Ouini(app));
-        petList.add(new PanPan(app));
-        petList.add(new PepeLoiseau(app));
-    }
-
-    public static Pet getAPet(Random random) {
-        if (!petList.isEmpty()) {
-            return petList.remove(random.nextInt(0, petList.size()));
-        }
-        return null;
-    }
-
     private Player player;
-    private boolean followPlayer = true;
+    private boolean follow = true;
 
     /**
      * Constructeur
@@ -68,11 +46,11 @@ public abstract class Pet extends Entity {
     public abstract void power();
 
     public boolean isFollowingPlayer() {
-        return followPlayer;
+        return follow;
     }
 
     public void setFollowingPlayer(boolean followPlayer) {
-        this.followPlayer = followPlayer;
+        this.follow = followPlayer;
     }
 
     public void setPlayer(Player player) {

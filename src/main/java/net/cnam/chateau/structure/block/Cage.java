@@ -9,24 +9,17 @@ import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.play.cage.CageMenu;
 
-import java.util.Random;
-
 /**
  * Class permettant de créer un block Cage (cage qui contient un pet) pour la
  * map.
  */
 public class Cage extends Block implements BlockListener {
-
     private final App app;
     private Pet pet;
     private boolean visited;
 
-    public Cage(App app, Random random) {
-        this.app = app;
-
-        if (random.nextBoolean()) {
-            this.pet = Pet.getAPet(random);
-        }
+    public Cage(App app) {
+        this(app, null);
     }
 
     public Cage(App app, Pet pet) {

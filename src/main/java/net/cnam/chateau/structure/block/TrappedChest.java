@@ -12,12 +12,9 @@ import net.cnam.chateau.gui.play.fight.Fight;
 import java.util.Random;
 
 public class TrappedChest extends Block implements BlockListener {
-
-    private App app;
     private Enemy enemy;
 
     public TrappedChest(App app, Random random) {
-        this.app = app;
         this.enemy = new Mimic(app, random);
     }
 

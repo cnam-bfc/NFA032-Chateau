@@ -4,6 +4,7 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.entity.Puzzle;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.generator.Generator;
 import net.cnam.chateau.gui.component.CFrame;
@@ -14,6 +15,7 @@ import net.cnam.chateau.gui.play.EntityStats;
 import net.cnam.chateau.structure.Castle;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
+import net.cnam.chateau.utils.Couple;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.utils.direction.Direction;
@@ -24,16 +26,22 @@ import net.cnam.chateau.utils.direction.Orientation;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Game extends CFrame implements DisplayableComponent {
     private final Castle castle;
     private final Map map;
     private final Player player;
+    private final List<Puzzle> puzzles = new ArrayList<>();
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
 
     public Game(App app, long seed) {
         super(0, 0);
+
+        initPuzzles();
 
         Generator generator = new Generator(app, seed);
         this.castle = generator.generateCastle();
@@ -67,6 +75,79 @@ public class Game extends CFrame implements DisplayableComponent {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
                  IllegalArgumentException ignored) {
         }
+    }
+
+    private void initPuzzles() {
+        ArrayList<Couple<String, Boolean>> answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Ronde", true));
+        answersInit.add(new Couple<>("Plate", false));
+        answersInit.add(new Couple<>("Tout est une question de point de vu", false));
+        puzzles.add(new Puzzle("La Terre est-elle ronde ou plate ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("42", true));
+        answersInit.add(new Couple<>("98", false));
+        answersInit.add(new Couple<>("11", false));
+        puzzles.add(new Puzzle("Combien ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("3,141592", true));
+        answersInit.add(new Couple<>("2,71828", false));
+        answersInit.add(new Couple<>("1,435991", false));
+        answersInit.add(new Couple<>("0,834626", false));
+        puzzles.add(new Puzzle("Je suis la constante d'Archimède, qui suis-je ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Cnam", true));
+        answersInit.add(new Couple<>("Cman", false));
+        answersInit.add(new Couple<>("Manc", false));
+        answersInit.add(new Couple<>("Canm", false));
+        puzzles.add(new Puzzle("Ou êtes vous ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Harry Potter", true));
+        answersInit.add(new Couple<>("Hermione", false));
+        answersInit.add(new Couple<>("Voldemort", false));
+        answersInit.add(new Couple<>("Alban", false));
+        puzzles.add(new Puzzle("Quel nom du héro principal dans Harry Potter", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("5 fruits et légumes par jour", true));
+        answersInit.add(new Couple<>("ses morts", false));
+        answersInit.add(new Couple<>("3 fruits et légumes par jour", false));
+        answersInit.add(new Couple<>("Le fiak de victor", false));
+        puzzles.add(new Puzzle("il faut manger", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Une casserole avec de l'eau", true));
+        answersInit.add(new Couple<>("Un casserole avec du beurre", false));
+        answersInit.add(new Couple<>("Une poêle", false));
+        answersInit.add(new Couple<>("Une chaussure", false));
+        puzzles.add(new Puzzle("Dans quoi cuit-on les pâtes ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("7", true));
+        answersInit.add(new Couple<>("10", false));
+        answersInit.add(new Couple<>("5", false));
+        answersInit.add(new Couple<>("3", false));
+        puzzles.add(new Puzzle("Combien de coup de fouet pour dresser Victor", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("VS code", true));
+        answersInit.add(new Couple<>("NetBeans", false));
+        answersInit.add(new Couple<>("Intellij", false));
+        puzzles.add(new Puzzle("Le pire IDE : ", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("9", true));
+        answersInit.add(new Couple<>("12", false));
+        puzzles.add(new Puzzle("1+2(4)", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Ismail/Melvin/Célian", true));
+        answersInit.add(new Couple<>("Melvin/Célian/Ismail", false));
+        answersInit.add(new Couple<>("Célian/Melvin/Ismail", false));
+        puzzles.add(new Puzzle("Dans quel ordre sont parties les candidats de Cnam-Lanta", answersInit));
     }
 
     @Override
@@ -136,5 +217,13 @@ public class Game extends CFrame implements DisplayableComponent {
 
     public SimpleAudioPlayer getAudioPlayer() {
         return audioPlayer;
+    }
+
+    public boolean hasPuzzles() {
+        return !puzzles.isEmpty();
+    }
+
+    public Puzzle getRandomPuzzle() {
+        return puzzles.remove(new Random().nextInt(0, puzzles.size()));
     }
 }

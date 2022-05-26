@@ -26,11 +26,6 @@ public class App {
         } catch (IOException ignored) {
         }
         this.console = new Console(settings);
-        // Initialisation de toutes les listes static
-        Sage.initSages(this);
-        Pet.createListPet(this);
-        Enemy.initSpecialEnemys(this);
-
     }
 
     public void start() {

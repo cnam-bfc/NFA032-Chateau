@@ -22,9 +22,6 @@ import net.cnam.chateau.utils.Location;
 import java.util.*;
 
 public class GUtils {
-
-    private static final int LUCK_BLOCK = 80; // chance d'avoir un blocks rare dans la pièce
-
     /**
      * Méthode static qui cherche aléatoirement un endroit dans la room ou
      * mettre un block. Si une porte se trouve à proximité, déplace le block. Si
@@ -55,47 +52,6 @@ public class GUtils {
             }
         } while (testPosition);
         return new Location(x, y);
-    }
-
-    /**
-     * Méthode pour choisir le bloc à placer dans la pièce.
-     *
-     * @return renvoie un block aléatoire
-     */
-    public static Block pickRandomBlock(App app, Random random) {
-
-        if (random.nextInt(1, 101) > LUCK_BLOCK) {
-            switch (random.nextInt(1, 6)) {
-                case 1 -> {
-                    return new Chest(app);
-                }
-                case 2 -> {
-                    return new Wardrobe(app);
-                }
-                case 3 -> {
-                    return new Bed(app);
-                }
-                case 4 -> {
-                    return new Cage(app, random);
-                }
-                case 5 -> {
-                    return new TrappedChest(app, random);
-                }
-            }
-        } else {
-            switch (random.nextInt(1, 4)) {
-                case 1 -> {
-                    return new Seat();
-                }
-                case 2 -> {
-                    return new Table();
-                }
-                case 3 -> {
-                    return new Desk();
-                }
-            }
-        }
-        return null;
     }
 
     /**
@@ -226,27 +182,4 @@ public class GUtils {
         int y = location.getY();
         keyRoom.getBlocks()[x][y] = new Chest(app, key); // TODO à modif pour faire varier block
     }
-
-    public static Door getDoor(Random random, Stage stage, Room roomOne, Room roomTwo, App app) {
-        if (!Sage.sages.isEmpty()) {
-            return new SageDoor(app, stage, roomOne, roomTwo, random);
-        } else {
-            return new Door(stage, roomOne, roomTwo);
-        }
-/*        int randomInt = random.nextInt(1, 100);
-        if (randomInt < 80) {
-            return new Door(stage, roomOne, roomTwo);
-        } else if (randomInt < 86) {
-            if (!Sage.sages.isEmpty()) {
-                return new SageDoor(app, stage, roomOne, roomTwo, random);
-            } else {
-                return new TrappedDoor(stage, roomOne, roomTwo);
-            }
-        } else if (randomInt < 91) {
-            return new EnemyDoor(app, stage, roomOne, roomTwo, random);
-        } else {
-            return new TrappedDoor(stage, roomOne, roomTwo);
-        }*/
-    }
-
 }

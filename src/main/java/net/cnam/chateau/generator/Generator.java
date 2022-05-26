@@ -1,19 +1,27 @@
 package net.cnam.chateau.generator;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.entity.Sage;
+import net.cnam.chateau.entity.enemy.*;
 import net.cnam.chateau.entity.enemy.boss.BossMartinez;
+import net.cnam.chateau.entity.pet.*;
 import net.cnam.chateau.structure.*;
-import net.cnam.chateau.structure.block.Block;
-import net.cnam.chateau.structure.block.DownStair;
-import net.cnam.chateau.structure.block.UpStair;
-import net.cnam.chateau.structure.block.Wall;
+import net.cnam.chateau.structure.block.*;
+import net.cnam.chateau.structure.block.container.Chest;
+import net.cnam.chateau.structure.block.container.Wardrobe;
+import net.cnam.chateau.structure.block.decorative.Bed;
+import net.cnam.chateau.structure.block.decorative.Desk;
+import net.cnam.chateau.structure.block.decorative.Seat;
+import net.cnam.chateau.structure.block.decorative.Table;
 import net.cnam.chateau.structure.block.door.Door;
+import net.cnam.chateau.structure.block.door.SageDoor;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.array.ArrayUtils;
 
 import java.util.*;
 
-import static net.cnam.chateau.generator.GUtils.*;
+import static net.cnam.chateau.generator.GUtils.findPosition;
+import static net.cnam.chateau.generator.GUtils.triTopo;
 
 /**
  * Classe pour la génération de la map
@@ -31,22 +39,53 @@ public class Generator {
     private static final int POURCENT_DIVIDE = 10; //ajusteur pour savoir si une pièce se re divise dans la deuxième phase de division
     private static final int MIN_BLOCKS = 1; // nombre de bloc décoratifs minimum par pièce
     private static final int MAX_BLOCKS = 3; // nombre de bloc maximum par pièce
+    private static final int LUCK_BLOCK = 80; // chance d'avoir un blocks rare dans la pièce
+    private static final int LUCK_SPECIAL_ENNEMY = 80; // entier à dépasser sur un random entre 1 et 100
 
     private final App app;
     private final long seed;
     private final Random random;
+
+    private final List<Enemy> specialEnemies = new ArrayList<>();
+    private final List<Pet> pets = new ArrayList<>();
+    private final List<Sage> sages = new ArrayList<>();
+
     private Location playerStartLocation;
 
     /**
      * Constructeur
      *
      * @param app  L'application
-     * @param seed long qui permet de générer la carte de façon procédural
+     * @param seed long qui permet de générer la carte de façon procédurale
      */
     public Generator(App app, long seed) {
         this.app = app;
         this.seed = seed;
         this.random = new Random(seed);
+
+        // Initialisation des pets
+        pets.add(new Babe(app));
+        pets.add(new ChatPotte(app));
+        pets.add(new Idefix(app));
+        pets.add(new Ouini(app));
+        pets.add(new PanPan(app));
+        pets.add(new PepeLoiseau(app));
+
+        // Initialisation des ennemis
+        specialEnemies.add(new Demogorgon(app, null, null, "Chef demogorgon : Demo-Bob", 100, 100, 100, 100, 100));
+        specialEnemies.add(new Harpy(app, null, null, "Cheffe harpie : Senga-Eiram", 100, 100, 100, 100, 100));
+        specialEnemies.add(new HeadlessKnight(app, null, null, "Chef chevalier sans tete : 720-headshot", 100, 100, 100, 100, 100));
+        specialEnemies.add(new Morbol(app, null, null, "Chef morbol : Gilou", 100, 100, 100, 100, 100));
+        specialEnemies.add(new Spider(app, null, null, "Chef araignée : Aragog", 100, 100, 100, 100, 100));
+        specialEnemies.add(new Werewolf(app, null, null, "Cheffe loup-garou : Aela", 100, 100, 100, 100, 100));
+        specialEnemies.add(new Zombie(app, null, null, "Chef zombie : Maxime", 100, 100, 100, 100, 100));
+
+        // Initialisation des sages
+        sages.add(new Sage(app, "Dumbledore"));
+        sages.add(new Sage(app, "Merlin"));
+        sages.add(new Sage(app, "Kristoff"));
+        sages.add(new Sage(app, "Sage Gris"));
+        sages.add(new Sage(app, "Salomon"));
     }
 
     /**
@@ -331,10 +370,10 @@ public class Generator {
      */
     public void generateRoom(Room room) {
         int numberBlocks = random.nextInt(MIN_BLOCKS, MAX_BLOCKS + 1);
-        // On ajoute dans la pièce le nombre de blocs défini au dessus
+        // On ajoute dans la pièce le nombre de blocs défini au-dessus
         for (int i = 0; i < numberBlocks; i++) {
             Location location = findPosition(this.random, room);
-            room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock(app, this.random);
+            room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock();
         }
     }
 
@@ -447,9 +486,121 @@ public class Generator {
                 return;
             }
             Location breakPoint = possibleBreakPoints.remove(random.nextInt(possibleBreakPoints.size()));
-            stage.setBlock(breakPoint.getX(), breakPoint.getY(), getDoor(random, stage, wall.getRoomOne().getRoom(), wall.getRoomTwo().getRoom(), app));
+            stage.setBlock(breakPoint.getX(), breakPoint.getY(), getRandomDoor(stage, wall.getRoomOne().getRoom(), wall.getRoomTwo().getRoom()));
         } catch (CoordinatesOutOfBoundsException ignored) {
         }
+    }
+
+    /**
+     * Méthode pour choisir le bloc à placer dans la pièce.
+     *
+     * @return renvoie un block aléatoire
+     */
+    public Block pickRandomBlock() {
+        if (random.nextInt(1, 101) > LUCK_BLOCK) {
+            switch (random.nextInt(1, 6)) {
+                case 1 -> {
+                    return new Chest(app);
+                }
+                case 2 -> {
+                    return new Wardrobe(app);
+                }
+                case 3 -> {
+                    return new Bed(app);
+                }
+                case 4 -> {
+                    if (random.nextBoolean()) {
+                        return new Cage(app, getRandomPet());
+                    } else {
+                        return new Cage(app);
+                    }
+                }
+                case 5 -> {
+                    return new TrappedChest(app, random);
+                }
+            }
+        } else {
+            switch (random.nextInt(1, 4)) {
+                case 1 -> {
+                    return new Seat();
+                }
+                case 2 -> {
+                    return new Table();
+                }
+                case 3 -> {
+                    return new Desk();
+                }
+            }
+        }
+        return null;
+    }
+
+    private Pet getRandomPet() {
+        if (pets.isEmpty()) {
+            return null;
+        }
+
+        return pets.remove(random.nextInt(0, pets.size()));
+    }
+
+    public Enemy getRandomEnemy(Stage stage, Location location) {
+        if (random.nextInt(1, 101) > LUCK_SPECIAL_ENNEMY && !specialEnemies.isEmpty()) {
+            return getSpecialEnemy();
+        } else {
+            return getRandomisedEnemy(stage, location);
+        }
+    }
+
+    public Enemy getRandomisedEnemy(Stage stage, Location location) {
+        Enemy entity = null;
+        switch (random.nextInt(0, 8)) {
+            case 0 -> entity = new Demogorgon(app, stage, location, random);
+            case 1 -> entity = new Harpy(app, stage, location, random);
+            case 2 -> entity = new HeadlessKnight(app, stage, location, random);
+            case 3 -> entity = new Morbol(app, stage, location, random);
+            case 4 -> entity = new Spider(app, stage, location, random);
+            case 5 -> entity = new Werewolf(app, stage, location, random);
+            case 7 -> entity = new Zombie(app, stage, location, random);
+        }
+        return entity;
+    }
+
+    public Enemy getSpecialEnemy() {
+        if (specialEnemies.isEmpty()) {
+            return null;
+        }
+
+        return specialEnemies.remove(random.nextInt(0, specialEnemies.size()));
+    }
+
+    private Sage getRandomSage() {
+        if (sages.isEmpty()) {
+            return null;
+        }
+
+        return sages.remove(random.nextInt(0, sages.size()));
+    }
+
+    private Door getRandomDoor(Stage stage, Room roomOne, Room roomTwo) {
+        if (sages.isEmpty()) {
+            return new Door(stage, roomOne, roomTwo);
+        } else {
+            return new SageDoor(app, stage, roomOne, roomTwo, getRandomSage());
+        }
+/*        int randomInt = random.nextInt(1, 100);
+        if (randomInt < 80) {
+            return new Door(stage, roomOne, roomTwo);
+        } else if (randomInt < 86) {
+            if (!Sage.sages.isEmpty()) {
+                return new SageDoor(app, stage, roomOne, roomTwo, random);
+            } else {
+                return new TrappedDoor(stage, roomOne, roomTwo);
+            }
+        } else if (randomInt < 91) {
+            return new EnemyDoor(app, stage, roomOne, roomTwo, random);
+        } else {
+            return new TrappedDoor(stage, roomOne, roomTwo);
+        }*/
     }
 
     /**

@@ -9,19 +9,16 @@ import net.cnam.chateau.gui.play.door.sage.SageDoorMenu;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 
-import java.util.Random;
-
 public class SageDoor extends Door {
-
+    private final App app;
     private Sage sage;
-    private App app;
     private boolean visited = false;
 
-    public SageDoor(App app, Stage stage, Room roomOne, Room roomTwo, Random random) {
+    public SageDoor(App app, Stage stage, Room roomOne, Room roomTwo, Sage sage) {
         super(stage, roomOne, roomTwo);
 
-        getASage(random);
         this.app = app;
+        this.sage = sage;
     }
 
     public Sage getSage() {
@@ -32,15 +29,9 @@ public class SageDoor extends Door {
         this.sage = sage;
     }
 
-    private void getASage(Random random) {
-        if (!Sage.sages.isEmpty()) {
-            this.sage = Sage.sages.remove(random.nextInt(0, Sage.sages.size()));
-        }
-    }
-
     @Override
     public boolean isLocked() {
-        return (sage != null);
+        return sage != null;
     }
 
     @Override
@@ -63,7 +54,7 @@ public class SageDoor extends Door {
      */
     @Override
     public String getCharacter() {
-        if (!visited){
+        if (!visited) {
             return CColor.GREEN + "D" + CColor.GREEN.getForegroundReset();
         }
         if (isLocked()) {
