@@ -86,7 +86,7 @@ public class Generator {
         sages.add(new Sage(app, "Dumbledore", game.getRandomPuzzle()));
         sages.add(new Sage(app, "Merlin", game.getRandomPuzzle()));
         sages.add(new Sage(app, "Kristoff", game.getRandomPuzzle()));
-        sages.add(new Sage(app, "Sage Gris", game.getRandomPuzzle()));
+        sages.add(new Sage(app, "Sage : Ither", game.getRandomPuzzle()));
         sages.add(new Sage(app, "Salomon", game.getRandomPuzzle()));
     }
 
