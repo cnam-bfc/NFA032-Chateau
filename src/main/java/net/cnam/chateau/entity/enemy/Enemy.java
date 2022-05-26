@@ -92,7 +92,7 @@ public abstract class Enemy extends Entity implements EntityListener {
             gamePlayer.stop();
         }
         app.getConsole().show(fight);
-        if (gamePlayer != null) {
+        if (!player.isDead() && gamePlayer != null) {
             try {
                 gamePlayer.restart();
             } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ignored) {
