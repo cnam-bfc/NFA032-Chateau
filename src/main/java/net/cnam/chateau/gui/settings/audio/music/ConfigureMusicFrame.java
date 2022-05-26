@@ -11,7 +11,7 @@ public class ConfigureMusicFrame extends CFrame implements DisplayableComponent 
     public ConfigureMusicFrame(AppSettings settings, SimpleAudioPlayer menuPlayer) {
         super(0, 0, "Configurer le niveau sonore de la musique");
 
-        CGauge gauge = new ConfigureMusicGauge(settings, menuPlayer);
+        CSlider gauge = new ConfigureMusicSlider(settings, menuPlayer);
         CChoices choices = new CChoices(settings, new SelectableComponent[]{
                 gauge,
                 new CChoices(settings, new SelectableComponent[]{

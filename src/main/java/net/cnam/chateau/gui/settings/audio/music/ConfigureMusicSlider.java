@@ -1,14 +1,14 @@
 package net.cnam.chateau.gui.settings.audio.music;
 
 import net.cnam.chateau.AppSettings;
-import net.cnam.chateau.gui.component.CGauge;
+import net.cnam.chateau.gui.component.CSlider;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
-public class ConfigureMusicGauge extends CGauge {
+public class ConfigureMusicSlider extends CSlider {
     private final SimpleAudioPlayer menuPlayer;
 
-    public ConfigureMusicGauge(AppSettings settings, SimpleAudioPlayer menuPlayer) {
-        super(AppSettings.CONSOLE_MIN_LENGTH - 10, (int) (settings.getMusicVolume() * 20), 20);
+    public ConfigureMusicSlider(AppSettings settings, SimpleAudioPlayer menuPlayer) {
+        super(AppSettings.CONSOLE_MIN_LENGTH - 10, 1, (int) (settings.getMusicVolume() * 20), 20, "%PERCENT%");
 
         this.menuPlayer = menuPlayer;
     }

@@ -18,7 +18,7 @@ public class EntityStats extends CPanel {
         this.name = new CLabel(HorizontalAlignment.LEFT, entity.getName());
         this.getComponents().add(name);
 
-        this.hpBar = new CProgressBar(0, 1, entity.getHealth(), entity.getMaxHealth());
+        this.hpBar = new CProgressBar(0, 1, entity.getHealth(), entity.getMaxHealth(), "%VALUE%/%MAX_VALUE% hp");
         hpBar.getColors().add(CColor.RED);
         this.getComponents().add(hpBar);
 
