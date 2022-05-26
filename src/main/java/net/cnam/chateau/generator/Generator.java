@@ -502,7 +502,8 @@ public class Generator {
      * @return renvoie un block aléatoire
      */
     public Block pickRandomBlock() {
-        if (random.nextInt(1, 101) > LUCK_BLOCK) {
+        return new Cage(app, getRandomPet());
+        /* if (random.nextInt(1, 101) > LUCK_BLOCK) {
             switch (random.nextInt(1, 6)) {
                 case 1 -> {
                     return new Chest(app);
@@ -537,7 +538,7 @@ public class Generator {
                 }
             }
         }
-        return null;
+        return null;*/
     }
 
     private Pet getRandomPet() {

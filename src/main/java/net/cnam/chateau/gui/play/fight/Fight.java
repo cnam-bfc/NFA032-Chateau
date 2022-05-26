@@ -14,11 +14,14 @@ import net.cnam.chateau.utils.direction.Orientation;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class Fight extends CFrame implements DisplayableComponent {
     private static final int ACCURACY = 20;
 
+    private final App app;
     private final Player player;
     private final Entity enemy;
     private final Random random;
@@ -38,6 +41,7 @@ public class Fight extends CFrame implements DisplayableComponent {
     public Fight(App app, Player player, Entity enemy) {
         super(0, 0, "Combat");
 
+        this.app = app;
         this.player = player;
         this.enemy = enemy;
         this.random = new Random();
@@ -110,6 +114,7 @@ public class Fight extends CFrame implements DisplayableComponent {
         this.playerStats.setLength(statsLength / 2);
         this.rightPanel.setLength(statsLength / 2);
         this.enemyStats.setLength(statsLength / 2);
+        this.logs.setLength(this.getContentPane().getLength());
     }
 
     @Override
@@ -126,19 +131,42 @@ public class Fight extends CFrame implements DisplayableComponent {
     }
 
     public void attack() {
+        List<String> logs = new LinkedList<>();
+        EntityDeadException entityDeadException = null;
         try {
             if (player.hasPet()) {
-                attackWithPet();
+                attackWithPet(logs);
             } else {
-                attackWithoutPet();
+                attackWithoutPet(logs);
             }
         } catch (EntityDeadException e) {
+            entityDeadException = e;
+        }
+        if (entityDeadException != null) {
+            if (entityDeadException.getEntity() == player) {
+                logs.add("Vous êtes mort...");
+            } else {
+                logs.add(entityDeadException.getEntity().getName() + " est mort.");
+            }
+        }
+        this.logs.setHeight(logs.size());
+        StringBuilder text = new StringBuilder();
+        for (String log : logs) {
+            text.append("\n").append(log);
+        }
+        this.logs.setText(text.toString().replaceFirst("\n", ""));
+        this.setHeight(this.getHeight());
+        if (entityDeadException != null && (entityDeadException.getEntity() == enemy || entityDeadException.getEntity() == player)) {
+            menu.getComponents().clear();
+            menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
             over = true;
+            display = false;
+            app.getConsole().show(this);
             stop();
         }
     }
 
-    private void attackWithPet() throws EntityDeadException {
+    private void attackWithPet(List<String> logs) throws EntityDeadException {
         int playerSpeed = player.getSpeed();
         int playerStrength = player.getStrength();
         int enemySpeed = enemy.getSpeed();
@@ -149,22 +177,29 @@ public class Fight extends CFrame implements DisplayableComponent {
         // SI le joueur est le premier à attaquer
         if (playerSpeed > enemySpeed && playerSpeed > petSpeed) {
             if (attackIsSuccess(player)) {
+                logs.add("Vous avez infligé " + playerStrength + " dégâts à " + enemy.getName() + ".");
                 enemy.damage(playerStrength);
+            } else {
+                logs.add("Vous avez raté votre attaque.");
             }
             if (enemySpeed > petSpeed) {
                 if (attackIsSuccess(enemy)) {
                     if (random.nextBoolean()) {
+                        logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
                         player.damage(enemyStrength);
                     } else {
-                        try {
-                            player.getPet().damage(enemyStrength);
-                        } catch (EntityDeadException ignored) {
-                        }
+                        logs.add(enemy.getName() + " a infligé " + enemyStrength + " dégâts à " + player.getPet().getName() + ".");
+                        player.getPet().damage(enemyStrength);
                     }
+                } else {
+                    logs.add(enemy.getName() + " a raté son attaque.");
                 }
             } else {
                 if (attackIsSuccess(player.getPet())) {
+                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
                     enemy.damage(petStrength);
+                } else {
+                    logs.add(player.getPet().getName() + " a raté son attaque.");
                 }
             }
             return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack /
@@ -175,21 +210,28 @@ public class Fight extends CFrame implements DisplayableComponent {
         if (enemySpeed > playerSpeed && enemySpeed > petSpeed) {
             if (attackIsSuccess(enemy)) {
                 if (random.nextBoolean()) {
+                    logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
                     player.damage(enemyStrength);
                 } else {
-                    try {
-                        player.getPet().damage(enemyStrength);
-                    } catch (EntityDeadException ignored) {
-                    }
+                    logs.add(enemy.getName() + " a infligé " + enemyStrength + " dégâts à " + player.getPet().getName() + ".");
+                    player.getPet().damage(enemyStrength);
                 }
+            } else {
+                logs.add(enemy.getName() + " a raté son attaque.");
             }
             if (playerSpeed > petSpeed) {
                 if (attackIsSuccess(player)) {
+                    logs.add("Vous avez infligé " + playerStrength + " dégâts à " + enemy.getName() + ".");
                     enemy.damage(playerStrength);
+                } else {
+                    logs.add("Vous avez raté votre attaque.");
                 }
             } else {
                 if (attackIsSuccess(player.getPet())) {
+                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
                     enemy.damage(petStrength);
+                } else {
+                    logs.add(player.getPet().getName() + " a raté son attaque.");
                 }
             }
             return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack /
@@ -200,18 +242,22 @@ public class Fight extends CFrame implements DisplayableComponent {
         if (petSpeed > enemySpeed && petSpeed > playerSpeed) {
             if (playerSpeed > enemySpeed) {
                 if (attackIsSuccess(player.getPet())) {
+                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
                     enemy.damage(petStrength);
+                } else {
+                    logs.add(player.getPet().getName() + " a raté son attaque.");
                 }
             } else {
                 if (attackIsSuccess(enemy)) {
                     if (random.nextBoolean()) {
+                        logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
                         player.damage(enemyStrength);
                     } else {
-                        try {
-                            player.getPet().damage(enemyStrength);
-                        } catch (EntityDeadException ignored) {
-                        }
+                        logs.add(enemy.getName() + " a infligé " + enemyStrength + " dégâts à " + player.getPet().getName() + ".");
+                        player.getPet().damage(enemyStrength);
                     }
+                } else {
+                    logs.add(enemy.getName() + " a raté son attaque.");
                 }
             }
             return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack /
@@ -219,7 +265,7 @@ public class Fight extends CFrame implements DisplayableComponent {
         }
     }
 
-    private void attackWithoutPet() throws EntityDeadException {
+    private void attackWithoutPet(List<String> logs) throws EntityDeadException {
         int playerSpeed = player.getSpeed();
         int playerStrength = player.getStrength();
         int enemySpeed = enemy.getSpeed();
@@ -227,17 +273,29 @@ public class Fight extends CFrame implements DisplayableComponent {
 
         if (playerSpeed > enemySpeed) {
             if (attackIsSuccess(player)) {
+                logs.add("Vous avez infligé " + playerStrength + " dégâts à " + enemy.getName() + ".");
                 enemy.damage(playerStrength);
+            } else {
+                logs.add("Vous avez raté votre attaque.");
             }
             if (attackIsSuccess(enemy)) {
+                logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
                 player.damage(enemyStrength);
+            } else {
+                logs.add(enemy.getName() + " a raté son attaque.");
             }
         } else {
             if (attackIsSuccess(enemy)) {
+                logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
                 player.damage(enemyStrength);
+            } else {
+                logs.add(enemy.getName() + " a raté son attaque.");
             }
             if (attackIsSuccess(player)) {
+                logs.add("Vous avez infligé " + playerStrength + " dégâts à " + enemy.getName() + ".");
                 enemy.damage(playerStrength);
+            } else {
+                logs.add("Vous avez raté votre attaque.");
             }
         }
     }

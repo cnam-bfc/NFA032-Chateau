@@ -31,6 +31,7 @@ public class TakePetButton extends CButton {
 
         // On ajoute le pet au joueur
         player.setPet(pet);
+        pet.setPlayer(player);
         try {
             pet.teleport(player.getStage(), new Location(player.getLocation().getX(), player.getLocation().getY()));
         } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ignored) {

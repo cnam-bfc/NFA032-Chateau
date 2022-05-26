@@ -82,9 +82,14 @@ public class EntityStats extends CPanel {
             weaponName.setLength(entity.getWeapon().getName().length());
         }
 
-        if (petName != null && entity instanceof Player player && player.hasPet()) {
-            petName.setText(player.getPet().getName());
-            petName.setLength(player.getPet().getName().length());
+        if (petName != null && entity instanceof Player player) {
+            if (player.hasPet()) {
+                petName.setText(player.getPet().getName());
+                petName.setLength(player.getPet().getName().length());
+            } else {
+                petName.setText("Aucun");
+                petName.setLength(petName.getText().length());
+            }
         }
 
         return super.render();

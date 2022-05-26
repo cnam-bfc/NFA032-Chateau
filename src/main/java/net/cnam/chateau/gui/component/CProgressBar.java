@@ -70,6 +70,9 @@ public class CProgressBar extends CComponent {
     }
 
     public void setValue(int value) {
+        if (value < 0) {
+            value = 0;
+        }
         this.value = value;
     }
 
@@ -78,6 +81,9 @@ public class CProgressBar extends CComponent {
     }
 
     public void setMaxValue(int maxValue) {
+        if (maxValue < 0) {
+            maxValue = 0;
+        }
         this.maxValue = maxValue;
     }
 }

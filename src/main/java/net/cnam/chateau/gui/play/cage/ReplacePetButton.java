@@ -25,10 +25,11 @@ public class ReplacePetButton extends CButton {
     @Override
     public void execute() {
         Pet pet = cage.getPet();
-        pet.getStage().getEntities().remove(player.getPet());
+        player.getPet().getStage().getEntities().remove(player.getPet());
         cage.setPet(player.getPet());
 
         player.setPet(pet);
+        pet.setPlayer(player);
         if (!player.getStage().getEntities().contains(pet))
             player.getStage().getEntities().add(pet);
         try {
