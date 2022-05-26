@@ -1,6 +1,7 @@
 package net.cnam.chateau.entity;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.dialog.InfoDialog;
@@ -8,6 +9,11 @@ import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 /**
  * Classe d'un joueur
@@ -61,7 +67,19 @@ public class Player extends Entity {
 
         app.getCurrentGame().stop();
 
+        SimpleAudioPlayer audioPlayer = null;
+        try {
+            audioPlayer = new SimpleAudioPlayer(Music.DEATH.getFilePath());
+            audioPlayer.setVolume(app.getSettings().getMusicVolume());
+            audioPlayer.setLoop(true);
+            audioPlayer.play();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
+                 IllegalArgumentException ignored) {
+        }
         app.getConsole().show(new InfoDialog(InfoDialog.Type.DEAD, "GAME OVER"));
+        if (audioPlayer != null) {
+            audioPlayer.stop();
+        }
     }
 
     /**
