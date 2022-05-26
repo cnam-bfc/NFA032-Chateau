@@ -109,7 +109,9 @@ public class EntityStats extends CPanel {
         }
 
         for (int i = 0; i < emptySpace; i++) {
-            this.getComponents().add(new CLabel(" \n "));
+            if (orientation == Orientation.VERTICAL) {
+                this.getComponents().add(new CLabel(" \n "));
+            }
         }
 
         int height = -1;
