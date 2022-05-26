@@ -20,6 +20,7 @@ import net.cnam.chateau.structure.block.door.SageDoor;
 import net.cnam.chateau.structure.block.door.TrappedDoor;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.array.ArrayUtils;
+import net.cnam.chateau.weapon.Weapon;
 
 import java.util.*;
 
@@ -52,6 +53,7 @@ public class Generator {
     private final List<Enemy> specialEnemies = new ArrayList<>();
     private final List<Pet> pets = new ArrayList<>();
     private final List<Sage> sages = new ArrayList<>();
+    private final List<Weapon> specialWeapons = new ArrayList<>();
 
     private Location playerStartLocation;
 
@@ -90,6 +92,15 @@ public class Generator {
         sages.add(new Sage(app, "Kristoff", game.getRandomPuzzle()));
         sages.add(new Sage(app, "Sage : Ither", game.getRandomPuzzle()));
         sages.add(new Sage(app, "Salomon", game.getRandomPuzzle()));
+
+        // Initialisation des armes spéciales
+        specialWeapons.add((new Weapon("La grosse louche", "Louche divine léchée par Etchebest lui même", 10, 10, 10)));
+        specialWeapons.add((new Weapon("Frostmourne", "Une épée diabolique qui semble très puissante", 10, 10, 10)));
+        specialWeapons.add((new Weapon("Masse de Molag Bal", "Une masse tout droit venu de Bordeciel !", 10, 10, 10)));
+        specialWeapons.add((new Weapon("Nuncha-couille", "Quoi de mieux que le mélange d'une arme et des bijoux de famille", 10, 10, 10)));
+        specialWeapons.add((new Weapon("Mjolnir", "C'est pas le vrai mais il fait tout aussi mal", 10, 10, 10)));
+        specialWeapons.add((new Weapon("Excaliburne", "Il fallait en avoir des grosses pour la sortir de la roche !", 10, 10, 10)));
+        specialWeapons.add((new Weapon("Hache Leviathan", "Une hache précieuse et très aiguisée", 10, 10, 10)));
     }
 
     /**

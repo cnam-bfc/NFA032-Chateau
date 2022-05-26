@@ -12,24 +12,24 @@ public class Couteau extends Weapon {
     private final int MAX_ACCURACY = 11; // max exlcu
 
     public Couteau(Random random) {
-        super(0, 0, 0, "", "couteau");
+        super("Couteau", "", 0, 0, 0);
 
         this.setPower(random.nextInt(MIN_POWER, MAX_POWER));
         this.setSpeed(random.nextInt(MIN_SPEED, MAX_SPEED));
         this.setAccuracy(random.nextInt(MIN_ACCURACY, MAX_ACCURACY));
-        this.setName(generateName());
+        this.setDescription(generateDescription());
     }
 
-    private String generateName() {
+    private String generateDescription() {
         int total = super.getPower() + super.getSpeed() + super.getAccuracy();
         int mediumWeapon = (MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 2;
         int greatWeapon = mediumWeapon + ((MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 4);
         if (total < mediumWeapon) {
-            return "Couteau";
+            return "Couteau de mauvaise qualité";
         } else if (total < greatWeapon) {
-            return "Couteau mediocre";
+            return "Couteau de qualité médiocre";
         } else {
-            return "Superbe couteau";
+            return "Couteau de très bonne qualité";
         }
     }
 }

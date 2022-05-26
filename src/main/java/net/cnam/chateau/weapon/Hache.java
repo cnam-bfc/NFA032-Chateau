@@ -12,15 +12,15 @@ public class Hache extends Weapon {
     private final int MAX_ACCURACY = 11; // max exlcu
 
     public Hache(Random random) {
-        super(0, 0, 0, "","hache");
+        super("Hache", "", 0,0,0);
 
         this.setPower(random.nextInt(MIN_POWER, MAX_POWER));
         this.setSpeed(random.nextInt(MIN_SPEED, MAX_SPEED));
         this.setAccuracy(random.nextInt(MIN_ACCURACY, MAX_ACCURACY));
-        this.setName(generateName());
+        this.setDescription(generateDescription());
     }
 
-    private String generateName() {
+    private String generateDescription() {
         int total = super.getPower() + super.getSpeed() + super.getAccuracy();
         int mediumWeapon = (MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 2;
         int greatWeapon = mediumWeapon + ((MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 4);
