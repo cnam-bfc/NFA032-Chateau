@@ -2,20 +2,17 @@ package net.cnam.chateau.entity;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.structure.Stage;
-import net.cnam.chateau.utils.Location;
+import java.util.Random;
 
 public class Sage extends Entity {
     public static List<Sage> sages = new LinkedList<>();
 
     public static void initSages() {
-        sages.add(new Sage(null, null, "Dumbledore"));
-        sages.add(new Sage(null, null, "Merlin"));
-        sages.add(new Sage(null, null, "Kristoff"));
-        sages.add(new Sage(null, null, "Sage Gris"));
-        sages.add(new Sage(null, null, "Salomon"));
+        sages.add(new Sage("Dumbledore"));
+        sages.add(new Sage("Merlin"));
+        sages.add(new Sage("Kristoff"));
+        sages.add(new Sage("Sage Gris"));
+        sages.add(new Sage("Salomon"));
 
         // TODO Si le fichier csv existe :
         //Boucler dessus et ajouter les sages à la liste.
@@ -27,16 +24,34 @@ public class Sage extends Entity {
     /**
      * Constructeur
      *
-     * @param stage L'étage où se situe le sage
+     * @param stage    L'étage où se situe le sage
      * @param location Coordonnées du sage
-     * @param name Le nom du sage
+     * @param name     Le nom du sage
      */
-    public Sage(Stage stage, Location location, String name) {
-        super(stage, location, name);
+    public Sage(String name) {
+        super(null, null, name);
+
+        affectAPuzzle();
+    }
+
+    public boolean hasPuzzle() {
+        return this.puzzle != null;
+    }
+
+    public Puzzle getPuzzle() {
+        return puzzle;
+    }
+
+    public void affectAPuzzle() {
+        if (Puzzle.puzzles.isEmpty()) {
+            this.puzzle = null;
+        } else {
+            this.puzzle = Puzzle.puzzles.remove(new Random().nextInt(0, Puzzle.puzzles.size()));
+        }
     }
 
     @Override
     public String getCharacter() {
-        return CColor.CYAN + "S" + CColor.CYAN.getForegroundReset();
+        return "S";
     }
 }
