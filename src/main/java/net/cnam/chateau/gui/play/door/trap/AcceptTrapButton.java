@@ -26,6 +26,7 @@ public class AcceptTrapButton extends CButton {
 
     @Override
     public void execute() {
+        door.getTrap().setActivate(false);
         if (door.getTrap() instanceof BadTrap trap) {
             app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n"+
                     "Malheureusement, c'était une mauvaise idée ! \nC'était " +

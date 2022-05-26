@@ -33,7 +33,6 @@ public class BadTrap extends Trap {
 
     @Override
     public void useEffect(Player player) {
-        this.setActivate(false);
         try {
             player.damage(dmg);
         } catch (EntityDeadException ignored) {

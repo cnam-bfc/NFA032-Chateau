@@ -31,7 +31,6 @@ public class GoodTrap extends Trap {
 
     @Override
     public void useEffect(Player player) {
-        this.setActivate(false);
         player.heal(health);
     }
 }

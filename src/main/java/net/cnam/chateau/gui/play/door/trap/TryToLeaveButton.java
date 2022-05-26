@@ -29,6 +29,7 @@ public class TryToLeaveButton extends CButton {
 
     @Override
     public void execute() {
+        door.getTrap().setActivate(false);
         if (player.getSpeed() < new Random().nextInt(0, 50)) {
             if (door.getTrap() instanceof BadTrap trap) {
                 app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez échoué votre fuite !\n \n"+
