@@ -27,8 +27,13 @@ public class BadTrap extends Trap {
         super.setDescription(description);
     }
 
+    public int getDmg() {
+        return dmg;
+    }
+
     @Override
     public void useEffect(Player player) {
+        this.setActivate(false);
         try {
             player.damage(dmg);
         } catch (EntityDeadException ignored) {

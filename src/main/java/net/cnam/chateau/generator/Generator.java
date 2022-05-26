@@ -16,6 +16,7 @@ import net.cnam.chateau.structure.block.decorative.Seat;
 import net.cnam.chateau.structure.block.decorative.Table;
 import net.cnam.chateau.structure.block.door.Door;
 import net.cnam.chateau.structure.block.door.SageDoor;
+import net.cnam.chateau.structure.block.door.TrappedDoor;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.array.ArrayUtils;
 
@@ -584,11 +585,7 @@ public class Generator {
     }
 
     private Door getRandomDoor(Stage stage, Room roomOne, Room roomTwo) {
-        if (sages.isEmpty()) {
-            return new Door(stage, roomOne, roomTwo);
-        } else {
-            return new SageDoor(app, stage, roomOne, roomTwo, getRandomSage());
-        }
+        return new TrappedDoor(app, stage, roomOne, roomTwo, random);
 /*        int randomInt = random.nextInt(1, 100);
         if (randomInt < 80) {
             return new Door(stage, roomOne, roomTwo);
@@ -596,12 +593,12 @@ public class Generator {
             if (!Sage.sages.isEmpty()) {
                 return new SageDoor(app, stage, roomOne, roomTwo, random);
             } else {
-                return new TrappedDoor(stage, roomOne, roomTwo);
+                return new TrappedDoor(app, stage, roomOne, roomTwo, random);
             }
         } else if (randomInt < 91) {
             return new EnemyDoor(app, stage, roomOne, roomTwo, random);
         } else {
-            return new TrappedDoor(stage, roomOne, roomTwo);
+            return new TrappedDoor(stage, roomOne, roomTwo, random);
         }*/
     }
 
