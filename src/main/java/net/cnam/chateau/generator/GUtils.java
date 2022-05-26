@@ -1,22 +1,13 @@
 package net.cnam.chateau.generator;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.entity.Sage;
 import net.cnam.chateau.item.Key;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
-import net.cnam.chateau.structure.Stage;
-import net.cnam.chateau.structure.block.Block;
-import net.cnam.chateau.structure.block.Cage;
-import net.cnam.chateau.structure.block.TrappedChest;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.structure.block.container.Chest;
-import net.cnam.chateau.structure.block.container.Wardrobe;
-import net.cnam.chateau.structure.block.decorative.Bed;
-import net.cnam.chateau.structure.block.decorative.Desk;
-import net.cnam.chateau.structure.block.decorative.Seat;
-import net.cnam.chateau.structure.block.decorative.Table;
-import net.cnam.chateau.structure.block.door.*;
+import net.cnam.chateau.structure.block.door.Door;
+import net.cnam.chateau.structure.block.door.LockedDoor;
 import net.cnam.chateau.utils.Location;
 
 import java.util.*;
@@ -28,30 +19,24 @@ public class GUtils {
      * la position contient déjà un autre block, choisie une nouvelle position.
      *
      * @param random random de la seed
-     * @param room   la room ou l'on doit placé le block
-     * @return la location (x,y) par rapport à la room de l'emplacement à
-     * attribué au block
+     * @param room   la room ou l'on doit placer le block
+     * @return la location (x, y) par rapport à la room de l'emplacement a attribué au block
      */
     public static Location findPosition(Random random, Room room) {
-        //on choisit des coordonnées au hasard dans la room choisie au dessus
-        int x = random.nextInt(1, room.getLength() - 1);
-        int y = random.nextInt(1, room.getHeight() - 1);
-        boolean testPosition;
-        //vérification qu'il n'y a pas de porte à proximité sinon on décale
-        //vérification qu'il n'y a pas de block la ou on souhaite placé l'escalier
         do {
-            testPosition = false;
-            if (room.getBlocks()[x][y] != null
-                    || room.getBlocks()[x][y - 1] instanceof Door
-                    || room.getBlocks()[x][y + 1] instanceof Door
-                    || room.getBlocks()[x - 1][y] instanceof Door
-                    || room.getBlocks()[x + 1][y] instanceof Door) {
-                x = random.nextInt(1, room.getLength() - 1);
-                y = random.nextInt(1, room.getHeight() - 1);
-                testPosition = true;
+            //on choisit des coordonnées au hasard dans la room choisie au-dessus
+            int x = random.nextInt(1, room.getLength() - 1);
+            int y = random.nextInt(1, room.getHeight() - 1);
+            //vérification qu'il n'y a pas de porte à proximité sinon on décale
+            //vérification qu'il n'y a pas de block là où on souhaite placer l'escalier
+            if (room.getBlocks()[x][y] == null &&
+                    !(room.getBlocks()[x][y - 1] instanceof Door) &&
+                    !(room.getBlocks()[x][y + 1] instanceof Door) &&
+                    !(room.getBlocks()[x - 1][y] instanceof Door) &&
+                    !(room.getBlocks()[x + 1][y] instanceof Door)) {
+                return new Location(x, y);
             }
-        } while (testPosition);
-        return new Location(x, y);
+        } while (true);
     }
 
     /**
