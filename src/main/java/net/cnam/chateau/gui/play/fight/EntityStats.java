@@ -31,6 +31,8 @@ public class EntityStats extends CPanel {
         this.entity = entity;
         this.autoUpdate = autoUpdate;
 
+        int emptySpace = 0;
+
         // Nom de l'entité
         if (entity instanceof Player) {
             this.name = new CLabel("Vous");
@@ -76,6 +78,8 @@ public class EntityStats extends CPanel {
             weapon.getComponents().add(weaponLabel);
             weapon.getComponents().add(weaponName);
             this.getComponents().add(weapon);
+        } else {
+            emptySpace++;
         }
 
         if (entity instanceof Player) {
@@ -100,6 +104,12 @@ public class EntityStats extends CPanel {
             item.getComponents().add(itemLabel);
             item.getComponents().add(itemName);
             this.getComponents().add(item);
+        } else {
+            emptySpace++;
+        }
+
+        for (int i = 0; i < emptySpace; i++) {
+            this.getComponents().add(new CLabel(" \n "));
         }
 
         int height = -1;
