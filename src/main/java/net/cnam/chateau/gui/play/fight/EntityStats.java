@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.play;
+package net.cnam.chateau.gui.play.fight;
 
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;

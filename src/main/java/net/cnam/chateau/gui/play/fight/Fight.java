@@ -6,7 +6,6 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.*;
-import net.cnam.chateau.gui.play.EntityStats;
 import net.cnam.chateau.utils.array.ArrayUtils;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.utils.direction.Orientation;
