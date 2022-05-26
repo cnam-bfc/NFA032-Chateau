@@ -26,6 +26,10 @@ abstract public class Trap extends Block {
         this.description = description;
     }
 
+    public void setActivate(Boolean bool) {
+        this.activate = bool;
+    }
+
     public boolean isUsed(){
         return !activate;
     }

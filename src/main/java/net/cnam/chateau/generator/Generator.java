@@ -15,7 +15,9 @@ import net.cnam.chateau.structure.block.decorative.Desk;
 import net.cnam.chateau.structure.block.decorative.Seat;
 import net.cnam.chateau.structure.block.decorative.Table;
 import net.cnam.chateau.structure.block.door.Door;
+import net.cnam.chateau.structure.block.door.EnemyDoor;
 import net.cnam.chateau.structure.block.door.SageDoor;
+import net.cnam.chateau.structure.block.door.TrappedDoor;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.array.ArrayUtils;
 
@@ -109,14 +111,9 @@ public class Generator {
     public Stage[] generateStages() {
         Stage[] stages = new Stage[this.random.nextInt(MIN_STAGE, MAX_STAGE + 1)];
 
-        //Pour chaque étage on le génère
+        //On génère chaque étage
         for (int i = 0; i < stages.length; i++) {
-            Stage stage = generateStage();
-            //Pour chaque room de chaque étage on la génère
-            for (Room room : stage.getRooms()) {
-                generateRoom(room);
-            }
-            stages[i] = stage;
+            stages[i] = generateStage();
         }
 
         // On récupère la première room
@@ -174,10 +171,10 @@ public class Generator {
 
             }
             // On ajoute au champ de l'escalier de sortie de l'étage actuellement traité, l'étage en question auquel il appartient
-            // également on ferme la pièce et on cache une clé dans une des pièces antérieur
+            // également on ferme la pièce et on cache une clé dans une des pièces antérieure
             exitStair.setStage(stage);
 
-            // Si on arrive au dernir étage, on ajoute un étage supplémentaire pour accueillir la pièce du boss
+            // Si on arrive au dernier étage, on ajoute un étage supplémentaire pour accueillir la pièce du boss
             if (i == stages.length - 1) {
                 RoomBoss lastRoom = new RoomBoss();
                 Stage stageBoss = new Stage(new Room[]{lastRoom}, lastRoom.getLength(), lastRoom.getHeight());
@@ -185,6 +182,12 @@ public class Generator {
                 lastRoom.getEntry().setStage(stageBoss);
                 exitStair.setOtherStair(lastRoom.getEntry());
                 stageBoss.getEntities().add(new BossMartinez(app, stageBoss, new Location(6, 4)));
+            }
+        }
+
+        for (Stage stage : stages) {
+            for (Room room : stage.getRooms()) {
+                generateRoom(room);
             }
         }
 
@@ -584,25 +587,20 @@ public class Generator {
     }
 
     private Door getRandomDoor(Stage stage, Room roomOne, Room roomTwo) {
-        if (sages.isEmpty()) {
-            return new Door(stage, roomOne, roomTwo);
-        } else {
-            return new SageDoor(app, stage, roomOne, roomTwo, getRandomSage());
-        }
-/*        int randomInt = random.nextInt(1, 100);
+        int randomInt = random.nextInt(1, 100);
         if (randomInt < 80) {
             return new Door(stage, roomOne, roomTwo);
         } else if (randomInt < 86) {
-            if (!Sage.sages.isEmpty()) {
-                return new SageDoor(app, stage, roomOne, roomTwo, random);
+            if (!sages.isEmpty()) {
+                return new SageDoor(app, stage, roomOne, roomTwo, getRandomSage());
             } else {
-                return new TrappedDoor(stage, roomOne, roomTwo);
+                return new TrappedDoor(app, stage, roomOne, roomTwo, random);
             }
         } else if (randomInt < 91) {
-            return new EnemyDoor(app, stage, roomOne, roomTwo, random);
+            return new EnemyDoor(stage, roomOne, roomTwo, getRandomEnemy(null, null));
         } else {
-            return new TrappedDoor(stage, roomOne, roomTwo);
-        }*/
+            return new TrappedDoor(app, stage, roomOne, roomTwo, random);
+        }
     }
 
     /**
