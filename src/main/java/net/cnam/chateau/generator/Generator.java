@@ -6,6 +6,7 @@ import net.cnam.chateau.entity.enemy.*;
 import net.cnam.chateau.entity.enemy.boss.BossMartinez;
 import net.cnam.chateau.entity.pet.*;
 import net.cnam.chateau.game.Game;
+import net.cnam.chateau.item.wearable.Wearable;
 import net.cnam.chateau.structure.*;
 import net.cnam.chateau.structure.block.*;
 import net.cnam.chateau.structure.block.container.Chest;
@@ -54,6 +55,7 @@ public class Generator {
     private final List<Pet> pets = new ArrayList<>();
     private final List<Sage> sages = new ArrayList<>();
     private final List<Weapon> specialWeapons = new ArrayList<>();
+    private final List<Wearable> specialWearable = new ArrayList<>();
 
     private Location playerStartLocation;
 
@@ -101,6 +103,11 @@ public class Generator {
         specialWeapons.add((new Weapon("Mjolnir", "C'est pas le vrai mais il fait tout aussi mal", 10, 10, 10)));
         specialWeapons.add((new Weapon("Excaliburne", "Il fallait en avoir des grosses pour la sortir de la roche !", 10, 10, 10)));
         specialWeapons.add((new Weapon("Hache Leviathan", "Une hache précieuse et très aiguisée", 10, 10, 10)));
+
+        // Initialisation des objets "portables" (bijoux) spéciaux
+        specialWearable.add((new Wearable("Collier de S.P.B", "Collier arborant la formule de l’astrophysicien Karl Schwarzschild", 5, 5, 5)));
+        specialWearable.add((new Wearable("Anneau de Sauron", "On y distingue des runes elfiques gravées sur l'anneau", 5, 5, 5)));
+        specialWearable.add((new Wearable("Boucles d'oreilles Hanafuda", "Portées de pair en fils par des utilisateurs de katana", 5, 5, 5)));
     }
 
     /**

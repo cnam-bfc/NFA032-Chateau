@@ -1,8 +1,9 @@
 package net.cnam.chateau.item.consumable;
 
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.item.Item;
 
-public class PotionForce extends Consumable {
+public class PotionForce extends Item implements Consumable {
 
     public PotionForce() {
         super("Potion de force", "Augmente temporairement la force !");
