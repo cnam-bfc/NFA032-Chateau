@@ -23,6 +23,9 @@ public class AttackButton extends CButton {
     @Override
     public void execute() {
         Fight fight = door.getSage().fight(player);
+        if (fight.isOver()){
+            door.setSage(null);
+        }
         this.menu.stopDisplay();
     }
 }
