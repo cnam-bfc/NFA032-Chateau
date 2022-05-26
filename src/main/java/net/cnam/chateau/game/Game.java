@@ -10,6 +10,7 @@ import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.play.EntityStats;
 import net.cnam.chateau.structure.Castle;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
@@ -18,6 +19,7 @@ import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
+import net.cnam.chateau.utils.direction.Orientation;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -49,6 +51,13 @@ public class Game extends CFrame implements DisplayableComponent {
         CPanel header = new CPanel(0, title.getHeight());
         header.getComponents().add(title);
         this.setHeader(header);
+
+        CPanel footer = new CPanel(0, 2, Orientation.HORIZONTAL, false);
+
+        EntityStats playerStats = new EntityStats(player, 50);
+        footer.getComponents().add(playerStats);
+
+        this.setFooter(footer);
 
         try {
             this.audioPlayer = new SimpleAudioPlayer(Music.GAME.getFilePath());

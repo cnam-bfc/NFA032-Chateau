@@ -8,7 +8,7 @@ import net.cnam.chateau.utils.StringUtils;
 public class CFrame extends CComponent implements KeyListener {
     private CPanel header;
     private CPanel contentPane;
-    private CLabel footer;
+    private CPanel footer;
 
     public CFrame(int length, int height) {
         super(null, length, height);
@@ -97,11 +97,11 @@ public class CFrame extends CComponent implements KeyListener {
         autoResize();
     }
 
-    public CLabel getFooter() {
+    public CPanel getFooter() {
         return footer;
     }
 
-    public void setFooter(CLabel footer) {
+    public void setFooter(CPanel footer) {
         this.footer = footer;
 
         autoResize();

@@ -2,6 +2,7 @@ package net.cnam.chateau.gui.component;
 
 import net.cnam.chateau.event.key.KeyListener;
 import net.cnam.chateau.event.key.KeyPressedEvent;
+import net.cnam.chateau.utils.Couple;
 import net.cnam.chateau.utils.direction.Orientation;
 
 import java.util.Iterator;
@@ -78,11 +79,12 @@ public class CPanel extends CComponent implements KeyListener {
     @Override
     public String[] render() {
         String[] result = new String[this.getHeight()];
-        int linePointer = 0;
-        String emptyLine = " ".repeat(this.getLength());
 
         switch (renderOrientation) {
             case VERTICAL -> {
+                int linePointer = 0;
+                String emptyLine = " ".repeat(this.getLength());
+
                 int contentLines = 0;
                 for (CComponent component : this.getComponents()) {
                     contentLines += component.getHeight();
@@ -127,57 +129,76 @@ public class CPanel extends CComponent implements KeyListener {
                         }
                     }
                 }
+
+                // Bourrage à la fin
+                for (; linePointer < result.length; linePointer++) {
+                    result[linePointer] = emptyLine;
+                }
             }
             case HORIZONTAL -> {
-                // Espace de padding vertical
-                for (int i = 0; i < result.length / 2; i++) {
-                    result[linePointer++] = emptyLine;
-                }
-
-                int contentColumns = 0;
+                LinkedList<Couple<CComponent, String[]>> componentsLines = new LinkedList<>();
+                int contentLength = 0;
                 for (CComponent component : this.getComponents()) {
-                    contentColumns += component.getLength();
+                    String[] render = component.render();
+                    if (component.getHeight() < 1 || component.getLength() < 1) {
+                        continue;
+                    }
+                    if (contentLength + component.getLength() > this.getLength()) {
+                        break;
+                    }
+                    componentsLines.add(new Couple<>(component, render));
+                    contentLength += component.getLength();
                 }
 
-                // Colonnes du panel - Colonnes du texte au millieu
-                int paddingLength = this.getLength() - contentColumns;
-                int paddingNb = this.getComponents().size() - 1;
+                // Colonnes du panel - Colonnes du texte au milieu
+                int paddingLength = this.getLength() - contentLength;
+                int paddingNb = componentsLines.size() - 1;
                 if (renderMainPadding) {
                     paddingNb += 2;
                 }
 
-                StringBuilder line = new StringBuilder();
-                int lineLength = 0;
-                Iterator<CComponent> componentIterator = this.getComponents().iterator();
-                for (int i = 0; componentIterator.hasNext(); i++) {
-                    CComponent component = componentIterator.next();
+                // Pour chaque ligne
+                for (int i = 0; i < result.length; i++) {
+                    StringBuilder line = new StringBuilder();
+                    int lineLength = 0;
 
                     // Espace de padding
-                    // + 1 pour le padding automatique (bourrage) de fin
-                    if (i != 0 || renderMainPadding) {
+                    if (renderMainPadding) {
                         for (int j = 0; j < paddingLength / paddingNb; j++) {
                             line.append(' ');
                             lineLength++;
                         }
                     }
 
-                    // Rendu du composant
-                    if (lineLength + component.getLength() > this.getLength()) {
-                        continue;
-                    }
-                    lineLength += component.getLength();
-                    line.append(component.render()[0]);
-                }
-                for (; lineLength < this.getLength(); lineLength++) {
-                    line.append(' ');
-                }
-                result[linePointer++] = line.toString();
-            }
-        }
+                    // Rendu des composants
+                    Iterator<Couple<CComponent, String[]>> iterator = componentsLines.iterator();
+                    for (int j = 0; iterator.hasNext(); j++) {
+                        Couple<CComponent, String[]> renderedComponent = iterator.next();
+                        int componentLength = renderedComponent.getElemOne().getLength();
+                        String[] componentLines = renderedComponent.getElemTwo();
+                        if (i < componentLines.length) {
+                            line.append(componentLines[i]);
+                        } else {
+                            line.append(" ".repeat(componentLength));
+                        }
+                        lineLength += componentLength;
 
-        // Bourrage à la fin
-        for (; linePointer < result.length; linePointer++) {
-            result[linePointer] = emptyLine;
+                        // Espace de padding
+                        if (j == componentsLines.size() - 1) {
+                            continue;
+                        }
+                        for (int k = 0; k < paddingLength / paddingNb; k++) {
+                            line.append(' ');
+                            lineLength++;
+                        }
+                    }
+
+                    // Espace de padding (bourrage de fin de ligne)
+                    line.append(" ".repeat(this.getLength() - lineLength));
+
+                    result[i] = line.toString();
+                }
+            }
         }
 
         return result;

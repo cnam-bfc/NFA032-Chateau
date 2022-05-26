@@ -33,10 +33,15 @@ public abstract class Entity implements DisplayableObject {
     private String name;
     private Weapon weapon;
     private int health = DEFAULT_HEALTH;
+    private int maxHealth = DEFAULT_HEALTH;
     private int resistance = DEFAULT_RESISTANCE;
+    private int maxResistance = DEFAULT_RESISTANCE;
     private int strength = DEFAULT_STRENGTH;
+    private int maxStrength = DEFAULT_STRENGTH;
     private int accuracy = DEFAULT_ACCURACY;
+    private int maxAccuracy = DEFAULT_ACCURACY;
     private int speed = DEFAULT_SPEED;
+    private int maxSpeed = DEFAULT_SPEED;
     private Item item;
 
     private int renderPriority = -1;
@@ -58,10 +63,15 @@ public abstract class Entity implements DisplayableObject {
         this(stage, location, name);
 
         this.health = health;
+        this.maxHealth = health;
         this.resistance = resistance;
+        this.maxResistance = resistance;
         this.strength = strength;
+        this.maxStrength = strength;
         this.accuracy = accuracy;
+        this.maxAccuracy = accuracy;
         this.speed = speed;
+        this.maxSpeed = speed;
     }
 
     /**
@@ -78,24 +88,24 @@ public abstract class Entity implements DisplayableObject {
     }
 
     /**
-     * Méthode permettant de téléporter l'entité à des coordonées précises.
+     * Méthode permettant de téléporter l'entité à des coordonnées précises.
      *
      * @param location Les coordonnées de destination
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception levé si l'entité veut être téléporté hors de l'étage
-     * @throws net.cnam.chateau.entity.EntityAlreadyTeleportedException   Exception levé si l'entité à déjà été téléporté
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception levée si l'entité veut être téléporté hors de l'étage
+     * @throws net.cnam.chateau.entity.EntityAlreadyTeleportedException   Exception levée si l'entité a déjà été téléporté
      */
     public void teleport(Location location) throws CoordinatesOutOfBoundsException, EntityAlreadyTeleportedException {
         teleport(stage, location);
     }
 
     /**
-     * Méthode permettant de téléporter l'entité dans un étage à des coordonées
+     * Méthode permettant de téléporter l'entité dans un étage à des coordonnées
      * précises.
      *
      * @param stage    L'étage de destination
      * @param location Les coordonnées de destination
-     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception levé si l'entité veut être téléporté hors de l'étage
-     * @throws net.cnam.chateau.entity.EntityAlreadyTeleportedException   Exception levé si l'entité à déjà été téléporté
+     * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException Exception levée si l'entité veut être téléporté hors de l'étage
+     * @throws net.cnam.chateau.entity.EntityAlreadyTeleportedException   Exception levée si l'entité a déjà été téléporté
      */
     public void teleport(Stage stage, Location location)
             throws CoordinatesOutOfBoundsException, EntityAlreadyTeleportedException {
@@ -120,7 +130,7 @@ public abstract class Entity implements DisplayableObject {
             }
         }
 
-        // On notifie les entités aux alentours que l'entité à été déplacé
+        // On notifie les entités aux alentours que l'entité a été déplacé
         EntityApproachEvent entityApproachEvent = new EntityApproachEvent(this);
         for (Entity entity : nearbyEntities) {
             if (entity instanceof EntityListener listener) {
@@ -139,14 +149,13 @@ public abstract class Entity implements DisplayableObject {
         Block oldLocationBlock = this.stage.getBlock(this.location);
         Block newLocationBlock = stage.getBlock(location);
         // On notifie le nouveau block que l'entité rentre sur celui-ci
-        // sauf si l'entité à changé d'étage et que le bloc est un escalier (sinon on
+        // sauf si l'entité a changé d'étage et que le bloc est un escalier (sinon on
         // boucle)
         if (!(this.stage != stage && newLocationBlock instanceof Stair)) {
-            if (newLocationBlock != null && newLocationBlock instanceof BlockListener blockListener) {
+            if (newLocationBlock instanceof BlockListener blockListener) {
                 EntityEnterBlockEvent entityEnterBlockEvent = new EntityEnterBlockEvent(this);
                 blockListener.onEntityEnterBlock(entityEnterBlockEvent);
-                // Si le block refuse que l'entité rentre sur son territoire on ne déplace pas
-                // l'entité
+                // Si le block refuse que l'entité rentre sur son territoire, on ne déplace pas l'entité
                 if (entityEnterBlockEvent.isCanceled()) {
                     return;
                 }
@@ -154,19 +163,19 @@ public abstract class Entity implements DisplayableObject {
         }
 
         // On notifie l'ancien block où était l'entité que celle-ci est partie
-        if (oldLocationBlock != null && oldLocationBlock instanceof BlockListener blockListener) {
+        if (oldLocationBlock instanceof BlockListener blockListener) {
             blockListener.onEntityLeaveBlock(new EntityLeaveBlockEvent(this));
         }
 
-        // Si le joueur à été téléporté entre temps on annulé la suite
+        // Si le joueur a été téléporté entre temps on annule la suite
         if (saveEntityStage != this.stage || saveEntityX != this.location.getX()
                 || saveEntityY != this.location.getY()) {
             throw new EntityAlreadyTeleportedException("L'entité à déjà été téléporté");
         }
 
-        // Si l'entité est téléporté sur une autre étage
+        // Si l'entité est téléportée sur une autre étage
         if (this.stage != stage) {
-            // On enlève l'enité de l'étage précédent
+            // On enlève l'entité de l'étage précédent
             this.stage.getEntities().remove(this);
             // On l'ajoute dans le nouvel étage
             this.stage = stage;
@@ -177,7 +186,7 @@ public abstract class Entity implements DisplayableObject {
             }
         }
 
-        // On déplace l'entité aux coordonnées désirés
+        // On déplace l'entité aux coordonnées désirée
         this.location.setX(location.getX());
         this.location.setY(location.getY());
     }
@@ -186,7 +195,7 @@ public abstract class Entity implements DisplayableObject {
      * Méthode permettant d'infliger des points de dégâts à l'entité.
      *
      * @param damagePoints Points de dégâts
-     * @throws EntityDeadException Exception levé si l'entité meurt
+     * @throws EntityDeadException Exception levée si l'entité meurt
      */
     public void damage(int damagePoints) throws EntityDeadException {
         if (damagePoints < 0) {
@@ -210,8 +219,8 @@ public abstract class Entity implements DisplayableObject {
             return;
         }
 
-        if (this.health + health > 100) {
-            this.health = 100;
+        if (this.health + health > this.getMaxHealth()) {
+            this.health = this.getMaxHealth();
         } else {
             this.health += health;
         }
@@ -228,9 +237,9 @@ public abstract class Entity implements DisplayableObject {
     }
 
     /**
-     * Méthode permettant de savoir si l'entitié est morte.
+     * Méthode permettant de savoir si l'entité est morte.
      *
-     * @return Vrai si l'entité est morte, faux sinonw
+     * @return Vrai si l'entité est morte, faux sinon
      */
     public boolean isDead() {
         return health <= 0;
@@ -294,7 +303,7 @@ public abstract class Entity implements DisplayableObject {
     }
 
     /**
-     * Méthode qui permet de définir l'arme possédé par l'entité.
+     * Méthode qui permet de définir l'arme possédée par l'entité.
      * <p>
      * null est équivalent aux mains nues
      *
@@ -362,6 +371,51 @@ public abstract class Entity implements DisplayableObject {
     }
 
     /**
+     * Méthode permettant de récupérer la vie maximum de l'entité.
+     *
+     * @return la vie maximale
+     */
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    /**
+     * Méthode permettant de récupérer la résistance maximale de l'entité.
+     *
+     * @return la résistance maximale
+     */
+    public int getMaxResistance() {
+        return maxResistance;
+    }
+
+    /**
+     * Méthode permettant de récupérer la force maximale de l'entité.
+     *
+     * @return la force maximale
+     */
+    public int getMaxStrength() {
+        return maxStrength;
+    }
+
+    /**
+     * Méthode permettant de récupérer la précision maximale de l'entité.
+     *
+     * @return la précision maximale
+     */
+    public int getMaxAccuracy() {
+        return maxAccuracy;
+    }
+
+    /**
+     * Méthode permettant de récupérer la rapidité maximale de l'entité.
+     *
+     * @return la rapidité maximale
+     */
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    /**
      * Méthode permettant de récupérer l'item que possède l'entité.
      *
      * @return un Item
@@ -384,8 +438,7 @@ public abstract class Entity implements DisplayableObject {
     }
 
     /**
-     * Méthode permettant à l'entité d'être affiché en premier sur la map (par
-     * dessus les autres entités).
+     * Méthode permettant à l'entité d'être affiché en premier sur la map (par-dessus les autres entités).
      *
      * @param renderPriority priorité de rendu
      */

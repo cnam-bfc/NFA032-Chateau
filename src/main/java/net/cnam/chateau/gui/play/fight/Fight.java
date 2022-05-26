@@ -6,12 +6,11 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.game.EntityDeadException;
-import net.cnam.chateau.gui.component.CChoices;
-import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.component.SelectableComponent;
+import net.cnam.chateau.gui.component.*;
+import net.cnam.chateau.gui.play.EntityStats;
 import net.cnam.chateau.utils.array.ArrayUtils;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
+import net.cnam.chateau.utils.direction.Orientation;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -36,6 +35,18 @@ public class Fight extends CFrame implements DisplayableComponent {
         this.player = player;
         this.enemy = enemy;
         this.random = new Random();
+
+        CPanel footer = new CPanel(0, 2, Orientation.HORIZONTAL, false);
+
+        EntityStats playerStats = new EntityStats(player, 50);
+        footer.getComponents().add(playerStats);
+
+        EntityStats enemyStats = new EntityStats(enemy, 50);
+        footer.getComponents().add(enemyStats);
+
+        this.setFooter(footer);
+
+
         try {
             this.audioPlayer = new SimpleAudioPlayer(Music.FIGHT.getFilePath());
             audioPlayer.setVolume(app.getSettings().getMusicVolume());
