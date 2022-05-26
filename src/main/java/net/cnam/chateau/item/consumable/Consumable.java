@@ -1,11 +1,13 @@
 package net.cnam.chateau.item.consumable;
 
+import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.item.Item;
-import net.cnam.chateau.item.PortableItem;
 
-public abstract class Consumable extends Item implements ConsumableItem, PortableItem {
+public abstract class Consumable extends Item {
 
-    public Consumable(String nom) {
-        super(nom);
+    public Consumable(String nom, String description) {
+        super(nom, description);
     }
+
+    abstract void consume(Player player);
 }

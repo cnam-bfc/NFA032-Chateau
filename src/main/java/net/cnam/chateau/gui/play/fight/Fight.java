@@ -182,6 +182,7 @@ public class Fight extends CFrame implements DisplayableComponent {
             } else {
                 logs.add("Vous avez raté votre attaque.");
             }
+            // Comparaison Enemy et pet après l'attaque du joueur
             if (enemySpeed > petSpeed) {
                 if (attackIsSuccess(enemy)) {
                     if (random.nextBoolean()) {
@@ -194,12 +195,30 @@ public class Fight extends CFrame implements DisplayableComponent {
                 } else {
                     logs.add(enemy.getName() + " a raté son attaque.");
                 }
+                if (attackIsSuccess(player.getPet())) {
+                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
+                    enemy.damage(petStrength);
+                } else {
+                    logs.add(player.getPet().getName() + " a raté son attaque.");
+                }
+
             } else {
                 if (attackIsSuccess(player.getPet())) {
                     logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
                     enemy.damage(petStrength);
                 } else {
                     logs.add(player.getPet().getName() + " a raté son attaque.");
+                }
+                if (attackIsSuccess(enemy)) {
+                    if (random.nextBoolean()) {
+                        logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
+                        player.damage(enemyStrength);
+                    } else {
+                        logs.add(enemy.getName() + " a infligé " + enemyStrength + " dégâts à " + player.getPet().getName() + ".");
+                        player.getPet().damage(enemyStrength);
+                    }
+                } else {
+                    logs.add(enemy.getName() + " a raté son attaque.");
                 }
             }
             return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack /
@@ -226,12 +245,24 @@ public class Fight extends CFrame implements DisplayableComponent {
                 } else {
                     logs.add("Vous avez raté votre attaque.");
                 }
+                if (attackIsSuccess(player.getPet())) {
+                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
+                    enemy.damage(petStrength);
+                } else {
+                    logs.add(player.getPet().getName() + " a raté son attaque.");
+                }
             } else {
                 if (attackIsSuccess(player.getPet())) {
                     logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
                     enemy.damage(petStrength);
                 } else {
                     logs.add(player.getPet().getName() + " a raté son attaque.");
+                }
+                if (attackIsSuccess(player)) {
+                    logs.add("Vous avez infligé " + playerStrength + " dégâts à " + enemy.getName() + ".");
+                    enemy.damage(playerStrength);
+                } else {
+                    logs.add("Vous avez raté votre attaque.");
                 }
             }
             return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack /
@@ -240,12 +271,29 @@ public class Fight extends CFrame implements DisplayableComponent {
 
         // SI le pet est le premier à attaquer
         if (petSpeed > enemySpeed && petSpeed > playerSpeed) {
+            if (attackIsSuccess(player.getPet())) {
+                logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
+                enemy.damage(petStrength);
+            } else {
+                logs.add(player.getPet().getName() + " a raté son attaque.");
+            }
             if (playerSpeed > enemySpeed) {
                 if (attackIsSuccess(player.getPet())) {
                     logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
                     enemy.damage(petStrength);
                 } else {
                     logs.add(player.getPet().getName() + " a raté son attaque.");
+                }
+                if (attackIsSuccess(enemy)) {
+                    if (random.nextBoolean()) {
+                        logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
+                        player.damage(enemyStrength);
+                    } else {
+                        logs.add(enemy.getName() + " a infligé " + enemyStrength + " dégâts à " + player.getPet().getName() + ".");
+                        player.getPet().damage(enemyStrength);
+                    }
+                } else {
+                    logs.add(enemy.getName() + " a raté son attaque.");
                 }
             } else {
                 if (attackIsSuccess(enemy)) {
@@ -258,6 +306,12 @@ public class Fight extends CFrame implements DisplayableComponent {
                     }
                 } else {
                     logs.add(enemy.getName() + " a raté son attaque.");
+                }
+                if (attackIsSuccess(player.getPet())) {
+                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
+                    enemy.damage(petStrength);
+                } else {
+                    logs.add(player.getPet().getName() + " a raté son attaque.");
                 }
             }
             return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack /

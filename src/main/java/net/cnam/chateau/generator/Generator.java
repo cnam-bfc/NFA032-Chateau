@@ -588,7 +588,7 @@ public class Generator {
     }
 
     private Door getRandomDoor(Stage stage, Room roomOne, Room roomTwo) {
-        int randomInt = random.nextInt(1, 100);
+        int randomInt = random.nextInt(0, 100);
         if (randomInt < 80) {
             return new Door(stage, roomOne, roomTwo);
         } else if (randomInt < 86) {

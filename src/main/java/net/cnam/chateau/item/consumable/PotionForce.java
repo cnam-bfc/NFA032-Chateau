@@ -5,7 +5,7 @@ import net.cnam.chateau.entity.Player;
 public class PotionForce extends Consumable {
 
     public PotionForce() {
-        super("Potion de force");
+        super("Potion de force", "Augmente temporairement la force !");
     }
 
     @Override

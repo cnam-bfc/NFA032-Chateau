@@ -1,16 +1,15 @@
-package net.cnam.chateau.item.weapon;
+package net.cnam.chateau.weapon;
 
 import net.cnam.chateau.item.Item;
-import net.cnam.chateau.item.PortableItem;
 
-public class Weapon extends Item implements PortableItem {
+public class Weapon extends Item {
 
     private int power;
     private int accuracy;
     private int speed;
 
-    public Weapon(int power, int accuracy, int speed, String nom) {
-        super(nom);
+    public Weapon(int power, int accuracy, int speed, String nom, String description) {
+        super(nom, description);
         this.power = power;
         this.accuracy = accuracy;
         this.speed = speed;

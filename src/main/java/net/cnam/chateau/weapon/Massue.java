@@ -1,8 +1,8 @@
-package net.cnam.chateau.item.weapon;
+package net.cnam.chateau.weapon;
 
 import java.util.Random;
 
-public class Couteau extends Weapon {
+public class Massue extends Weapon {
 
     private final int MIN_POWER = 1; // min inclus
     private final int MAX_POWER = 11; // max exlcu
@@ -11,8 +11,8 @@ public class Couteau extends Weapon {
     private final int MIN_ACCURACY = 1; // min inclus
     private final int MAX_ACCURACY = 11; // max exlcu
 
-    public Couteau(Random random) {
-        super(0, 0, 0, "");
+    public Massue(Random random) {
+        super(0, 0, 0, "","massue");
 
         this.setPower(random.nextInt(MIN_POWER, MAX_POWER));
         this.setSpeed(random.nextInt(MIN_SPEED, MAX_SPEED));
@@ -25,11 +25,11 @@ public class Couteau extends Weapon {
         int mediumWeapon = (MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 2;
         int greatWeapon = mediumWeapon + ((MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 4);
         if (total < mediumWeapon) {
-            return "Couteau";
+            return "Massupositoire";
         } else if (total < greatWeapon) {
-            return "Couteau mediocre";
+            return "Masse mediocre";
         } else {
-            return "Superbe couteau";
+            return "Superbe masse";
         }
     }
 }

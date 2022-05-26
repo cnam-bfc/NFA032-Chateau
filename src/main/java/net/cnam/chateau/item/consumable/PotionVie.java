@@ -5,7 +5,7 @@ import net.cnam.chateau.entity.Player;
 public class PotionVie extends Consumable {
 
     public PotionVie() {
-        super("Potion de régénération");
+        super("Potion de régénération", "Permet de récupérer de la vie");
     }
 
     @Override

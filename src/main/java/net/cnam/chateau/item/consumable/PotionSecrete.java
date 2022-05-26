@@ -5,7 +5,7 @@ import net.cnam.chateau.entity.Player;
 public class PotionSecrete extends Consumable {
 
     public PotionSecrete() {
-        super("Potion secrètre");
+        super("Potion secrètre", "Son effet va vous surprendre !");
     }
 
     @Override

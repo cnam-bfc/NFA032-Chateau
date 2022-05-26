@@ -10,7 +10,7 @@ import net.cnam.chateau.event.entity.EntityListener;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.item.Item;
-import net.cnam.chateau.item.weapon.Weapon;
+import net.cnam.chateau.weapon.Weapon;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.structure.block.Block;

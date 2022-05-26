@@ -1,4 +1,4 @@
-package net.cnam.chateau.item.weapon;
+package net.cnam.chateau.weapon;
 
 import java.util.Random;
 
@@ -12,7 +12,7 @@ public class Hache extends Weapon {
     private final int MAX_ACCURACY = 11; // max exlcu
 
     public Hache(Random random) {
-        super(0, 0, 0, "");
+        super(0, 0, 0, "","hache");
 
         this.setPower(random.nextInt(MIN_POWER, MAX_POWER));
         this.setSpeed(random.nextInt(MIN_SPEED, MAX_SPEED));

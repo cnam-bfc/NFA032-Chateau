@@ -1,35 +1,28 @@
 package net.cnam.chateau.item;
 
-import net.cnam.chateau.entity.Entity;
-
-public class Item implements PortableItem {
+public class Item {
 
     private String name;
+    private String description;
 
-    public Item(String name) {
+    public Item(String name, String description) {
         this.name = name;
-    }
-
-    @Override
-    public void isCarry() {
-    }
-
-    @Override
-    public void drop() {
-        //TODO poser l'item à l'emplacement ou se trouve le joueur
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.description = description;
     }
     
     public String getName() {
         return name;
     }
 
-    @Override
-    public void destroy(Entity entity) {
-        // TODO mettre une phrase pour dire l'item est détruit
-        entity.setItem(null);
-    }   
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
