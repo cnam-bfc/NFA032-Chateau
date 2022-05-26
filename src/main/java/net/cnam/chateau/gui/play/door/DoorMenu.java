@@ -17,7 +17,7 @@ public class DoorMenu extends CFrame implements DisplayableComponent {
 
         SelectableComponent[] selectableComponent = new SelectableComponent[0];
 
-        if (player.haveItem()) {
+        if (player.hasItem()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new UseObjectButton(settings, player, door, this));
         }
 

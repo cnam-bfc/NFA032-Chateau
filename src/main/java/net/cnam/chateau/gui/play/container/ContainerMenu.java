@@ -17,17 +17,17 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
 
         SelectableComponent[] selectableComponent = new SelectableComponent[0];
 
-        if (player.haveItem() && block.hasItem()) {
+        if (player.hasItem() && block.hasItem()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent,
                     new ReplaceItemButton(settings, this, player, block));
         }
 
-        if (player.haveItem() && !block.hasItem()) {
+        if (player.hasItem() && !block.hasItem()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent,
                     new PutItemButton(settings, this, player, block));
         }
 
-        if (!player.haveItem() && block.hasItem()) {
+        if (!player.hasItem() && block.hasItem()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent,
                     new TakeItemButton(settings, this, player, block));
         }

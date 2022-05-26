@@ -2,63 +2,104 @@ package net.cnam.chateau.gui.play;
 
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.component.*;
+import net.cnam.chateau.gui.component.CComponent;
+import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.component.CPanel;
+import net.cnam.chateau.gui.component.CProgressBar;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class EntityStats extends CPanel {
     private final Entity entity;
+    private final boolean autoUpdate;
+    private final CPanel head;
     private final CLabel name;
     private final CProgressBar hpBar;
-    private final CPanel weapon;
-    private final CLabel weaponName;
-    private CPanel pet;
-    private CLabel petName;
+    private CPanel weapon;
+    private CLabel weaponName;
+    private CPanel item;
+    private CLabel itemName;
 
-    public EntityStats(Entity entity) {
-        super(HorizontalAlignment.LEFT, 0, 0, Orientation.VERTICAL, false);
+    public EntityStats(Entity entity, Orientation orientation) {
+        this(entity, orientation, true);
+    }
+
+    public EntityStats(Entity entity, Orientation orientation, boolean autoUpdate) {
+        super(0, 0, Orientation.VERTICAL, false);
 
         this.entity = entity;
+        this.autoUpdate = autoUpdate;
 
-        this.name = new CLabel(HorizontalAlignment.LEFT, entity.getName());
-        this.getComponents().add(name);
+        // Nom de l'entité
+        if (entity instanceof Player) {
+            this.name = new CLabel("Vous");
+            this.name.getColors().add(CColor.BRIGHT_BLUE);
+        } else {
+            this.name = new CLabel(entity.getName());
+        }
+        if (entity instanceof Pet) {
+            this.name.getColors().add(CColor.CYAN);
+        }
+        this.name.getColors().add(CColor.BOLD);
+        this.name.getColors().add(CColor.UNDERLINE);
 
+        // Barre de vie
         this.hpBar = new CProgressBar(0, 1, entity.getHealth(), entity.getMaxHealth(), "%VALUE%/%MAX_VALUE% hp");
         hpBar.getColors().add(CColor.RED);
-        this.getComponents().add(hpBar);
 
-        CLabel weaponLabel = new CLabel(HorizontalAlignment.LEFT, "Arme: ");
-        if (entity.hasWeapon()) {
-            this.weaponName = new CLabel(HorizontalAlignment.LEFT, entity.getWeapon().getName());
-        } else {
-            this.weaponName = new CLabel(HorizontalAlignment.LEFT, "Poings");
-        }
-        this.weaponName.getColors().add(CColor.YELLOW);
-        this.weapon = new CPanel(HorizontalAlignment.LEFT, 0, 1, Orientation.HORIZONTAL, true);
-        this.weapon.getComponents().add(weaponLabel);
-        this.weapon.getComponents().add(weaponName);
-        this.getComponents().add(weapon);
+        // Head
+        this.head = new CPanel(0, 2, Orientation.VERTICAL, false);
+        head.getComponents().add(name);
+        head.getComponents().add(hpBar);
+        this.getComponents().add(head);
 
-        int fill = 0;
+        if (!(entity instanceof Pet)) {
+            // Arme
+            CLabel weaponLabel = new CLabel("Arme");
+            weaponLabel.getColors().add(CColor.BOLD);
 
-        if (entity instanceof Player player) {
-            CLabel petLabel = new CLabel(HorizontalAlignment.LEFT, "Familier: ");
-            if (player.hasPet()) {
-                this.petName = new CLabel(HorizontalAlignment.LEFT, player.getPet().getName());
+            // Nom de l'arme
+            if (entity.hasWeapon()) {
+                this.weaponName = new CLabel(entity.getWeapon().getName());
             } else {
-                this.petName = new CLabel(HorizontalAlignment.LEFT, "Aucun");
+                this.weaponName = new CLabel("Poings");
             }
-            this.petName.getColors().add(CColor.GREEN);
-            this.pet = new CPanel(HorizontalAlignment.LEFT, 0, 1, Orientation.HORIZONTAL, true);
-            this.pet.getComponents().add(petLabel);
-            this.pet.getComponents().add(petName);
-            this.getComponents().add(pet);
-        } else {
-            fill++;
+            this.weaponName.getColors().add(CColor.YELLOW);
+
+            // Panel de l'arme
+            if (orientation == Orientation.VERTICAL) {
+                this.weapon = new CPanel(0, 2, Orientation.VERTICAL, false);
+            } else {
+                this.weapon = new CPanel(0, 1, Orientation.HORIZONTAL, true);
+            }
+            weapon.getComponents().add(weaponLabel);
+            weapon.getComponents().add(weaponName);
+            this.getComponents().add(weapon);
         }
 
-        for (int i = 0; i < fill; i++) {
-            this.getComponents().add(new CLabel(HorizontalAlignment.LEFT, " "));
+        if (entity instanceof Player) {
+            // Objet
+            CLabel itemLabel = new CLabel("Objet");
+            itemLabel.getColors().add(CColor.BOLD);
+
+            // Nom de l'objet
+            if (entity.hasItem()) {
+                this.itemName = new CLabel(entity.getItem().getName());
+            } else {
+                this.itemName = new CLabel("Aucun");
+            }
+            itemName.getColors().add(CColor.GREEN);
+
+            // Panel de l'objet
+            if (orientation == Orientation.VERTICAL) {
+                this.item = new CPanel(0, 2, Orientation.VERTICAL, false);
+            } else {
+                this.item = new CPanel(0, 1, Orientation.HORIZONTAL, true);
+            }
+            item.getComponents().add(itemLabel);
+            item.getComponents().add(itemName);
+            this.getComponents().add(item);
         }
 
         int height = -1;
@@ -69,27 +110,38 @@ public class EntityStats extends CPanel {
         this.setHeight(height);
     }
 
-    @Override
-    public String[] render() {
-        name.setText(entity.getName());
-        name.setLength(entity.getName().length());
+    public void update() {
+        if (!(entity instanceof Player)) {
+            name.setText(entity.getName());
+            name.setLength(name.getText().length());
+        }
 
         hpBar.setValue(entity.getHealth());
         hpBar.setMaxValue(entity.getMaxHealth());
 
-        if (entity.hasWeapon()) {
-            weaponName.setText(entity.getWeapon().getName());
-            weaponName.setLength(entity.getWeapon().getName().length());
+        if (weaponName != null) {
+            if (entity.hasWeapon()) {
+                weaponName.setText(entity.getWeapon().getName());
+            } else {
+                weaponName.setText("Poings");
+            }
+            weaponName.setLength(weaponName.getText().length());
         }
 
-        if (petName != null && entity instanceof Player player) {
-            if (player.hasPet()) {
-                petName.setText(player.getPet().getName());
-                petName.setLength(player.getPet().getName().length());
+        if (itemName != null) {
+            if (entity.hasItem()) {
+                itemName.setText(entity.getItem().getName());
             } else {
-                petName.setText("Aucun");
-                petName.setLength(petName.getText().length());
+                itemName.setText("Aucun");
             }
+            itemName.setLength(itemName.getText().length());
+        }
+    }
+
+    @Override
+    public String[] render() {
+        if (autoUpdate) {
+            update();
         }
 
         return super.render();
@@ -99,11 +151,17 @@ public class EntityStats extends CPanel {
     public void setLength(int length) {
         super.setLength(length);
 
-        name.setLength(length);
-        hpBar.setLength(length);
-        weapon.setLength(length);
-        if (pet != null) {
-            pet.setLength(length);
+        head.setLength(length);
+        hpBar.setLength(length - 2);
+        if (weapon != null) {
+            weapon.setLength(length);
         }
+        if (item != null) {
+            item.setLength(length);
+        }
+    }
+
+    public CProgressBar getHpBar() {
+        return hpBar;
     }
 }

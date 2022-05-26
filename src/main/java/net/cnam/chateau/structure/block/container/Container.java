@@ -53,7 +53,7 @@ public abstract class Container extends Block implements BlockListener {
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         this.opened = true;
-        if (event.getEntity() instanceof Player player && (this.hasItem() || player.haveItem())) {
+        if (event.getEntity() instanceof Player player && (this.hasItem() || player.hasItem())) {
             app.getConsole().show(new ContainerMenu(app.getSettings(), player, this));
         }
     }

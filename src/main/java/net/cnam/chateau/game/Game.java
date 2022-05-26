@@ -63,7 +63,7 @@ public class Game extends CFrame implements DisplayableComponent {
 
         CPanel footer = new CPanel(0, 4, Orientation.HORIZONTAL, false);
 
-        this.playerStats = new EntityStats(player);
+        this.playerStats = new EntityStats(player, Orientation.HORIZONTAL);
         playerStats.setHeight(4);
         footer.getComponents().add(playerStats);
 
@@ -192,6 +192,24 @@ public class Game extends CFrame implements DisplayableComponent {
     }
 
     @Override
+    public String[] render() {
+        int length = this.getContentPane().getLength();
+
+        this.getFooter().getComponents().clear();
+        this.playerStats.setLength(length / 2);
+        this.getFooter().getComponents().add(this.playerStats);
+
+        if (this.player.hasPet()) {
+            EntityStats petStats = new EntityStats(this.player.getPet(), Orientation.VERTICAL);
+            petStats.setHeight(2);
+            petStats.setLength(length / 2);
+            this.getFooter().getComponents().add(petStats);
+        }
+
+        return super.render();
+    }
+
+    @Override
     public void setHeight(int height) {
         super.setHeight(height);
 
@@ -203,7 +221,6 @@ public class Game extends CFrame implements DisplayableComponent {
         super.setLength(length);
 
         this.map.setLength(this.getContentPane().getLength());
-        this.playerStats.setLength(this.getContentPane().getLength());
     }
 
     public Castle getCastle() {

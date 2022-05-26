@@ -10,13 +10,13 @@ import net.cnam.chateau.event.entity.EntityListener;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.item.Item;
-import net.cnam.chateau.weapon.Weapon;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Stair;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
+import net.cnam.chateau.weapon.Weapon;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -39,6 +39,7 @@ public abstract class Entity implements DisplayableObject {
     private Stage stage;
     private String name;
     private Weapon weapon;
+    private Item item;
     private int health = DEFAULT_HEALTH;
     private int maxHealth = DEFAULT_HEALTH;
     private int resistance = DEFAULT_RESISTANCE;
@@ -49,7 +50,6 @@ public abstract class Entity implements DisplayableObject {
     private int maxAccuracy = DEFAULT_ACCURACY;
     private int speed = DEFAULT_SPEED;
     private int maxSpeed = DEFAULT_SPEED;
-    private Item item;
 
     private int renderPriority = -1;
 
@@ -345,6 +345,28 @@ public abstract class Entity implements DisplayableObject {
         this.weapon = weapon;
     }
 
+    public boolean hasItem() {
+        return this.getItem() != null;
+    }
+
+    /**
+     * Méthode permettant de récupérer l'item que possède l'entité.
+     *
+     * @return un Item
+     */
+    public Item getItem() {
+        return item;
+    }
+
+    /**
+     * Méthode qui permet de définir l'item porté par l'entité
+     *
+     * @param item un Item
+     */
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
     /**
      * Méthode permettant de récupérer la santé de l'entité.
      *
@@ -445,28 +467,6 @@ public abstract class Entity implements DisplayableObject {
      */
     public int getMaxSpeed() {
         return maxSpeed;
-    }
-
-    /**
-     * Méthode permettant de récupérer l'item que possède l'entité.
-     *
-     * @return un Item
-     */
-    public Item getItem() {
-        return item;
-    }
-
-    /**
-     * Méthode qui permet de définir l'item porté par l'entité
-     *
-     * @param item un Item
-     */
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    public boolean haveItem() {
-        return (this.getItem() != null);
     }
 
     /**
