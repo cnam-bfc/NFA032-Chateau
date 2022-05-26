@@ -10,7 +10,7 @@ public class ConfigureSoundEffectsFrame extends CFrame implements DisplayableCom
     public ConfigureSoundEffectsFrame(AppSettings settings) {
         super(0, 0, "Configurer le niveau sonore des effets sonores");
 
-        CGauge gauge = new ConfigureSoundEffectsGauge(settings);
+        CSlider gauge = new ConfigureSoundEffectsSlider(settings);
         CChoices choices = new CChoices(settings, new SelectableComponent[]{
                 gauge,
                 new CChoices(settings, new SelectableComponent[]{

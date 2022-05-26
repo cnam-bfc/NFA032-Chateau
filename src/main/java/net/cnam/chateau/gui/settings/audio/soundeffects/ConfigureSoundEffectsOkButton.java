@@ -2,14 +2,14 @@ package net.cnam.chateau.gui.settings.audio.soundeffects;
 
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.component.CGauge;
+import net.cnam.chateau.gui.component.CSlider;
 
 public class ConfigureSoundEffectsOkButton extends CButton {
     private final AppSettings settings;
     private final ConfigureSoundEffectsFrame configureSoundEffectsFrame;
-    private final CGauge gauge;
+    private final CSlider gauge;
 
-    public ConfigureSoundEffectsOkButton(AppSettings settings, ConfigureSoundEffectsFrame configureSoundEffectsFrame, CGauge gauge) {
+    public ConfigureSoundEffectsOkButton(AppSettings settings, ConfigureSoundEffectsFrame configureSoundEffectsFrame, CSlider gauge) {
         super(settings, "Valider");
 
         this.settings = settings;

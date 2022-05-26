@@ -2,14 +2,14 @@ package net.cnam.chateau.gui.settings.audio.music;
 
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.component.CGauge;
+import net.cnam.chateau.gui.component.CSlider;
 
 public class ConfigureMusicOkButton extends CButton {
     private final AppSettings settings;
     private final ConfigureMusicFrame configureMusicFrame;
-    private final CGauge gauge;
+    private final CSlider gauge;
 
-    public ConfigureMusicOkButton(AppSettings settings, ConfigureMusicFrame configureMusicFrame, CGauge gauge) {
+    public ConfigureMusicOkButton(AppSettings settings, ConfigureMusicFrame configureMusicFrame, CSlider gauge) {
         super(settings, "Valider");
 
         this.settings = settings;
