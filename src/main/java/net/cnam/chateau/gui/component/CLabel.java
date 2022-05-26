@@ -94,20 +94,18 @@ public class CLabel extends CComponent {
             result[linePointer++] = emptyLine;
         }
         for (String textLine : textLines) {
-            int lineLength = textLine.length();
-            int length = this.getLength();
-            for (CColor color : colors) {
-                length += color.getForeground().length() + color.getForegroundReset().length();
-                textLine = color.getForeground() + textLine + color.getForegroundReset();
-            }
-            if (lineLength > this.getLength()) {
-                textLine = textLine.substring(0, length);
-            } else if (lineLength < this.getLength()) {
+            if (textLine.length() > this.getLength()) {
+                textLine = textLine.substring(0, this.getLength());
+            } else if (textLine.length() < this.getLength()) {
                 switch (this.getHorizontalAlignment()) {
-                    case LEFT -> textLine += " ".repeat(length - textLine.length());
-                    case CENTER -> textLine = StringUtils.centerString(textLine, ' ', length);
-                    case RIGHT -> textLine = " ".repeat(length - textLine.length()) + textLine;
+                    case LEFT -> textLine += " ".repeat(this.getLength() - textLine.length());
+                    case CENTER -> textLine = StringUtils.centerString(textLine, ' ', this.getLength());
+                    case RIGHT -> textLine = " ".repeat(this.getLength() - textLine.length()) + textLine;
                 }
+            }
+
+            for (CColor color : colors) {
+                textLine = color.getForeground() + textLine + color.getForegroundReset();
             }
 
             if (linePointer < result.length) {
