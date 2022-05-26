@@ -3,6 +3,7 @@ package net.cnam.chateau.entity;
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
@@ -25,7 +26,7 @@ public class Player extends Entity {
      * @param name     Le nom de l'entité
      */
     public Player(App app, Stage stage, Location location, String name) {
-        super(app, stage, location, name, 100,50,10,10,10);
+        super(app, stage, location, name, 100, 50, 10, 10, 10);
 
         this.app = app;
 
@@ -59,6 +60,8 @@ public class Player extends Entity {
         super.kill();
 
         app.getCurrentGame().stop();
+
+        app.getConsole().show(new InfoDialog(InfoDialog.Type.DEAD, "GAME OVER"));
     }
 
     /**

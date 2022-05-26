@@ -25,16 +25,26 @@ public class InfoDialog extends CFrame implements DisplayableComponent {
 
         CLabel introMessage = new CLabel(type.getTitle(), this.getLength() - 2);
         introMessage.getColors().add(CColor.BOLD);
-        introMessage.getColors().add(CColor.BLINKING);
+        if (!type.equals(Type.DEAD)) {
+            introMessage.getColors().add(CColor.BLINKING);
+        }
         introMessage.getColors().add(CColor.YELLOW);
         this.getContentPane().getComponents().add(introMessage);
 
         CLabel errorMessage = new CLabel(text, this.getLength() - 2);
-        errorMessage.getColors().add(CColor.YELLOW);
+        if (type.equals(Type.DEAD)) {
+            errorMessage.getColors().add(CColor.BLINKING);
+            errorMessage.getColors().add(CColor.BOLD);
+            errorMessage.getColors().add(CColor.RED);
+        } else {
+            errorMessage.getColors().add(CColor.YELLOW);
+        }
         this.getContentPane().getComponents().add(errorMessage);
 
         CLabel exitMessage = new CLabel(type.getFooter(), this.getLength() - 2);
-        exitMessage.getColors().add(CColor.BLINKING);
+        if (!type.equals(Type.DEAD)) {
+            exitMessage.getColors().add(CColor.BLINKING);
+        }
         this.getContentPane().getComponents().add(exitMessage);
     }
 
@@ -49,7 +59,8 @@ public class InfoDialog extends CFrame implements DisplayableComponent {
     }
 
     public enum Type {
-        INFO("\u24D8 Information \u24D8", "Appuyez sur une touche pour continuer...");
+        INFO("\u24D8 Information \u24D8", "Appuyez sur une touche pour continuer..."),
+        DEAD("\u2620 Vous êtes mort \u2620", "Appuyez sur une touche pour retourner au menu principal...");
 
         private final String title;
         private final String footer;

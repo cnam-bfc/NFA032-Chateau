@@ -197,7 +197,7 @@ public class Fight extends CFrame implements DisplayableComponent {
         if (playerHealth <= 0 || enemyHealth <= 0) {
             playerStats.getHpBar().setValue(playerHealth);
             enemyStats.getHpBar().setValue(enemyHealth);
-            if (petStats != null) {
+            if (petStats != null && player.hasPet()) {
                 petStats.getHpBar().setValue(player.getPet().getHealth() - damages.getOrDefault(player.getPet(), 0));
             }
             menu.getComponents().clear();
