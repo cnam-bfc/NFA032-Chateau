@@ -1,6 +1,7 @@
 package net.cnam.chateau.generator;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.entity.Sage;
 import net.cnam.chateau.item.Key;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
@@ -15,9 +16,7 @@ import net.cnam.chateau.structure.block.decorative.Bed;
 import net.cnam.chateau.structure.block.decorative.Desk;
 import net.cnam.chateau.structure.block.decorative.Seat;
 import net.cnam.chateau.structure.block.decorative.Table;
-import net.cnam.chateau.structure.block.door.Door;
-import net.cnam.chateau.structure.block.door.EnemyDoor;
-import net.cnam.chateau.structure.block.door.LockedDoor;
+import net.cnam.chateau.structure.block.door.*;
 import net.cnam.chateau.utils.Location;
 
 import java.util.*;
@@ -229,12 +228,20 @@ public class GUtils {
     }
 
     public static Door getDoor(Random random, Stage stage, Room roomOne, Room roomTwo, App app) {
-        return new EnemyDoor(app, stage, roomOne, roomTwo, random);
- /*       int randomInt = random.nextInt(1,100);
-        if (randomInt < 80){
+        if (!Sage.sages.isEmpty()) {
+            return new SageDoor(app, stage, roomOne, roomTwo, random);
+        } else {
             return new Door(stage, roomOne, roomTwo);
-        } else if (randomInt < 86){
-            return new SageDoor(stage, roomOne, roomTwo);
+        }
+/*        int randomInt = random.nextInt(1, 100);
+        if (randomInt < 80) {
+            return new Door(stage, roomOne, roomTwo);
+        } else if (randomInt < 86) {
+            if (!Sage.sages.isEmpty()) {
+                return new SageDoor(app, stage, roomOne, roomTwo, random);
+            } else {
+                return new TrappedDoor(stage, roomOne, roomTwo);
+            }
         } else if (randomInt < 91) {
             return new EnemyDoor(app, stage, roomOne, roomTwo, random);
         } else {

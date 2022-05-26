@@ -96,17 +96,21 @@ public class Puzzle {
         this.answers = answers;
     }
 
+    public String getQuestion() {
+        return question;
+    }
+
     /**
      * Prends une énigme au hasard. Prends l'énigme dans la liste des énigmes et
      * la supprime de la liste.
      *
      * @return un puzzle
      */
-    public static Puzzle getAPuzzle() {
-        if (puzzles.isEmpty()) {
-            return null;
-        }
-        return puzzles.remove(new Random().nextInt(0, puzzles.size()));
+
+
+
+    public List<Couple<String, Boolean>> getAnswers() {
+        return answers;
     }
 
     /**
@@ -115,6 +119,8 @@ public class Puzzle {
      * @param answer Couple d'une réponse
      * @return un boolean
      */
+
+
     public boolean isRight(Couple<String, Boolean> answer) {
         return answer.getElemTwo();
     }
