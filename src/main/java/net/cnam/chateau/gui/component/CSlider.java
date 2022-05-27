@@ -12,6 +12,10 @@ public class CSlider extends CProgressBar implements SelectableComponent, KeyLis
 
     public CSlider(int length, int height, int value, int maxValue, String text) {
         super(length, height, value, maxValue, text);
+
+        this.getTextColors().add(CColor.BLACK);
+        this.getProgressedColors().add(CColor.BRIGHT_BLACK);
+        this.getUnprogressedColors().add(CColor.WHITE);
     }
 
     @Override
@@ -47,11 +51,11 @@ public class CSlider extends CProgressBar implements SelectableComponent, KeyLis
     @Override
     public String[] render() {
         if (isSelected()) {
-            if (!this.getColors().contains(CColor.UNDERLINE)) {
-                this.getColors().add(CColor.UNDERLINE);
+            if (!this.getProgressedColors().contains(CColor.UNDERLINE)) {
+                this.getProgressedColors().add(CColor.UNDERLINE);
             }
         } else {
-            this.getColors().remove(CColor.UNDERLINE);
+            this.getProgressedColors().remove(CColor.UNDERLINE);
         }
 
         return super.render();

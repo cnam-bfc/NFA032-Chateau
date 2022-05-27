@@ -14,7 +14,7 @@ public enum CColor {
     REVERSE(7, 7, 27, 27),
     HIDDEN(8, 8, 28, 28),
     STRIKETHROUGH(9, 9, 29, 29),
-    BLACK(33),
+    BLACK(30),
     RED(31),
     GREEN(32),
     YELLOW(33),

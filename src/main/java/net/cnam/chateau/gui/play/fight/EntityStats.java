@@ -47,8 +47,9 @@ public class EntityStats extends CPanel {
         this.name.getColors().add(CColor.UNDERLINE);
 
         // Barre de vie
-        this.hpBar = new CProgressBar(0, 1, entity.getHealth(), entity.getMaxHealth(), "%VALUE%/%MAX_VALUE% hp");
-        hpBar.getColors().add(CColor.RED);
+        this.hpBar = new CProgressBar(0, 1, entity.getHealth(), entity.getMaxHealth(), "%VALUE%/%MAX_VALUE% pv");
+        hpBar.getProgressedColors().add(CColor.RED);
+        hpBar.getUnprogressedColors().add(CColor.BRIGHT_BLACK);
 
         // Head
         this.head = new CPanel(0, 2, Orientation.VERTICAL, false);
