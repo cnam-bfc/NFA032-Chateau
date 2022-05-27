@@ -1,4 +1,4 @@
-package net.cnam.chateau.weapon;
+package net.cnam.chateau.item.weapon;
 
 import java.util.Random;
 

@@ -17,7 +17,7 @@ import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Stair;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
-import net.cnam.chateau.weapon.Weapon;
+import net.cnam.chateau.item.weapon.Weapon;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;

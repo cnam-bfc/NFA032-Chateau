@@ -1,37 +1,19 @@
-package net.cnam.chateau.weapon;
+package net.cnam.chateau.item.weapon;
 
 import net.cnam.chateau.item.Item;
 
-public class Weapon{
+public class Weapon extends  Item{
 
-    String name;
-    String description;
     private int power;
     private int accuracy;
     private int speed;
 
     public Weapon(String name, String description, int power, int accuracy, int speed) {
-        this.name = name;
-        this.description = description;
+        super(name, description);
+
         this.power = power;
         this.accuracy = accuracy;
         this.speed = speed;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int getPower() {

@@ -9,6 +9,7 @@ import net.cnam.chateau.game.Game;
 import net.cnam.chateau.item.Item;
 import net.cnam.chateau.item.consumable.AttackPotion;
 import net.cnam.chateau.item.consumable.HealPotion;
+import net.cnam.chateau.item.weapon.*;
 import net.cnam.chateau.item.wearable.Earring;
 import net.cnam.chateau.item.wearable.Necklace;
 import net.cnam.chateau.item.wearable.Ring;
@@ -27,7 +28,6 @@ import net.cnam.chateau.structure.block.door.SageDoor;
 import net.cnam.chateau.structure.block.door.TrappedDoor;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.array.ArrayUtils;
-import net.cnam.chateau.weapon.*;
 
 import java.util.*;
 
