@@ -4,7 +4,7 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.weapon.Weapon;
+import net.cnam.chateau.item.weapon.Weapon;
 
 public class ReplaceWeaponButton extends CButton {
     private final App app;
