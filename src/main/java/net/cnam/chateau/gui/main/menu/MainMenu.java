@@ -5,7 +5,6 @@ import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -28,11 +27,11 @@ public class MainMenu extends CFrame implements DisplayableComponent {
                  IllegalArgumentException ignored) {
         }
 
-        CChoices choices = new CChoices(app, new SelectableComponent[]{
-                new PlayButton(app, this),
-                new SettingsButton(app, audioPlayer),
-                new QuitButton(app, this)
-        }, 1);
+        CChoices choices = new CChoices(app, 1);
+
+        choices.add(new PlayButton(app, this));
+        choices.add(new SettingsButton(app, audioPlayer));
+        choices.add(new QuitButton(app, this));
 
         this.getContentPane().getComponents().add(choices);
     }

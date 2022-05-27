@@ -5,7 +5,6 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.structure.block.door.TrappedDoor;
 
 public class TrappedDoorMenu extends CFrame implements DisplayableComponent {
@@ -14,9 +13,9 @@ public class TrappedDoorMenu extends CFrame implements DisplayableComponent {
     public TrappedDoorMenu(App app, Player player, TrappedDoor door) {
         super(0, 0, "Porte piégée !");
 
-        CChoices choices = new CChoices(app, new SelectableComponent[]{
-                new AcceptTrapButton(app, this, door, player),
-                new TryToLeaveButton(app, this, door, player)}, 1);
+        CChoices choices = new CChoices(app, 1);
+        choices.add(new AcceptTrapButton(app, this, door, player));
+        choices.add(new TryToLeaveButton(app, this, door, player));
 
         this.getContentPane().getComponents().add(choices);
     }

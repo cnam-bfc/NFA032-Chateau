@@ -6,7 +6,7 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.*;
-import net.cnam.chateau.utils.array.ArrayUtils;
+import net.cnam.chateau.gui.play.fight.loot.LootMenu;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.utils.direction.Orientation;
 
@@ -62,14 +62,15 @@ public class Fight extends CFrame implements DisplayableComponent {
         this.getContentPane().getComponents().add(leftPanel);
 
         this.centerPanel = new CPanel(20, 0);
-        SelectableComponent[] components = new SelectableComponent[]{new AttackButton(app, this)};
-        if (player.hasItem()) {
-            components = ArrayUtils.addOnBottomOfArray(components, new UseItemButton(app, player.getItem()));
-        }
-        components = ArrayUtils.addOnBottomOfArray(components, new RunAwayButton(app, this));
 
-        this.menu = new CChoices(app, components, 1);
+        this.menu = new CChoices(app, 1);
+        menu.add(new AttackButton(app, this));
+        if (player.hasItem()) {
+            menu.add(new UseItemButton(app, player.getItem()));
+        }
+        menu.add(new RunAwayButton(app, this));
         menu.setLength(20);
+
         centerPanel.getComponents().add(menu);
         this.getContentPane().getComponents().add(centerPanel);
 
@@ -199,10 +200,20 @@ public class Fight extends CFrame implements DisplayableComponent {
             if (petStats != null && player.hasPet()) {
                 petStats.getHpBar().setValue(player.getPet().getHealth() - damages.getOrDefault(player.getPet(), 0));
             }
-            menu.getComponents().clear();
-            menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
             over = true;
             display = false;
+            if (enemyHealth <= 0) {
+                menu.getComponents().clear();
+                menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour le pilier..."));
+                app.getConsole().show(this);
+                app.getConsole().show(new LootMenu(app, player, enemy));
+                playerStats.update();
+                enemyStats.update();
+                playerStats.getHpBar().setValue(playerHealth);
+                enemyStats.getHpBar().setValue(enemyHealth);
+            }
+            menu.getComponents().clear();
+            menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
             app.getConsole().show(this);
             stop();
         }

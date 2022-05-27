@@ -14,39 +14,26 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CChoices extends CPanel implements SelectableComponent, KeyListener {
     private final App app;
-    private final List<SelectableComponent> selectableComponents;
+    private final List<SelectableComponent> selectableComponents = new ArrayList<>();
 
     private boolean selected = true;
 
-    public CChoices(App app, SelectableComponent[] components) {
-        this(app, components, 0);
+    public CChoices(App app) {
+        this(app, 0);
     }
 
-    public CChoices(App app, SelectableComponent[] components, int spacing) {
-        this(app, components, Orientation.VERTICAL, spacing);
+    public CChoices(App app, int spacing) {
+        this(app, Orientation.VERTICAL, spacing);
     }
 
-    public CChoices(App app, SelectableComponent[] components, Orientation orientation, int spacing) {
-        super(Arrays.copyOf(components, components.length, CComponent[].class), orientation, spacing);
+    public CChoices(App app, Orientation orientation, int spacing) {
+        super(HorizontalAlignment.CENTER, orientation, spacing);
 
         this.app = app;
-
-        for (int i = 0; i < components.length; i++) {
-            SelectableComponent component = components[i];
-            if (i == 0) {
-                component.setSelected(true);
-            } else {
-                component.setSelected(false);
-            }
-            this.getComponents().add((CComponent) component);
-        }
-
-        selectableComponents = new ArrayList<>(Arrays.asList(components));
     }
 
     @Override
@@ -148,5 +135,40 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
                 comp.setSelected(false);
             }
         }
+    }
+
+    public void add(SelectableComponent selectableComponent) {
+        if (isSelected()) {
+            if (selectableComponents.isEmpty()) {
+                selectableComponent.setSelected(true);
+            } else {
+                selectableComponent.setSelected(false);
+            }
+        }
+        selectableComponents.add(selectableComponent);
+        CComponent component = (CComponent) selectableComponent;
+        this.getComponents().add(component);
+        this.autoResize();
+    }
+
+    public void remove(SelectableComponent selectableComponent) {
+        if (selectableComponents.contains(selectableComponent)) {
+            selectableComponents.remove(selectableComponent);
+            CComponent component = (CComponent) selectableComponent;
+            this.getComponents().remove(component);
+        }
+        this.autoResize();
+    }
+
+    public void replace(SelectableComponent oldComponent, SelectableComponent newComponent) {
+        if (selectableComponents.contains(oldComponent)) {
+            int index = selectableComponents.indexOf(oldComponent);
+            selectableComponents.remove(oldComponent);
+            selectableComponents.add(index, newComponent);
+            CComponent component = (CComponent) newComponent;
+            this.getComponents().remove(component);
+            this.getComponents().add(index, component);
+        }
+        this.autoResize();
     }
 }

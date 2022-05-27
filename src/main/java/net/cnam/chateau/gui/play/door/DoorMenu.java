@@ -5,9 +5,7 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.structure.block.door.LockedDoor;
-import net.cnam.chateau.utils.array.ArrayUtils;
 
 public class DoorMenu extends CFrame implements DisplayableComponent {
     private boolean display = true;
@@ -15,19 +13,17 @@ public class DoorMenu extends CFrame implements DisplayableComponent {
     public DoorMenu(App app, Player player, LockedDoor door) {
         super(0, 0, "Porte bloquée");
 
-        SelectableComponent[] selectableComponent = new SelectableComponent[0];
+        CChoices choices = new CChoices(app, 1);
 
         if (player.hasItem()) {
-            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new UseObjectButton(app, player, door, this));
+            choices.add(new UseObjectButton(app, player, door, this));
         }
 
         if (!door.hasTryDestroy()) {
-            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new DestroyDoorButton(app, player, door, this));
+            choices.add(new DestroyDoorButton(app, player, door, this));
         }
 
-        selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new LeaveButton(app, this));
-
-        CChoices choices = new CChoices(app, selectableComponent, 1);
+        choices.add(new LeaveButton(app, this));
 
         this.getContentPane().getComponents().add(choices);
     }

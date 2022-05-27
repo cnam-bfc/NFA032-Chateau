@@ -5,9 +5,7 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.component.SelectableComponent;
 import net.cnam.chateau.structure.block.door.SageDoor;
-import net.cnam.chateau.utils.array.ArrayUtils;
 
 public class SageDoorMenu extends CFrame implements DisplayableComponent {
     private boolean display = true;
@@ -15,15 +13,15 @@ public class SageDoorMenu extends CFrame implements DisplayableComponent {
     public SageDoorMenu(App app, Player player, SageDoor door) {
         super(0, 0, "Porte bloquée par un Sage");
 
-        SelectableComponent[] selectableComponent = {new AttackButton(app, player, door, this)};
+        CChoices choices = new CChoices(app, 1);
+
+        choices.add(new AttackButton(app, player, door, this));
 
         if (door.getSage().hasPuzzle()) {
-            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new PuzzleButton(app, player, door, this));
+            choices.add(new PuzzleButton(app, player, door, this));
         }
 
-        selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new LeaveButton(app, this));
-
-        CChoices choices = new CChoices(app, selectableComponent, 1);
+        choices.add(new LeaveButton(app, this));
 
         this.getContentPane().getComponents().add(choices);
     }

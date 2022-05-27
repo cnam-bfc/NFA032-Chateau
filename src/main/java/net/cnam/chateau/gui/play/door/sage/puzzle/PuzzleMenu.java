@@ -3,9 +3,11 @@ package net.cnam.chateau.gui.play.door.sage.puzzle;
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.component.*;
+import net.cnam.chateau.gui.component.CChoices;
+import net.cnam.chateau.gui.component.CFrame;
+import net.cnam.chateau.gui.component.CLabel;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.structure.block.door.SageDoor;
-import net.cnam.chateau.utils.array.ArrayUtils;
 
 import java.util.Collections;
 
@@ -19,17 +21,14 @@ public class PuzzleMenu extends CFrame implements DisplayableComponent {
         question.getColors().add(CColor.CYAN);
         this.getContentPane().getComponents().add(question);
 
-        SelectableComponent[] selectableComponent = new SelectableComponent[0];
+        CChoices choices = new CChoices(app, 1);
 
         Collections.shuffle(door.getSage().getPuzzle().getAnswers());
         for (int i = 0; i < door.getSage().getPuzzle().getAnswers().size(); i++) {
-            selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new AnswerButton(app, player, door,
-                    door.getSage().getPuzzle().getAnswers().get(i), this));
+            choices.add(new AnswerButton(app, player, door, door.getSage().getPuzzle().getAnswers().get(i), this));
         }
 
-        selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new LeavePuzzleButton(app, this));
-
-        CChoices choices = new CChoices(app, selectableComponent, 1);
+        choices.add(new LeavePuzzleButton(app, this));
 
         this.getContentPane().getComponents().add(choices);
     }

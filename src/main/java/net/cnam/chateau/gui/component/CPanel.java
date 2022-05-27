@@ -12,6 +12,7 @@ import java.util.List;
 public class CPanel extends CComponent implements KeyListener {
     private final List<CComponent> components = new LinkedList<>();
 
+    private final int spacing;
     private Orientation renderOrientation;
     private boolean renderMainPadding;
 
@@ -28,51 +29,19 @@ public class CPanel extends CComponent implements KeyListener {
     }
 
     public CPanel(HorizontalAlignment horizontalAlignment, int length, int height, Orientation renderOrientation, boolean renderMainPadding) {
+        this(horizontalAlignment, length, height, renderOrientation, renderMainPadding, -1);
+    }
+
+    public CPanel(HorizontalAlignment horizontalAlignment, Orientation renderOrientation, int spacing) {
+        this(horizontalAlignment, 0, 0, renderOrientation, false, spacing);
+    }
+
+    private CPanel(HorizontalAlignment horizontalAlignment, int length, int height, Orientation renderOrientation, boolean renderMainPadding, int spacing) {
         super(horizontalAlignment, length, height);
 
         this.renderOrientation = renderOrientation;
         this.renderMainPadding = renderMainPadding;
-    }
-
-    public CPanel(CComponent[] components, Orientation renderOrientation, int spacing) {
-        this(0, 0, renderOrientation, false);
-
-        switch (renderOrientation) {
-            case VERTICAL -> {
-                // Calcul de la hauteur
-                int height = 0;
-                for (CComponent component : components) {
-                    height += component.getHeight();
-                }
-                if (components.length != 0) {
-                    height += (components.length - 1) * spacing;
-                }
-                this.setHeight(height);
-
-                // Calcul de la longueur
-                int length = 0;
-                for (CComponent component : components) {
-                    if (component.getLength() > length) {
-                        length = component.getLength();
-                    }
-                }
-                this.setLength(length);
-            }
-            case HORIZONTAL -> {
-                // Calcul de la hauteur
-                this.setHeight(1);
-
-                // Calcul de la longueur
-                int length = 0;
-                for (CComponent component : components) {
-                    length += component.getLength();
-                }
-                if (components.length != 0) {
-                    length += (components.length - 1) * spacing;
-                }
-                this.setLength(length);
-            }
-        }
+        this.spacing = spacing;
     }
 
     // TODO Faire le rendu en fonction de l'alignement horizontal
@@ -209,6 +178,45 @@ public class CPanel extends CComponent implements KeyListener {
         for (CComponent component : components) {
             if (component instanceof KeyListener componentListener) {
                 componentListener.onKeyPressed(event);
+            }
+        }
+    }
+
+    public void autoResize() {
+        switch (renderOrientation) {
+            case VERTICAL -> {
+                // Calcul de la hauteur
+                int height = 0;
+                for (CComponent component : components) {
+                    height += component.getHeight();
+                }
+                if (components.size() != 0) {
+                    height += (components.size() - 1) * spacing;
+                }
+                this.setHeight(height);
+
+                // Calcul de la longueur
+                int length = 0;
+                for (CComponent component : components) {
+                    if (component.getLength() > length) {
+                        length = component.getLength();
+                    }
+                }
+                this.setLength(length);
+            }
+            case HORIZONTAL -> {
+                // Calcul de la hauteur
+                this.setHeight(1);
+
+                // Calcul de la longueur
+                int length = 0;
+                for (CComponent component : components) {
+                    length += component.getLength();
+                }
+                if (components.size() != 0) {
+                    length += (components.size() - 1) * spacing;
+                }
+                this.setLength(length);
             }
         }
     }
