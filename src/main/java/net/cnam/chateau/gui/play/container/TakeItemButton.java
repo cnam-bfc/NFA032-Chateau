@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.play.container;
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
+import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.block.container.Container;
 
 public class TakeItemButton extends CButton {

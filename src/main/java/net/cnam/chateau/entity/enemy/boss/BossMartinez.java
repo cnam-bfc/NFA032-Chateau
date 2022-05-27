@@ -2,7 +2,7 @@ package net.cnam.chateau.entity.enemy.boss;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.weapon.Weapon;
+import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
