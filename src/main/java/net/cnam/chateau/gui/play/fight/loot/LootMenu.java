@@ -9,6 +9,7 @@ import net.cnam.chateau.gui.component.DisplayableComponent;
 
 public class LootMenu extends CFrame implements DisplayableComponent {
     private final CChoices choices;
+    private final LeaveButton leaveButton;
 
     private boolean display = true;
 
@@ -30,7 +31,11 @@ public class LootMenu extends CFrame implements DisplayableComponent {
                 choices.add(new TakeItemButton(app, player, enemy, this));
             }
         }
-        choices.add(new LeaveButton(app, this));
+
+        this.leaveButton = new LeaveButton(app, this);
+
+        choices.add(leaveButton);
+
         this.getContentPane().getComponents().add(choices);
     }
 
@@ -50,5 +55,9 @@ public class LootMenu extends CFrame implements DisplayableComponent {
 
     public CChoices getChoices() {
         return choices;
+    }
+
+    public LeaveButton getLeaveButton() {
+        return leaveButton;
     }
 }

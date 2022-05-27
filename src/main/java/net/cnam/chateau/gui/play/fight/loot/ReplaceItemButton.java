@@ -26,6 +26,8 @@ public class ReplaceItemButton extends CButton {
         Item playerItem = player.getItem();
         player.setItem(enemy.getItem());
         enemy.setItem(playerItem);
-        lootMenu.getChoices().replace(this, new ReplaceItemButton(app, player, enemy, lootMenu));
+        ReplaceItemButton replaceItemButton = new ReplaceItemButton(app, player, enemy, lootMenu);
+        lootMenu.getChoices().replace(this, replaceItemButton);
+        lootMenu.getChoices().select(replaceItemButton);
     }
 }
