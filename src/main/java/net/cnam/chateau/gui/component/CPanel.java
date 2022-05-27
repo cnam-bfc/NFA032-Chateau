@@ -176,6 +176,7 @@ public class CPanel extends CComponent implements KeyListener {
     @SuppressWarnings("WhileLoopReplaceableByForEach")
     @Override
     public void onKeyPressed(KeyPressedEvent event) {
+        // Iterator to fix java.util.ConcurrentModificationException when another component try to remove a component
         Iterator<CComponent> iterator = this.getComponents().iterator();
         while (iterator.hasNext()) {
             CComponent component = iterator.next();
