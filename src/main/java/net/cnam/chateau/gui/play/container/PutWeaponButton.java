@@ -11,7 +11,7 @@ public class PutWeaponButton extends CButton {
     private final Container block;
 
     public PutWeaponButton(App app, ContainerMenu menu, Player player, Container block) {
-        super(app, "Déposer " + player.getItem().getName() + " dans " + block.getName());
+        super(app, "Déposer " + player.getWeapon().getName() + " dans " + block.getName());
 
         this.menu = menu;
         this.player = player;
