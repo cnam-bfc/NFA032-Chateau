@@ -1,8 +1,8 @@
-package net.cnam.chateau.item.consumable;
+package net.cnam.chateau.corbeille.fight;
 
 import net.cnam.chateau.entity.Entity;
 
-interface Consumable{
+public interface ConsumableInFight{
 
     abstract void consume(Entity entity);
 }
