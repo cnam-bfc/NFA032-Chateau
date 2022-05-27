@@ -9,6 +9,12 @@ import net.cnam.chateau.game.Game;
 import net.cnam.chateau.item.wearable.Wearable;
 import net.cnam.chateau.structure.*;
 import net.cnam.chateau.structure.block.*;
+import net.cnam.chateau.structure.block.container.Chest;
+import net.cnam.chateau.structure.block.container.Wardrobe;
+import net.cnam.chateau.structure.block.decorative.Bed;
+import net.cnam.chateau.structure.block.decorative.Desk;
+import net.cnam.chateau.structure.block.decorative.Seat;
+import net.cnam.chateau.structure.block.decorative.Table;
 import net.cnam.chateau.structure.block.door.Door;
 import net.cnam.chateau.structure.block.door.EnemyDoor;
 import net.cnam.chateau.structure.block.door.SageDoor;
@@ -514,8 +520,7 @@ public class Generator {
      * @return renvoie un block aléatoire
      */
     public Block pickRandomBlock() {
-        return new Cage(app, getRandomPet());
-        /* if (random.nextInt(1, 101) > LUCK_BLOCK) {
+        if (random.nextInt(1, 101) > LUCK_BLOCK) {
             switch (random.nextInt(1, 6)) {
                 case 1 -> {
                     return new Chest(app);
@@ -550,7 +555,7 @@ public class Generator {
                 }
             }
         }
-        return null;*/
+        return null;
     }
 
     private Pet getRandomPet() {
