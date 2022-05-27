@@ -10,6 +10,7 @@ import net.cnam.chateau.event.entity.EntityListener;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.item.Item;
+import net.cnam.chateau.item.wearable.Wearable;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.structure.block.Block;
@@ -387,6 +388,7 @@ public abstract class Entity implements DisplayableObject {
 
     /**
      * Méthode permettant de récupérer la force.
+     * return 0 si le résultat est inférieur à 0
      *
      * @return la force
      */
@@ -395,11 +397,18 @@ public abstract class Entity implements DisplayableObject {
         if (this.hasWeapon()) {
             totalStrength += this.getWeapon().getPower();
         }
+        if (this.item instanceof Wearable wearable){
+            totalStrength += wearable.getStrength();
+        }
+        if (totalStrength < 0){
+            return 0;
+        }
         return totalStrength;
     }
 
     /**
      * Méthode permettant de récupérer la précision.
+     * return 0 si le résultat est inférieur à 0
      *
      * @return la précision
      */
@@ -408,11 +417,18 @@ public abstract class Entity implements DisplayableObject {
         if (this.hasWeapon()) {
             totalAccuracy += this.getWeapon().getAccuracy();
         }
+        if (this.item instanceof Wearable wearable){
+            totalAccuracy += wearable.getAccuracy();
+        }
+        if (totalAccuracy < 0 ){
+            return 0;
+        }
         return totalAccuracy;
     }
 
     /**
      * Méthode permettant de récupérer la rapidité.
+     * return 0 si le résultat est inférieur à 0
      *
      * @return la rapidité
      */
@@ -420,6 +436,12 @@ public abstract class Entity implements DisplayableObject {
         int totalSpeed = this.speed;
         if (this.hasWeapon()) {
             totalSpeed += this.getWeapon().getSpeed();
+        }
+        if (this.item instanceof Wearable wearable){
+            totalSpeed += wearable.getSpeed();
+        }
+        if (totalSpeed < 0){
+            return 0;
         }
         return totalSpeed;
     }
