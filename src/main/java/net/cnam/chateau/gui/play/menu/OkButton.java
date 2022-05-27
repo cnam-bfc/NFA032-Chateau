@@ -10,6 +10,7 @@ import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
+import java.util.Random;
 
 public class OkButton extends CButton {
     private final App app;
@@ -27,10 +28,18 @@ public class OkButton extends CButton {
     @Override
     public void execute() {
         long seed;
-        try {
-            seed = Long.parseLong(playMenu.getSeedField().getText());
-        } catch (NumberFormatException ex) {
-            app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "La seed doit être un nombre !"));
+        if (playMenu.getSeedField().getText().isBlank()) {
+            seed = new Random().nextLong();
+        } else {
+            try {
+                seed = Long.parseLong(playMenu.getSeedField().getText());
+            } catch (NumberFormatException ex) {
+                app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "La seed doit être un nombre !"));
+                return;
+            }
+        }
+        if (playMenu.getPlayerNameField().getText().isBlank()) {
+            app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "Le nom du joueur ne peut être vide !"));
             return;
         }
         playMenu.stopDisplaying();
