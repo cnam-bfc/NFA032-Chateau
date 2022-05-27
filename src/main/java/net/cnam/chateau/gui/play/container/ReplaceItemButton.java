@@ -13,7 +13,7 @@ public class ReplaceItemButton extends CButton {
     private final Container block;
 
     public ReplaceItemButton(App app, ContainerMenu menu, Player player, Container block) {
-        super(app, "Remplacer " + player.getItem().getName() + " avec " + block.getHiddenItem().getName());
+        super(app, "Remplacer " + player.getItem().getName() + " par " + block.getHiddenItem().getName());
 
         this.menu = menu;
         this.player = player;

@@ -13,7 +13,7 @@ public class ReplaceWeaponButton extends CButton {
     private final Container block;
 
     public ReplaceWeaponButton(App app, ContainerMenu menu, Player player, Container block) {
-        super(app, "Remplacer " + player.getWeapon().getName() + " avec " + block.getHiddenItem().getName());
+        super(app, "Remplacer " + player.getWeapon().getName() + " par " + block.getHiddenItem().getName());
 
         this.menu = menu;
         this.player = player;
