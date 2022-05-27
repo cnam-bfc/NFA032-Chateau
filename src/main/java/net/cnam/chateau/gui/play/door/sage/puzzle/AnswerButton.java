@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.play.door.sage.puzzle;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.CButton;
@@ -15,8 +15,8 @@ public class AnswerButton extends CButton {
     private final SageDoor door;
     private final Player player;
 
-    public AnswerButton(AppSettings settings, Player player, SageDoor door, Couple<String, Boolean> answers, PuzzleMenu menu) {
-        super(settings, answers.getElemOne());
+    public AnswerButton(App app, Player player, SageDoor door, Couple<String, Boolean> answers, PuzzleMenu menu) {
+        super(app, answers.getElemOne());
 
         this.player = player;
         this.door = door;

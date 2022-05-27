@@ -20,7 +20,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
         super(0, 0, "Menu principal");
 
         try {
-            this.audioPlayer = new SimpleAudioPlayer(Music.MENU.getFilePath());
+            this.audioPlayer = app.createAudioPlayer(Music.MENU.getAudioFile());
             audioPlayer.setVolume(app.getSettings().getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();
@@ -28,10 +28,10 @@ public class MainMenu extends CFrame implements DisplayableComponent {
                  IllegalArgumentException ignored) {
         }
 
-        CChoices choices = new CChoices(app.getSettings(), new SelectableComponent[]{
+        CChoices choices = new CChoices(app, new SelectableComponent[]{
                 new PlayButton(app, this),
                 new SettingsButton(app, audioPlayer),
-                new QuitButton(app.getSettings(), this)
+                new QuitButton(app, this)
         }, 1);
 
         this.getContentPane().getComponents().add(choices);

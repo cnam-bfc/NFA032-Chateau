@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.play.door.sage;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.play.fight.Fight;
@@ -12,8 +12,8 @@ public class AttackButton extends CButton {
     private final Player player;
     private final SageDoorMenu menu;
 
-    public AttackButton(AppSettings settings, Player player, SageDoor door, SageDoorMenu menu) {
-        super(settings, "Attaquer le sage");
+    public AttackButton(App app, Player player, SageDoor door, SageDoorMenu menu) {
+        super(app, "Attaquer le sage");
 
         this.door = door;
         this.player = player;
@@ -23,7 +23,7 @@ public class AttackButton extends CButton {
     @Override
     public void execute() {
         Fight fight = door.getSage().fight(player);
-        if (fight.isOver()){
+        if (fight.isOver()) {
             door.setSage(null);
         }
         this.menu.stopDisplay();

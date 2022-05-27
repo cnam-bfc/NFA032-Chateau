@@ -7,7 +7,7 @@ public class ConfigureScreenButton extends CButton {
     private final App app;
 
     public ConfigureScreenButton(App app) {
-        super(app.getSettings(), "Configurer les dimensions de la fenêtre");
+        super(app, "Configurer les dimensions de la fenêtre");
 
         this.app = app;
     }

@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.play.cage;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
@@ -12,29 +12,29 @@ import net.cnam.chateau.utils.array.ArrayUtils;
 public class CageMenu extends CFrame implements DisplayableComponent {
     private boolean display = true;
 
-    public CageMenu(AppSettings settings, Player player, Cage cage) {
+    public CageMenu(App app, Player player, Cage cage) {
         super(0, 0, "Cage");
 
         SelectableComponent[] selectableComponent = new SelectableComponent[0];
 
         if (player.hasPet() && cage.hasPet()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent,
-                    new ReplacePetButton(settings, this, player, cage));
+                    new ReplacePetButton(app, this, player, cage));
         }
 
         if (player.hasPet() && !cage.hasPet()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent,
-                    new DropPetButton(settings, this, player, cage));
+                    new DropPetButton(app, this, player, cage));
         }
 
         if (!player.hasPet() && cage.hasPet()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent,
-                    new TakePetButton(settings, this, player, cage));
+                    new TakePetButton(app, this, player, cage));
         }
 
-        selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new LeaveCageButton(settings, this));
+        selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new LeaveCageButton(app, this));
 
-        CChoices choices = new CChoices(settings, selectableComponent, 1);
+        CChoices choices = new CChoices(app, selectableComponent, 1);
 
         this.getContentPane().getComponents().add(choices);
     }

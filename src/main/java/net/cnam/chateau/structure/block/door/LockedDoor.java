@@ -67,7 +67,7 @@ public class LockedDoor extends Door {
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         if (event.getEntity() instanceof Player player && this.lock) {
-            app.getConsole().show(new DoorMenu(app.getSettings(), player, this));
+            app.getConsole().show(new DoorMenu(app, player, this));
         }
 
         super.onEntityEnterBlock(event);

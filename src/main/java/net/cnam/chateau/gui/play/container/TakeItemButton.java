@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.play.container;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.structure.block.container.Container;
@@ -10,8 +10,8 @@ public class TakeItemButton extends CButton {
     private final Player player;
     private final Container block;
 
-    public TakeItemButton(AppSettings settings, ContainerMenu menu, Player player, Container block) {
-        super(settings, "Prendre " + block.getHiddenItem().getName());
+    public TakeItemButton(App app, ContainerMenu menu, Player player, Container block) {
+        super(app, "Prendre " + block.getHiddenItem().getName());
 
         this.menu = menu;
         this.player = player;

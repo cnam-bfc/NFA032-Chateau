@@ -11,7 +11,7 @@ public enum SoundEffect {
         this.fileName = fileName;
     }
 
-    public String getFilePath() {
-        return basePath + fileName;
+    public AudioFile getAudioFile() {
+        return new AudioFile(basePath + fileName);
     }
 }

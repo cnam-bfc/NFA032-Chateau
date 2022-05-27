@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.component;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.event.key.KeyListener;
 import net.cnam.chateau.event.key.KeyPressedEvent;
@@ -12,37 +12,37 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 public abstract class CButton extends CLabel implements SelectableComponent, KeyListener {
-    private final AppSettings appSettings;
+    private final App app;
     private boolean selected = false;
 
-    public CButton(AppSettings settings, String text) {
-        this(settings, HorizontalAlignment.CENTER, text);
+    public CButton(App app, String text) {
+        this(app, HorizontalAlignment.CENTER, text);
     }
 
-    public CButton(AppSettings settings, HorizontalAlignment horizontalAlignment, String text) {
+    public CButton(App app, HorizontalAlignment horizontalAlignment, String text) {
         super(horizontalAlignment, text);
 
-        this.appSettings = settings;
+        this.app = app;
     }
 
-    public CButton(AppSettings settings, String text, int length) {
-        this(settings, HorizontalAlignment.CENTER, text, length);
+    public CButton(App app, String text, int length) {
+        this(app, HorizontalAlignment.CENTER, text, length);
     }
 
-    public CButton(AppSettings settings, HorizontalAlignment horizontalAlignment, String text, int length) {
+    public CButton(App app, HorizontalAlignment horizontalAlignment, String text, int length) {
         super(horizontalAlignment, text, length);
 
-        this.appSettings = settings;
+        this.app = app;
     }
 
-    public CButton(AppSettings settings, String text, int length, int height) {
-        this(settings, HorizontalAlignment.CENTER, text, length, height);
+    public CButton(App app, String text, int length, int height) {
+        this(app, HorizontalAlignment.CENTER, text, length, height);
     }
 
-    public CButton(AppSettings settings, HorizontalAlignment horizontalAlignment, String text, int length, int height) {
+    public CButton(App app, HorizontalAlignment horizontalAlignment, String text, int length, int height) {
         super(horizontalAlignment, text, length, height);
 
-        this.appSettings = settings;
+        this.app = app;
     }
 
     public abstract void execute();
@@ -67,10 +67,11 @@ public abstract class CButton extends CLabel implements SelectableComponent, Key
         // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal
         if (this.isSelected() && (key == 10 || key == 13)) {
             try {
-                SimpleAudioPlayer audioPlayer = new SimpleAudioPlayer(SoundEffect.SELECT.getFilePath());
-                audioPlayer.setVolume(appSettings.getSoundEffectsVolume());
+                SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.SELECT.getAudioFile());
+                audioPlayer.setVolume(app.getSettings().getSoundEffectsVolume());
                 audioPlayer.play();
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ignored) {
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
+                     IllegalArgumentException ignored) {
             }
             this.execute();
         }

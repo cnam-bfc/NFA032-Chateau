@@ -55,7 +55,7 @@ public class Player extends Entity {
             return;
         }
 
-        // Si le joueur à un pet on le téléporte aussi
+        // Si le joueur à un pet, on le téléporte aussi
         if (this.hasPet() && this.getPet().isFollowingPlayer()) {
             this.getPet().teleport(stage, oldPlayerLocation);
         }
@@ -69,7 +69,7 @@ public class Player extends Entity {
 
         SimpleAudioPlayer audioPlayer = null;
         try {
-            audioPlayer = new SimpleAudioPlayer(Music.DEATH.getFilePath());
+            audioPlayer = app.createAudioPlayer(Music.DEATH.getAudioFile());
             audioPlayer.setVolume(app.getSettings().getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();

@@ -16,13 +16,13 @@ public class PlayMenu extends CFrame implements DisplayableComponent {
 
         CTextField seedTextField = new CTextField(new Random().nextLong() + "", AppSettings.CONSOLE_MIN_LENGTH - 10);
         CButton okButton = new OkButton(app, this, mainMenu, seedTextField);
-        CButton backButton = new BackButton(app.getSettings(), this);
-        CChoices actions = new CChoices(app.getSettings(), new SelectableComponent[]{
+        CButton backButton = new BackButton(app, this);
+        CChoices actions = new CChoices(app, new SelectableComponent[]{
                 okButton,
                 backButton
         }, Orientation.HORIZONTAL, 10);
 
-        CChoices choices = new CChoices(app.getSettings(), new SelectableComponent[]{
+        CChoices choices = new CChoices(app, new SelectableComponent[]{
                 seedTextField,
                 actions
         }, 1);

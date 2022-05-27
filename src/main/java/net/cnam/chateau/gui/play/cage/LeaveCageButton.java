@@ -1,13 +1,14 @@
 package net.cnam.chateau.gui.play.cage;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.CButton;
 
 public class LeaveCageButton extends CButton {
     private final CageMenu menu;
 
-    public LeaveCageButton(AppSettings settings, CageMenu menu) {
-        super(settings, "Quitter");
+    public LeaveCageButton(App app, CageMenu menu) {
+        super(app, "Quitter");
+
         this.menu = menu;
     }
 

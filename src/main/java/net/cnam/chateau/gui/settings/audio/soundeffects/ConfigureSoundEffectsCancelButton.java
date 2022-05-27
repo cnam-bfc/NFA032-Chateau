@@ -1,13 +1,13 @@
 package net.cnam.chateau.gui.settings.audio.soundeffects;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.CButton;
 
 public class ConfigureSoundEffectsCancelButton extends CButton {
     private final ConfigureSoundEffectsFrame configureSoundEffectsFrame;
 
-    public ConfigureSoundEffectsCancelButton(AppSettings settings, ConfigureSoundEffectsFrame configureSoundEffectsFrame) {
-        super(settings, "Annuler");
+    public ConfigureSoundEffectsCancelButton(App app, ConfigureSoundEffectsFrame configureSoundEffectsFrame) {
+        super(app, "Annuler");
 
         this.configureSoundEffectsFrame = configureSoundEffectsFrame;
     }

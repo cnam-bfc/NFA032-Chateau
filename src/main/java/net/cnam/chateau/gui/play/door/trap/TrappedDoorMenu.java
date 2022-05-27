@@ -14,7 +14,7 @@ public class TrappedDoorMenu extends CFrame implements DisplayableComponent {
     public TrappedDoorMenu(App app, Player player, TrappedDoor door) {
         super(0, 0, "Porte piégée !");
 
-        CChoices choices = new CChoices(app.getSettings(), new SelectableComponent[]{
+        CChoices choices = new CChoices(app, new SelectableComponent[]{
                 new AcceptTrapButton(app, this, door, player),
                 new TryToLeaveButton(app, this, door, player)}, 1);
 

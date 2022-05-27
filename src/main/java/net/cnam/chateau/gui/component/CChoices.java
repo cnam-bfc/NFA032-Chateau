@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.component;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.event.key.KeyListener;
 import net.cnam.chateau.event.key.KeyPressedEvent;
@@ -18,23 +18,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CChoices extends CPanel implements SelectableComponent, KeyListener {
-    private final AppSettings appSettings;
+    private final App app;
     private final List<SelectableComponent> selectableComponents;
 
     private boolean selected = true;
 
-    public CChoices(AppSettings appSettings, SelectableComponent[] components) {
-        this(appSettings, components, 0);
+    public CChoices(App app, SelectableComponent[] components) {
+        this(app, components, 0);
     }
 
-    public CChoices(AppSettings appSettings, SelectableComponent[] components, int spacing) {
-        this(appSettings, components, Orientation.VERTICAL, spacing);
+    public CChoices(App app, SelectableComponent[] components, int spacing) {
+        this(app, components, Orientation.VERTICAL, spacing);
     }
 
-    public CChoices(AppSettings appSettings, SelectableComponent[] components, Orientation orientation, int spacing) {
+    public CChoices(App app, SelectableComponent[] components, Orientation orientation, int spacing) {
         super(Arrays.copyOf(components, components.length, CComponent[].class), orientation, spacing);
 
-        this.appSettings = appSettings;
+        this.app = app;
 
         for (int i = 0; i < components.length; i++) {
             SelectableComponent component = components[i];
@@ -106,8 +106,8 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
                 }
             }
             try {
-                SimpleAudioPlayer audioPlayer = new SimpleAudioPlayer(SoundEffect.HOVER.getFilePath());
-                audioPlayer.setVolume(appSettings.getSoundEffectsVolume());
+                SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.HOVER.getAudioFile());
+                audioPlayer.setVolume(app.getSettings().getSoundEffectsVolume());
                 audioPlayer.play();
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
                      IllegalArgumentException ignored) {

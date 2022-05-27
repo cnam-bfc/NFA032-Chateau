@@ -55,7 +55,7 @@ public class Cage extends Block implements BlockListener {
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         visited = true;
         if (event.getEntity() instanceof Player player && (player.hasPet() || this.hasPet())) {
-            app.getConsole().show(new CageMenu(app.getSettings(), player, this));
+            app.getConsole().show(new CageMenu(app, player, this));
         }
     }
 

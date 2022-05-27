@@ -10,7 +10,7 @@ public class ConfigureMusicButton extends CButton {
     private final SimpleAudioPlayer menuPlayer;
 
     public ConfigureMusicButton(App app, SimpleAudioPlayer menuPlayer) {
-        super(app.getSettings(), "Configurer le volume de la musique");
+        super(app, "Configurer le volume de la musique");
 
         this.app = app;
         this.menuPlayer = menuPlayer;
@@ -18,6 +18,6 @@ public class ConfigureMusicButton extends CButton {
 
     @Override
     public void execute() {
-        app.getConsole().show(new ConfigureMusicFrame(app.getSettings(), menuPlayer));
+        app.getConsole().show(new ConfigureMusicFrame(app, menuPlayer));
     }
 }

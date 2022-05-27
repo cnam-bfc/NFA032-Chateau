@@ -1,13 +1,13 @@
 package net.cnam.chateau.gui.play.door.sage.puzzle;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.CButton;
 
 public class LeavePuzzleButton extends CButton {
     private final PuzzleMenu menu;
 
-    public LeavePuzzleButton(AppSettings settings, PuzzleMenu menu) {
-        super(settings, "Répondre plus tard");
+    public LeavePuzzleButton(App app, PuzzleMenu menu) {
+        super(app, "Répondre plus tard");
 
         this.menu = menu;
     }

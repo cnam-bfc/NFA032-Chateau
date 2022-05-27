@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.play.door;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.CButton;
@@ -13,8 +13,8 @@ public class DestroyDoorButton extends CButton {
     private final Player player;
     private final DoorMenu menu;
 
-    public DestroyDoorButton(AppSettings settings, Player player, LockedDoor door, DoorMenu menu) {
-        super(settings, "Essayer de détruire la porte !");
+    public DestroyDoorButton(App app, Player player, LockedDoor door, DoorMenu menu) {
+        super(app, "Essayer de détruire la porte !");
 
         this.door = door;
         this.player = player;

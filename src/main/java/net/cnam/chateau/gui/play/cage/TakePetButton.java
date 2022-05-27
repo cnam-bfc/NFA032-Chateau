@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.play.cage;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.pet.Pet;
@@ -14,8 +14,8 @@ public class TakePetButton extends CButton {
     private final Player player;
     private final Cage cage;
 
-    public TakePetButton(AppSettings settings, CageMenu menu, Player player, Cage cage) {
-        super(settings, "Prendre " + cage.getPet().getName() + " en tant que compagnon !");
+    public TakePetButton(App app, CageMenu menu, Player player, Cage cage) {
+        super(app, "Prendre " + cage.getPet().getName() + " en tant que compagnon !");
 
         this.menu = menu;
         this.player = player;

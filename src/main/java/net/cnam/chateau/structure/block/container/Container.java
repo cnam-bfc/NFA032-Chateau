@@ -54,7 +54,7 @@ public abstract class Container extends Block implements BlockListener {
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         this.opened = true;
         if (event.getEntity() instanceof Player player && (this.hasItem() || player.hasItem())) {
-            app.getConsole().show(new ContainerMenu(app.getSettings(), player, this));
+            app.getConsole().show(new ContainerMenu(app, player, this));
         }
     }
 

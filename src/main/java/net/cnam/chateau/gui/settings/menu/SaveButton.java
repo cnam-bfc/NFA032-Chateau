@@ -13,7 +13,7 @@ public class SaveButton extends CButton {
     private final SettingsMenu settingsMenu;
 
     public SaveButton(App app, SettingsMenu settingsMenu) {
-        super(app.getSettings(), "Sauvegarder");
+        super(app, "Sauvegarder");
 
         this.app = app;
         this.settingsMenu = settingsMenu;

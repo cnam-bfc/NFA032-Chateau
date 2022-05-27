@@ -16,7 +16,7 @@ public class AcceptTrapButton extends CButton {
     Player player;
 
     public AcceptTrapButton(App app, TrappedDoorMenu menu, TrappedDoor door, Player player) {
-        super(app.getSettings(), "Accepter votre sort !");
+        super(app, "Accepter votre sort !");
 
         this.app = app;
         this.menu = menu;
@@ -28,14 +28,14 @@ public class AcceptTrapButton extends CButton {
     public void execute() {
         door.getTrap().setActivate(false);
         if (door.getTrap() instanceof BadTrap trap) {
-            app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n"+
+            app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n" +
                     "Malheureusement, c'était une mauvaise idée ! \nC'était " +
-            trap.getDescription() + "\nCela vous a infligé : " + trap.getDmg() + " points de dégâts !"  ));
+                    trap.getDescription() + "\nCela vous a infligé : " + trap.getDmg() + " points de dégâts !"));
         }
-        if (door.getTrap() instanceof GoodTrap trap){
-            app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n"+
+        if (door.getTrap() instanceof GoodTrap trap) {
+            app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n" +
                     "Par chance c'était un piège bénéfique ! \nC'était " +
-                    trap.getDescription() + "\nCela vous a restauré : " + trap.getHealth() + " points de vies !"  ));
+                    trap.getDescription() + "\nCela vous a restauré : " + trap.getHealth() + " points de vies !"));
         }
         door.getTrap().useEffect(player);
         this.menu.stopDisplay();

@@ -9,7 +9,7 @@ public class PlayButton extends CButton {
     private final MainMenu mainMenu;
 
     public PlayButton(App app, MainMenu mainMenu) {
-        super(app.getSettings(), "Jouer");
+        super(app, "Jouer");
 
         this.app = app;
         this.mainMenu = mainMenu;

@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.settings.audio.music;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.utils.direction.Orientation;
@@ -8,15 +8,15 @@ import net.cnam.chateau.utils.direction.Orientation;
 public class ConfigureMusicFrame extends CFrame implements DisplayableComponent {
     private boolean display = true;
 
-    public ConfigureMusicFrame(AppSettings settings, SimpleAudioPlayer menuPlayer) {
+    public ConfigureMusicFrame(App app, SimpleAudioPlayer menuPlayer) {
         super(0, 0, "Configurer le niveau sonore de la musique");
 
-        CSlider gauge = new ConfigureMusicSlider(settings, menuPlayer);
-        CChoices choices = new CChoices(settings, new SelectableComponent[]{
+        CSlider gauge = new ConfigureMusicSlider(app.getSettings(), menuPlayer);
+        CChoices choices = new CChoices(app, new SelectableComponent[]{
                 gauge,
-                new CChoices(settings, new SelectableComponent[]{
-                        new ConfigureMusicOkButton(settings, this, gauge),
-                        new ConfigureMusicCancelButton(settings, this, menuPlayer)
+                new CChoices(app, new SelectableComponent[]{
+                        new ConfigureMusicOkButton(app, this, gauge),
+                        new ConfigureMusicCancelButton(app, this, menuPlayer)
                 }, Orientation.HORIZONTAL, 10)
         }, 5);
 

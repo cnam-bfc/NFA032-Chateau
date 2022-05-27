@@ -39,7 +39,7 @@ public class Bed extends DecorativeBlock implements BlockListener {
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         if (!isUsed()) {
             if (event.getEntity() instanceof Player player) {
-                app.getConsole().show(new BedMenu(app.getSettings(), player, this));
+                app.getConsole().show(new BedMenu(app, player, this));
             }
         }
     }

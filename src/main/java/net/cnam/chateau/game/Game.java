@@ -70,7 +70,7 @@ public class Game extends CFrame implements DisplayableComponent {
         this.setFooter(footer);
 
         try {
-            this.audioPlayer = new SimpleAudioPlayer(Music.GAME.getFilePath());
+            this.audioPlayer = app.createAudioPlayer(Music.GAME.getAudioFile());
             audioPlayer.setVolume(app.getSettings().getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();

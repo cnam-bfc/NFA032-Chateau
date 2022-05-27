@@ -10,7 +10,7 @@ public class SettingsButton extends CButton {
     private final SimpleAudioPlayer menuPlayer;
 
     public SettingsButton(App app, SimpleAudioPlayer menuPlayer) {
-        super(app.getSettings(), "Paramètres");
+        super(app, "Paramètres");
 
         this.app = app;
         this.menuPlayer = menuPlayer;

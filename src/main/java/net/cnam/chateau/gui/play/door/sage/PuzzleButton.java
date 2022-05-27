@@ -8,13 +8,13 @@ import net.cnam.chateau.structure.block.door.SageDoor;
 
 public class PuzzleButton extends CButton {
 
-    private App app;
-    private Player player;
-    private SageDoor door;
-    private SageDoorMenu menu;
+    private final App app;
+    private final Player player;
+    private final SageDoor door;
+    private final SageDoorMenu menu;
 
     public PuzzleButton(App app, Player player, SageDoor door, SageDoorMenu menu) {
-        super(app.getSettings(), "Enigme");
+        super(app, "Énigme");
 
         this.app = app;
         this.player = player;
@@ -24,7 +24,7 @@ public class PuzzleButton extends CButton {
 
     @Override
     public void execute() {
-        app.getConsole().show(new PuzzleMenu(app.getSettings(),player, door));
+        app.getConsole().show(new PuzzleMenu(app, player, door));
         this.menu.stopDisplay();
     }
 }

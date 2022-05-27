@@ -15,15 +15,15 @@ public class SageDoorMenu extends CFrame implements DisplayableComponent {
     public SageDoorMenu(App app, Player player, SageDoor door) {
         super(0, 0, "Porte bloquée par un Sage");
 
-        SelectableComponent[] selectableComponent = {new AttackButton(app.getSettings(), player, door, this)};
+        SelectableComponent[] selectableComponent = {new AttackButton(app, player, door, this)};
 
         if (door.getSage().hasPuzzle()) {
             selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new PuzzleButton(app, player, door, this));
         }
 
-        selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new LeaveButton(app.getSettings(), this));
+        selectableComponent = ArrayUtils.addOnBottomOfArray(selectableComponent, new LeaveButton(app, this));
 
-        CChoices choices = new CChoices(app.getSettings(), selectableComponent, 1);
+        CChoices choices = new CChoices(app, selectableComponent, 1);
 
         this.getContentPane().getComponents().add(choices);
     }

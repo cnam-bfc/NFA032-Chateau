@@ -1,5 +1,6 @@
 package net.cnam.chateau.gui.settings.audio.soundeffects;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.gui.component.CSlider;
@@ -10,8 +11,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 public class ConfigureSoundEffectsSlider extends CSlider {
-    public ConfigureSoundEffectsSlider(AppSettings settings) {
-        super(AppSettings.CONSOLE_MIN_LENGTH - 10, 1, (int) (settings.getSoundEffectsVolume() * 20), 20, "%PERCENT%");
+    private final App app;
+
+    public ConfigureSoundEffectsSlider(App app) {
+        super(AppSettings.CONSOLE_MIN_LENGTH - 10, 1, (int) (app.getSettings().getSoundEffectsVolume() * 20), 20, "%PERCENT%");
+
+        this.app = app;
     }
 
     @Override
@@ -19,7 +24,7 @@ public class ConfigureSoundEffectsSlider extends CSlider {
         super.setValue(value);
 
         try {
-            SimpleAudioPlayer audioPlayer = new SimpleAudioPlayer(SoundEffect.HOVER.getFilePath());
+            SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.HOVER.getAudioFile());
             audioPlayer.setVolume((float) this.getValue() / this.getMaxValue());
             audioPlayer.play();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |

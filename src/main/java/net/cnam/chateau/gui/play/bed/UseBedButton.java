@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.play.bed;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.structure.block.decorative.Bed;
@@ -12,8 +12,8 @@ public class UseBedButton extends CButton {
     private final Bed bed;
     private final Player player;
 
-    public UseBedButton(AppSettings settings, BedMenu menu, Bed bed, Player player) {
-        super(settings, "Dormir");
+    public UseBedButton(App app, BedMenu menu, Bed bed, Player player) {
+        super(app, "Dormir");
 
         this.menu = menu;
         this.bed = bed;

@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.play.bed;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
@@ -11,12 +11,12 @@ import net.cnam.chateau.structure.block.decorative.Bed;
 public class BedMenu extends CFrame implements DisplayableComponent {
     private boolean display = true;
 
-    public BedMenu(AppSettings settings, Player player, Bed bed) {
+    public BedMenu(App app, Player player, Bed bed) {
         super(0, 0, "Lit");
 
-        CChoices choices = new CChoices(settings, new SelectableComponent[]{
-                new UseBedButton(settings, this, bed, player),
-                new LeaveBedButton(settings, this)
+        CChoices choices = new CChoices(app, new SelectableComponent[]{
+                new UseBedButton(app, this, bed, player),
+                new LeaveBedButton(app, this)
         }, 1);
 
         this.getContentPane().getComponents().add(choices);

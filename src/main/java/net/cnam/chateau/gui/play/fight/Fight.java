@@ -62,13 +62,13 @@ public class Fight extends CFrame implements DisplayableComponent {
         this.getContentPane().getComponents().add(leftPanel);
 
         this.centerPanel = new CPanel(20, 0);
-        SelectableComponent[] components = new SelectableComponent[]{new AttackButton(app.getSettings(), this)};
+        SelectableComponent[] components = new SelectableComponent[]{new AttackButton(app, this)};
         if (player.hasItem()) {
-            components = ArrayUtils.addOnBottomOfArray(components, new UseItemButton(app.getSettings(), player.getItem()));
+            components = ArrayUtils.addOnBottomOfArray(components, new UseItemButton(app, player.getItem()));
         }
-        components = ArrayUtils.addOnBottomOfArray(components, new RunAwayButton(app.getSettings(), this));
+        components = ArrayUtils.addOnBottomOfArray(components, new RunAwayButton(app, this));
 
-        this.menu = new CChoices(app.getSettings(), components, 1);
+        this.menu = new CChoices(app, components, 1);
         menu.setLength(20);
         centerPanel.getComponents().add(menu);
         this.getContentPane().getComponents().add(centerPanel);
@@ -87,7 +87,7 @@ public class Fight extends CFrame implements DisplayableComponent {
         this.setFooter(footer);
 
         try {
-            this.audioPlayer = new SimpleAudioPlayer(Music.FIGHT.getFilePath());
+            this.audioPlayer = app.createAudioPlayer(Music.FIGHT.getAudioFile());
             audioPlayer.setVolume(app.getSettings().getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();

@@ -1,5 +1,6 @@
 package net.cnam.chateau.gui.settings.audio.music;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.component.CSlider;
@@ -9,10 +10,10 @@ public class ConfigureMusicOkButton extends CButton {
     private final ConfigureMusicFrame configureMusicFrame;
     private final CSlider gauge;
 
-    public ConfigureMusicOkButton(AppSettings settings, ConfigureMusicFrame configureMusicFrame, CSlider gauge) {
-        super(settings, "Valider");
+    public ConfigureMusicOkButton(App app, ConfigureMusicFrame configureMusicFrame, CSlider gauge) {
+        super(app, "Valider");
 
-        this.settings = settings;
+        this.settings = app.getSettings();
         this.configureMusicFrame = configureMusicFrame;
         this.gauge = gauge;
     }

@@ -1,14 +1,14 @@
 package net.cnam.chateau.gui.settings.menu;
 
-import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.utils.console.RawConsoleInput;
 
 import java.io.IOException;
 
 public class DebugKeysButton extends CButton {
-    public DebugKeysButton(AppSettings settings) {
-        super(settings, "Debug keys");
+    public DebugKeysButton(App app) {
+        super(app, "Debug keys");
     }
 
     @Override
