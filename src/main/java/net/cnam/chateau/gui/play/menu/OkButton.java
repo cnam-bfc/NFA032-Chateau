@@ -27,20 +27,23 @@ public class OkButton extends CButton {
 
     @Override
     public void execute() {
-        long seed;
+        if (playMenu.getPlayerNameField().getText().isBlank()) {
+            app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "Le nom du joueur ne peut être vide !"));
+            return;
+        }
+        long seed = 0;
         if (playMenu.getSeedField().getText().isBlank()) {
             seed = new Random().nextLong();
         } else {
             try {
                 seed = Long.parseLong(playMenu.getSeedField().getText());
             } catch (NumberFormatException ex) {
-                app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "La seed doit être un nombre !"));
-                return;
+                String strSeed = playMenu.getSeedField().getText();
+                // Convert seed string to long seed
+                for (int i = 0; i < strSeed.length(); i++) {
+                    seed += strSeed.charAt(i);
+                }
             }
-        }
-        if (playMenu.getPlayerNameField().getText().isBlank()) {
-            app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "Le nom du joueur ne peut être vide !"));
-            return;
         }
         playMenu.stopDisplaying();
         SimpleAudioPlayer audioPlayer = mainMenu.getAudioPlayer();
