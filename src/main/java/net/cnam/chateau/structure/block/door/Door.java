@@ -62,7 +62,7 @@ public class Door extends Block implements BlockListener {
                 } else if (room == roomTwo) {
                     roomOne.setVisible(true);
                 }
-            } catch (CoordinatesOutOfBoundsException ex) {
+            } catch (CoordinatesOutOfBoundsException ignored) {
             }
         }
     }

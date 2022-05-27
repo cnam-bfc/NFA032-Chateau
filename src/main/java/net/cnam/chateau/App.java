@@ -50,7 +50,8 @@ public class App {
                 SimpleAudioPlayer errorSound = createAudioPlayer(Music.ERROR.getAudioFile());
                 errorSound.setVolume(settings.getMusicVolume());
                 errorSound.play();
-            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ignored) {
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException |
+                     IllegalArgumentException ignored) {
             }
             console.show(new ErrorDialog(ErrorDialog.Type.EXCEPTION, lines));
             console.finalClear(false);
@@ -58,7 +59,7 @@ public class App {
         audioPlayers.clear();
     }
 
-    public SimpleAudioPlayer createAudioPlayer(AudioFile audioFile) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public SimpleAudioPlayer createAudioPlayer(AudioFile audioFile) throws UnsupportedAudioFileException, LineUnavailableException, IOException, IllegalArgumentException {
         SimpleAudioPlayer player = new SimpleAudioPlayer(audioFile);
         audioPlayers.add(player);
         return player;
