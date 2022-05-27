@@ -529,10 +529,22 @@ public class Generator {
         if (random.nextInt(1, 101) > LUCK_BLOCK) {
             switch (random.nextInt(1, 6)) {
                 case 1 -> {
-                    return new Chest(app);
+                    Chest chest = new Chest(app);
+                    if (random.nextInt(0,4) < 3 ){
+                        chest.setHiddenItem(getItem());
+                    } else {
+                        chest.setHiddenItem(getWeapon());
+                    }
+                    return chest;
                 }
                 case 2 -> {
-                    return new Wardrobe(app);
+                    Wardrobe wardrobe = new Wardrobe(app);
+                    if (random.nextInt(0,5) < 4 ){
+                        wardrobe.setHiddenItem(getItem());
+                    } else {
+                        wardrobe.setHiddenItem(getWeapon());
+                    }
+                    return wardrobe;
                 }
                 case 3 -> {
                     return new Bed(app);
