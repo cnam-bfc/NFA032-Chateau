@@ -7,7 +7,7 @@ public enum Music {
     DEATH("Risitas, meme Original.wav"),
     ERROR("Curb your enthusiasm - Credits + Theme Song.wav");
 
-    private static final String basePath = "/songs/";
+    private static final String basePath = "/assets/music/";
     private final String fileName;
 
     Music(String fileName) {
