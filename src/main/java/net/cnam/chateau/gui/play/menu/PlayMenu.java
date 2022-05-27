@@ -9,13 +9,16 @@ import net.cnam.chateau.utils.direction.Orientation;
 import java.util.Random;
 
 public class PlayMenu extends CFrame implements DisplayableComponent {
+    private final CTextField playerNameField;
+    private final CTextField seedField;
     private boolean display = true;
 
     public PlayMenu(App app, MainMenu mainMenu) {
         super(0, 0, "Créer une partie");
 
-        CTextField seedTextField = new CTextField(new Random().nextLong() + "", AppSettings.CONSOLE_MIN_LENGTH - 10);
-        CButton okButton = new OkButton(app, this, mainMenu, seedTextField);
+        this.playerNameField = new CTextField("Joueur", AppSettings.CONSOLE_MIN_LENGTH - 10);
+        this.seedField = new CTextField(new Random().nextLong() + "", AppSettings.CONSOLE_MIN_LENGTH - 10);
+        CButton okButton = new OkButton(app, mainMenu, this);
         CButton backButton = new BackButton(app, this);
         CChoices actions = new CChoices(app, new SelectableComponent[]{
                 okButton,
@@ -23,12 +26,21 @@ public class PlayMenu extends CFrame implements DisplayableComponent {
         }, Orientation.HORIZONTAL, 10);
 
         CChoices choices = new CChoices(app, new SelectableComponent[]{
-                seedTextField,
+                playerNameField,
+                seedField,
                 actions
         }, 1);
         choices.select(actions);
 
         this.getContentPane().getComponents().add(choices);
+    }
+
+    public CTextField getPlayerNameField() {
+        return playerNameField;
+    }
+
+    public CTextField getSeedField() {
+        return seedField;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class EntityStats extends CPanel {
 
         // Nom de l'entité
         if (entity instanceof Player) {
-            this.name = new CLabel("Vous");
+            this.name = new CLabel("Vous (" + entity.getName() + ")");
             this.name.getColors().add(CColor.BRIGHT_BLUE);
         } else {
             this.name = new CLabel(entity.getName());

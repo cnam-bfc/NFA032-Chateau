@@ -39,7 +39,7 @@ public class Game extends CFrame implements DisplayableComponent {
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
 
-    public Game(App app, long seed) {
+    public Game(App app, long seed, String playerName) {
         super(0, 0);
 
         initPuzzles();
@@ -47,7 +47,7 @@ public class Game extends CFrame implements DisplayableComponent {
         Generator generator = new Generator(app, this, seed);
         this.castle = generator.generateCastle();
         Stage firstStage = this.castle.getStages()[0];
-        this.player = new Player(app, firstStage, new Location(castle.getPlayerStartLocation().getX(), castle.getPlayerStartLocation().getY()), "Joueur");
+        this.player = new Player(app, firstStage, new Location(castle.getPlayerStartLocation().getX(), castle.getPlayerStartLocation().getY()), playerName);
         firstStage.getEntities().add(0, player);
         if (player.hasPet()) {
             firstStage.getEntities().add(1, player.getPet());
