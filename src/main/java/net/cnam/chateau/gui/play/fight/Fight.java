@@ -87,7 +87,7 @@ public class Fight extends CFrame implements DisplayableComponent {
         this.setFooter(footer);
 
         try {
-            this.audioPlayer = app.createAudioPlayer(Music.FIGHT.getAudioFile());
+            this.audioPlayer = app.createAudioPlayer(Music.FIGHT);
             audioPlayer.setVolume(app.getSettings().getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();

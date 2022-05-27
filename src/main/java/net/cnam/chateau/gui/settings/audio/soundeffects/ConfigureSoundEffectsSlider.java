@@ -24,7 +24,7 @@ public class ConfigureSoundEffectsSlider extends CSlider {
         super.setValue(value);
 
         try {
-            SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.HOVER.getAudioFile());
+            SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.HOVER);
             audioPlayer.setVolume((float) this.getValue() / this.getMaxValue());
             audioPlayer.play();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |

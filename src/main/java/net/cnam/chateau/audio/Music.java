@@ -14,7 +14,7 @@ public enum Music {
         this.fileName = fileName;
     }
 
-    public AudioFile getAudioFile() {
-        return new AudioFile(basePath + fileName);
+    public String getFilePath() {
+        return basePath + fileName;
     }
 }

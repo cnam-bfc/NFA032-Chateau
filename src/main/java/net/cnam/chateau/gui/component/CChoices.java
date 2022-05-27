@@ -106,7 +106,7 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
                 }
             }
             try {
-                SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.HOVER.getAudioFile());
+                SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.HOVER);
                 audioPlayer.setVolume(app.getSettings().getSoundEffectsVolume());
                 audioPlayer.play();
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |

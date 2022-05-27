@@ -1,7 +1,5 @@
 package net.cnam.chateau.utils.audio;
 
-import net.cnam.chateau.audio.AudioFile;
-
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -15,7 +13,7 @@ import java.io.IOException;
  */
 public class SimpleAudioPlayer {
     private final Clip clip;
-    private final AudioFile audioFile;
+    private final String filePath;
 
     // to store current position
     private Long currentFrame;
@@ -26,9 +24,9 @@ public class SimpleAudioPlayer {
     private float volume = 1f;
 
     // constructor to initialize streams and clip
-    public SimpleAudioPlayer(AudioFile audioFile) throws UnsupportedAudioFileException, IOException, LineUnavailableException, IllegalArgumentException {
+    public SimpleAudioPlayer(String filePath) throws UnsupportedAudioFileException, IOException, LineUnavailableException, IllegalArgumentException {
         this.clip = AudioSystem.getClip();
-        this.audioFile = audioFile;
+        this.filePath = filePath;
 
         resetAudioStream();
     }
@@ -114,7 +112,7 @@ public class SimpleAudioPlayer {
 
     // Method to reset audio stream
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(SimpleAudioPlayer.class.getResourceAsStream(audioFile.getFilePath())));
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(SimpleAudioPlayer.class.getResourceAsStream(filePath)));
         clip.open(audioInputStream);
         if (loop) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -122,10 +120,6 @@ public class SimpleAudioPlayer {
         float db = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
         FloatControl c = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         c.setValue(db);
-    }
-
-    public AudioFile getAudioFile() {
-        return audioFile;
     }
 
     public enum Status {

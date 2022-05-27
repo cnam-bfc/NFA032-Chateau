@@ -3,7 +3,6 @@ package net.cnam.chateau.gui.component;
 import net.cnam.chateau.event.key.KeyListener;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.utils.StringUtils;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
@@ -11,6 +10,7 @@ import net.cnam.chateau.utils.direction.DirectionUtils;
 public class CTextField extends CComponent implements SelectableComponent, KeyListener {
     private boolean selected = true;
     private String text;
+    private String hint;
     private int pointer;
 
     public CTextField(int length) {
@@ -18,15 +18,21 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
     }
 
     public CTextField(HorizontalAlignment horizontalAlignment, int length) {
-        this(horizontalAlignment, null, length);
+        this(horizontalAlignment, "", length, null);
     }
 
-    public CTextField(String text, int length) {
-        this(HorizontalAlignment.CENTER, text, length);
+    public CTextField(String hint, int length) {
+        this(HorizontalAlignment.CENTER, hint, length, null);
     }
 
-    public CTextField(HorizontalAlignment horizontalAlignment, String text, int length) {
+    public CTextField(String hint, int length, String text) {
+        this(HorizontalAlignment.CENTER, hint, length, text);
+    }
+
+    public CTextField(HorizontalAlignment horizontalAlignment, String hint, int length, String text) {
         super(horizontalAlignment, length, 1);
+
+        this.hint = hint;
 
         if (text != null) {
             this.text = text;
@@ -35,10 +41,6 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
             this.text = "";
             this.pointer = 0;
         }
-    }
-
-    public String getText() {
-        return text;
     }
 
     @Override
@@ -53,25 +55,61 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
             result[linePointer++] = emptyLine;
         }
 
-        String line;
+        int finalLength = this.getLength();
+        int pointerIndex = pointer;
         if (selected) {
-            line = text.substring(0, pointer);
-            line += "" + CColor.BLINKING + CColor.REVERSE + " " + CColor.REVERSE.getForegroundReset() + CColor.BLINKING.getForegroundReset();
-            if (text.length() >= this.getLength()) {
-                line += text.substring(pointer, this.getLength() - 1);
+            finalLength--;
+        }
+        String line = "";
+
+        if (text.isEmpty() && !selected) {
+            String hintText = hint;
+            if (hintText.length() > finalLength) {
+                hintText = hintText.substring(0, finalLength);
+            }
+            int toFill = finalLength - hintText.length();
+            hintText = "" + CColor.BRIGHT_BLACK + CColor.ITALIC + hintText + CColor.ITALIC.getForegroundReset() + CColor.BRIGHT_BLACK.getForegroundReset();
+            switch (this.getHorizontalAlignment()) {
+                case LEFT -> {
+                    line = hintText + " ".repeat(toFill);
+                }
+                case CENTER -> {
+                    line = " ".repeat(toFill / 2) + hintText + " ".repeat(toFill / 2 + toFill % 2);
+                }
+                case RIGHT -> {
+                    line = " ".repeat(toFill) + hintText;
+                }
+            }
+        } else if (text.length() > finalLength) {
+            if (pointerIndex > finalLength) {
+                line = text.substring(pointerIndex - finalLength, pointerIndex);
+                pointerIndex = finalLength;
             } else {
-                // TODO Faire le rendu en fonction de l'alignement
-                line += text.substring(pointer);
-                line = StringUtils.centerString(line, ' ', this.getLength()
-                        + CColor.BLINKING.getForeground().length() + CColor.BLINKING.getForegroundReset().length()
-                        + CColor.REVERSE.getForeground().length() + CColor.REVERSE.getForegroundReset().length());
+                line = text.substring(0, finalLength);
+            }
+        } else if (text.length() < finalLength) {
+            switch (this.getHorizontalAlignment()) {
+                case LEFT -> {
+                    line = text + " ".repeat(finalLength - text.length());
+                }
+                case CENTER -> {
+                    int padding = (finalLength - text.length()) / 2;
+                    line = " ".repeat(padding) + text + " ".repeat(padding + (finalLength - text.length()) % 2);
+                    pointerIndex = pointer + padding;
+                }
+                case RIGHT -> {
+                    line = " ".repeat(finalLength - text.length()) + text;
+                    pointerIndex = pointer + finalLength - text.length();
+                }
             }
         } else {
-            if (text.length() > this.getLength()) {
-                line = text.substring(0, this.getLength());
-            } else {
-                line = StringUtils.centerString(text, ' ', this.getLength());
-            }
+            line = text;
+        }
+
+        if (selected) {
+            line = line.substring(0, pointerIndex)
+                    + CColor.BLINKING + CColor.REVERSE + " " + CColor.REVERSE.getForegroundReset() + CColor.BLINKING.getForegroundReset()
+                    + line.substring(pointerIndex);
         }
 
         result[linePointer++] = line;
@@ -147,5 +185,22 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
     @Override
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+        this.pointer = text.length();
+    }
+
+    public String getHint() {
+        return hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
     }
 }

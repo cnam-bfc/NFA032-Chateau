@@ -69,7 +69,7 @@ public class Player extends Entity {
 
         SimpleAudioPlayer audioPlayer = null;
         try {
-            audioPlayer = app.createAudioPlayer(Music.DEATH.getAudioFile());
+            audioPlayer = app.createAudioPlayer(Music.DEATH);
             audioPlayer.setVolume(app.getSettings().getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();

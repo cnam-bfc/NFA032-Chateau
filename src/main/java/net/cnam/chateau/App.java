@@ -1,7 +1,7 @@
 package net.cnam.chateau;
 
-import net.cnam.chateau.audio.AudioFile;
 import net.cnam.chateau.audio.Music;
+import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
@@ -47,7 +47,7 @@ public class App {
             }
             stopAllPlayers();
             try {
-                SimpleAudioPlayer errorSound = createAudioPlayer(Music.ERROR.getAudioFile());
+                SimpleAudioPlayer errorSound = createAudioPlayer(Music.ERROR);
                 errorSound.setVolume(settings.getMusicVolume());
                 errorSound.play();
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException |
@@ -59,10 +59,14 @@ public class App {
         audioPlayers.clear();
     }
 
-    public SimpleAudioPlayer createAudioPlayer(AudioFile audioFile) throws UnsupportedAudioFileException, LineUnavailableException, IOException, IllegalArgumentException {
-        SimpleAudioPlayer player = new SimpleAudioPlayer(audioFile);
+    public SimpleAudioPlayer createAudioPlayer(Music music) throws UnsupportedAudioFileException, LineUnavailableException, IOException, IllegalArgumentException {
+        SimpleAudioPlayer player = new SimpleAudioPlayer(music.getFilePath());
         audioPlayers.add(player);
         return player;
+    }
+
+    public SimpleAudioPlayer createAudioPlayer(SoundEffect soundEffect) throws UnsupportedAudioFileException, LineUnavailableException, IOException, IllegalArgumentException {
+        return new SimpleAudioPlayer(soundEffect.getFilePath());
     }
 
     public void stopAllPlayers() {

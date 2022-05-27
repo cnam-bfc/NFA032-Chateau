@@ -16,8 +16,8 @@ public class PlayMenu extends CFrame implements DisplayableComponent {
     public PlayMenu(App app, MainMenu mainMenu) {
         super(0, 0, "Créer une partie");
 
-        this.playerNameField = new CTextField("Joueur", AppSettings.CONSOLE_MIN_LENGTH - 10);
-        this.seedField = new CTextField(new Random().nextLong() + "", AppSettings.CONSOLE_MIN_LENGTH - 10);
+        this.playerNameField = new CTextField("Nom du joueur", AppSettings.CONSOLE_MIN_LENGTH - 10);
+        this.seedField = new CTextField("Graine de la carte à générer", AppSettings.CONSOLE_MIN_LENGTH - 10);
         CButton okButton = new OkButton(app, mainMenu, this);
         CButton backButton = new BackButton(app, this);
         CChoices actions = new CChoices(app, new SelectableComponent[]{

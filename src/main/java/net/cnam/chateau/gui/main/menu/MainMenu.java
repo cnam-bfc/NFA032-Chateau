@@ -20,7 +20,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
         super(0, 0, "Menu principal");
 
         try {
-            this.audioPlayer = app.createAudioPlayer(Music.MENU.getAudioFile());
+            this.audioPlayer = app.createAudioPlayer(Music.MENU);
             audioPlayer.setVolume(app.getSettings().getMusicVolume());
             audioPlayer.setLoop(true);
             audioPlayer.play();

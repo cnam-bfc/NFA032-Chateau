@@ -67,7 +67,7 @@ public abstract class CButton extends CLabel implements SelectableComponent, Key
         // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal
         if (this.isSelected() && (key == 10 || key == 13)) {
             try {
-                SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.SELECT.getAudioFile());
+                SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.SELECT);
                 audioPlayer.setVolume(app.getSettings().getSoundEffectsVolume());
                 audioPlayer.play();
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
