@@ -6,6 +6,12 @@ import net.cnam.chateau.entity.enemy.*;
 import net.cnam.chateau.entity.enemy.boss.BossMartinez;
 import net.cnam.chateau.entity.pet.*;
 import net.cnam.chateau.game.Game;
+import net.cnam.chateau.item.Item;
+import net.cnam.chateau.item.consumable.AttackPotion;
+import net.cnam.chateau.item.consumable.HealPotion;
+import net.cnam.chateau.item.wearable.Earring;
+import net.cnam.chateau.item.wearable.Necklace;
+import net.cnam.chateau.item.wearable.Ring;
 import net.cnam.chateau.item.wearable.Wearable;
 import net.cnam.chateau.structure.*;
 import net.cnam.chateau.structure.block.*;
@@ -21,7 +27,7 @@ import net.cnam.chateau.structure.block.door.SageDoor;
 import net.cnam.chateau.structure.block.door.TrappedDoor;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.array.ArrayUtils;
-import net.cnam.chateau.weapon.Weapon;
+import net.cnam.chateau.weapon.*;
 
 import java.util.*;
 
@@ -577,12 +583,29 @@ public class Generator {
     public Enemy getRandomisedEnemy(Stage stage, Location location) {
         Enemy entity = null;
         switch (random.nextInt(0, 8)) {
-            case 0 -> entity = new Demogorgon(app, stage, location, random);
-            case 1 -> entity = new Harpy(app, stage, location, random);
-            case 2 -> entity = new HeadlessKnight(app, stage, location, random);
-            case 3 -> entity = new Morbol(app, stage, location, random);
+            case 0 -> {
+                entity = new Demogorgon(app, stage, location, random);
+                entity.setItem(getItem());
+            }
+            case 1 -> {
+                entity = new Harpy(app, stage, location, random);
+                entity.setItem(getItem());
+                entity.setWeapon(getWeapon());
+            }
+            case 2 -> {
+                entity = new HeadlessKnight(app, stage, location, random);
+                entity.setItem(getItem());
+                entity.setWeapon(getWeapon());
+            }
+            case 3 -> {
+                entity = new Morbol(app, stage, location, random);
+                entity.setItem(getItem());
+            }
             case 4 -> entity = new Spider(app, stage, location, random);
-            case 5 -> entity = new Werewolf(app, stage, location, random);
+            case 5 -> {
+                entity = new Werewolf(app, stage, location, random);
+                entity.setItem(getItem());
+            }
             case 7 -> entity = new Zombie(app, stage, location, random);
         }
         return entity;
@@ -596,6 +619,72 @@ public class Generator {
         return specialEnemies.remove(random.nextInt(0, specialEnemies.size()));
     }
 
+    public Weapon getWeapon() {
+        int random = this.random.nextInt(1, 101);
+        if (random <= 5 && !specialWeapons.isEmpty()) {
+            return getRandomSpecialWeapon();
+        }
+        if (random <= 50) {
+            return getRandomWeapon();
+        }
+        return null;
+    }
+
+    public Weapon getRandomWeapon() {
+        Weapon weapon = null;
+        switch (random.nextInt(0, 4)) {
+            case (0) -> weapon = new Couteau(random);
+            case (1) -> weapon = new Epee(random);
+            case (2) -> weapon = new Hache(random);
+            case (3) -> weapon = new Massue(random);
+        }
+        return weapon;
+    }
+
+    public Weapon getRandomSpecialWeapon() {
+        if (!specialWeapons.isEmpty()) {
+            return specialWeapons.remove(random.nextInt(0, specialWeapons.size()));
+        }
+        return getRandomWeapon();
+    }
+
+    public Item getItem() {
+        // TODO choisie si un item sera donné ou non, si oui le type et la rareté
+        int random = this.random.nextInt(1, 101);
+        if (random <= 5 && !specialWearable.isEmpty()) {
+            return getRandomSpecialWearableItem();
+        }
+        if (random <= 50) {
+            return getRandomItem();
+        }
+        return null;
+
+    }
+
+    public Item getRandomItem() {
+        Item item = null;
+        if (random.nextInt(0, 4) < 3) {
+            switch (random.nextInt(0, 2)) {
+                case (0) -> item = new HealPotion(random);
+                case (1) -> item = new AttackPotion(random);
+            }
+        } else {
+            switch (random.nextInt(0, 3)) {
+                case (0) -> item = new Earring(random);
+                case (1) -> item = new Necklace(random);
+                case (2) -> item = new Ring(random);
+            }
+        }
+        return item;
+    }
+
+    public Item getRandomSpecialWearableItem() {
+        if (!specialWearable.isEmpty()) {
+            return specialWearable.remove(random.nextInt(0, specialWearable.size()));
+        }
+        return getRandomItem();
+    }
+
     private Sage getRandomSage() {
         if (sages.isEmpty()) {
             return null;
@@ -605,16 +694,16 @@ public class Generator {
     }
 
     private Door getRandomDoor(Stage stage, Room roomOne, Room roomTwo) {
-        int randomInt = random.nextInt(0, 100);
-        if (randomInt < 75) {
+        int randomInt = random.nextInt(1, 101);
+        if (randomInt < 70) {
             return new Door(stage, roomOne, roomTwo);
-        } else if (randomInt < 82) {
+        } else if (randomInt < 80) {
             if (!sages.isEmpty()) {
                 return new SageDoor(app, stage, roomOne, roomTwo, getRandomSage());
             } else {
-                return new TrappedDoor(app, stage, roomOne, roomTwo, random);
+                return new EnemyDoor(stage, roomOne, roomTwo, getRandomEnemy(null, null));
             }
-        } else if (randomInt < 88) {
+        } else if (randomInt < 90) {
             return new TrappedDoor(app, stage, roomOne, roomTwo, random);
         } else {
             return new EnemyDoor(stage, roomOne, roomTwo, getRandomEnemy(null, null));
