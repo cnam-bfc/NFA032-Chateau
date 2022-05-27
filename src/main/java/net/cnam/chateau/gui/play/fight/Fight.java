@@ -202,7 +202,8 @@ public class Fight extends CFrame implements DisplayableComponent {
             }
             over = true;
             display = false;
-            if (enemyHealth <= 0) {
+            // On affiche le menu de butin
+            if (enemyHealth <= 0 && (enemy.hasWeapon() || enemy.hasItem())) {
                 menu.getComponents().clear();
                 menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour le pilier..."));
                 app.getConsole().show(this);
