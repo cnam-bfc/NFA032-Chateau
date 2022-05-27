@@ -23,6 +23,6 @@ public class TakeItemButton extends CButton {
         player.setItem(enemy.getItem());
         enemy.setItem(null);
         lootMenu.getChoices().remove(this);
-        lootMenu.getChoices().select(lootMenu.getLeaveButton());
+        lootMenu.getLeaveButton().setSelected(true);
     }
 }

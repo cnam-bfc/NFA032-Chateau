@@ -173,9 +173,12 @@ public class CPanel extends CComponent implements KeyListener {
         return result;
     }
 
+    @SuppressWarnings("WhileLoopReplaceableByForEach")
     @Override
     public void onKeyPressed(KeyPressedEvent event) {
-        for (CComponent component : components) {
+        Iterator<CComponent> iterator = this.getComponents().iterator();
+        while (iterator.hasNext()) {
+            CComponent component = iterator.next();
             if (component instanceof KeyListener componentListener) {
                 componentListener.onKeyPressed(event);
             }

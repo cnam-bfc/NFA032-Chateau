@@ -28,6 +28,6 @@ public class ReplaceWeaponButton extends CButton {
         enemy.setWeapon(playerWeapon);
         ReplaceWeaponButton replaceWeaponButton = new ReplaceWeaponButton(app, player, enemy, lootMenu);
         lootMenu.getChoices().replace(this, replaceWeaponButton);
-        lootMenu.getChoices().select(replaceWeaponButton);
+        replaceWeaponButton.setSelected(true);
     }
 }
