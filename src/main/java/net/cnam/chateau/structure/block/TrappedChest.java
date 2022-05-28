@@ -18,6 +18,10 @@ public class TrappedChest extends Block implements BlockListener {
         this.enemy = new Mimic(app, random);
     }
 
+    public Enemy getEnemy() {
+        return enemy;
+    }
+
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         if (event.getEntity() instanceof Player player) {
@@ -39,6 +43,10 @@ public class TrappedChest extends Block implements BlockListener {
 
     @Override
     public String getCharacter() {
-        return "C";
+        if (this.enemy != null) {
+            return "C";
+        } else {
+            return "";
+        }
     }
 }

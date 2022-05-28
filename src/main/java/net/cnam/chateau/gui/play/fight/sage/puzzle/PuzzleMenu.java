@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.play.door.sage.puzzle;
+package net.cnam.chateau.gui.play.fight.sage.puzzle;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;

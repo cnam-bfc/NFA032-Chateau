@@ -5,12 +5,12 @@ import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.dialog.InfoDialog;
+import net.cnam.chateau.item.Key;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
@@ -22,6 +22,7 @@ public class Player extends Entity {
     private final App app;
 
     private Pet pet;
+    private Key key;
 
     /**
      * Constructeur
@@ -117,5 +118,17 @@ public class Player extends Entity {
      */
     public void setPet(Pet pet) {
         this.pet = pet;
+    }
+
+    public Key getKey() {
+        return key;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
+    public boolean hasKey(){
+        return this.key != null;
     }
 }

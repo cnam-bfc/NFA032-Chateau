@@ -10,6 +10,7 @@ import net.cnam.chateau.event.entity.EntityListener;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.item.Item;
+import net.cnam.chateau.item.Key;
 import net.cnam.chateau.item.wearable.Wearable;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
@@ -365,7 +366,9 @@ public abstract class Entity implements DisplayableObject {
      * @param item un Item
      */
     public void setItem(Item item) {
-        this.item = item;
+        if (!(item instanceof Key)){
+            this.item = item;
+        }
     }
 
     /**

@@ -556,7 +556,12 @@ public class Generator {
                     }
                 }
                 case 5 -> {
-                    return new TrappedChest(app, random);
+                    TrappedChest trappedChest = new TrappedChest(app, random);
+                    trappedChest.getEnemy().setItem(getItem());
+                    if (random.nextBoolean()){
+                        trappedChest.getEnemy().setWeapon(getWeapon());
+                    }
+                    return trappedChest;
                 }
             }
         } else {

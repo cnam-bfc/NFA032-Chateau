@@ -15,7 +15,7 @@ public class DoorMenu extends CFrame implements DisplayableComponent {
 
         CChoices choices = new CChoices(app, 1);
 
-        if (player.hasItem()) {
+        if (player.hasKey()) {
             choices.add(new UseObjectButton(app, player, door, this));
         }
 
