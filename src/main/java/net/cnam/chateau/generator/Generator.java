@@ -38,7 +38,6 @@ import static net.cnam.chateau.generator.GUtils.triTopo;
  * Classe pour la génération de la map
  */
 public class Generator {
-
     private static final int MIN_SIZE_STAGE = 25; //taille mini d'un étage
     private static final int MAX_SIZE_STAGE = 35; //taille maxi d'un étage
     private static final int MIN_STAGE = 2; //nombre mini d'étage
