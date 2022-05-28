@@ -1,7 +1,7 @@
 package net.cnam.chateau.entity;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.DisplayableObject;
+import net.cnam.chateau.gui.DisplayableObject;
 import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
