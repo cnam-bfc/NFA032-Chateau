@@ -6,6 +6,7 @@ import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.item.Key;
+import net.cnam.chateau.item.consumable.HealPotion;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
@@ -14,6 +15,7 @@ import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Classe d'un joueur
@@ -36,6 +38,7 @@ public class Player extends Entity {
         super(app, stage, location, name, 100, 50, 10, 10, 10);
 
         this.app = app;
+        this.setItem(new HealPotion(new Random()));
 
         this.setRenderPriority(0);
     }
