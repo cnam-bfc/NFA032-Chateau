@@ -43,6 +43,15 @@ public class Player extends Entity {
         this.setRenderPriority(0);
     }
 
+    /**
+     * Redéfinition de la méthode pour téléporter une entité.
+     * Permet de téléporter le joueur dans un étage à des coordonnées précise.
+     * 
+     * @param stage Etage de la téléportation
+     * @param location Coordonnées de la téléportation
+     * @throws CoordinatesOutOfBoundsException Exception levée si l'entité veut être téléporté hors de l'étage
+     * @throws EntityAlreadyTeleportedException Exception levée si l'entité a déjà été téléporté
+     */
     @Override
     public void teleport(Stage stage, Location location)
             throws CoordinatesOutOfBoundsException, EntityAlreadyTeleportedException {
@@ -65,6 +74,10 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Redéfinition de la méthode permettant de tuer une entité.
+     * Ici on gère la mort du joueur afin de mettre fin à la partie
+     */
     @Override
     public void kill() {
         super.kill();
@@ -123,14 +136,29 @@ public class Player extends Entity {
         this.pet = pet;
     }
 
+    /**
+     * Getter permettant de récupérer la clé que possède le joueur.
+     * 
+     * @return la Clé que le joueur possède
+     */
     public Key getKey() {
         return key;
     }
 
+    /**
+     * Setter permettant de définir la clé que possède le joueur.
+     * 
+     * @param key Clé
+     */
     public void setKey(Key key) {
         this.key = key;
     }
 
+    /**
+     * Méthode permettant de vérifier si le joueur à une clé.
+     * 
+     * @return true si le joueur possède une clé, sinon false
+     */
     public boolean hasKey(){
         return this.key != null;
     }

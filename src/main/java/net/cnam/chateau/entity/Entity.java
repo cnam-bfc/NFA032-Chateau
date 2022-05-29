@@ -223,6 +223,7 @@ public abstract class Entity implements DisplayableObject {
 
     /**
      * Méthode permettant de soigner une entité.
+     * La vie ne peut pas dépasser le max de l'entité
      *
      * @param health entier, point de vie supplémentaire
      */

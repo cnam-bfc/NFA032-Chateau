@@ -21,6 +21,9 @@ public class App {
     private final List<SimpleAudioPlayer> audioPlayers = new LinkedList<>();
     private Game currentGame;
 
+    /**
+     * Constructeur
+     */
     public App() {
         this.settings = new AppSettings();
         try {
@@ -33,6 +36,9 @@ public class App {
         this.console = new Console(settings);
     }
 
+    /**
+     * Méthode permettant de démarer l'application.
+     */
     public void start() {
         try {
             MainMenu mainMenu = new MainMenu(this);

@@ -1,8 +1,6 @@
 package net.cnam.chateau.entity.enemy;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.structure.Stage;
-import net.cnam.chateau.utils.Location;
 
 import java.util.Random;
 
@@ -18,6 +16,12 @@ public class Mimic extends Enemy {
     private static final int MIN_SPEED = 5;
     private static final int MAX_SPEED = 10;
 
+    /**
+     * Constructeur du Mimic sans tête pour faire une entité avec des stats aléatoire.
+     * 
+     * @param app       L'application
+     * @param random    Le random permettant de générer l'aléatoire
+     */
     public Mimic(App app, Random random) {
         super(app, null, null, "Mimic",
                 random.nextInt(MIN_HEALTH, MAX_HEALTH),
@@ -28,11 +32,11 @@ public class Mimic extends Enemy {
         );
     }
 
-    public Mimic(App app, Stage stage, Location location, String name, int health, int resistance,
-                 int strength, int accuracy, int speed) {
-        super(app, stage, location, name, health, resistance, strength, accuracy, speed);
-    }
-
+    /**
+     * Redéfinition de la méthode permettant d'afficher l'entité sur la carte.
+     * 
+     * @return un String "C"
+     */
     @Override
     public String getCharacter() {
         return "C";

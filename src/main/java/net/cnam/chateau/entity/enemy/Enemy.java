@@ -44,6 +44,12 @@ public abstract class Enemy extends Entity implements EntityListener {
         super(app, stage, location, name);
     }
 
+    /**
+     * Redéfinition de la méthode permettant de détecter une entité approche d'une autre entité.
+     * Ici on gère le cas du joueur pour lancer un combat
+     * 
+     * @param event
+     */
     @Override
     public void onEntityApproachEvent(EntityApproachEvent event) {
         if (event.getEntity() instanceof Player player) {

@@ -20,6 +20,11 @@ public class BossMartinez extends Boss {
         this.setWeapon(new Weapon("Livre : \"Java pour les nuls\"", "L'arme divine pour apprendre à coder", 10, 10, 10));
     }
 
+    /**
+     * Redéfinition de la méthode permettant d'afficher l'entité sur la carte.
+     * 
+     * @return un String "M" en rouge
+     */
     @Override
     public String getCharacter() {
         return CColor.RED + "M" + CColor.RED.getForegroundReset();

@@ -12,6 +12,9 @@ public class AppSettings {
     private float musicVolume = 1f;
     private float soundEffectsVolume = 1f;
 
+    /**
+     * Méthode permettant de définir les paramètres de l'application.
+     */
     public AppSettings() {
         String detectedConsoleLengthStr = System.getProperty("COLUMNS");
         if (detectedConsoleLengthStr != null) {
@@ -29,6 +32,12 @@ public class AppSettings {
         }
     }
 
+    /**
+     * Méthode permettant de sauvegarder dans un fichier les paramètres de l'utilisateur.
+     * 
+     * @param file Le fichier où doivent être sauvegardés les paramètres
+     * @throws IOException Levé d'une exception si un problème lors de la sauvegarde
+     */
     public void save(File file) throws IOException {
         FileOutputStream fluxEntree = new FileOutputStream(file);
         BufferedOutputStream outTampon = new BufferedOutputStream(fluxEntree);
@@ -42,6 +51,12 @@ public class AppSettings {
         out.close();
     }
 
+    /**
+     * Méthode permettant de récupérer les paramètres de l'utilisateur si ceux-ci existent.
+     * 
+     * @param file Le fichier où doivent être sauvegardés les paramètres
+     * @throws IOException Levé d'une exception si un problème lors de la sauvegarde
+     */
     public void load(File file) throws IOException {
         FileInputStream fluxEntree = new FileInputStream(file);
         BufferedInputStream inTampon = new BufferedInputStream(fluxEntree);
@@ -60,10 +75,21 @@ public class AppSettings {
         in.close();
     }
 
+    /**
+     * Getter permettant de récupérer la longueur de la console.
+     * 
+     * @return un entier
+     */
     public int getConsoleLength() {
         return consoleLength;
     }
 
+    /**
+     * Setter permettant de définir la longueur de la console.
+     * Si la longueur est inférieur à CONSOLE_MIN_LENGTH, ne change pas la taille
+     * 
+     * @param consoleLength un entier
+     */
     public void setConsoleLength(int consoleLength) {
         if (consoleLength < CONSOLE_MIN_LENGTH) {
             return;
@@ -71,10 +97,21 @@ public class AppSettings {
         this.consoleLength = consoleLength;
     }
 
+    /**
+     * Getter permettant de récupérer la hauteur de la console.
+     * 
+     * @return un entier
+     */
     public int getConsoleHeight() {
         return consoleHeight;
     }
 
+    /**
+     * Setter permettant de définir la hauteur de la console.
+     * Si la hauteur est inférieur à CONSOLE_MIN_HEIGHT, ne change pas la taille
+     * 
+     * @param consoleLength un entier
+     */
     public void setConsoleHeight(int consoleHeight) {
         if (consoleHeight < CONSOLE_MIN_HEIGHT) {
             return;
@@ -82,18 +119,38 @@ public class AppSettings {
         this.consoleHeight = consoleHeight;
     }
 
+    /**
+     * Getter permettant de récupérer le volume de la musique.
+     * 
+     * @return le volume de la musique compris entre 0 et 1 (float)
+     */
     public float getMusicVolume() {
         return musicVolume;
     }
 
+    /**
+     * Setter permettant de définir le volume de la musique.
+     * 
+     * @param musicVolume le volume de la musique entre 0 et 1 (float)
+     */
     public void setMusicVolume(float musicVolume) {
         this.musicVolume = musicVolume;
     }
 
+    /**
+     * Getter permettant de récupérer le volume des effets sonores.
+     * 
+     * @return le volume des effets sonores compris entre 0 et 1 (float)
+     */
     public float getSoundEffectsVolume() {
         return soundEffectsVolume;
     }
 
+    /**
+     * Setter permettant de définir le volume des effets sonores.
+     * 
+     * @param soundEffectsVolume le volume des effets sonores entre 0 et 1 (float)
+     */
     public void setSoundEffectsVolume(float soundEffectsVolume) {
         this.soundEffectsVolume = soundEffectsVolume;
     }

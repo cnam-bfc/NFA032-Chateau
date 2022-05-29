@@ -25,15 +25,19 @@ public abstract class Pet extends Entity {
     }
 
     /**
-     * Retourne le caractère à afficher pour un joueur
+     * Retourne le caractère à afficher pour le familier.
      *
-     * @return Le caractère
+     * @return Le caractère "P" en bleu
      */
     @Override
     public String getCharacter() {
         return CColor.BLUE + "P" + CColor.BLUE.getForegroundReset();
     }
 
+    /**
+     * Redéfinition de la méthode pemettant de tuer une entité.
+     * Ici pour tuer le familier
+     */
     @Override
     public void kill() {
         super.kill();
@@ -43,16 +47,34 @@ public abstract class Pet extends Entity {
         }
     }
 
+    /**
+     * Méthode abstraite pour permettre aux familiers d'avoir un pouvoir
+     */
     public abstract void power();
 
+    /**
+     * Méthode permettant de savoir si le familier possédé actuellement par le joueur le suit ou non.
+     *  
+     * @return un boolean, true = suit le joueur | false ne le suit pas 
+     */
     public boolean isFollowingPlayer() {
         return follow;
     }
 
+    /**
+     * Méthode permettant de définir si le familier suit ou non le joueur.
+     * 
+     * @param followPlayer Boolean, true pour suivre, false pour ne pas suivre
+     */
     public void setFollowingPlayer(boolean followPlayer) {
         this.follow = followPlayer;
     }
 
+    /**
+     *  Méthode permettant de définir le joueur à qui va appartenir le familier.
+     * 
+     * @param player le joueur à qui il appartient.
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
