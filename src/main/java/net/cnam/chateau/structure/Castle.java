@@ -43,6 +43,11 @@ public class Castle {
         return seed;
     }
 
+    /**
+     * Getter permettant de récupérer les coordonnées du joueur.
+     * 
+     * @return objet Location comportant les coordonnées du joueur
+     */
     public Location getPlayerStartLocation() {
         return playerStartLocation;
     }

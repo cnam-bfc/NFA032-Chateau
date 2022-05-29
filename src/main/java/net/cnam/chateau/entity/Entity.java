@@ -399,7 +399,7 @@ public abstract class Entity implements DisplayableObject {
     public int getStrength() {
         int totalStrength = this.strength;
         if (this.hasWeapon()) {
-            totalStrength += this.getWeapon().getPower();
+            totalStrength += this.getWeapon().getStrength();
         }
         if (this.item instanceof Wearable wearable){
             totalStrength += wearable.getStrength();

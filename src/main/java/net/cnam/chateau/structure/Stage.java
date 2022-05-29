@@ -292,10 +292,20 @@ public class Stage {
         return rooms;
     }
 
+    /**
+     * Getter permettant de récupérer la longueur de l'étage.
+     * 
+     * @return la longueur de l'étage (int)
+     */
     public int getLength() {
         return length;
     }
 
+    /**
+     * Getter permettant de récupérer la hauteur de l'étage.
+     * 
+     * @return la hauteur de l'étage (int)
+     */
     public int getHeight() {
         return height;
     }

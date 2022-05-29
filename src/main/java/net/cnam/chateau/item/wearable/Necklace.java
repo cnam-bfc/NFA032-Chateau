@@ -10,6 +10,11 @@ public class Necklace extends Wearable {
     private final int MIN_ACCURACY = 1; // min inclus
     private final int MAX_ACCURACY = 11; // max exlcu
 
+    /**
+     * Constructeur
+     * 
+     * @param random objet Random permettant de gérer l'aléatoire de l'objet crée.
+     */
     public Necklace(Random random) {
         super("Collier", "", 0, 0, 0);
 
@@ -19,6 +24,7 @@ public class Necklace extends Wearable {
         this.setDescription(generateDescription());
     }
 
+    // Méthode permettant de gérer la description de l'arme en fonction de ses statitistiques.
     private String generateDescription() {
         int total = super.getStrength() + super.getSpeed() + super.getAccuracy();
         int mediumWearable = (MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 2;

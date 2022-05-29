@@ -13,6 +13,11 @@ public class AttackPotion extends Item implements Consumable{
 
     private final int damage;
 
+    /**
+     * Constructeur
+     * 
+     * @param random objet random permettant de définir l'aléatoire de la potion
+     */
     public AttackPotion(Random random) {
         super("","Potion infligeant des dégats !");
 
@@ -20,6 +25,7 @@ public class AttackPotion extends Item implements Consumable{
         this.setName(generateName());
     }
 
+    // Méthode permettant de générer un nom à la potion en fonction son champ heal
     private String generateName() {
         int mediumPotion = (MIN_ATTACK + MAX_ATTACK - 3) / 2;
         int greatPotion = mediumPotion + ((MIN_ATTACK + MAX_ATTACK- 3) / 4);
@@ -32,6 +38,11 @@ public class AttackPotion extends Item implements Consumable{
         }
     }
 
+    /**
+     * Redéfinition de la méthode consume permettant de consommer l'objet
+     * 
+     * @param entity l'entité qui sera soignée par la potion.
+     */
     @Override
     public void consume(Entity entity) {
         try {

@@ -67,6 +67,11 @@ public class RoomBoss extends Room {
         // On place le boss
     }
 
+    /**
+     * Getter permettant de récupérer l'entrée de la pièce du boss.
+     * 
+     * @return L'escalier de l'entrée (DownStair)
+     */
     public DownStair getEntry() {
         return entry;
     }

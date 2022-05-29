@@ -56,6 +56,11 @@ public class Location {
         this.y = y;
     }
 
+    /**
+     * Redéfinition de la méthode hashCode.
+     * 
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -64,6 +69,12 @@ public class Location {
         return hash;
     }
 
+    /**
+     * Redéfinition de la méthode Equals.
+     * 
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

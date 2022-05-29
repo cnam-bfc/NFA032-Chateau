@@ -41,22 +41,47 @@ public class Room {
         return blocks;
     }
 
+    /**
+     * Setter permettant de définir le nouveau tableau de block représentant la pièce.
+     * 
+     * @param blocks tableau à deux dimensions des différents blocks de la pièces
+     */
     public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;
     }
 
+    /**
+     * Getter permettant de récupérer la longueur de la pièce.
+     * 
+     * @return la longueur de la pièce (int)
+     */
     public int getLength() {
         return blocks.length;
     }
 
+    /**
+     * Getter permettant de récupérer la hauteur de la pièce.
+     * 
+     * @return la hauteur de la pièce (int)
+     */
     public int getHeight() {
         return blocks[0].length;
     }
 
+    /**
+     * Méthode pour savoir si la pièce est visible ou non.
+     * 
+     * @return true si visible / false si non visible
+     */
     public boolean isVisible() {
         return visible;
     }
 
+    /**
+     * Setter permettant de définir la visibilité de la pièce.
+     * 
+     * @param visible true visible / false non visible
+     */
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
