@@ -6,6 +6,9 @@ import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BossMartinez extends Boss {
     /**
      * Constructeur
@@ -18,6 +21,12 @@ public class BossMartinez extends Boss {
         super(app, stage, location, "Martinez", 100, 100, 100, 100, 100);
 
         this.setWeapon(new Weapon("Livre : \"Java pour les nuls\"", "L'arme divine pour apprendre à coder", 10, 10, 10));
+
+        // initalisation du dialogue
+        List<String> dialogue = new ArrayList<>();
+        dialogue.add("Vous avez réussi à arriver jusque ici ?");
+        dialogue.add("Malheureusement c'est ici que s'arrête votre chemin !");
+        this.setDialogue(dialogue);
     }
 
     /**
