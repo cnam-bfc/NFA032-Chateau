@@ -8,18 +8,14 @@ import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.utils.StringUtils;
 
 public class ReplaceWeaponButton extends CButton {
-    private final App app;
     private final Player player;
     private final Entity enemy;
-    private final LootMenu lootMenu;
 
     public ReplaceWeaponButton(App app, Player player, Entity enemy, LootMenu lootMenu) {
         super(app, "");
 
-        this.app = app;
         this.player = player;
         this.enemy = enemy;
-        this.lootMenu = lootMenu;
 
         update();
     }
