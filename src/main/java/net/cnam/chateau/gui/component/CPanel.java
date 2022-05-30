@@ -79,6 +79,11 @@ public class CPanel extends CComponent implements KeyListener {
                         }
                     }
 
+                    int componentLength = component.getLength();
+                    if (componentLength > this.getLength()) {
+                        component.setLength(this.getLength());
+                    }
+
                     // Rendu du composant
                     for (String componentLine : component.render()) {
                         int paddingLength = this.getLength() - component.getLength();
@@ -97,6 +102,8 @@ public class CPanel extends CComponent implements KeyListener {
                             break mainLoop;
                         }
                     }
+
+                    component.setLength(componentLength);
                 }
 
                 // Bourrage à la fin

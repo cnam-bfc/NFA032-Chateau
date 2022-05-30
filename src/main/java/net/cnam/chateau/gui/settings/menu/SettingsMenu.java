@@ -13,15 +13,15 @@ public class SettingsMenu extends CFrame implements DisplayableComponent {
     public SettingsMenu(App app, SimpleAudioPlayer menuPlayer) {
         super(0, 0, "Paramètres");
 
-        CButton backButton = new SaveButton(app, this);
+        CButton saveButton = new SaveButton(app, this);
 
         CChoices choices = new CChoices(app, 1);
         choices.add(new ConfigureScreenButton(app));
         choices.add(new ConfigureMusicButton(app, menuPlayer));
         choices.add(new ConfigureSoundEffectsButton(app));
-        choices.add(backButton);
+        choices.add(saveButton);
         choices.add(new DebugKeysButton(app));
-        choices.select(backButton);
+        choices.select(saveButton);
 
         this.getContentPane().getComponents().add(choices);
     }
