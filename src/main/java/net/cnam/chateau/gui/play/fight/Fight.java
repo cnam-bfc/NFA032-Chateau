@@ -4,6 +4,8 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.entity.enemy.Enemy;
+import net.cnam.chateau.entity.enemy.boss.Boss;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.fight.loot.LootMenu;
@@ -147,10 +149,19 @@ public class Fight extends CFrame implements DisplayableComponent {
             try {
                 damage.getKey().damage(damage.getValue());
             } catch (EntityDeadException e) {
+                // vérifie si l'entité vaincu est un enemy (pas un boss) et incrémente de 1 le compteur d'ennemie vaincu
+                if (damage.getKey() instanceof Enemy && !(damage.getKey() instanceof Boss)){
+                    app.getCurrentGame().getStatistics().addAEnemyKill();
+                }
+
+                // vérifie si l'entité tué est le boss du château
+                if (damage.getKey() instanceof Boss){
+                    app.getCurrentGame().getStatistics().setBossDefeated(true);
+                }
+
                 if (damage.getKey() == player || damage.getKey() == enemy) {
                     over = true;
                     stop();
-                    break;
                 }
             }
         }

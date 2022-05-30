@@ -7,6 +7,7 @@ import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.item.Key;
 import net.cnam.chateau.item.consumable.HealPotion;
+import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
@@ -40,7 +41,8 @@ public class Player extends Entity {
         super(app, stage, location, name, 100, 50, 10, 10, 10);
 
         this.app = app;
-        this.setItem(new HealPotion(new Random()));
+        this.setItem(new HealPotion(new Random())); // TODO à delete
+        this.setWeapon(new Weapon("Eppenis", "l'epee nis", 10,10,10)); // TODO à delete
 
         this.setRenderPriority(0);
     }

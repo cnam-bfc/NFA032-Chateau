@@ -198,6 +198,10 @@ public class Game extends CFrame implements DisplayableComponent {
     }
 
     public void stop() {
+
+        // TODO voir si ça reste ici
+        
+
         display = false;
         if (audioPlayer != null) {
             audioPlayer.stop();
@@ -258,5 +262,9 @@ public class Game extends CFrame implements DisplayableComponent {
 
     public Puzzle getRandomPuzzle() {
         return puzzles.remove(new Random().nextInt(0, puzzles.size()));
+    }
+
+    public Statistics getStatistics() {
+        return statistics;
     }
 }
