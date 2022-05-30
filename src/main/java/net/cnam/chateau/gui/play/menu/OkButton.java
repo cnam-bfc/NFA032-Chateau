@@ -3,7 +3,6 @@ package net.cnam.chateau.gui.play.menu;
 import net.cnam.chateau.App;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.dialog.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
@@ -13,6 +12,8 @@ import java.io.IOException;
 import java.util.Random;
 
 public class OkButton extends CButton {
+    private static final String[] randomPseudos = new String[]{"[720NoScope]Headshotz", "Aloy", "Joel", "Ellie", "Kratos", "Masterchief", "Sam Porter Bridges", "Claire Redfield", "Ada Wong", "Shepard", "Mason", "Capitaine Price", "Steve", "Conor", "Amicia", "Ezio", "Chell", "Tina", "Jesse Faden", "Carl Johnson", "Ulfric Sombrage", "Aerith", "Tifa", "Yuna", "Trevor", "Claudette", "Lara Croft", "Nancy", "Eleven", "Nathan Drake", "Peter Parker"};
+
     private final App app;
     private final MainMenu mainMenu;
     private final PlayMenu playMenu;
@@ -27,9 +28,11 @@ public class OkButton extends CButton {
 
     @Override
     public void execute() {
+        String playerName;
         if (playMenu.getPlayerNameField().getText().isBlank()) {
-            app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "Le nom du joueur ne peut être vide !"));
-            return;
+            playerName = randomPseudos[new Random().nextInt(randomPseudos.length)];
+        } else {
+            playerName = playMenu.getPlayerNameField().getText();
         }
         long seed = 0;
         if (playMenu.getSeedField().getText().isBlank()) {
@@ -50,7 +53,7 @@ public class OkButton extends CButton {
         if (audioPlayer != null) {
             audioPlayer.stop();
         }
-        Game game = new Game(app, seed, playMenu.getPlayerNameField().getText());
+        Game game = new Game(app, seed, playerName);
         app.setCurrentGame(game);
         app.getConsole().show(game);
         app.setCurrentGame(null);
