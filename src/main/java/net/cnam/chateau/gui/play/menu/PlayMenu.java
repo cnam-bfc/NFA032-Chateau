@@ -26,7 +26,6 @@ public class PlayMenu extends CFrame implements DisplayableComponent {
         choices.add(playerNameField);
         choices.add(seedField);
         choices.add(actions);
-        choices.select(actions);
 
         this.getContentPane().getComponents().add(choices);
     }
