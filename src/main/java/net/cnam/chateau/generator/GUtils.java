@@ -4,6 +4,7 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.item.Key;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
+import net.cnam.chateau.structure.block.Stair;
 import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.structure.block.container.Chest;
 import net.cnam.chateau.structure.block.door.Door;
@@ -30,10 +31,10 @@ public class GUtils {
             //vérification qu'il n'y a pas de porte à proximité sinon on décale
             //vérification qu'il n'y a pas de block là où on souhaite placer l'escalier
             if (room.getBlocks()[x][y] == null &&
-                    !(room.getBlocks()[x][y - 1] instanceof Door) &&
-                    !(room.getBlocks()[x][y + 1] instanceof Door) &&
-                    !(room.getBlocks()[x - 1][y] instanceof Door) &&
-                    !(room.getBlocks()[x + 1][y] instanceof Door)) {
+                    !(room.getBlocks()[x][y - 1] instanceof Door || room.getBlocks()[x][y - 1] instanceof Stair) &&
+                    !(room.getBlocks()[x][y + 1] instanceof Door || room.getBlocks()[x][y + 1] instanceof Stair) &&
+                    !(room.getBlocks()[x - 1][y] instanceof Door || room.getBlocks()[x - 1][y] instanceof Stair) &&
+                    !(room.getBlocks()[x + 1][y] instanceof Door || room.getBlocks()[x + 1][y] instanceof Stair)) {
                 return new Location(x, y);
             }
         } while (true);
