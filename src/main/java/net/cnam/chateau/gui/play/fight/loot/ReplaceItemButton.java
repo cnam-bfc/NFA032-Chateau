@@ -10,12 +10,14 @@ import net.cnam.chateau.utils.StringUtils;
 public class ReplaceItemButton extends CButton {
     private final Player player;
     private final Entity enemy;
+    private final LootMenu lootMenu;
 
-    public ReplaceItemButton(App app, Player player, Entity enemy) {
+    public ReplaceItemButton(App app, Player player, Entity enemy, LootMenu lootMenu) {
         super(app, "");
 
         this.player = player;
         this.enemy = enemy;
+        this.lootMenu = lootMenu;
 
         update();
     }
@@ -37,5 +39,6 @@ public class ReplaceItemButton extends CButton {
         this.setText(text);
         this.setHeight(text.length);
         this.setLength(StringUtils.getMaximumLength(text));
+        lootMenu.getChoices().autoResize();
     }
 }
