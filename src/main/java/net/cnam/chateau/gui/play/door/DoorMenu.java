@@ -4,6 +4,7 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
+import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.structure.block.door.LockedDoor;
 
@@ -15,8 +16,10 @@ public class DoorMenu extends CFrame implements DisplayableComponent {
 
         CChoices choices = new CChoices(app, 1);
 
-        if (player.hasKey()) {
+        if (player.hasKey(door.getKey())) {
             choices.add(new UseObjectButton(app, player, door, this));
+        } else {
+            getContentPane().getComponents().add(new CLabel("Vous n'avez pas la bonne clé, cherchez la !"));
         }
 
         if (!door.hasTryDestroy()) {

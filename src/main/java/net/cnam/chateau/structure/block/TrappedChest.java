@@ -8,11 +8,13 @@ import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.gui.play.fight.Fight;
+import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 
 import java.util.Random;
 
 public class TrappedChest extends Block implements BlockListener {
     private Enemy enemy;
+
 
     public TrappedChest(App app, Random random) {
         this.enemy = new Mimic(app, random);
@@ -38,15 +40,16 @@ public class TrappedChest extends Block implements BlockListener {
 
     @Override
     public void onEntityLeaveBlock(EntityLeaveBlockEvent event) {
-
+        if (event.getEntity() instanceof Player player && this.enemy == null) {
+            try {
+                player.getStage().setBlock(player.getLocation(), null);
+            } catch (CoordinatesOutOfBoundsException ignored) {
+            }
+        }
     }
 
     @Override
     public String getCharacter() {
-        if (this.enemy != null) {
-            return "C";
-        } else {
-            return "";
-        }
+        return "C";
     }
 }

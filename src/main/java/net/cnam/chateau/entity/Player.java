@@ -15,6 +15,8 @@ import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -24,7 +26,7 @@ public class Player extends Entity {
     private final App app;
 
     private Pet pet;
-    private Key key;
+    private List<Key> keys = new ArrayList<>( );
 
     /**
      * Constructeur
@@ -141,8 +143,8 @@ public class Player extends Entity {
      * 
      * @return la Clé que le joueur possède
      */
-    public Key getKey() {
-        return key;
+    public List<Key> getlistKey() {
+        return keys;
     }
 
     /**
@@ -150,8 +152,12 @@ public class Player extends Entity {
      * 
      * @param key Clé
      */
-    public void setKey(Key key) {
-        this.key = key;
+    public void addKey(Key key) {
+        this.keys.add(key);
+    }
+
+    public List<Key> getKeys() {
+        return keys;
     }
 
     /**
@@ -159,7 +165,7 @@ public class Player extends Entity {
      * 
      * @return true si le joueur possède une clé, sinon false
      */
-    public boolean hasKey(){
-        return this.key != null;
+    public boolean hasKey(Key key){
+        return this.keys.contains(key);
     }
 }

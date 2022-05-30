@@ -40,6 +40,7 @@ public class Game extends CFrame implements DisplayableComponent {
     private final EntityStats playerStats;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
+    private Statistics statistics;
 
     public Game(App app, long seed, String playerName) {
         super(0, 0);
@@ -81,6 +82,8 @@ public class Game extends CFrame implements DisplayableComponent {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
                  IllegalArgumentException ignored) {
         }
+
+        this.statistics = new Statistics(seed, playerName);
     }
 
     private void initPuzzles() {
