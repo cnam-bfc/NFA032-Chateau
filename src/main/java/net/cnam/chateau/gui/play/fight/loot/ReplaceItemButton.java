@@ -38,6 +38,7 @@ public class ReplaceItemButton extends CButton {
                 "Remplacer " + player.getItem().getName(),
                 "par " + enemy.getItem().getName()
         };
+        this.setText(text);
         this.setHeight(text.length);
         this.setHeight(StringUtils.getMaximumLength(text));
     }
