@@ -22,23 +22,49 @@ public class Cage extends Block implements BlockListener {
         this(app, null);
     }
 
+    /**
+     * Constructeur
+     * 
+     * @param app   L'application
+     * @param pet   Le familier dans la cage
+     */
     public Cage(App app, Pet pet) {
         this.app = app;
         this.pet = pet;
     }
 
+    /**
+     * Getter permettant de récupérer le familier dans la cage.
+     * 
+     * @return le familier dans la cage (Pet)
+     */
     public Pet getPet() {
         return pet;
     }
 
+    /**
+     * Setter permettant de mettre un familier dans la cage.
+     * 
+     * @param pet le familier à mettre dans la cage
+     */
     public void setPet(Pet pet) {
         this.pet = pet;
     }
 
+    /**
+     * Méthode permettant de vérifier s'il y a un familier dans la cage.
+     * 
+     * @return true : il y a un familier / false : il n'y a pas de familier
+     */
     public boolean hasPet() {
         return pet != null;
     }
 
+    /**
+     * Redéfinition de la méthode permettant d'afficher un caractère sur la carte.
+     * 
+     * @return un String correspondant à "P" en rouge si un familier est dans la cage, sinon en vert
+     */
     @Override
     public String getCharacter() {
         if (this.visited) {
@@ -51,6 +77,11 @@ public class Cage extends Block implements BlockListener {
         return "P";
     }
 
+    /**
+     * TODO victor
+     * 
+     * @param event
+     */
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         visited = true;
@@ -59,6 +90,11 @@ public class Cage extends Block implements BlockListener {
         }
     }
 
+    /**
+     * TODO Victor
+     * 
+     * @param event
+     */
     @Override
     public void onEntityLeaveBlock(EntityLeaveBlockEvent event) {
     }

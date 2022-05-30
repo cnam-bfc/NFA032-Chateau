@@ -13,11 +13,15 @@ import net.cnam.chateau.utils.Location;
  */
 public abstract class Stair extends Block implements BlockListener {
 
-    private boolean locked = false;
     private Stage stage;
     private Location location;
     private Stair otherStair;
 
+    /**
+     * TODO Victor
+     * 
+     * @param event
+     */
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         try {
@@ -26,38 +30,65 @@ public abstract class Stair extends Block implements BlockListener {
         }
     }
 
+    /**
+     * TODO Victor
+     * 
+     * @param event
+     */
     @Override
     public void onEntityLeaveBlock(EntityLeaveBlockEvent event) {
     }
 
-    public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-
+    /**
+     * Getter permettant de récupéré l'étage ou se situe l'escalier.
+     * 
+     * @return l'étage de l'escalier.
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * Setter permettant de définir l'étage de l'escalier.
+     *
+     * @param stage l'étage de l'escalier.
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
+    /**
+     * Getter permettant de retourner la Location (coordonnées) de l'escalier.
+     * 
+     * @return La location (coordonnées) de l'escalier
+     */
     public Location getLocation() {
         return location;
     }
 
+    /**
+     * Setter permetant de définir la location de l'escalier.
+     * 
+     * @param location La location (coordonnées) à mettre à l'escalier
+     */
     public void setLocation(Location location) {
         this.location = location;
     }
 
+    /**
+     * Getter permettant de retourner l'ecalier relier à celui-ci.
+     * 
+     * @return l'escalier lier à celui-ci
+     */
     public Stair getOtherStair() {
         return otherStair;
     }
 
+    /**
+     * Setter permettant d'attribuer à l'escalier, un autre escalier qui lui sera lié.
+     * 
+     * @param otherStair Le deuxième escalier
+     */
     public void setOtherStair(Stair otherStair) {
         this.otherStair = otherStair;
     }
