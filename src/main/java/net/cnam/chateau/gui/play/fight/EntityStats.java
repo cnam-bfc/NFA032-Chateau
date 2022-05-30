@@ -4,10 +4,7 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.component.CComponent;
-import net.cnam.chateau.gui.component.CLabel;
-import net.cnam.chateau.gui.component.CPanel;
-import net.cnam.chateau.gui.component.CProgressBar;
+import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class EntityStats extends CPanel {
@@ -56,24 +53,30 @@ public class EntityStats extends CPanel {
         head.getComponents().add(hpBar);
         this.getComponents().add(head);
 
+        int objectMaxLength = 0;
+
         if (!(entity instanceof Pet)) {
             // Arme
-            CLabel weaponLabel = new CLabel("Arme");
+            CLabel weaponLabel = new CLabel(HorizontalAlignment.RIGHT, "Arme", 5);
             weaponLabel.getColors().add(CColor.BOLD);
 
             // Nom de l'arme
             if (entity.hasWeapon()) {
-                this.weaponName = new CLabel(entity.getWeapon().getName());
+                this.weaponName = new CLabel(HorizontalAlignment.LEFT, entity.getWeapon().getName());
             } else {
-                this.weaponName = new CLabel("Poings");
+                this.weaponName = new CLabel(HorizontalAlignment.LEFT, "Poings");
             }
             this.weaponName.getColors().add(CColor.YELLOW);
+
+            if (weaponName.getLength() > objectMaxLength) {
+                objectMaxLength = weaponName.getLength();
+            }
 
             // Panel de l'arme
             if (orientation == Orientation.VERTICAL) {
                 this.weapon = new CPanel(0, 2, Orientation.VERTICAL, false);
             } else {
-                this.weapon = new CPanel(0, 1, Orientation.HORIZONTAL, true);
+                this.weapon = new CPanel(HorizontalAlignment.CENTER, 0, 1, Orientation.HORIZONTAL, 1);
             }
             weapon.getComponents().add(weaponLabel);
             weapon.getComponents().add(weaponName);
@@ -84,28 +87,40 @@ public class EntityStats extends CPanel {
 
         if (entity instanceof Player) {
             // Objet
-            CLabel itemLabel = new CLabel("Objet");
+            CLabel itemLabel = new CLabel(HorizontalAlignment.RIGHT, "Objet", 5);
             itemLabel.getColors().add(CColor.BOLD);
 
             // Nom de l'objet
             if (entity.hasItem()) {
-                this.itemName = new CLabel(entity.getItem().getName());
+                this.itemName = new CLabel(HorizontalAlignment.LEFT, entity.getItem().getName());
             } else {
-                this.itemName = new CLabel("Aucun");
+                this.itemName = new CLabel(HorizontalAlignment.LEFT, "Aucun");
             }
             itemName.getColors().add(CColor.GREEN);
+
+            if (itemName.getLength() > objectMaxLength) {
+                objectMaxLength = itemName.getLength();
+            }
 
             // Panel de l'objet
             if (orientation == Orientation.VERTICAL) {
                 this.item = new CPanel(0, 2, Orientation.VERTICAL, false);
             } else {
-                this.item = new CPanel(0, 1, Orientation.HORIZONTAL, true);
+                this.item = new CPanel(HorizontalAlignment.CENTER, 0, 1, Orientation.HORIZONTAL, 1);
             }
             item.getComponents().add(itemLabel);
             item.getComponents().add(itemName);
             this.getComponents().add(item);
         } else {
             emptySpace++;
+        }
+
+        if (weaponName != null && weaponName.getLength() < objectMaxLength) {
+            weaponName.setLength(objectMaxLength);
+        }
+
+        if (itemName != null && itemName.getLength() < objectMaxLength) {
+            itemName.setLength(objectMaxLength);
         }
 
         for (int i = 0; i < emptySpace; i++) {
@@ -131,6 +146,8 @@ public class EntityStats extends CPanel {
         hpBar.setValue(entity.getHealth());
         hpBar.setMaxValue(entity.getMaxHealth());
 
+        int objectMaxLength = 0;
+
         if (weaponName != null) {
             if (entity.hasWeapon()) {
                 weaponName.setText(entity.getWeapon().getName());
@@ -138,6 +155,9 @@ public class EntityStats extends CPanel {
                 weaponName.setText("Poings");
             }
             weaponName.setLength(weaponName.getText().length());
+            if (weaponName.getLength() > objectMaxLength) {
+                objectMaxLength = weaponName.getLength();
+            }
         }
 
         if (itemName != null) {
@@ -147,6 +167,25 @@ public class EntityStats extends CPanel {
                 itemName.setText("Aucun");
             }
             itemName.setLength(itemName.getText().length());
+            if (itemName.getLength() > objectMaxLength) {
+                objectMaxLength = itemName.getLength();
+            }
+        }
+
+        if (weaponName != null && weaponName.getLength() < objectMaxLength) {
+            weaponName.setLength(objectMaxLength);
+        }
+
+        if (itemName != null && itemName.getLength() < objectMaxLength) {
+            itemName.setLength(objectMaxLength);
+        }
+
+        if (weapon != null) {
+            weapon.autoResize();
+        }
+
+        if (item != null) {
+            item.autoResize();
         }
     }
 
@@ -166,10 +205,10 @@ public class EntityStats extends CPanel {
         head.setLength(length);
         hpBar.setLength(length - 2);
         if (weapon != null) {
-            weapon.setLength(length);
+            weapon.autoResize();
         }
         if (item != null) {
-            item.setLength(length);
+            item.autoResize();
         }
     }
 
