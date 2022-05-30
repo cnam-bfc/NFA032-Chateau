@@ -36,6 +36,10 @@ public class CPanel extends CComponent implements KeyListener {
         this(horizontalAlignment, 0, 0, renderOrientation, false, spacing);
     }
 
+    public CPanel(HorizontalAlignment horizontalAlignment, int length, int height, Orientation renderOrientation, int spacing) {
+        this(horizontalAlignment, length, height, renderOrientation, false, spacing);
+    }
+
     private CPanel(HorizontalAlignment horizontalAlignment, int length, int height, Orientation renderOrientation, boolean renderMainPadding, int spacing) {
         super(horizontalAlignment, length, height);
 
@@ -201,7 +205,7 @@ public class CPanel extends CComponent implements KeyListener {
                 for (CComponent component : components) {
                     height += component.getHeight();
                 }
-                if (components.size() != 0) {
+                if (components.size() != 0 && spacing > 0) {
                     height += (components.size() - 1) * spacing;
                 }
                 this.setHeight(height);
@@ -224,7 +228,7 @@ public class CPanel extends CComponent implements KeyListener {
                 for (CComponent component : components) {
                     length += component.getLength();
                 }
-                if (components.size() != 0) {
+                if (components.size() != 0 && spacing > 0) {
                     length += (components.size() - 1) * spacing;
                 }
                 this.setLength(length);
