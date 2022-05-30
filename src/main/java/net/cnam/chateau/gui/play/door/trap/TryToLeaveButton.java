@@ -11,11 +11,10 @@ import net.cnam.chateau.structure.block.trap.GoodTrap;
 import java.util.Random;
 
 public class TryToLeaveButton extends CButton {
-
-    App app;
-    TrappedDoorMenu menu;
-    TrappedDoor door;
-    Player player;
+    private final App app;
+    private final TrappedDoorMenu menu;
+    private final TrappedDoor door;
+    private final Player player;
 
     public TryToLeaveButton(App app, TrappedDoorMenu menu, TrappedDoor door, Player player) {
         super(app, "Tentative de fuite !");

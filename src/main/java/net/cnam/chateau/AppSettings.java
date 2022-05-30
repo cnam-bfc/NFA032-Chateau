@@ -78,7 +78,7 @@ public class AppSettings {
     /**
      * Getter permettant de récupérer la longueur de la console.
      * 
-     * @return un entier
+     * @return La longueur de la console
      */
     public int getConsoleLength() {
         return consoleLength;
@@ -88,7 +88,7 @@ public class AppSettings {
      * Setter permettant de définir la longueur de la console.
      * Si la longueur est inférieur à CONSOLE_MIN_LENGTH, ne change pas la taille
      * 
-     * @param consoleLength un entier
+     * @param consoleLength La longueur de la console
      */
     public void setConsoleLength(int consoleLength) {
         if (consoleLength < CONSOLE_MIN_LENGTH) {
@@ -100,7 +100,7 @@ public class AppSettings {
     /**
      * Getter permettant de récupérer la hauteur de la console.
      * 
-     * @return un entier
+     * @return La hauteur de la console
      */
     public int getConsoleHeight() {
         return consoleHeight;
@@ -110,7 +110,7 @@ public class AppSettings {
      * Setter permettant de définir la hauteur de la console.
      * Si la hauteur est inférieur à CONSOLE_MIN_HEIGHT, ne change pas la taille
      * 
-     * @param consoleLength un entier
+     * @param consoleHeight La hauteur de la console
      */
     public void setConsoleHeight(int consoleHeight) {
         if (consoleHeight < CONSOLE_MIN_HEIGHT) {
