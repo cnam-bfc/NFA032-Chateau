@@ -19,14 +19,14 @@ public class LootMenu extends CFrame implements DisplayableComponent {
         this.choices = new CChoices(app, 1);
         if (enemy.hasWeapon()) {
             if (player.hasWeapon()) {
-                choices.add(new ReplaceWeaponButton(app, player, enemy, this));
+                choices.add(new ReplaceWeaponButton(app, player, enemy));
             } else {
                 choices.add(new TakeWeaponButton(app, player, enemy, this));
             }
         }
         if (enemy.hasItem()) {
             if (player.hasItem()) {
-                choices.add(new ReplaceItemButton(app, player, enemy, this));
+                choices.add(new ReplaceItemButton(app, player, enemy));
             } else {
                 choices.add(new TakeItemButton(app, player, enemy, this));
             }

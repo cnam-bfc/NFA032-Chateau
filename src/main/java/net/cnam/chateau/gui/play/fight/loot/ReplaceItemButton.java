@@ -11,7 +11,7 @@ public class ReplaceItemButton extends CButton {
     private final Player player;
     private final Entity enemy;
 
-    public ReplaceItemButton(App app, Player player, Entity enemy, LootMenu lootMenu) {
+    public ReplaceItemButton(App app, Player player, Entity enemy) {
         super(app, "");
 
         this.player = player;
