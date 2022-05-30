@@ -11,6 +11,7 @@ import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.escape.menu.EscapeMenu;
 import net.cnam.chateau.gui.play.fight.EntityStats;
 import net.cnam.chateau.structure.Castle;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Game extends CFrame implements DisplayableComponent {
+    private final App app;
     private final List<Puzzle> puzzles = new ArrayList<>();
     private final Castle castle;
     private final Map map;
@@ -41,6 +43,8 @@ public class Game extends CFrame implements DisplayableComponent {
 
     public Game(App app, long seed, String playerName) {
         super(0, 0);
+
+        this.app = app;
 
         initPuzzles();
 
@@ -56,7 +60,7 @@ public class Game extends CFrame implements DisplayableComponent {
 
         this.getContentPane().getComponents().add(map);
 
-        CLabel title = new CLabel("Jeu\n(seed: " + this.castle.getSeed() + ")");
+        CLabel title = new CLabel("Partie");
         CPanel header = new CPanel(0, title.getHeight());
         header.getComponents().add(title);
         this.setHeader(header);
@@ -154,6 +158,12 @@ public class Game extends CFrame implements DisplayableComponent {
 
     @Override
     public void onKeyPressed(KeyPressedEvent event) {
+        // Touche échap = on ouvre le menu de pause
+        if (event.getKey() == 27) {
+            app.getConsole().show(new EscapeMenu(app, this));
+            return;
+        }
+
         // On transmet la touche appuyée aux composants dans cette fenêtre
         super.onKeyPressed(event);
 
