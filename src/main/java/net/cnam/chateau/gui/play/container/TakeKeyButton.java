@@ -21,7 +21,7 @@ public class TakeKeyButton extends CButton {
 
     @Override
     public void execute() {
-        player.setKey((Key)block.getHiddenItem());
+        player.addKey((Key)block.getHiddenItem());
         block.setHiddenItem(null);
         this.menu.stopDisplay();
     }

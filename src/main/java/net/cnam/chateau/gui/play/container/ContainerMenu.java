@@ -25,20 +25,12 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
             choices.add(new ReplaceWeaponButton(app, this, player, block));
         }
 
-        if (player.hasKey() && (block.getHiddenItem() instanceof Key)){
-            choices.add(new ReplaceKeyButton(app, this, player, block));
-        }
-
         if (player.hasWeapon() && !block.hasItem()) {
             choices.add(new PutWeaponButton(app, this, player, block));
         }
 
         if (player.hasItem() && !block.hasItem()) {
             choices.add(new PutItemButton(app, this, player, block));
-        }
-
-        if (player.hasKey() && !block.hasItem()){
-            choices.add(new PutKeyButton(app, this, player, block));
         }
 
         if (!player.hasItem() && block.hasItem() && !(block.getHiddenItem() instanceof Weapon || block.getHiddenItem() instanceof Key)) {
@@ -49,7 +41,7 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
             choices.add(new TakeWeaponButton(app, this, player, block));
         }
 
-        if (!player.hasKey() && (block.getHiddenItem() instanceof Key)){
+        if (block.getHiddenItem() instanceof Key){
             choices.add(new TakeKeyButton(app, this, player, block));
         }
 

@@ -11,7 +11,7 @@ public class UseObjectButton extends CButton {
     private final DoorMenu menu;
 
     public UseObjectButton(App app, Player player, LockedDoor door, DoorMenu menu) {
-        super(app, "Utiliser : " + player.getKey().getName());
+        super(app, "Utiliser la clé pour ouvrir la porte !");
 
         this.player = player;
         this.door = door;
@@ -20,13 +20,8 @@ public class UseObjectButton extends CButton {
 
     @Override
     public void execute() {
-        if (player.getKey() == door.getKey()) {
             door.setLock(false);
-            player.setKey(null);
             // TODO Message porte ouverte, objet détruit
             this.menu.stopDisplay();
-        } else {
-            // TODO Message : Ce n'est pas une clé !
-        }
     }
 }
