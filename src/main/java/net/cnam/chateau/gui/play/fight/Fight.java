@@ -7,6 +7,7 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.fight.loot.LootMenu;
+import net.cnam.chateau.item.consumable.Consumable;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.utils.direction.Orientation;
 
@@ -65,7 +66,7 @@ public class Fight extends CFrame implements DisplayableComponent {
 
         this.menu = new CChoices(app, 1);
         menu.add(new AttackButton(app, this));
-        if (player.hasItem()) {
+        if (player.hasItem() && player.getItem() instanceof Consumable) {
             menu.add(new UseItemButton(app, player.getItem()));
         }
         menu.add(new RunAwayButton(app, this));

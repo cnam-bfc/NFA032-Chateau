@@ -36,6 +36,6 @@ public class ReplaceItemButton extends CButton {
         };
         this.setText(text);
         this.setHeight(text.length);
-        this.setHeight(StringUtils.getMaximumLength(text));
+        this.setLength(StringUtils.getMaximumLength(text));
     }
 }
