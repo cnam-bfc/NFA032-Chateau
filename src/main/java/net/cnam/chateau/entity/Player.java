@@ -35,7 +35,7 @@ public class Player extends Entity {
         super(app, stage, location, name, 100, 50, 10, 10, 10);
 
         this.setItem(new HealPotion(new Random())); // TODO à delete
-        this.setWeapon(new Weapon("Eppenis", "l'épée nis", 10, 10, 10)); // TODO à delete
+        this.setWeapon(new Weapon("Eppenis", "l'épée nis", 10000, 10, 10000)); // TODO à delete
         Pet pet = new PepeLoiseau(app); // TODO à delete
         pet.setPlayer(this);
         this.setPet(pet);

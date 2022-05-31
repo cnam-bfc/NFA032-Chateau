@@ -237,6 +237,7 @@ public class Game extends CFrame implements DisplayableComponent {
         statistic.setNbRoomsVisited(nbRoomsVisited);
         statistic.setNbRoomsCastle(nbRoomsCastle);
         statistic.calculScore();
+        app.getStatistics().addStatistic(statistic);
 
         display = false;
         if (audioPlayer != null) {
@@ -300,7 +301,7 @@ public class Game extends CFrame implements DisplayableComponent {
         return puzzles.remove(new Random().nextInt(0, puzzles.size()));
     }
 
-    public Statistic getStatistics() {
+    public Statistic getStatistic() {
         return statistic;
     }
 }

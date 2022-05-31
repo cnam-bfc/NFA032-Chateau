@@ -86,6 +86,14 @@ public class RoomBoss extends Room {
      * @param app l'application
      */
     public void openBossRoom(App app){
-        this.blocks[9][3] = new EndDoor(app);
+        this.blocks[5][2] = null;
+        this.blocks[5][1] = null;
+        this.blocks[5][0] = new EndDoor(app);
+        this.blocks[6][2] = null;
+        this.blocks[6][1] = null;
+        this.blocks[6][0] = new EndDoor(app);
+        this.blocks[7][2] = null;
+        this.blocks[7][1] = null;
+        this.blocks[7][0] = new EndDoor(app);
     }
 }

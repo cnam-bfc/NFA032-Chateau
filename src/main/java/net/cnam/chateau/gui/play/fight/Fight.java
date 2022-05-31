@@ -210,9 +210,9 @@ public class Fight extends CFrame implements DisplayableComponent {
             if (enemy.isDead()) {
                 // On actualise les stats du joueur
                 if (enemy instanceof Boss) {
-                    app.getCurrentGame().getStatistics().setBossDefeated(true);
+                    app.getCurrentGame().getStatistic().setBossDefeated(true);
                 } else if (enemy instanceof Enemy) {
-                    app.getCurrentGame().getStatistics().addAEnemyKill();
+                    app.getCurrentGame().getStatistic().addAEnemyKill();
                 }
 
                 // On affiche le menu de butin

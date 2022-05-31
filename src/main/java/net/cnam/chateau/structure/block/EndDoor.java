@@ -28,7 +28,7 @@ public class EndDoor extends Block implements BlockListener {
      */
     @Override
     public String getCharacter() {
-        return CColor.BRIGHT_YELLOW + " " + CColor.BRIGHT_YELLOW.getForegroundReset();
+        return CColor.BRIGHT_YELLOW.getBackground() + " " + CColor.BRIGHT_YELLOW.getBackgroundReset();
     }
 
     @Override
