@@ -88,6 +88,7 @@ public class Game extends CFrame implements DisplayableComponent {
         this.statistic = new Statistic(seed, playerName);
     }
 
+    // TODO Corriger les puzzles
     private void initPuzzles() {
         ArrayList<Couple<String, Boolean>> answersInit = new ArrayList<>();
         answersInit.add(new Couple<>("Ronde", true));
@@ -155,7 +156,7 @@ public class Game extends CFrame implements DisplayableComponent {
         puzzles.add(new Puzzle("1+2(4)", answersInit));
 
         answersInit = new ArrayList<>();
-        answersInit.add(new Couple<>("Ismail/Melvin/Célian", true));
+        answersInit.add(new Couple<>("Ismail/Célian/Melvin", true));
         answersInit.add(new Couple<>("Melvin/Célian/Ismail", false));
         answersInit.add(new Couple<>("Célian/Melvin/Ismail", false));
         puzzles.add(new Puzzle("Dans quel ordre sont parties les candidats de Cnam-Lanta", answersInit));
