@@ -43,7 +43,7 @@ public class EntityStats extends CPanel {
         hpBar.getProgressedColors().add(CColor.RED);
         hpBar.getUnprogressedColors().add(CColor.BRIGHT_BLACK);
 
-        // Head
+        // Head (nom + barre de vie)
         this.head = new CPanel(0, 2, Orientation.VERTICAL, false);
         head.getComponents().add(name);
         head.getComponents().add(hpBar);
@@ -53,8 +53,11 @@ public class EntityStats extends CPanel {
 
         if (!(entity instanceof Pet)) {
             // Arme
-            CLabel weaponLabel = new CLabel(HorizontalAlignment.RIGHT, "Arme", 5);
+            CLabel weaponLabel = new CLabel(HorizontalAlignment.RIGHT, "Arme");
             weaponLabel.getColors().add(CColor.BOLD);
+            if (orientation == Orientation.HORIZONTAL) {
+                weaponLabel.setLength(5);
+            }
 
             // Nom de l'arme
             if (entity.hasWeapon()) {
@@ -83,8 +86,11 @@ public class EntityStats extends CPanel {
 
         if (entity instanceof Player) {
             // Objet
-            CLabel itemLabel = new CLabel(HorizontalAlignment.RIGHT, "Objet", 5);
+            CLabel itemLabel = new CLabel(HorizontalAlignment.RIGHT, "Objet");
             itemLabel.getColors().add(CColor.BOLD);
+            if (orientation == Orientation.HORIZONTAL) {
+                itemLabel.setLength(5);
+            }
 
             // Nom de l'objet
             if (entity.hasItem()) {
