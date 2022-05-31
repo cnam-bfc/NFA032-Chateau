@@ -70,15 +70,9 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
             int toFill = finalLength - hintText.length();
             hintText = "" + CColor.BRIGHT_BLACK + CColor.ITALIC + hintText + CColor.ITALIC.getForegroundReset() + CColor.BRIGHT_BLACK.getForegroundReset();
             switch (this.getHorizontalAlignment()) {
-                case LEFT -> {
-                    line = hintText + " ".repeat(toFill);
-                }
-                case CENTER -> {
-                    line = " ".repeat(toFill / 2) + hintText + " ".repeat(toFill / 2 + toFill % 2);
-                }
-                case RIGHT -> {
-                    line = " ".repeat(toFill) + hintText;
-                }
+                case LEFT -> line = hintText + " ".repeat(toFill);
+                case CENTER -> line = " ".repeat(toFill / 2) + hintText + " ".repeat(toFill / 2 + toFill % 2);
+                case RIGHT -> line = " ".repeat(toFill) + hintText;
             }
         } else if (text.length() > finalLength) {
             if (pointerIndex > finalLength) {
@@ -89,9 +83,7 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
             }
         } else if (text.length() < finalLength) {
             switch (this.getHorizontalAlignment()) {
-                case LEFT -> {
-                    line = text + " ".repeat(finalLength - text.length());
-                }
+                case LEFT -> line = text + " ".repeat(finalLength - text.length());
                 case CENTER -> {
                     int padding = (finalLength - text.length()) / 2;
                     line = " ".repeat(padding) + text + " ".repeat(padding + (finalLength - text.length()) % 2);
@@ -131,7 +123,7 @@ public class CTextField extends CComponent implements SelectableComponent, KeyLi
         int key = event.getKey();
 
         try {
-            Direction direction = DirectionUtils.parseDirection(key);
+            Direction direction = DirectionUtils.parseDirection(key, false);
             switch (direction) {
                 case LEFT -> {
                     if (pointer > 0) {

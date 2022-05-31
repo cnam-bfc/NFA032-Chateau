@@ -19,7 +19,7 @@ public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
         this.settings = settings;
 
         CLabel instructions_1 = new CLabel(new String[]{"Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran",
-                "Pour cela vous pouvez utiliser les flèches directionnelles"});
+                "Pour cela vous pouvez utiliser les flèches directionnelles ou les touches zqsd"});
         CLabel instructions_2 = new CLabel("Appuyez sur \"Entrée\" pour valider");
 
         this.getContentPane().getComponents().add(instructions_1);
@@ -39,22 +39,14 @@ public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
         }
 
         try {
-            Direction direction = DirectionUtils.parseDirection(key);
+            Direction direction = DirectionUtils.parseDirection(key, true);
             switch (direction) {
-                case LEFT -> {
-                    settings.setConsoleLength(settings.getConsoleLength() - 1);
-                }
-                case RIGHT -> {
-                    settings.setConsoleLength(settings.getConsoleLength() + 1);
-                }
-                case TOP -> {
-                    settings.setConsoleHeight(settings.getConsoleHeight() - 1);
-                }
-                case BOTTOM -> {
-                    settings.setConsoleHeight(settings.getConsoleHeight() + 1);
-                }
+                case LEFT -> settings.setConsoleLength(settings.getConsoleLength() - 1);
+                case RIGHT -> settings.setConsoleLength(settings.getConsoleLength() + 1);
+                case TOP -> settings.setConsoleHeight(settings.getConsoleHeight() - 1);
+                case BOTTOM -> settings.setConsoleHeight(settings.getConsoleHeight() + 1);
             }
-        } catch (DirectionNotFoundException ex) {
+        } catch (DirectionNotFoundException ignored) {
         }
     }
 

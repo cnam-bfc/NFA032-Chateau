@@ -25,7 +25,7 @@ public class CSlider extends CProgressBar implements SelectableComponent, KeyLis
         }
 
         try {
-            Direction direction = DirectionUtils.parseDirection(event.getKey());
+            Direction direction = DirectionUtils.parseDirection(event.getKey(), false);
             int value = getValue();
             switch (direction) {
                 case LEFT -> {

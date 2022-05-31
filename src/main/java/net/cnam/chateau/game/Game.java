@@ -175,7 +175,7 @@ public class Game extends CFrame implements DisplayableComponent {
 
         // On déplace le joueur vers la direction souhaitée
         try {
-            Direction direction = DirectionUtils.parseDirection(event.getKey());
+            Direction direction = DirectionUtils.parseDirection(event.getKey(), true);
             int x = player.getLocation().getX();
             int y = player.getLocation().getY();
             switch (direction) {
