@@ -19,7 +19,7 @@ public class BossMartinez extends Boss {
      * @param location Coordonnées où il se situe
      */
     public BossMartinez(App app, Stage stage, Location location) {
-        super(app, stage, location, "Martinez", 100, 100, 100, 100, 100, CHARACTER);
+        super(app, stage, location, "Martinez", 100, 100, 25, 75, 50, CHARACTER);
 
         this.setWeapon(new Weapon("Livre : \"Java pour les nuls\"", "L'arme divine pour apprendre à coder", 10, 10, 10));
 
