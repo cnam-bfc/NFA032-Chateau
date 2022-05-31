@@ -232,7 +232,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                         try {
                             player.getPet().damage(enemyStrength);
                         } catch (EntityDeadException ex) {
-                            logs.add(enemy.getName() + " a tué " + player.getPet().getName() + ".");
+                            logs.add(enemy.getName() + " a tué " + ex.getEntity().getName() + ".");
                         }
                     }
                 } else {
@@ -275,7 +275,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                         try {
                             player.getPet().damage(enemyStrength);
                         } catch (EntityDeadException ex) {
-                            logs.add(enemy.getName() + " a tué " + player.getPet().getName() + ".");
+                            logs.add(enemy.getName() + " a tué " + ex.getEntity().getName() + ".");
                         }
                     }
                 } else {
@@ -301,7 +301,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                     try {
                         player.getPet().damage(enemyStrength);
                     } catch (EntityDeadException ex) {
-                        logs.add(enemy.getName() + " a tué " + player.getPet().getName() + ".");
+                        logs.add(enemy.getName() + " a tué " + ex.getEntity().getName() + ".");
                     }
                 }
             } else {
@@ -396,7 +396,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                         try {
                             player.getPet().damage(enemyStrength);
                         } catch (EntityDeadException ex) {
-                            logs.add(enemy.getName() + " a tué " + player.getPet().getName() + ".");
+                            logs.add(enemy.getName() + " a tué " + ex.getEntity().getName() + ".");
                         }
                     }
                 } else {
@@ -417,7 +417,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                         try {
                             player.getPet().damage(enemyStrength);
                         } catch (EntityDeadException ex) {
-                            logs.add(enemy.getName() + " a tué " + player.getPet().getName() + ".");
+                            logs.add(enemy.getName() + " a tué " + ex.getEntity().getName() + ".");
                         }
                     }
                 } else {
