@@ -7,16 +7,15 @@ import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.gui.CColor;
 
-public class EndDoor extends Block implements BlockListener {
-
-    private App app;
+public class Exit extends Block implements BlockListener {
+    private final App app;
 
     /**
      * Constructeur
      *
      * @param app L'application
      */
-    public EndDoor(App app) {
+    public Exit(App app) {
         this.app = app;
     }
 
@@ -40,6 +39,5 @@ public class EndDoor extends Block implements BlockListener {
 
     @Override
     public void onEntityLeaveBlock(EntityLeaveBlockEvent event) {
-
     }
 }

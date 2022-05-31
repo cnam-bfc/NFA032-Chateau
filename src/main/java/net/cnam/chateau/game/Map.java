@@ -8,6 +8,7 @@ import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.structure.block.Block;
+import net.cnam.chateau.structure.block.Exit;
 import net.cnam.chateau.structure.block.Wall;
 import net.cnam.chateau.utils.Location;
 
@@ -33,7 +34,7 @@ public class Map extends CComponent {
         Location playerLocation = player.getLocation();
         Stage playerStage = player.getStage();
 
-        // On reset l'origine du rendu de la map si le joueur à changé d'étage pour éviter que la map soit trop décalé à gauche
+        // On reset l'origine du rendu de la map si le joueur a changé d'étage pour éviter que la map soit trop décalé à gauche
         if (previousRenderedStage != playerStage) {
             this.origin = new Location(0, 0);
             previousRenderedStage = playerStage;
@@ -85,7 +86,7 @@ public class Map extends CComponent {
             }
         }
 
-        // Lignes de la console - lignes de texte au millieu
+        // Lignes de la console - lignes de texte au milieu
         int paddingHeight = this.getHeight() - playerStage.getHeight();
         for (int i = 0; i < paddingHeight / 2; i++) {
             result[linePointer++] = emptyLine;
@@ -94,6 +95,7 @@ public class Map extends CComponent {
         // Colonnes de la console - colonnes de texte au milieu
         int paddingLength = this.getLength() - playerStage.getLength() * 2 - 1;
 
+        // Rendu de la carte à proprement dit
         for (int y = origin.getY(); y < playerStage.getHeight(); y++) {
             StringBuilder line = new StringBuilder();
             int lineLength = 0;
@@ -112,15 +114,16 @@ public class Map extends CComponent {
                 try {
                     Block block = playerStage.getBlock(x, y);
                     Entity entity = playerStage.getEntity(x, y);
-                    // Si la location n'a pas été visité par le joueur on l'affiche pas
+                    // Si la location n'a pas été visité par le joueur, on l'affiche pas
                     Room[] rooms = playerStage.getRooms(x, y);
-                    boolean clear = true;
+                    boolean roomInvisible = true;
                     for (Room room : rooms) {
                         if (room.isVisible()) {
-                            clear = false;
+                            roomInvisible = false;
+                            break;
                         }
                     }
-                    if (clear) {
+                    if (roomInvisible) {
                         block = new Wall();
                         entity = null;
                     }
@@ -129,6 +132,10 @@ public class Map extends CComponent {
                             line.append(wall.getCharacter());
                         } else if (playerStage.getBlock(x - 1, y) instanceof Wall wall) {
                             line.append(wall.getCharacter());
+                        } else if (block instanceof Exit exit) {
+                            line.append(exit.getCharacter());
+                        } else if (playerStage.getBlock(x - 1, y) instanceof Exit exit) {
+                            line.append(exit.getCharacter());
                         } else {
                             line.append(' ');
                         }
@@ -154,7 +161,7 @@ public class Map extends CComponent {
             }
         }
 
-        // Bourage à la fin
+        // Bourrage à la fin
         for (; linePointer < result.length; linePointer++) {
             result[linePointer] = emptyLine;
         }

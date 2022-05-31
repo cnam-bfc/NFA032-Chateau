@@ -3,7 +3,7 @@ package net.cnam.chateau.structure;
 import net.cnam.chateau.App;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.DownStair;
-import net.cnam.chateau.structure.block.EndDoor;
+import net.cnam.chateau.structure.block.Exit;
 import net.cnam.chateau.structure.block.Wall;
 import net.cnam.chateau.utils.Location;
 
@@ -88,12 +88,12 @@ public class RoomBoss extends Room {
     public void openBossRoom(App app){
         this.blocks[5][2] = null;
         this.blocks[5][1] = null;
-        this.blocks[5][0] = new EndDoor(app);
+        this.blocks[5][0] = new Exit(app);
         this.blocks[6][2] = null;
         this.blocks[6][1] = null;
-        this.blocks[6][0] = new EndDoor(app);
+        this.blocks[6][0] = new Exit(app);
         this.blocks[7][2] = null;
         this.blocks[7][1] = null;
-        this.blocks[7][0] = new EndDoor(app);
+        this.blocks[7][0] = new Exit(app);
     }
 }
