@@ -610,7 +610,7 @@ public class Generator {
 
     public Enemy getRandomisedEnemy(Stage stage, Location location) {
         Enemy entity = null;
-        switch (random.nextInt(0, 8)) {
+        switch (random.nextInt(0, 7)) {
             case 0 -> {
                 entity = new Demogorgon(app, stage, location, random);
                 entity.setItem(getItem());
@@ -634,7 +634,7 @@ public class Generator {
                 entity = new Werewolf(app, stage, location, random);
                 entity.setItem(getItem());
             }
-            case 7 -> entity = new Zombie(app, stage, location, random);
+            case 6 -> entity = new Zombie(app, stage, location, random);
         }
         return entity;
     }
