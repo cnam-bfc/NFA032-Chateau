@@ -16,6 +16,7 @@ import net.cnam.chateau.gui.escape.menu.EscapeMenu;
 import net.cnam.chateau.gui.play.fight.EntityStats;
 import net.cnam.chateau.structure.Castle;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
+import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Couple;
 import net.cnam.chateau.utils.Location;
@@ -84,7 +85,7 @@ public class Game extends CFrame implements DisplayableComponent {
                  IllegalArgumentException ignored) {
         }
 
-        this.statistics = new Statistics(seed, playerName);
+        this.statistic = new Statistic(seed, playerName);
     }
 
     private void initPuzzles() {
@@ -218,6 +219,24 @@ public class Game extends CFrame implements DisplayableComponent {
     }
 
     public void stop() {
+
+        // TODO voir si ça reste ici
+        int nbRoomsVisited = 0;
+        int nbRoomsCastle = 0;
+        Stage[] stages = this.castle.getStages();
+        for (int i = 0 ; i < stages.length ; i++){
+            Room[] rooms = stages[i].getRooms();
+            for (int y = 0 ; y < rooms.length ; y++){
+                nbRoomsCastle +=1;
+                if (rooms[i].isVisible()){
+                    nbRoomsVisited +=1;
+                }
+            }
+        }
+        statistic.setNbRoomsVisited(nbRoomsVisited);
+        statistic.setNbRoomsCastle(nbRoomsCastle);
+        statistic.calculScore();
+
         display = false;
         if (audioPlayer != null) {
             audioPlayer.stop();
@@ -280,7 +299,7 @@ public class Game extends CFrame implements DisplayableComponent {
         return puzzles.remove(new Random().nextInt(0, puzzles.size()));
     }
 
-    public Statistics getStatistics() {
-        return statistics;
+    public Statistic getStatistics() {
+        return statistic;
     }
 }
