@@ -8,6 +8,7 @@ import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class EntityStats extends CPanel {
+    private Orientation renderOrientation;
     private final Entity entity;
     private final CPanel head;
     private final CLabel name;
@@ -20,6 +21,7 @@ public class EntityStats extends CPanel {
     public EntityStats(Entity entity, Orientation orientation) {
         super(0, 0, Orientation.VERTICAL, false);
 
+        this.renderOrientation = orientation;
         this.entity = entity;
 
         int emptySpace = 0;
@@ -109,12 +111,14 @@ public class EntityStats extends CPanel {
             emptySpace++;
         }
 
-        if (weaponName != null && weaponName.getLength() < objectMaxLength) {
-            weaponName.setLength(objectMaxLength);
-        }
+        if (orientation == Orientation.HORIZONTAL) {
+            if (weaponName != null && weaponName.getLength() < objectMaxLength) {
+                weaponName.setLength(objectMaxLength);
+            }
 
-        if (itemName != null && itemName.getLength() < objectMaxLength) {
-            itemName.setLength(objectMaxLength);
+            if (itemName != null && itemName.getLength() < objectMaxLength) {
+                itemName.setLength(objectMaxLength);
+            }
         }
 
         for (int i = 0; i < emptySpace; i++) {
@@ -166,11 +170,11 @@ public class EntityStats extends CPanel {
             }
         }
 
-        if (weaponName != null && weaponName.getLength() < objectMaxLength) {
+        if (weaponName != null && renderOrientation == Orientation.HORIZONTAL && weaponName.getLength() < objectMaxLength) {
             weaponName.setLength(objectMaxLength);
         }
 
-        if (itemName != null && itemName.getLength() < objectMaxLength) {
+        if (itemName != null && renderOrientation == Orientation.HORIZONTAL && itemName.getLength() < objectMaxLength) {
             itemName.setLength(objectMaxLength);
         }
 
@@ -202,5 +206,15 @@ public class EntityStats extends CPanel {
         if (item != null) {
             item.autoResize();
         }
+    }
+
+    @Override
+    public Orientation getRenderingOrientation() {
+        return renderOrientation;
+    }
+
+    @Override
+    public void setRenderingOrientation(Orientation renderOrientation) {
+        this.renderOrientation = renderOrientation;
     }
 }
