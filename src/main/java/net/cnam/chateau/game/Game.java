@@ -40,6 +40,8 @@ public class Game extends CFrame implements DisplayableComponent {
     private final Map map;
     private final Player player;
     private final EntityStats playerStats;
+    private final CPanel otherInfos;
+    private final String infos;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
     private final Statistic statistic;
@@ -73,6 +75,13 @@ public class Game extends CFrame implements DisplayableComponent {
         this.playerStats = new EntityStats(player, Orientation.HORIZONTAL);
         playerStats.setHeight(4);
         footer.getComponents().add(playerStats);
+
+        this.otherInfos = new CPanel(0, 4, Orientation.VERTICAL, false);
+        this.infos = "Échap - Menu de pause";
+        CLabel otherInfosLabel = new CLabel(infos);
+        this.otherInfos.getComponents().add(new CLabel(""));
+        this.otherInfos.getComponents().add(otherInfosLabel);
+        footer.getComponents().add(otherInfos);
 
         this.setFooter(footer);
 
@@ -253,12 +262,19 @@ public class Game extends CFrame implements DisplayableComponent {
         this.playerStats.setLength(length / 2);
         this.getFooter().getComponents().add(this.playerStats);
 
+        this.otherInfos.getComponents().clear();
         if (this.player.hasPet()) {
             EntityStats petStats = new EntityStats(this.player.getPet(), Orientation.VERTICAL);
             petStats.setHeight(2);
             petStats.setLength(length / 2);
-            this.getFooter().getComponents().add(petStats);
+            this.otherInfos.getComponents().add(petStats);
+        } else {
+            this.otherInfos.getComponents().add(new CLabel(""));
         }
+
+        this.otherInfos.getComponents().add(new CLabel(infos, length / 2));
+        this.otherInfos.setLength(length / 2);
+        this.getFooter().getComponents().add(this.otherInfos);
 
         return super.render();
     }
