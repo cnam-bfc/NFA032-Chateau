@@ -59,6 +59,7 @@ public class OkButton extends CButton {
         app.setCurrentGame(null);
         if (audioPlayer != null) {
             try {
+                audioPlayer.setVolume(app.getSettings().getMusicVolume());
                 audioPlayer.restart();
             } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ignored) {
             }
