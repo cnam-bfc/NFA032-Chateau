@@ -13,8 +13,8 @@
 #//  Modified: 29, September, 2021                           //
 #//  file: -                                                 //
 #//  -                                                       //
-#//  Source: https://gist.github.com/rafi/365926                                               //
-#//          https://superuser.com/a/1296511/1057976
+#//  Source: https://gist.github.com/rafi/365926             //
+#//          https://superuser.com/a/1296511/1057976         //
 #//  OS: ALL                                                 //
 #//  CPU: ALL                                                //
 #//                                                          //
