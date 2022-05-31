@@ -11,6 +11,7 @@ import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.gui.escape.menu.EscapeMenu;
 import net.cnam.chateau.gui.play.fight.EntityStats;
 import net.cnam.chateau.structure.Castle;
@@ -40,7 +41,7 @@ public class Game extends CFrame implements DisplayableComponent {
     private final EntityStats playerStats;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
-    private Statistics statistics;
+    private final Statistics statistics;
 
     public Game(App app, long seed, String playerName) {
         super(0, 0);
@@ -189,6 +190,25 @@ public class Game extends CFrame implements DisplayableComponent {
 
     @Override
     public boolean isInLoopingMode() {
+        // Si le joueur est mort, on arrête le jeu
+        if (player.isDead()) {
+            stop();
+
+            SimpleAudioPlayer deathAudioPlayer = null;
+            try {
+                deathAudioPlayer = app.createAudioPlayer(Music.DEATH);
+                deathAudioPlayer.setVolume(app.getSettings().getMusicVolume());
+                deathAudioPlayer.setLoop(true);
+                deathAudioPlayer.play();
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
+                     IllegalArgumentException ignored) {
+            }
+            app.getConsole().show(new InfoDialog(InfoDialog.Type.DEAD, "GAME OVER"));
+            if (deathAudioPlayer != null) {
+                deathAudioPlayer.stop();
+            }
+        }
+
         return display;
     }
 
@@ -198,10 +218,6 @@ public class Game extends CFrame implements DisplayableComponent {
     }
 
     public void stop() {
-
-        // TODO voir si ça reste ici
-        
-
         display = false;
         if (audioPlayer != null) {
             audioPlayer.stop();

@@ -9,7 +9,6 @@ import net.cnam.chateau.utils.direction.Orientation;
 
 public class EntityStats extends CPanel {
     private final Entity entity;
-    private final boolean autoUpdate;
     private final CPanel head;
     private final CLabel name;
     private final CProgressBar hpBar;
@@ -19,14 +18,9 @@ public class EntityStats extends CPanel {
     private CLabel itemName;
 
     public EntityStats(Entity entity, Orientation orientation) {
-        this(entity, orientation, true);
-    }
-
-    public EntityStats(Entity entity, Orientation orientation, boolean autoUpdate) {
         super(0, 0, Orientation.VERTICAL, false);
 
         this.entity = entity;
-        this.autoUpdate = autoUpdate;
 
         int emptySpace = 0;
 
@@ -191,9 +185,7 @@ public class EntityStats extends CPanel {
 
     @Override
     public String[] render() {
-        if (autoUpdate) {
-            update();
-        }
+        update();
 
         return super.render();
     }
@@ -210,9 +202,5 @@ public class EntityStats extends CPanel {
         if (item != null) {
             item.autoResize();
         }
-    }
-
-    public CProgressBar getHpBar() {
-        return hpBar;
     }
 }

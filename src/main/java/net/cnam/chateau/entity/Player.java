@@ -1,10 +1,8 @@
 package net.cnam.chateau.entity;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.item.Key;
 import net.cnam.chateau.item.consumable.HealPotion;
 import net.cnam.chateau.item.weapon.Weapon;
@@ -12,10 +10,7 @@ import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
-import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,10 +19,8 @@ import java.util.Random;
  * Classe d'un joueur
  */
 public class Player extends Entity {
-    private final App app;
-
+    private final List<Key> keys = new ArrayList<>();
     private Pet pet;
-    private List<Key> keys = new ArrayList<>( );
 
     /**
      * Constructeur
@@ -40,9 +33,8 @@ public class Player extends Entity {
     public Player(App app, Stage stage, Location location, String name) {
         super(app, stage, location, name, 100, 50, 10, 10, 10);
 
-        this.app = app;
         this.setItem(new HealPotion(new Random())); // TODO à delete
-        this.setWeapon(new Weapon("Eppenis", "l'epee nis", 10,10,10)); // TODO à delete
+        this.setWeapon(new Weapon("Eppenis", "l'épée nis", 10, 10, 10)); // TODO à delete
 
         this.setRenderPriority(0);
     }
@@ -50,10 +42,10 @@ public class Player extends Entity {
     /**
      * Redéfinition de la méthode pour téléporter une entité.
      * Permet de téléporter le joueur dans un étage à des coordonnées précise.
-     * 
-     * @param stage Etage de la téléportation
+     *
+     * @param stage    Etage de la téléportation
      * @param location Coordonnées de la téléportation
-     * @throws CoordinatesOutOfBoundsException Exception levée si l'entité veut être téléporté hors de l'étage
+     * @throws CoordinatesOutOfBoundsException  Exception levée si l'entité veut être téléporté hors de l'étage
      * @throws EntityAlreadyTeleportedException Exception levée si l'entité a déjà été téléporté
      */
     @Override
@@ -75,31 +67,6 @@ public class Player extends Entity {
         // Si le joueur à un pet, on le téléporte aussi
         if (this.hasPet() && this.getPet().isFollowingPlayer()) {
             this.getPet().teleport(stage, oldPlayerLocation);
-        }
-    }
-
-    /**
-     * Redéfinition de la méthode permettant de tuer une entité.
-     * Ici on gère la mort du joueur afin de mettre fin à la partie
-     */
-    @Override
-    public void kill() {
-        super.kill();
-
-        app.getCurrentGame().stop();
-
-        SimpleAudioPlayer audioPlayer = null;
-        try {
-            audioPlayer = app.createAudioPlayer(Music.DEATH);
-            audioPlayer.setVolume(app.getSettings().getMusicVolume());
-            audioPlayer.setLoop(true);
-            audioPlayer.play();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
-                 IllegalArgumentException ignored) {
-        }
-        app.getConsole().show(new InfoDialog(InfoDialog.Type.DEAD, "GAME OVER"));
-        if (audioPlayer != null) {
-            audioPlayer.stop();
         }
     }
 
@@ -142,7 +109,7 @@ public class Player extends Entity {
 
     /**
      * Getter permettant de récupérer la clé que possède le joueur.
-     * 
+     *
      * @return la Clé que le joueur possède
      */
     public List<Key> getlistKey() {
@@ -151,7 +118,7 @@ public class Player extends Entity {
 
     /**
      * Setter permettant de définir la clé que possède le joueur.
-     * 
+     *
      * @param key Clé
      */
     public void addKey(Key key) {
@@ -164,10 +131,10 @@ public class Player extends Entity {
 
     /**
      * Méthode permettant de vérifier si le joueur à une clé.
-     * 
+     *
      * @return true si le joueur possède une clé, sinon false
      */
-    public boolean hasKey(Key key){
+    public boolean hasKey(Key key) {
         return this.keys.contains(key);
     }
 }
