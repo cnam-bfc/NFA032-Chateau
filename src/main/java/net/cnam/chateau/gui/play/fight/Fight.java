@@ -148,13 +148,14 @@ public class Fight extends CFrame implements DisplayableComponent {
     public void attack() {
         List<String> logs = new LinkedList<>();
 
+        // Les entités s'attaquent
         if (player.hasPet()) {
             attackWithPet(logs);
         } else {
             attackWithoutPet(logs);
         }
 
-        // On affiche les logs
+        // On affiche les logs du combat
         this.logs.setHeight(logs.size());
         StringBuilder text = new StringBuilder();
         for (String log : logs) {
@@ -163,22 +164,28 @@ public class Fight extends CFrame implements DisplayableComponent {
         this.logs.setText(text.toString().replaceFirst("\n", ""));
         this.setHeight(this.getHeight());
 
+        // On actualise les stats
         playerStats.update();
         enemyStats.update();
         if (petStats != null) {
             petStats.update();
         }
 
+        // On vérifie si le combat est terminé
         if (player.isDead() || enemy.isDead()) {
             over = true;
             display = false;
-            // On affiche le menu de butin
+
+            // Si l'ennemi est mort
             if (enemy.isDead()) {
+                // On actualise les stats du joueur
                 if (enemy instanceof Boss) {
                     app.getCurrentGame().getStatistics().setBossDefeated(true);
                 } else if (enemy instanceof Enemy) {
                     app.getCurrentGame().getStatistics().addAEnemyKill();
                 }
+
+                // On affiche le menu de butin
                 if (enemy.hasWeapon() || enemy.hasItem()) {
                     menu.getComponents().clear();
                     menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour le pilier..."));
@@ -188,6 +195,8 @@ public class Fight extends CFrame implements DisplayableComponent {
                     enemyStats.update();
                 }
             }
+
+            // Quitter le combat
             menu.getComponents().clear();
             menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
             app.getConsole().show(this);
@@ -334,6 +343,7 @@ public class Fight extends CFrame implements DisplayableComponent {
             } else {
                 logs.add(attacker.getName() + " a infligé " + attacker.getStrength() + " dégâts à " + attacked.getName() + ".");
             }
+
             try {
                 attacked.damage(attacker.getStrength());
             } catch (EntityDeadException e) {
@@ -357,7 +367,6 @@ public class Fight extends CFrame implements DisplayableComponent {
     }
 
     private boolean canAttack(Entity entity) {
-        int Accuracy = entity.getAccuracy();
-        return random.nextInt(0, ACCURACY) < Accuracy;
+        return random.nextInt(0, ACCURACY) < entity.getAccuracy();
     }
 }
