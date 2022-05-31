@@ -2,7 +2,7 @@ package net.cnam.chateau.entity.enemy.boss;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.enemy.Enemy;
-import net.cnam.chateau.gui.Console;
+import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.structure.RoomBoss;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
@@ -10,10 +10,9 @@ import net.cnam.chateau.utils.Location;
 import java.util.List;
 
 public abstract class Boss extends Enemy {
-
+    private final App app;
+    private final String character;
     private List<String> dialogue;
-    private Stage stage;
-    private App app;
 
     /**
      * Constructeur
@@ -27,13 +26,14 @@ public abstract class Boss extends Enemy {
      * @param strength   La force
      * @param accuracy   La précision
      * @param speed      La rapidité
+     * @param character  Le caractère d'affichage
      */
     public Boss(App app, Stage stage, Location location, String name, int health, int resistance, int strength,
-                int accuracy, int speed) {
-        super(app, stage, location, name, health, resistance, strength, accuracy, speed);
+                int accuracy, int speed, String character) {
+        super(app, stage, location, name, health, resistance, strength, accuracy, speed, "");
 
-        this.stage = stage;
         this.app = app;
+        this.character = character;
     }
 
     public List<String> getDialogue() {
@@ -50,5 +50,15 @@ public abstract class Boss extends Enemy {
         if (this.getStage().getRooms()[0] instanceof RoomBoss roomBoss) {
             roomBoss.openBossRoom(app);
         }
+    }
+
+    /**
+     * Redéfinition de la méthode permettant d'afficher l'entité sur la carte.
+     *
+     * @return Le caractère représentant l'entité
+     */
+    @Override
+    public String getCharacter() {
+        return CColor.RED + this.character + CColor.RED.getForegroundReset();
     }
 }

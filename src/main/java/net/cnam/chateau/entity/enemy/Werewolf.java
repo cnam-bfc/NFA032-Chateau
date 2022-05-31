@@ -7,6 +7,7 @@ import net.cnam.chateau.utils.Location;
 import java.util.Random;
 
 public class Werewolf extends Enemy {
+    private static final String CHARACTER = "W";
     private static final int MIN_HEALTH = 20;
     private static final int MAX_HEALTH = 40;
     private static final int MIN_RESISTANCE = 2;
@@ -20,11 +21,11 @@ public class Werewolf extends Enemy {
 
     /**
      * Constructeur du Loup-Garou pour faire une entité avec des stats aléatoire.
-     * 
-     * @param app       L'application
-     * @param stage     L'étage où il se situe
-     * @param location  Les coordonnées où il se situe
-     * @param random    Le random permettant de générer l'aléatoire
+     *
+     * @param app      L'application
+     * @param stage    L'étage où il se situe
+     * @param location Les coordonnées où il se situe
+     * @param random   Le random permettant de générer l'aléatoire
      */
     public Werewolf(App app, Stage stage, Location location, Random random) {
         super(app, stage, location, "Loup-garou",
@@ -32,34 +33,25 @@ public class Werewolf extends Enemy {
                 random.nextInt(MIN_RESISTANCE, MAX_RESISTANCE),
                 random.nextInt(MIN_STRENGTH, MAX_STRENGTH),
                 random.nextInt(MIN_ACCURACY, MAX_ACCURACY),
-                random.nextInt(MIN_SPEED, MAX_SPEED));
+                random.nextInt(MIN_SPEED, MAX_SPEED),
+                CHARACTER);
     }
 
     /**
-     * Constructeur du Loup-Garou pour le générer de façon personnalisé
+     * Constructeur du Loup-Garou pour le générer de façon personnalisée
      *
-     * @param app           L'application
-     * @param stage         L'étage où il se situe
-     * @param location      Les coordonnées où il se situe
-     * @param name          Le nom
-     * @param health        La vie
-     * @param resistance    La résistance
-     * @param strength      La force
-     * @param accuracy      La précision
-     * @param speed         La rapidité
+     * @param app        L'application
+     * @param stage      L'étage où il se situe
+     * @param location   Les coordonnées où il se situe
+     * @param name       Le nom
+     * @param health     La vie
+     * @param resistance La résistance
+     * @param strength   La force
+     * @param accuracy   La précision
+     * @param speed      La rapidité
      */
     public Werewolf(App app, Stage stage, Location location, String name, int health, int resistance,
                     int strength, int accuracy, int speed) {
-        super(app, stage, location, name, health, resistance, strength, accuracy, speed);
-    }
-
-    /**
-     * Redéfinition de la méthode permettant d'afficher l'entité sur la carte.
-     * 
-     * @return un String "W"
-     */
-    @Override
-    public String getCharacter() {
-        return "W";
+        super(app, stage, location, name, health, resistance, strength, accuracy, speed, CHARACTER);
     }
 }

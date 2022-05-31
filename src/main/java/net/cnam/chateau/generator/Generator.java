@@ -31,9 +31,6 @@ import net.cnam.chateau.utils.array.ArrayUtils;
 
 import java.util.*;
 
-import static net.cnam.chateau.generator.GUtils.findPosition;
-import static net.cnam.chateau.generator.GUtils.triTopo;
-
 /**
  * Classe pour la génération de la map
  */
@@ -49,6 +46,8 @@ public class Generator {
     private static final int POURCENT_DIVIDE = 10; //ajusteur pour savoir si une pièce se re divise dans la deuxième phase de division
     private static final int MIN_BLOCKS = 1; // nombre de bloc décoratifs minimum par pièce
     private static final int MAX_BLOCKS = 3; // nombre de bloc maximum par pièce
+    private static final int MIN_ENEMIES_STAGE = 1; // nombre d'ennemis minimum par étage
+    private static final int MAX_ENEMIES_STAGE = 3; // nombre d'ennemis maximum par étage
     private static final int LUCK_BLOCK = 80; // chance d'avoir un blocks rare dans la pièce
     private static final int LUCK_SPECIAL_ENNEMY = 80; // entier à dépasser sur un random entre 1 et 100
 
@@ -152,7 +151,7 @@ public class Generator {
 
             // On place les sorties
             // Si c'est l'étage 1 : on met juste une sortie
-            UpStair exitStair = triTopo(app, firstRoom, gRooms, random);
+            UpStair exitStair = GUtils.triTopo(app, firstRoom, gRooms, random);
 
             //ajoute l'escalier du bas en haut
             if (i < stages.length - 1) {
@@ -183,7 +182,7 @@ public class Generator {
                 }
 
                 // On regarde ou on peut placer l'escalier d'entrée de l'étage et on récupère les coordoonnées
-                Location location = findPosition(this.random, firstRoom);
+                Location location = GUtils.findPosition(this.random, firstRoom);
                 int x = location.getX();
                 int y = location.getY();
 
@@ -264,7 +263,20 @@ public class Generator {
             }
         }
         rooms = verifyRoomSize(rooms);
-        return new Stage(rooms, stageLength, stageHeight);
+
+        Stage stage = new Stage(rooms, stageLength, stageHeight);
+
+        int nbEntities = this.random.nextInt(MIN_ENEMIES_STAGE, MAX_ENEMIES_STAGE + 1);
+        // On génère les entités
+        for (int i = 0; i < nbEntities; i++) {
+            Room room = stage.getRooms()[this.random.nextInt(stage.getRooms().length)];
+            Location emptyLocation = GUtils.findPosition(random, room);
+            Location enemyLocation = new Location(room.getLocation().getX() + emptyLocation.getX(), room.getLocation().getY() + emptyLocation.getY());
+            Enemy enemy = getRandomisedEnemy(stage, enemyLocation);
+            stage.getEntities().add(enemy);
+        }
+
+        return stage;
     }
 
     /**
@@ -400,7 +412,7 @@ public class Generator {
         int numberBlocks = random.nextInt(MIN_BLOCKS, MAX_BLOCKS + 1);
         // On ajoute dans la pièce le nombre de blocs défini au-dessus
         for (int i = 0; i < numberBlocks; i++) {
-            Location location = findPosition(this.random, room);
+            Location location = GUtils.findPosition(this.random, room);
             room.getBlocks()[location.getX()][location.getY()] = pickRandomBlock();
         }
     }
@@ -412,7 +424,7 @@ public class Generator {
      * @return La location dans l'étage
      */
     public Location getDefaultPlayerLocation(Room room) {
-        Location location = findPosition(this.random, room);
+        Location location = GUtils.findPosition(this.random, room);
         return new Location(room.getLocation().getX() + location.getX(), room.getLocation().getY() + location.getY());
     }
 
@@ -529,7 +541,7 @@ public class Generator {
             switch (random.nextInt(1, 6)) {
                 case 1 -> {
                     Chest chest = new Chest(app);
-                    if (random.nextInt(0,4) < 3 ){
+                    if (random.nextInt(0, 4) < 3) {
                         chest.setHiddenItem(getItem());
                     } else {
                         chest.setHiddenItem(getWeapon());
@@ -538,7 +550,7 @@ public class Generator {
                 }
                 case 2 -> {
                     Wardrobe wardrobe = new Wardrobe(app);
-                    if (random.nextInt(0,5) < 4 ){
+                    if (random.nextInt(0, 5) < 4) {
                         wardrobe.setHiddenItem(getItem());
                     } else {
                         wardrobe.setHiddenItem(getWeapon());
@@ -558,7 +570,7 @@ public class Generator {
                 case 5 -> {
                     TrappedChest trappedChest = new TrappedChest(app, random);
                     trappedChest.getEnemy().setItem(getItem());
-                    if (random.nextBoolean()){
+                    if (random.nextBoolean()) {
                         trappedChest.getEnemy().setWeapon(getWeapon());
                     }
                     return trappedChest;

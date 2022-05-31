@@ -53,7 +53,7 @@ public class EnemyDoor extends Door {
         if (!visited || this.enemy == null) {
             return CColor.GREEN + "D" + CColor.GREEN.getForegroundReset();
         } else {
-            return CColor.RED + enemy.getCharacter() + CColor.RED.getForegroundReset();
+            return CColor.BRIGHT_RED + enemy.getCharacter() + CColor.BRIGHT_RED.getForegroundReset();
         }
     }
 }

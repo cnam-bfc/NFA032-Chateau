@@ -7,6 +7,7 @@ import net.cnam.chateau.utils.Location;
 import java.util.Random;
 
 public class Spider extends Enemy {
+    private static final String CHARACTER = "S";
     private static final int MIN_HEALTH = 20;
     private static final int MAX_HEALTH = 40;
     private static final int MIN_RESISTANCE = 2;
@@ -19,7 +20,7 @@ public class Spider extends Enemy {
     private static final int MAX_SPEED = 10;
 
     /**
-     * Constructeur de l'arraignée pour faire une entité avec des stats aléatoire.
+     * Constructeur de l'araignée pour faire une entité avec des stats aléatoire.
      * 
      * @param app       L'application
      * @param stage     L'étage où il se situe
@@ -32,11 +33,12 @@ public class Spider extends Enemy {
                 random.nextInt(MIN_RESISTANCE, MAX_RESISTANCE),
                 random.nextInt(MIN_STRENGTH, MAX_STRENGTH),
                 random.nextInt(MIN_ACCURACY, MAX_ACCURACY),
-                random.nextInt(MIN_SPEED, MAX_SPEED));
+                random.nextInt(MIN_SPEED, MAX_SPEED),
+                CHARACTER);
     }
 
     /**
-     * Constructeur de l'arraignée pour le générer de façon personnalisé
+     * Constructeur de l'araignée pour le générer de façon personnalisée
      *
      * @param app           L'application
      * @param stage         L'étage où il se situe
@@ -50,16 +52,6 @@ public class Spider extends Enemy {
      */
     public Spider(App app, Stage stage, Location location, String name, int health, int resistance,
                   int strength, int accuracy, int speed) {
-        super(app, stage, location, name, health, resistance, strength, accuracy, speed);
-    }
-
-    /**
-     * Redéfinition de la méthode permettant d'afficher l'entité sur la carte.
-     * 
-     * @return un String "S"
-     */
-    @Override
-    public String getCharacter() {
-        return "S";
+        super(app, stage, location, name, health, resistance, strength, accuracy, speed, CHARACTER);
     }
 }
