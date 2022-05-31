@@ -1,10 +1,12 @@
 package net.cnam.chateau.gui.escape.menu;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.play.item.consumable.ConsumableItemMenu;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class UseItemButton extends CButton {
@@ -22,7 +24,12 @@ public class UseItemButton extends CButton {
 
     @Override
     public void execute() {
-        app.getConsole().show(new ConsumableItemMenu(app, player.getItem(), List.of(player)));
+        List<Entity> entities = new LinkedList<>();
+        entities.add(player);
+        if (player.hasPet()) {
+            entities.add(player.getPet());
+        }
+        app.getConsole().show(new ConsumableItemMenu(app, player.getItem(), entities));
         escapeMenu.stopDisplaying();
     }
 }
