@@ -30,6 +30,7 @@ public class Fight extends CFrame implements DisplayableComponent {
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
     private boolean over = false;
+    private boolean updateButtons = false;
 
     private final CPanel leftPanel;
     private final EntityStats playerStats;
@@ -68,12 +69,7 @@ public class Fight extends CFrame implements DisplayableComponent {
         this.centerPanel = new CPanel(20, 0);
 
         this.menu = new CChoices(app, 1);
-        menu.add(new AttackButton(app, this));
-        if (player.hasItem() && player.getItem() instanceof Consumable) {
-            menu.add(new UseItemButton(app, player.getItem()));
-        }
-        menu.add(new RunAwayButton(app, this));
-        menu.setLength(20);
+        updateMenuButtons();
 
         centerPanel.getComponents().add(menu);
         this.getContentPane().getComponents().add(centerPanel);
@@ -111,6 +107,15 @@ public class Fight extends CFrame implements DisplayableComponent {
         return true;
     }
 
+    @Override
+    public String[] render() {
+        if (updateButtons) {
+            updateMenuButtons();
+        }
+
+        return super.render();
+    }
+
     public boolean isOver() {
         return over;
     }
@@ -120,6 +125,31 @@ public class Fight extends CFrame implements DisplayableComponent {
         if (audioPlayer != null) {
             audioPlayer.stop();
         }
+    }
+
+    public void updateButtons() {
+        this.updateButtons = true;
+    }
+
+    private void updateMenuButtons() {
+        this.updateButtons = false;
+        menu.removeAll();
+        menu.add(new AttackButton(app, this));
+        if (player.hasItem() && player.getItem() instanceof Consumable) {
+            List<Entity> fightEntities = new LinkedList<>();
+            if (!enemy.isDead()) {
+                fightEntities.add(enemy);
+            }
+            if (!player.isDead()) {
+                fightEntities.add(player);
+            }
+            if (player.hasPet() && !player.getPet().isDead()) {
+                fightEntities.add(player.getPet());
+            }
+            menu.add(new UseItemButton(app, this, player.getItem(), fightEntities));
+        }
+        menu.add(new RunAwayButton(app, this));
+        menu.setLength(20);
     }
 
     @Override

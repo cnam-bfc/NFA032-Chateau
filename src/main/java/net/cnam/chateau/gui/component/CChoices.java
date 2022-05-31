@@ -159,4 +159,11 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
         }
         this.autoResize();
     }
+
+    public void removeAll() {
+        for (SelectableComponent component : selectableComponents) {
+            this.getComponents().remove((CComponent) component);
+        }
+        selectableComponents.clear();
+    }
 }
