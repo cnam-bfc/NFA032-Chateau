@@ -7,6 +7,7 @@ import net.cnam.chateau.utils.Location;
 import java.util.Random;
 
 public class HeadlessKnight extends Enemy {
+    private static final String CHARACTER = "K";
     private static final int MIN_HEALTH = 20;
     private static final int MAX_HEALTH = 40;
     private static final int MIN_RESISTANCE = 2;
@@ -20,11 +21,11 @@ public class HeadlessKnight extends Enemy {
 
     /**
      * Constructeur du Chevalier sans tête pour faire une entité avec des stats aléatoire.
-     * 
-     * @param app       L'application
-     * @param stage     L'étage où il se situe
-     * @param location  Les coordonnées où il se situe
-     * @param random    Le random permettant de générer l'aléatoire
+     *
+     * @param app      L'application
+     * @param stage    L'étage où il se situe
+     * @param location Les coordonnées où il se situe
+     * @param random   Le random permettant de générer l'aléatoire
      */
     public HeadlessKnight(App app, Stage stage, Location location, Random random) {
         super(app, stage, location, "Chevalier sans tête",
@@ -32,34 +33,25 @@ public class HeadlessKnight extends Enemy {
                 random.nextInt(MIN_RESISTANCE, MAX_RESISTANCE),
                 random.nextInt(MIN_STRENGTH, MAX_STRENGTH),
                 random.nextInt(MIN_ACCURACY, MAX_ACCURACY),
-                random.nextInt(MIN_SPEED, MAX_SPEED));
+                random.nextInt(MIN_SPEED, MAX_SPEED),
+                CHARACTER);
     }
 
     /**
-     * Constructeur du Chevalier sans tête pour le générer de façon personnalisé
+     * Constructeur du Chevalier sans tête pour le générer de façon personnalisée
      *
-     * @param app           L'application
-     * @param stage         L'étage où il se situe
-     * @param location      Les coordonnées où il se situe
-     * @param name          Le nom
-     * @param health        La vie
-     * @param resistance    La résistance
-     * @param strength      La force
-     * @param accuracy      La précision
-     * @param speed         La rapidité
+     * @param app        L'application
+     * @param stage      L'étage où il se situe
+     * @param location   Les coordonnées où il se situe
+     * @param name       Le nom
+     * @param health     La vie
+     * @param resistance La résistance
+     * @param strength   La force
+     * @param accuracy   La précision
+     * @param speed      La rapidité
      */
     public HeadlessKnight(App app, Stage stage, Location location, String name, int health, int resistance,
                           int strength, int accuracy, int speed) {
-        super(app, stage, location, name, health, resistance, strength, accuracy, speed);
-    }
-
-    /**
-     * Redéfinition de la méthode permettant d'afficher l'entité sur la carte.
-     * 
-     * @return un String "K"
-     */
-    @Override
-    public String getCharacter() {
-        return "K";
+        super(app, stage, location, name, health, resistance, strength, accuracy, speed, CHARACTER);
     }
 }

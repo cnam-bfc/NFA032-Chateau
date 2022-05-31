@@ -58,7 +58,7 @@ public class LockedDoor extends Door {
     @Override
     public String getCharacter() {
         if (isLocked()) {
-            return CColor.RED + "D" + CColor.RED.getForegroundReset();
+            return CColor.BRIGHT_RED + "D" + CColor.BRIGHT_RED.getForegroundReset();
         } else {
             return CColor.GREEN + "D" + CColor.GREEN.getForegroundReset();
         }

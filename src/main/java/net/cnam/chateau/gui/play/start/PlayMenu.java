@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.play.menu;
+package net.cnam.chateau.gui.play.start;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;

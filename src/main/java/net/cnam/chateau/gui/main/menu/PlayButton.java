@@ -2,7 +2,7 @@ package net.cnam.chateau.gui.main.menu;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.play.menu.PlayMenu;
+import net.cnam.chateau.gui.play.start.PlayMenu;
 
 public class PlayButton extends CButton {
     private final App app;

@@ -1,20 +1,31 @@
 package net.cnam.chateau.gui.play.fight;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.gui.component.CButton;
+import net.cnam.chateau.gui.play.item.consumable.ConsumableItemMenu;
 import net.cnam.chateau.item.Item;
 
-public class UseItemButton extends CButton {
-    private final Item item;
+import java.util.List;
 
-    public UseItemButton(App app, Item item) {
+public class UseItemButton extends CButton {
+    private final App app;
+    private final Fight fight;
+    private final Item item;
+    private final List<Entity> entities;
+
+    public UseItemButton(App app, Fight fight, Item item, List<Entity> fightEntities) {
         super(app, "Utiliser\n" + item.getName());
 
+        this.app = app;
+        this.fight = fight;
         this.item = item;
+        this.entities = fightEntities;
     }
 
     @Override
     public void execute() {
-        // TODO Use item in fight
+        app.getConsole().show(new ConsumableItemMenu(app, item, entities));
+        fight.updateButtons();
     }
 }

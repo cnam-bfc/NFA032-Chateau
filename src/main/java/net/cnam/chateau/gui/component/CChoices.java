@@ -49,7 +49,7 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
         }
 
         try {
-            Direction direction = DirectionUtils.parseDirection(event.getKey());
+            Direction direction = DirectionUtils.parseDirection(event.getKey(), false);
             switch (this.getRenderingOrientation()) {
                 case VERTICAL -> {
                     if (direction.equals(Direction.LEFT) || direction.equals(Direction.RIGHT)) {
@@ -158,5 +158,12 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
             this.getComponents().remove(component);
         }
         this.autoResize();
+    }
+
+    public void removeAll() {
+        for (SelectableComponent component : selectableComponents) {
+            this.getComponents().remove((CComponent) component);
+        }
+        selectableComponents.clear();
     }
 }
