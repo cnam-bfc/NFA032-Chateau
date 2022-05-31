@@ -42,7 +42,7 @@ public class Game extends CFrame implements DisplayableComponent {
     private final EntityStats playerStats;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
-    private final Statistics statistics;
+    private final Statistic statistic;
 
     public Game(App app, long seed, String playerName) {
         super(0, 0);
@@ -224,12 +224,12 @@ public class Game extends CFrame implements DisplayableComponent {
         int nbRoomsVisited = 0;
         int nbRoomsCastle = 0;
         Stage[] stages = this.castle.getStages();
-        for (int i = 0 ; i < stages.length ; i++){
+        for (int i = 0; i < stages.length; i++) {
             Room[] rooms = stages[i].getRooms();
-            for (int y = 0 ; y < rooms.length ; y++){
-                nbRoomsCastle +=1;
-                if (rooms[i].isVisible()){
-                    nbRoomsVisited +=1;
+            for (int y = 0; y < rooms.length; y++) {
+                nbRoomsCastle += 1;
+                if (rooms[i].isVisible()) {
+                    nbRoomsVisited += 1;
                 }
             }
         }
