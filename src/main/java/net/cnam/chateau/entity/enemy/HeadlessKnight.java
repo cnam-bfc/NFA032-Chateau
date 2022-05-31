@@ -54,14 +54,4 @@ public class HeadlessKnight extends Enemy {
                           int strength, int accuracy, int speed) {
         super(app, stage, location, name, health, resistance, strength, accuracy, speed, CHARACTER);
     }
-
-    /**
-     * Redéfinition de la méthode permettant d'afficher l'entité sur la carte.
-     *
-     * @return un String "K"
-     */
-    @Override
-    public String getCharacter() {
-        return "K";
-    }
 }
