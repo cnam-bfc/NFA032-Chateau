@@ -3,6 +3,8 @@ package net.cnam.chateau;
 import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.game.Game;
+import net.cnam.chateau.game.Statistic;
+import net.cnam.chateau.game.Statistics;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
@@ -20,6 +22,7 @@ public class App {
     private final Console console;
     private final List<SimpleAudioPlayer> audioPlayers = new LinkedList<>();
     private Game currentGame;
+    private Statistics statistics = new Statistics();
 
     /**
      * Constructeur
@@ -34,6 +37,8 @@ public class App {
         } catch (IOException ignored) {
         }
         this.console = new Console(settings);
+        //initStats(); //TODO Delete
+        //statistics.writeStatistics(); //TODO Delete
     }
 
     /**
@@ -98,4 +103,16 @@ public class App {
     public void setCurrentGame(Game currentGame) {
         this.currentGame = currentGame;
     }
+
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    //TODO Delete
+    /*public void initStats(){
+        this.statistics.addStatistic(new Statistic("efs",8958,true,9874,987947,177L));
+        this.statistics.addStatistic(new Statistic("fdsfsf",895618,true,9874,987947,89484L));
+        this.statistics.addStatistic(new Statistic("sdfsfds",8298,true,9874,987947,4984984984L));
+        this.statistics.addStatistic(new Statistic("efssdfdsfsfd",898518,true,98714,987947,177L));
+    }*/
 }

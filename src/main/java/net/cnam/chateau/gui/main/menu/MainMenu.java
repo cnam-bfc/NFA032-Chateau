@@ -30,6 +30,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
         CChoices choices = new CChoices(app, 1);
 
         choices.add(new PlayButton(app, this));
+        choices.add(new StatisticsButton(app, this));
         choices.add(new SettingsButton(app, audioPlayer));
         choices.add(new QuitButton(app, this));
 

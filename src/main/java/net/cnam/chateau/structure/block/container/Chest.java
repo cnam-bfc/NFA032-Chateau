@@ -8,14 +8,30 @@ import net.cnam.chateau.item.Item;
  */
 public class Chest extends Container {
 
+    /**
+     * Constructeur
+     *
+     * @param app   L'application
+     */
     public Chest(App app) {
         this(app, null);
     }
 
+    /**
+     * Constructeur
+     *
+     * @param app           L'application
+     * @param hiddenItem    L'item dans le coffre
+     */
     public Chest(App app, Item hiddenItem) {
         super(app, "Coffre", hiddenItem);
     }
 
+    /**
+     * Redéfinition de la méthode permettant d'afficher le coffre sur la carte.
+     *
+     * @return Le caractère à afficher sur la carte
+     */
     @Override
     public String getCharacter() {
         return super.getCharacter("C");
