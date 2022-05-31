@@ -22,7 +22,7 @@ public class App {
     private final Console console;
     private final List<SimpleAudioPlayer> audioPlayers = new LinkedList<>();
     private Game currentGame;
-    private Statistics statistics = new Statistics();
+    private Statistics statistics;
 
     /**
      * Constructeur
@@ -37,6 +37,7 @@ public class App {
         } catch (IOException ignored) {
         }
         this.console = new Console(settings);
+        this.statistics = new Statistics();
         //initStats(); //TODO Delete
         //statistics.writeStatistics(); //TODO Delete
     }
@@ -46,8 +47,10 @@ public class App {
      */
     public void start() {
         try {
+            this.statistics.loadStatistics();
             MainMenu mainMenu = new MainMenu(this);
             console.show(mainMenu);
+            statistics.writeStatistics();
             console.finalClear(true);
         } catch (Exception ex) {
             StackTraceElement[] trace = ex.getStackTrace();

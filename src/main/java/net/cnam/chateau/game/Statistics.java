@@ -1,20 +1,19 @@
 package net.cnam.chateau.game;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class Statistics {
 
     private List<Statistic> statistics = new ArrayList<>();
 
-    public Statistics() {
-        loadStatistics();
-    }
-
     /**
      * Méthode permettant de récupérer les meilleurs stats (si elles existent).
      */
-    public void loadStatistics(){
+    public void loadStatistics() {
 
         try {
             //On démarre le flux en instanciant les objets nécessaires
@@ -28,7 +27,7 @@ public class Statistics {
                 noLine++;
 
                 // on incrémente maximum 10 fois la list de stat
-                if (noLine > 10){
+                if (noLine > 10) {
                     break;
                 }
 
@@ -61,10 +60,10 @@ public class Statistics {
      * Méthode permettant l'écriture des statistiques sur le csv.
      * de la forme : nomJoueur/score/bossVaincu(bool)/nbEnnemieTué/nbPiecesVisité/seed
      */
-    public void writeStatistics(){
+    public void writeStatistics() {
         // On tri et on remet la liste à la bonne taille pour écrire seulement les 10 meilleurs scores
         Collections.sort(this.statistics);
-        while (statistics.size() > 10){
+        while (statistics.size() > 10) {
             this.statistics.remove(this.statistics.size() - 1);
         }
 
@@ -74,18 +73,18 @@ public class Statistics {
             PrintWriter sortie = new PrintWriter(fichierTexteEcrit);
 
             Statistic stat;
-            int compteur =0;
-            do{
+            int compteur = 0;
+            do {
                 stat = statistics.get(compteur);
-                sortie.println(""+
-                        stat.getPlayerName() + ";"+
-                        stat.getScore()+";"+
-                        stat.isBossDefeated()+";"+
-                        stat.getNbEnemyKilled()+";"+
-                        stat.getNbRoomsVisited()+";"+
+                sortie.println("" +
+                        stat.getPlayerName() + ";" +
+                        stat.getScore() + ";" +
+                        stat.isBossDefeated() + ";" +
+                        stat.getNbEnemyKilled() + ";" +
+                        stat.getNbRoomsVisited() + ";" +
                         stat.getSeed());
                 compteur++;
-            }while (compteur < this.statistics.size());
+            } while (compteur < this.statistics.size());
 
             sortie.close();
         } catch (IOException ignored) {
@@ -97,11 +96,11 @@ public class Statistics {
      *
      * @param stat la statistique à ajouter
      */
-    public void addStatistic(Statistic stat){
+    public void addStatistic(Statistic stat) {
         this.statistics.add(stat);
         // On tri et on remet la liste à la bonne taille pour écrire seulement les 10 meilleurs scores
         Collections.sort(this.statistics);
-        while (statistics.size() > 10){
+        while (statistics.size() > 10) {
             this.statistics.remove(this.statistics.size() - 1);
         }
     }
