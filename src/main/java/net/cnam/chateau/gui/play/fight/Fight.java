@@ -197,304 +197,166 @@ public class Fight extends CFrame implements DisplayableComponent {
 
     private void attackWithPet(List<String> logs) {
         int playerSpeed = player.getSpeed();
-        int playerStrength = player.getStrength();
         int enemySpeed = enemy.getSpeed();
-        int enemyStrength = enemy.getStrength();
         int petSpeed = player.getPet().getSpeed();
-        int petStrength = player.getPet().getStrength();
 
-        // SI le joueur est le premier à attaquer
+        // Si le joueur est le premier à attaquer
         if (playerSpeed > enemySpeed && playerSpeed > petSpeed) {
-            if (attackIsSuccess(player)) {
-                logs.add("Vous avez infligé " + playerStrength + " dégâts à " + enemy.getName() + ".");
-                try {
-                    enemy.damage(playerStrength);
-                } catch (EntityDeadException e) {
-                    logs.add("Vous avez tué " + enemy.getName() + ".");
-                    return;
-                }
-            } else {
-                logs.add("Vous avez raté votre attaque.");
-            }
-            // Comparaison Enemy et pet après l'attaque du joueur
+            // Le joueur attaque l'ennemi
+            if (attack(logs, player, enemy)) return;
+
+            // Si l'ennemi est plus rapide que le pet
             if (enemySpeed > petSpeed) {
-                if (attackIsSuccess(enemy)) {
-                    if (random.nextBoolean()) {
-                        logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
-                        try {
-                            player.damage(enemyStrength);
-                        } catch (EntityDeadException e) {
-                            logs.add(enemy.getName() + " vous a tué.");
-                            return;
-                        }
-                    } else {
-                        logs.add(enemy.getName() + " a infligé " + enemyStrength + " dégâts à " + player.getPet().getName() + ".");
-                        try {
-                            player.getPet().damage(enemyStrength);
-                        } catch (EntityDeadException ex) {
-                            logs.add(enemy.getName() + " a tué " + ex.getEntity().getName() + ".");
-                        }
-                    }
-                } else {
-                    logs.add(enemy.getName() + " a raté son attaque.");
-                }
-                if (attackIsSuccess(player.getPet())) {
-                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
-                    try {
-                        enemy.damage(petStrength);
-                    } catch (EntityDeadException e) {
-                        logs.add(player.getPet().getName() + " a tué " + enemy.getName() + ".");
-                        return;
-                    }
-                } else {
-                    logs.add(player.getPet().getName() + " a raté son attaque.");
-                }
-            } else {
-                if (attackIsSuccess(player.getPet())) {
-                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
-                    try {
-                        enemy.damage(petStrength);
-                    } catch (EntityDeadException e) {
-                        logs.add(player.getPet().getName() + " a tué " + enemy.getName() + ".");
-                        return;
-                    }
-                } else {
-                    logs.add(player.getPet().getName() + " a raté son attaque.");
-                }
-                if (attackIsSuccess(enemy)) {
-                    if (random.nextBoolean()) {
-                        logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
-                        try {
-                            player.damage(enemyStrength);
-                        } catch (EntityDeadException e) {
-                            logs.add(enemy.getName() + " vous a tué.");
-                            return;
-                        }
-                    } else {
-                        logs.add(enemy.getName() + " a infligé " + enemyStrength + " dégâts à " + player.getPet().getName() + ".");
-                        try {
-                            player.getPet().damage(enemyStrength);
-                        } catch (EntityDeadException ex) {
-                            logs.add(enemy.getName() + " a tué " + ex.getEntity().getName() + ".");
-                        }
-                    }
-                } else {
-                    logs.add(enemy.getName() + " a raté son attaque.");
-                }
-            }
-            return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack / round
-        }
-
-        // SI l'ennemie joueur est le premier à attaquer
-        if (enemySpeed > playerSpeed && enemySpeed > petSpeed) {
-            if (attackIsSuccess(enemy)) {
+                // L'ennemi attaque
                 if (random.nextBoolean()) {
-                    logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
-                    try {
-                        player.damage(enemyStrength);
-                    } catch (EntityDeadException e) {
-                        logs.add(enemy.getName() + " vous a tué.");
-                        return;
-                    }
+                    // L'ennemi attaque le joueur
+                    if (attack(logs, enemy, player)) return;
                 } else {
-                    logs.add(enemy.getName() + " a infligé " + enemyStrength + " dégâts à " + player.getPet().getName() + ".");
-                    try {
-                        player.getPet().damage(enemyStrength);
-                    } catch (EntityDeadException ex) {
-                        logs.add(enemy.getName() + " a tué " + ex.getEntity().getName() + ".");
-                    }
+                    // L'ennemi attaque le pet
+                    if (attack(logs, enemy, player.getPet())) return;
                 }
-            } else {
-                logs.add(enemy.getName() + " a raté son attaque.");
-            }
-            if (playerSpeed > petSpeed) {
-                if (attackIsSuccess(player)) {
-                    logs.add("Vous avez infligé " + playerStrength + " dégâts à " + enemy.getName() + ".");
-                    try {
-                        enemy.damage(playerStrength);
-                    } catch (EntityDeadException e) {
-                        logs.add("Vous avez tué " + enemy.getName() + ".");
-                        return;
-                    }
-                } else {
-                    logs.add("Vous avez raté votre attaque.");
-                }
-                if (attackIsSuccess(player.getPet())) {
-                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
-                    try {
-                        enemy.damage(petStrength);
-                    } catch (EntityDeadException e) {
-                        logs.add(player.getPet().getName() + " a tué " + enemy.getName() + ".");
-                        return;
-                    }
-                } else {
-                    logs.add(player.getPet().getName() + " a raté son attaque.");
-                }
-            } else {
-                if (attackIsSuccess(player.getPet())) {
-                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
-                    try {
-                        enemy.damage(petStrength);
-                    } catch (EntityDeadException e) {
-                        logs.add(player.getPet().getName() + " a tué " + enemy.getName() + ".");
-                        return;
-                    }
-                } else {
-                    logs.add(player.getPet().getName() + " a raté son attaque.");
-                }
-                if (attackIsSuccess(player)) {
-                    logs.add("Vous avez infligé " + playerStrength + " dégâts à " + enemy.getName() + ".");
-                    try {
-                        enemy.damage(playerStrength);
-                    } catch (EntityDeadException e) {
-                        logs.add("Vous avez tué " + enemy.getName() + ".");
-                        return;
-                    }
-                } else {
-                    logs.add("Vous avez raté votre attaque.");
-                }
-            }
-            return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack / round
-        }
 
-        // SI le pet est le premier à attaquer
-        if (petSpeed > enemySpeed && petSpeed > playerSpeed) {
-            if (attackIsSuccess(player.getPet())) {
-                logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
-                try {
-                    enemy.damage(petStrength);
-                } catch (EntityDeadException e) {
-                    logs.add(player.getPet().getName() + " a tué " + enemy.getName() + ".");
-                    return;
-                }
+                // Le pet attaque l'ennemi
+                attack(logs, player.getPet(), enemy);
+
+                // Sinon si le pet est plus rapide que l'ennemi
             } else {
-                logs.add(player.getPet().getName() + " a raté son attaque.");
+                // Le pet attaque l'ennemi
+                if (attack(logs, player.getPet(), enemy)) return;
+
+                // L'ennemi attaque
+                if (random.nextBoolean()) {
+                    // L'ennemi attaque le joueur
+                    attack(logs, enemy, player);
+                } else {
+                    // L'ennemi attaque le pet
+                    attack(logs, enemy, player.getPet());
+                }
             }
+
+            // Sinon si l'ennemi est le premier à attaquer
+        } else if (enemySpeed > playerSpeed && enemySpeed > petSpeed) {
+            // L'ennemi attaque
+            if (random.nextBoolean()) {
+                // L'ennemi attaque le joueur
+                if (attack(logs, enemy, player)) return;
+            } else {
+                // L'ennemi attaque le pet
+                if (attack(logs, enemy, player.getPet())) return;
+            }
+
+            // Si le joueur est plus rapide que le pet
+            if (playerSpeed > petSpeed) {
+                // Le joueur attaque l'ennemi
+                if (attack(logs, player, enemy)) return;
+
+                // Le pet attaque l'ennemi
+                attack(logs, player.getPet(), enemy);
+
+                // Sinon si le pet est plus rapide que le joueur
+            } else {
+                // Le pet attaque l'ennemi
+                if (attack(logs, player.getPet(), enemy)) return;
+
+                // Le joueur attaque l'ennemi
+                attack(logs, player, enemy);
+            }
+
+            // Sinon si le pet est le premier à attaquer
+        } else if (petSpeed > enemySpeed && petSpeed > playerSpeed) {
+            // Le pet attaque l'ennemi
+            if (attack(logs, player.getPet(), enemy)) return;
+
+            // Si le joueur est plus rapide que l'ennemi
             if (playerSpeed > enemySpeed) {
-                if (attackIsSuccess(player.getPet())) {
-                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
-                    try {
-                        enemy.damage(petStrength);
-                    } catch (EntityDeadException e) {
-                        logs.add(player.getPet().getName() + " a tué " + enemy.getName() + ".");
-                        return;
-                    }
+                // Le joueur attaque l'ennemi
+                if (attack(logs, player, enemy)) return;
+
+                // L'ennemi attaque
+                if (random.nextBoolean()) {
+                    // L'ennemi attaque le joueur
+                    attack(logs, enemy, player);
                 } else {
-                    logs.add(player.getPet().getName() + " a raté son attaque.");
+                    // L'ennemi attaque le pet
+                    attack(logs, enemy, player.getPet());
                 }
-                if (attackIsSuccess(enemy)) {
-                    if (random.nextBoolean()) {
-                        logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
-                        try {
-                            player.damage(enemyStrength);
-                        } catch (EntityDeadException e) {
-                            logs.add(enemy.getName() + " vous a tué.");
-                            return;
-                        }
-                    } else {
-                        logs.add(enemy.getName() + " a infligé " + enemyStrength + " dégâts à " + player.getPet().getName() + ".");
-                        try {
-                            player.getPet().damage(enemyStrength);
-                        } catch (EntityDeadException ex) {
-                            logs.add(enemy.getName() + " a tué " + ex.getEntity().getName() + ".");
-                        }
-                    }
-                } else {
-                    logs.add(enemy.getName() + " a raté son attaque.");
-                }
+
+                // Sinon si l'ennemi est plus rapide que le joueur
             } else {
-                if (attackIsSuccess(enemy)) {
-                    if (random.nextBoolean()) {
-                        logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
-                        try {
-                            player.damage(enemyStrength);
-                        } catch (EntityDeadException e) {
-                            logs.add(enemy.getName() + " vous a tué.");
-                            return;
-                        }
-                    } else {
-                        logs.add(enemy.getName() + " a infligé " + enemyStrength + " dégâts à " + player.getPet().getName() + ".");
-                        try {
-                            player.getPet().damage(enemyStrength);
-                        } catch (EntityDeadException ex) {
-                            logs.add(enemy.getName() + " a tué " + ex.getEntity().getName() + ".");
-                        }
-                    }
+                // L'ennemi attaque
+                if (random.nextBoolean()) {
+                    // L'ennemi attaque le joueur
+                    if (attack(logs, enemy, player)) return;
                 } else {
-                    logs.add(enemy.getName() + " a raté son attaque.");
+                    // L'ennemi attaque le pet
+                    if (attack(logs, enemy, player.getPet())) return;
                 }
-                if (attackIsSuccess(player.getPet())) {
-                    logs.add(player.getPet().getName() + " a infligé " + petStrength + " dégâts à " + enemy.getName() + ".");
-                    try {
-                        enemy.damage(petStrength);
-                    } catch (EntityDeadException e) {
-                        logs.add(player.getPet().getName() + " a tué " + enemy.getName() + ".");
-                        return;
-                    }
-                } else {
-                    logs.add(player.getPet().getName() + " a raté son attaque.");
-                }
+
+                // Le joueur attaque l'ennemi
+                attack(logs, player, enemy);
             }
-            return; // return car on ne sait jamais si on met des malus, il ne faut pas plusieurs attack / round
         }
     }
 
     private void attackWithoutPet(List<String> logs) {
-        int playerSpeed = player.getSpeed();
-        int playerStrength = player.getStrength();
-        int enemySpeed = enemy.getSpeed();
-        int enemyStrength = enemy.getStrength();
+        // Si le joueur est le premier à attaquer
+        if (player.getSpeed() > enemy.getSpeed()) {
+            // Le joueur attaque l'ennemi
+            if (attack(logs, player, enemy)) return;
 
-        if (playerSpeed > enemySpeed) {
-            if (attackIsSuccess(player)) {
-                logs.add("Vous avez infligé " + playerStrength + " dégâts à " + enemy.getName() + ".");
-                try {
-                    enemy.damage(playerStrength);
-                } catch (EntityDeadException e) {
-                    logs.add("Vous avez tué " + enemy.getName() + ".");
-                    return;
-                }
-            } else {
-                logs.add("Vous avez raté votre attaque.");
-            }
-            if (attackIsSuccess(enemy)) {
-                logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
-                try {
-                    player.damage(enemyStrength);
-                } catch (EntityDeadException e) {
-                    logs.add(enemy.getName() + " vous a tué.");
-                    return;
-                }
-            } else {
-                logs.add(enemy.getName() + " a raté son attaque.");
-            }
+            // L'ennemi attaque le joueur
+            attack(logs, enemy, player);
+
+            // Sinon si l'ennemi est le premier à attaquer
         } else {
-            if (attackIsSuccess(enemy)) {
-                logs.add(enemy.getName() + " vous a infligé " + enemyStrength + " dégâts.");
-                try {
-                    player.damage(enemyStrength);
-                } catch (EntityDeadException e) {
-                    logs.add(enemy.getName() + " vous a tué.");
-                    return;
-                }
-            } else {
-                logs.add(enemy.getName() + " a raté son attaque.");
-            }
-            if (attackIsSuccess(player)) {
-                logs.add("Vous avez infligé " + playerStrength + " dégâts à " + enemy.getName() + ".");
-                try {
-                    enemy.damage(playerStrength);
-                } catch (EntityDeadException e) {
-                    logs.add("Vous avez tué " + enemy.getName() + ".");
-                    return;
-                }
-            } else {
-                logs.add("Vous avez raté votre attaque.");
-            }
+            // L'ennemi attaque le joueur
+            if (attack(logs, enemy, player)) return;
+
+            // Le joueur attaque l'ennemie
+            attack(logs, player, enemy);
         }
     }
 
-    private boolean attackIsSuccess(Entity entity) {
+    /**
+     * Méthode qui permet à une entité d'attaquer une autre entité.
+     *
+     * @param logs     Les logs
+     * @param attacker L'entité qui attaque
+     * @param attacked L'entité attaquée
+     * @return true si le combat est fini, false sinon
+     */
+    private boolean attack(List<String> logs, Entity attacker, Entity attacked) {
+        if (canAttack(attacker)) {
+            if (attacker == player) {
+                logs.add("Vous avez infligé " + attacker.getStrength() + " dégâts à " + attacked.getName() + ".");
+            } else if (attacked == player) {
+                logs.add(attacker.getName() + " vous a infligé " + attacker.getStrength() + " dégâts.");
+            } else {
+                logs.add(attacker.getName() + " a infligé " + attacker.getStrength() + " dégâts à " + attacked.getName() + ".");
+            }
+            try {
+                attacked.damage(attacker.getStrength());
+            } catch (EntityDeadException e) {
+                if (attacker == player) {
+                    logs.add("Vous avez tué " + attacked.getName() + ".");
+                } else if (attacked == player) {
+                    logs.add(attacker.getName() + " vous a tué.");
+                } else {
+                    logs.add(attacker.getName() + " a tué " + attacked.getName() + ".");
+                }
+                return attacked == player || attacked == enemy;
+            }
+        } else {
+            if (attacker == player) {
+                logs.add("Vous avez raté votre attaque.");
+            } else {
+                logs.add(attacker.getName() + " a raté son attaque.");
+            }
+        }
+        return false;
+    }
+
+    private boolean canAttack(Entity entity) {
         int Accuracy = entity.getAccuracy();
         return random.nextInt(0, ACCURACY) < Accuracy;
     }
