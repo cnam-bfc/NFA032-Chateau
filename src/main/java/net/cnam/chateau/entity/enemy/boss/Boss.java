@@ -22,15 +22,14 @@ public abstract class Boss extends Enemy {
      * @param location   Coordonnées où il se situe
      * @param name       Le nom
      * @param health     La santé
-     * @param resistance La résistance
      * @param strength   La force
      * @param accuracy   La précision
      * @param speed      La rapidité
      * @param character  Le caractère d'affichage
      */
-    public Boss(App app, Stage stage, Location location, String name, int health, int resistance, int strength,
+    public Boss(App app, Stage stage, Location location, String name, int health, int strength,
                 int accuracy, int speed, String character) {
-        super(app, stage, location, name, health, resistance, strength, accuracy, speed, "");
+        super(app, stage, location, name, health, strength, accuracy, speed, "");
 
         this.app = app;
         this.character = character;

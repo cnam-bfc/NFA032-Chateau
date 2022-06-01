@@ -31,7 +31,6 @@ import java.util.List;
  */
 public abstract class Entity implements DisplayableObject {
     private static final int DEFAULT_HEALTH = 100;
-    private static final int DEFAULT_RESISTANCE = 50;
     private static final int DEFAULT_STRENGTH = 15;
     private static final int DEFAULT_ACCURACY = 15;
     private static final int DEFAULT_SPEED = 2;
@@ -44,8 +43,6 @@ public abstract class Entity implements DisplayableObject {
     private Item item;
     private int health = DEFAULT_HEALTH;
     private int maxHealth = DEFAULT_HEALTH;
-    private int resistance = DEFAULT_RESISTANCE;
-    private int maxResistance = DEFAULT_RESISTANCE;
     private int strength = DEFAULT_STRENGTH;
     private int maxStrength = DEFAULT_STRENGTH;
     private int accuracy = DEFAULT_ACCURACY;
@@ -63,19 +60,16 @@ public abstract class Entity implements DisplayableObject {
      * @param location   Coordonnées où elle se situe
      * @param name       Le nom
      * @param health     La santé
-     * @param resistance La résistance
      * @param strength   La force
      * @param accuracy   La précision
      * @param speed      La rapidité
      */
-    public Entity(App app, Stage stage, Location location, String name, int health, int resistance, int strength, int accuracy,
+    public Entity(App app, Stage stage, Location location, String name, int health, int strength, int accuracy,
                   int speed) {
         this(app, stage, location, name);
 
         this.health = health;
         this.maxHealth = health;
-        this.resistance = resistance;
-        this.maxResistance = resistance;
         this.strength = strength;
         this.maxStrength = strength;
         this.accuracy = accuracy;
@@ -382,15 +376,6 @@ public abstract class Entity implements DisplayableObject {
     }
 
     /**
-     * Méthode permettant de récupérer la résistance de l'entité.
-     *
-     * @return la résistance
-     */
-    public int getResistance() {
-        return resistance;
-    }
-
-    /**
      * Méthode permettant de récupérer la force.
      * return 0 si le résultat est inférieur à 0
      *
@@ -457,15 +442,6 @@ public abstract class Entity implements DisplayableObject {
      */
     public int getMaxHealth() {
         return maxHealth;
-    }
-
-    /**
-     * Méthode permettant de récupérer la résistance maximale de l'entité.
-     *
-     * @return la résistance maximale
-     */
-    public int getMaxResistance() {
-        return maxResistance;
     }
 
     /**
