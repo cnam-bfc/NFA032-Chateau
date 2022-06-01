@@ -243,12 +243,12 @@ public class Fight extends CFrame implements DisplayableComponent {
         int petSpeed = pet.getSpeed();
 
         // Si le joueur est le premier à attaquer
-        if (playerSpeed > enemySpeed && playerSpeed > petSpeed) {
+        if (playerSpeed >= enemySpeed && playerSpeed >= petSpeed) {
             // Le joueur attaque l'ennemi
             if (attack(logs, player, enemy)) return;
 
             // Si l'ennemi est plus rapide que le pet
-            if (enemySpeed > petSpeed) {
+            if (enemySpeed >= petSpeed) {
                 // L'ennemi attaque
                 if (random.nextBoolean()) {
                     // L'ennemi attaque le joueur
@@ -277,7 +277,7 @@ public class Fight extends CFrame implements DisplayableComponent {
             }
 
             // Sinon si l'ennemi est le premier à attaquer
-        } else if (enemySpeed > playerSpeed && enemySpeed > petSpeed) {
+        } else if (enemySpeed >= playerSpeed && enemySpeed >= petSpeed) {
             // L'ennemi attaque
             if (random.nextBoolean()) {
                 // L'ennemi attaque le joueur
@@ -288,7 +288,7 @@ public class Fight extends CFrame implements DisplayableComponent {
             }
 
             // Si le joueur est plus rapide que le pet
-            if (playerSpeed > petSpeed) {
+            if (playerSpeed >= petSpeed) {
                 // Le joueur attaque l'ennemi
                 if (attack(logs, player, enemy)) return;
 
@@ -305,12 +305,12 @@ public class Fight extends CFrame implements DisplayableComponent {
             }
 
             // Sinon si le pet est le premier à attaquer
-        } else if (petSpeed > enemySpeed && petSpeed > playerSpeed) {
+        } else {
             // Le pet attaque l'ennemi
             if (attack(logs, pet, enemy)) return;
 
             // Si le joueur est plus rapide que l'ennemi
-            if (playerSpeed > enemySpeed) {
+            if (playerSpeed >= enemySpeed) {
                 // Le joueur attaque l'ennemi
                 if (attack(logs, player, enemy)) return;
 
@@ -342,7 +342,7 @@ public class Fight extends CFrame implements DisplayableComponent {
 
     private void attackWithoutPet(List<String> logs) {
         // Si le joueur est le premier à attaquer
-        if (player.getSpeed() > enemy.getSpeed()) {
+        if (player.getSpeed() >= enemy.getSpeed()) {
             // Le joueur attaque l'ennemi
             if (attack(logs, player, enemy)) return;
 
