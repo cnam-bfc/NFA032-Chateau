@@ -21,7 +21,7 @@ public class Bed extends DecorativeBlock implements BlockListener {
     @Override
     public String getCharacter() {
         if (this.used) {
-            return CColor.BRIGHT_RED + "B" + CColor.BRIGHT_RED.getForegroundReset();
+            return CColor.MAGENTA + "B" + CColor.MAGENTA.getForegroundReset();
         } else {
             return CColor.GREEN + "B" + CColor.GREEN.getForegroundReset();
         }
