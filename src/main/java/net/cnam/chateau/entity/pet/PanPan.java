@@ -10,8 +10,8 @@ public class PanPan extends Pet {
      * 
      * @param app L'application
      */
-    public PanPan(App app) {
-        super(app, "PanPan");
+    public PanPan(App app, int health, int strength, int accuracy, int speed) {
+        super(app, "PanPan", health, strength, accuracy, speed);
     }
 
     /**

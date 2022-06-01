@@ -66,12 +66,12 @@ public class Generator {
 
         // TODO Revérifier les noms
         // Initialisation des pets
-        pets.add(new Babe(app));
-        pets.add(new ChatPotte(app));
-        pets.add(new Idefix(app));
-        pets.add(new Ouini(app));
-        pets.add(new PanPan(app));
-        pets.add(new PepeLoiseau(app));
+        pets.add(new Babe(app, 75, 20, 15, 10));
+        pets.add(new ChatPotte(app, 50, 15, 25, 25));
+        pets.add(new Idefix(app, 60, 15, 10, 10));
+        pets.add(new Ouini(app, 75, 20, 15, 10));
+        pets.add(new PanPan(app, 50, 10, 20, 20));
+        pets.add(new PepeLoiseau(app, 50, 10, 20, 20));
 
         // Initialisation des ennemis
         specialEnemies.add(new Demogorgon(app, null, null, "Chef demogorgon : Demo-Bob", 100, 20, 17, 10));
@@ -88,6 +88,9 @@ public class Generator {
         sages.add(new Sage(app, "Kristoff", game.getRandomPuzzle(), 75, 20 , 15 ,10));
         sages.add(new Sage(app, "Sage : Ither", game.getRandomPuzzle(),75,10,20,20));
         sages.add(new Sage(app, "Salomon", game.getRandomPuzzle(),100,10,15,15));
+        sages.add(new Sage(app, "Pressea", game.getRandomPuzzle(),75,15,15,10));
+        sages.add(new Sage(app, "Deujna", game.getRandomPuzzle(),75,10,20,20));
+        sages.add(new Sage(app, "Sardoche", game.getRandomPuzzle(),100,20,20,15));
 
         // Initialisation des armes spéciales
         specialWeapons.add((new Weapon("La grosse louche", "Louche divine léchée par Etchebest lui même", 15, 10, 5)));

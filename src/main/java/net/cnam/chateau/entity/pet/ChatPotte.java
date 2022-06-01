@@ -10,8 +10,8 @@ public class ChatPotte extends Pet {
      * 
      * @param app L'application
      */
-    public ChatPotte(App app) {
-        super(app, "ChatPotte");
+    public ChatPotte(App app, int health, int strength, int accuracy, int speed) {
+        super(app, "ChatPotte", health, strength, accuracy, speed);
     }
 
     /**

@@ -18,8 +18,8 @@ public abstract class Pet extends Entity {
      * @param app  L'application
      * @param name Le nom du pet
      */
-    public Pet(App app, String name) {
-        super(app, null, null, name);
+    public Pet(App app, String name, int health, int strength, int accuracy, int speed) {
+        super(app, null, null, name, health, strength, accuracy, speed);
 
         this.setRenderPriority(1);
     }
