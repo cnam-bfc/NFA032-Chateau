@@ -10,6 +10,7 @@ import net.cnam.chateau.gui.component.DisplayableComponent;
 
 public class FinishMenu extends CFrame implements DisplayableComponent {
     private final CChoices buttons;
+    private final QuitButton quitButton;
 
     private boolean display = true;
 
@@ -38,7 +39,8 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
         // Boutons
         buttons = new CChoices(app, 1);
         buttons.add(new SaveStatsButton(app, this));
-        buttons.add(new QuitButton(app, this));
+        this.quitButton = new QuitButton(app, this);
+        buttons.add(quitButton);
         this.getContentPane().getComponents().add(buttons);
     }
 
@@ -58,5 +60,9 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
 
     public CChoices getButtons() {
         return buttons;
+    }
+
+    public QuitButton getQuitButton() {
+        return quitButton;
     }
 }
