@@ -40,6 +40,13 @@ public class LootMenu extends CFrame implements DisplayableComponent {
     }
 
     @Override
+    public String[] render() {
+        update();
+
+        return super.render();
+    }
+
+    @Override
     public boolean isInLoopingMode() {
         return display;
     }
@@ -59,5 +66,9 @@ public class LootMenu extends CFrame implements DisplayableComponent {
 
     public LeaveButton getLeaveButton() {
         return leaveButton;
+    }
+
+    private void update(){
+
     }
 }
