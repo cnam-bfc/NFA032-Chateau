@@ -1,8 +1,7 @@
 package net.cnam.chateau.game;
 
 public class Statistic implements Comparable<Statistic> {
-
-    private long seed;
+    private final long seed;
     private String playerName;
     private boolean bossDefeated = false;
     private int nbEnemyKilled = 0;
@@ -15,7 +14,7 @@ public class Statistic implements Comparable<Statistic> {
     /**
      * Constructeur
      *
-     * @param seed la graine de la carte utilisé
+     * @param seed       la graine de la carte utilisée
      * @param playerName le nom du joueur de la partie
      */
     public Statistic(long seed, String playerName) {
@@ -33,16 +32,16 @@ public class Statistic implements Comparable<Statistic> {
     }
 
     /**
-     * Méthode incrémentant de 1 le nombre d'ennemie tué.
+     * Méthode incrémentant de 1 le nombre d'ennemis tué.
      */
-    public void addAEnemyKill(){
-        this.nbEnemyKilled +=1;
+    public void addAEnemyKill() {
+        this.nbEnemyKilled += 1;
     }
 
     /**
      * Méthode permettant de signifier que le mode de triche a été activé impactant la non sauvegarde de la partie.
      */
-    public void activeCheat(){
+    public void activeCheat() {
         this.cheatModeActivate = true;
     }
 
@@ -58,7 +57,7 @@ public class Statistic implements Comparable<Statistic> {
     /**
      * Setter permettant de définir le nombre de pièces totales du château
      *
-     * @param nbRoomsCastle nombre de pièce du château
+     * @param nbRoomsCastle nombre de pièces du château
      */
     public void setNbRoomsCastle(int nbRoomsCastle) {
         this.nbRoomsCastle = nbRoomsCastle;
@@ -85,10 +84,10 @@ public class Statistic implements Comparable<Statistic> {
     /**
      * Méthode pour simuler un calcul de score non exhaustif.
      */
-    public void calculScore(){
-        this.score = (int) ((double)nbRoomsVisited / nbRoomsCastle * 1000);
+    public void calculScore() {
+        this.score = (int) ((double) nbRoomsVisited / nbRoomsCastle * 1000);
         this.score += this.nbEnemyKilled * 150;
-        if (this.bossDefeated){
+        if (this.bossDefeated) {
             this.score += 2000;
         }
     }
@@ -123,7 +122,7 @@ public class Statistic implements Comparable<Statistic> {
     /**
      * Getter permettant de savoir le nombre d'ennemies tués.
      *
-     * @return le nombre d'ennemie tué
+     * @return le nombre d'ennemis tué
      */
     public int getNbEnemyKilled() {
         return nbEnemyKilled;
@@ -132,7 +131,7 @@ public class Statistic implements Comparable<Statistic> {
     /**
      * Getter permettant de récupérer le nombre de pièces visitées.
      *
-     * @return
+     * @return le nombre de pièces visitées
      */
     public int getNbRoomsVisited() {
         return nbRoomsVisited;
@@ -141,7 +140,7 @@ public class Statistic implements Comparable<Statistic> {
     /**
      * Getter permettant de récupérer le score.
      *
-     * @return le score.
+     * @return le score
      */
     public int getScore() {
         return score;
@@ -155,32 +154,31 @@ public class Statistic implements Comparable<Statistic> {
      */
     @Override
     public int compareTo(Statistic stat) {
-
         // On regarde si l'objet passé en paramètre n'est pas null
-        if (stat == null){
+        if (stat == null) {
             return 1;
         }
 
         // On compare les scores
-        if (this.score != stat.score){
+        if (this.score != stat.score) {
             return stat.score - this.score;
         }
 
         // On vérifie les boss
-        if (this.bossDefeated && !stat.bossDefeated){
+        if (this.bossDefeated && !stat.bossDefeated) {
             return -1;
         }
-        if (!this.bossDefeated && stat.bossDefeated){
+        if (!this.bossDefeated && stat.bossDefeated) {
             return 1;
         }
 
-        // on vérifie le nombre d'ennemie tuer
-        if (this.nbEnemyKilled - stat.nbEnemyKilled !=0){
+        // on vérifie le nombre d'ennemis tuer
+        if (this.nbEnemyKilled - stat.nbEnemyKilled != 0) {
             return stat.nbEnemyKilled - this.nbEnemyKilled;
         }
 
-        // on vérifie le nombre de pièce visité
-        if (this.nbRoomsVisited - stat.nbRoomsVisited !=0){
+        // on vérifie le nombre de pièces visité
+        if (this.nbRoomsVisited - stat.nbRoomsVisited != 0) {
             return stat.nbRoomsVisited - this.nbRoomsVisited;
         }
 
