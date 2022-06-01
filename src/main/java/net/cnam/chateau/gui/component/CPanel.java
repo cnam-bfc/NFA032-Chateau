@@ -186,8 +186,7 @@ public class CPanel extends CComponent implements KeyListener {
 
     @Override
     public void onKeyPressed(KeyPressedEvent event) {
-        // new LinkedList to fix java.util.ConcurrentModificationException when another component try to remove a component
-        for (CComponent component : new LinkedList<>(this.getComponents())) {
+        for (CComponent component : this.getComponents()) {
             if (component instanceof KeyListener componentListener) {
                 componentListener.onKeyPressed(event);
             }
