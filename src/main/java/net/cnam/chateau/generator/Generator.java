@@ -64,6 +64,7 @@ public class Generator {
         this.random = new Random(seed);
         this.settings = settings;
 
+        // TODO Revérifier les noms
         // Initialisation des pets
         pets.add(new Babe(app));
         pets.add(new ChatPotte(app));

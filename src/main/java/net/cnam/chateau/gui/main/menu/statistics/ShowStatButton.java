@@ -3,27 +3,20 @@ package net.cnam.chateau.gui.main.menu.statistics;
 import net.cnam.chateau.App;
 import net.cnam.chateau.game.Statistic;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.dialog.InfoDialog;
 
 public class ShowStatButton extends CButton {
     private final App app;
-    private final Statistic stat;
+    private final Statistic statistic;
 
-    public ShowStatButton(App app, Statistic stat, int placement) {
-        super(app, "" + placement + ". " + stat.getPlayerName() + " " + stat.getScore());
+    public ShowStatButton(App app, Statistic statistic, int placement) {
+        super(app, "" + placement + ". " + statistic.getPlayerName() + " " + statistic.getScore());
 
         this.app = app;
-        this.stat = stat;
+        this.statistic = statistic;
     }
 
     @Override
     public void execute() {
-        app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,
-                "Nom du joueur: " + stat.getPlayerName() +
-                        "\nScore du joueur: " + stat.getScore() +
-                        "\nBoss vaincu: " + (stat.isBossDefeated() ? "Oui" : "Non") +
-                        "\nNombre d'ennemis vaincus: " + stat.getNbEnemyKilled() +
-                        "\nNombre de pièces visitées: " + stat.getNbRoomsVisited() +
-                        "\nGraine utilisée: " + stat.getSeed()));
+        app.getConsole().show(new ViewStatisticMenu(statistic));
     }
 }

@@ -13,7 +13,7 @@ import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.dialog.InfoDialog;
-import net.cnam.chateau.gui.escape.menu.EscapeMenu;
+import net.cnam.chateau.gui.play.escape.EscapeMenu;
 import net.cnam.chateau.gui.play.fight.EntityStats;
 import net.cnam.chateau.structure.Castle;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;

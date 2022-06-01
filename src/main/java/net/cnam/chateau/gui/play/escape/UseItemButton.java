@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.escape.menu;
+package net.cnam.chateau.gui.play.escape;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Entity;
