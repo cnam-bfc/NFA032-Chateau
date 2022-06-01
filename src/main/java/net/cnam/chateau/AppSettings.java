@@ -9,8 +9,8 @@ public class AppSettings {
 
     private int consoleLength = CONSOLE_MIN_LENGTH;
     private int consoleHeight = CONSOLE_MIN_HEIGHT;
-    private float musicVolume = 1f;
-    private float soundEffectsVolume = 1f;
+    private float musicVolume = 0.15f;
+    private float soundEffectsVolume = 0.05f;
 
     /**
      * Méthode permettant de définir les paramètres de l'application.
