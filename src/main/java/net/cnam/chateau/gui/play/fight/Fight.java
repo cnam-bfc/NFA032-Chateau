@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Fight extends CFrame implements DisplayableComponent {
-    private static final int ACCURACY = 20;
+    private static final int ACCURACY = 30;
 
     private final App app;
     private final Player player;

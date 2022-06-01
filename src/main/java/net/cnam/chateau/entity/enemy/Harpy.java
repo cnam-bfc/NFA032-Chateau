@@ -9,13 +9,13 @@ import java.util.Random;
 public class Harpy extends Enemy {
     private static final String CHARACTER = "H";
     private static final int MIN_HEALTH = 20;
-    private static final int MAX_HEALTH = 40;
+    private static final int MAX_HEALTH = 45;
     private static final int MIN_STRENGTH = 5;
     private static final int MAX_STRENGTH = 10;
-    private static final int MIN_ACCURACY = 5;
-    private static final int MAX_ACCURACY = 10;
-    private static final int MIN_SPEED = 5;
-    private static final int MAX_SPEED = 10;
+    private static final int MIN_ACCURACY = 15;
+    private static final int MAX_ACCURACY = 25;
+    private static final int MIN_SPEED = 15;
+    private static final int MAX_SPEED = 25;
 
     /**
      * Constructeur de la Harpie pour faire une entité avec des stats aléatoire.

@@ -19,8 +19,8 @@ public class GeneratorSettings {
     private static final int MAX_BLOCKS = 3;
     private static final int MIN_ENEMIES_STAGE = 1;
     private static final int MAX_ENEMIES_STAGE = 3;
-    private static final int LUCK_BLOCK = 20;
-    private static final int LUCK_SPECIAL_ENNEMY = 20;
+    private static final int LUCK_BLOCK = 35;
+    private static final int LUCK_SPECIAL_ENNEMY = 25;
 
     public static final String DEFAULT_FILE_PATH = "generator-settings.dat";
 

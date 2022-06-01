@@ -8,14 +8,14 @@ import java.util.Random;
 
 public class Demogorgon extends Enemy {
     private static final String CHARACTER = "D";
-    private static final int MIN_HEALTH = 20;
-    private static final int MAX_HEALTH = 40;
-    private static final int MIN_STRENGTH = 5;
-    private static final int MAX_STRENGTH = 10;
-    private static final int MIN_ACCURACY = 5;
-    private static final int MAX_ACCURACY = 10;
-    private static final int MIN_SPEED = 5;
-    private static final int MAX_SPEED = 10;
+    private static final int MIN_HEALTH = 30;
+    private static final int MAX_HEALTH = 60;
+    private static final int MIN_STRENGTH = 10;
+    private static final int MAX_STRENGTH = 15;
+    private static final int MIN_ACCURACY = 10;
+    private static final int MAX_ACCURACY = 20;
+    private static final int MIN_SPEED = 2;
+    private static final int MAX_SPEED = 5;
 
     /**
      * Constructeur du Demogorgon pour faire une entité avec des stats aléatoire.

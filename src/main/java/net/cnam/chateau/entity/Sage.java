@@ -13,8 +13,8 @@ public class Sage extends Entity {
      * @param name   Le nom du sage
      * @param puzzle Le puzzle
      */
-    public Sage(App app, String name, Puzzle puzzle) {
-        super(app, null, null, name);
+    public Sage(App app, String name, Puzzle puzzle, int health, int strength, int accuracy, int speed) {
+        super(app, null, null, name,health,strength,accuracy,speed);
 
         this.app = app;
         this.puzzle = puzzle;

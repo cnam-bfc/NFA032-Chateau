@@ -6,8 +6,8 @@ import net.cnam.chateau.item.Item;
 import java.util.Random;
 
 public class HealPotion extends Item implements Consumable {
-    private static final int MIN_HEAL = 10;
-    private static final int MAX_HEAL = 30;
+    private static final int MIN_HEAL = 15;
+    private static final int MAX_HEAL = 40;
 
     private final int heal;
 

@@ -12,10 +12,10 @@ public class Spider extends Enemy {
     private static final int MAX_HEALTH = 40;
     private static final int MIN_STRENGTH = 5;
     private static final int MAX_STRENGTH = 10;
-    private static final int MIN_ACCURACY = 5;
-    private static final int MAX_ACCURACY = 10;
-    private static final int MIN_SPEED = 5;
-    private static final int MAX_SPEED = 10;
+    private static final int MIN_ACCURACY = 20;
+    private static final int MAX_ACCURACY = 30;
+    private static final int MIN_SPEED = 20;
+    private static final int MAX_SPEED = 30;
 
     /**
      * Constructeur de l'araignée pour faire une entité avec des stats aléatoire.

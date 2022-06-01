@@ -11,9 +11,9 @@ public class Zombie extends Enemy {
     private static final int MIN_HEALTH = 20;
     private static final int MAX_HEALTH = 40;
     private static final int MIN_STRENGTH = 5;
-    private static final int MAX_STRENGTH = 10;
-    private static final int MIN_ACCURACY = 5;
-    private static final int MAX_ACCURACY = 10;
+    private static final int MAX_STRENGTH = 11;
+    private static final int MIN_ACCURACY = 8;
+    private static final int MAX_ACCURACY = 12;
     private static final int MIN_SPEED = 5;
     private static final int MAX_SPEED = 10;
 

@@ -7,8 +7,8 @@ import net.cnam.chateau.item.Item;
 import java.util.Random;
 
 public class AttackPotion extends Item implements Consumable {
-    private static final int MIN_ATTACK = 5;
-    private static final int MAX_ATTACK = 15;
+    private static final int MIN_ATTACK = 15;
+    private static final int MAX_ATTACK = 40;
 
     private final int damage;
 

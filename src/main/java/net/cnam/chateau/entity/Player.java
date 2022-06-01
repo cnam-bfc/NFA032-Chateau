@@ -32,9 +32,9 @@ public class Player extends Entity {
      * @param name     Le nom de l'entité
      */
     public Player(App app, Stage stage, Location location, String name) {
-        super(app, stage, location, name, 100, 10, 10, 10);
+        super(app, stage, location, name, 150, 20, 15, 15);
 
-        this.setItem(new HealPotion(new Random())); // TODO à delete
+        /*this.setItem(new HealPotion(new Random())); // TODO à delete
         this.setWeapon(new Weapon("Eppenis", "l'épée nis", 10000, 10, 10000)); // TODO à delete
         Pet pet = new PepeLoiseau(app); // TODO à delete
         pet.setPlayer(this);
@@ -45,7 +45,7 @@ public class Player extends Entity {
         }
         if (!stage.getEntities().contains(pet)) {
             stage.getEntities().add(pet);
-        }
+        }*/
 
         this.setRenderPriority(0);
     }

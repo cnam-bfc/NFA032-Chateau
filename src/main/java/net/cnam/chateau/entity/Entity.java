@@ -32,8 +32,8 @@ import java.util.List;
 public abstract class Entity implements DisplayableObject {
     private static final int DEFAULT_HEALTH = 100;
     private static final int DEFAULT_STRENGTH = 15;
-    private static final int DEFAULT_ACCURACY = 15;
-    private static final int DEFAULT_SPEED = 2;
+    private static final int DEFAULT_ACCURACY = 10;
+    private static final int DEFAULT_SPEED = 10;
 
     private final App app;
     private Location location;

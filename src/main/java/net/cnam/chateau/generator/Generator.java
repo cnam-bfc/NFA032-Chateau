@@ -73,34 +73,34 @@ public class Generator {
         pets.add(new PepeLoiseau(app));
 
         // Initialisation des ennemis
-        specialEnemies.add(new Demogorgon(app, null, null, "Chef demogorgon : Demo-Bob", 100, 100, 100, 100));
-        specialEnemies.add(new Harpy(app, null, null, "Cheffe harpie : Senga-Eiram", 100, 100, 100, 100));
-        specialEnemies.add(new HeadlessKnight(app, null, null, "Chef chevalier sans tete : 720-headshot", 100,100, 100, 100));
-        specialEnemies.add(new Morbol(app, null, null, "Chef morbol : Gilou", 100, 100, 100, 100));
-        specialEnemies.add(new Spider(app, null, null, "Chef araignée : Aragog", 100, 100, 100, 100));
-        specialEnemies.add(new Werewolf(app, null, null, "Cheffe loup-garou : Aela", 100, 100, 100, 100));
-        specialEnemies.add(new Zombie(app, null, null, "Chef zombie : Maxime", 100, 100, 100, 100));
+        specialEnemies.add(new Demogorgon(app, null, null, "Chef demogorgon : Demo-Bob", 100, 20, 17, 10));
+        specialEnemies.add(new Harpy(app, null, null, "Cheffe harpie : Senga-Eiram", 100, 10, 25, 25));
+        specialEnemies.add(new HeadlessKnight(app, null, null, "Chef chevalier sans tete : 720-headshot", 100,15, 20, 15));
+        specialEnemies.add(new Morbol(app, null, null, "Chef morbol : Gilou", 100, 25, 10, 5));
+        specialEnemies.add(new Spider(app, null, null, "Chef araignée : Aragog", 100, 7, 30, 25));
+        specialEnemies.add(new Werewolf(app, null, null, "Cheffe loup-garou : Aela", 100, 20, 15, 10));
+        specialEnemies.add(new Zombie(app, null, null, "Chef zombie : Maxime", 100, 15, 15, 15));
 
         // Initialisation des sages
-        sages.add(new Sage(app, "Dumbledore", game.getRandomPuzzle()));
-        sages.add(new Sage(app, "Merlin", game.getRandomPuzzle()));
-        sages.add(new Sage(app, "Kristoff", game.getRandomPuzzle()));
-        sages.add(new Sage(app, "Sage : Ither", game.getRandomPuzzle()));
-        sages.add(new Sage(app, "Salomon", game.getRandomPuzzle()));
+        sages.add(new Sage(app, "Dumbledore", game.getRandomPuzzle(), 75, 20 , 10 , 10));
+        sages.add(new Sage(app, "Merlin", game.getRandomPuzzle(), 100,15,15,10));
+        sages.add(new Sage(app, "Kristoff", game.getRandomPuzzle(), 75, 20 , 15 ,10));
+        sages.add(new Sage(app, "Sage : Ither", game.getRandomPuzzle(),75,10,20,20));
+        sages.add(new Sage(app, "Salomon", game.getRandomPuzzle(),100,10,15,15));
 
         // Initialisation des armes spéciales
-        specialWeapons.add((new Weapon("La grosse louche", "Louche divine léchée par Etchebest lui même", 10, 10, 10)));
-        specialWeapons.add((new Weapon("Frostmourne", "Une épée diabolique qui semble très puissante", 10, 10, 10)));
-        specialWeapons.add((new Weapon("Masse de Molag Bal", "Une masse tout droit venu de Bordeciel !", 10, 10, 10)));
-        specialWeapons.add((new Weapon("Nuncha-couille", "Quoi de mieux que le mélange d'une arme et des bijoux de famille", 10, 10, 10)));
-        specialWeapons.add((new Weapon("Mjolnir", "C'est pas le vrai mais il fait tout aussi mal", 10, 10, 10)));
-        specialWeapons.add((new Weapon("Excaliburne", "Il fallait en avoir des grosses pour la sortir de la roche !", 10, 10, 10)));
+        specialWeapons.add((new Weapon("La grosse louche", "Louche divine léchée par Etchebest lui même", 15, 10, 5)));
+        specialWeapons.add((new Weapon("Frostmourne", "Une épée diabolique qui semble très puissante", 15, 5, 10)));
+        specialWeapons.add((new Weapon("Masse de Molag Bal", "Une masse tout droit venu de Bordeciel !", 20, 5, 10)));
+        specialWeapons.add((new Weapon("Nuncha-couille", "Quoi de mieux que le mélange d'une arme et des bijoux de famille", 10, 5, 10)));
+        specialWeapons.add((new Weapon("Mjolnir", "C'est pas le vrai mais il fait tout aussi mal", 20, 5, 10)));
+        specialWeapons.add((new Weapon("Excaliburne", "Il fallait en avoir des grosses pour la sortir de la roche !", 15, 10, 15)));
         specialWeapons.add((new Weapon("Hache Leviathan", "Une hache précieuse et très aiguisée", 10, 10, 10)));
 
         // Initialisation des objets "portables" (bijoux) spéciaux
-        specialWearable.add((new Wearable("Collier de S.P.B", "Collier arborant la formule de l’astrophysicien Karl Schwarzschild", 5, 5, 5)));
-        specialWearable.add((new Wearable("Anneau de Sauron", "On y distingue des runes elfiques gravées sur l'anneau", 5, 5, 5)));
-        specialWearable.add((new Wearable("Boucles d'oreilles Hanafuda", "Portées de pair en fils par des utilisateurs de katana", 5, 5, 5)));
+        specialWearable.add((new Wearable("Collier de S.P.B", "Collier arborant la formule de l’astrophysicien Karl Schwarzschild", 13, 5, 5)));
+        specialWearable.add((new Wearable("Anneau de Sauron", "On y distingue des runes elfiques gravées sur l'anneau", 5, 5, 13)));
+        specialWearable.add((new Wearable("Boucles d'oreilles Hanafuda", "Portées de pair en fils par des utilisateurs de katana", 5, 13, 5)));
     }
 
     /**
@@ -530,7 +530,7 @@ public class Generator {
             switch (random.nextInt(1, 6)) {
                 case 1 -> {
                     Chest chest = new Chest(app);
-                    if (random.nextInt(0, 4) < 3) {
+                    if (random.nextBoolean()) {
                         chest.setHiddenItem(getItem());
                     } else {
                         chest.setHiddenItem(getWeapon());
@@ -539,7 +539,7 @@ public class Generator {
                 }
                 case 2 -> {
                     Wardrobe wardrobe = new Wardrobe(app);
-                    if (random.nextInt(0, 5) < 4) {
+                    if (random.nextInt(0, 3) < 2) {
                         wardrobe.setHiddenItem(getItem());
                     } else {
                         wardrobe.setHiddenItem(getWeapon());
@@ -550,7 +550,7 @@ public class Generator {
                     return new Bed(app);
                 }
                 case 4 -> {
-                    if (random.nextBoolean()) {
+                    if (random.nextInt(0,4) < 3) {
                         return new Cage(app, getRandomPet());
                     } else {
                         return new Cage(app);

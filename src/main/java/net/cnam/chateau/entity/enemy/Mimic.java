@@ -6,14 +6,14 @@ import java.util.Random;
 
 public class Mimic extends Enemy {
     private static final String CHARACTER = " ";
-    private static final int MIN_HEALTH = 20;
-    private static final int MAX_HEALTH = 40;
+    private static final int MIN_HEALTH = 25;
+    private static final int MAX_HEALTH = 70;
     private static final int MIN_STRENGTH = 5;
-    private static final int MAX_STRENGTH = 10;
+    private static final int MAX_STRENGTH = 15;
     private static final int MIN_ACCURACY = 5;
-    private static final int MAX_ACCURACY = 10;
-    private static final int MIN_SPEED = 5;
-    private static final int MAX_SPEED = 10;
+    private static final int MAX_ACCURACY = 15;
+    private static final int MIN_SPEED = 10;
+    private static final int MAX_SPEED = 20;
 
     /**
      * Constructeur du Mimic sans tête pour faire une entité avec des stats aléatoire.

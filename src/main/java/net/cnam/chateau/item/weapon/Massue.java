@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class Massue extends Weapon {
 
-    private final int MIN_POWER = 1; // min inclus
-    private final int MAX_POWER = 11; // max exlcu
+    private final int MIN_POWER = 5; // min inclus
+    private final int MAX_POWER = 16; // max exlcu
     private final int MIN_SPEED = 1; // min inclus
     private final int MAX_SPEED = 11; // max exlcu
     private final int MIN_ACCURACY = 1; // min inclus

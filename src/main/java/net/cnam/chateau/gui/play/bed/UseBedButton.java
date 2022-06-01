@@ -29,7 +29,7 @@ public class UseBedButton extends CButton {
     @Override
     public void execute() {
         bed.setUsed(true);
-        player.heal(new Random().nextInt(5, 16));
+        player.heal(new Random().nextInt(10, 31));
         this.menu.stopDisplay();
     }
 }

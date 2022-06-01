@@ -19,9 +19,9 @@ public class BossMartinez extends Boss {
      * @param location Coordonnées où il se situe
      */
     public BossMartinez(App app, Stage stage, Location location) {
-        super(app, stage, location, "Martinez", 100, 25, 75, 50, CHARACTER);
+        super(app, stage, location, "Martinez", 150, 15, 10, 15, CHARACTER);
 
-        this.setWeapon(new Weapon("Livre : \"Java pour les nuls\"", "L'arme divine pour apprendre à coder", 10, 10, 10));
+        this.setWeapon(new Weapon("Livre : \"Java pour les nuls\"", "L'arme divine pour apprendre à coder", 20, 10, 10));
 
         // initialisation du dialogue
         List<String> dialogue = new ArrayList<>();

@@ -4,11 +4,11 @@ import java.util.Random;
 
 public class Ring extends Wearable {
     private final int MIN_POWER = 1; // min inclus
-    private final int MAX_POWER = 11; // max exlcu
+    private final int MAX_POWER = 6; // max exlcu
     private final int MIN_SPEED = 1; // min inclus
     private final int MAX_SPEED = 11; // max exlcu
     private final int MIN_ACCURACY = 1; // min inclus
-    private final int MAX_ACCURACY = 11; // max exlcu
+    private final int MAX_ACCURACY = 6; // max exlcu
 
     /**
      * Constructeur
