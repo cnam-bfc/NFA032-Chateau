@@ -8,7 +8,7 @@ import java.util.Random;
 public class BadTrap extends Trap {
 
     private static final int MIN_DMG = 5;
-    private static final int MAX_DMG = 16;
+    private static final int MAX_DMG = 21;
     private final int dmg;
 
     public BadTrap(Random random) {
@@ -17,12 +17,12 @@ public class BadTrap extends Trap {
         this.dmg = random.nextInt(MIN_DMG, MAX_DMG);
         String description ="";
         switch (dmg){
-            case (5),(6) -> description = "une ficelle vous faisant chuter";
-            case (7),(8) -> description = "des flechettes sortant des murs";
-            case (9),(10) -> description = "des pieux au sol";
-            case (11),(12) -> description = "un coup de planche dans la figure";
-            case (13),(14) -> description = "un jet de feu";
-            case (15),(16) -> description = "un petit sceau d'acide";
+            case (5),(6),(7) -> description = "une ficelle vous faisant chuter";
+            case (8),(9),(10) -> description = "des flechettes sortant des murs";
+            case (11),(12),(13) -> description = "des pieux au sol";
+            case (14),(15),(16) -> description = "un coup de planche dans la figure";
+            case (17),(18) -> description = "un jet de feu";
+            case (19),(20) -> description = "un petit sceau d'acide";
         }
         super.setDescription(description);
     }
