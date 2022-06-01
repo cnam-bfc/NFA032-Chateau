@@ -12,9 +12,9 @@ import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.gui.play.escape.EscapeMenu;
 import net.cnam.chateau.gui.play.fight.EntityStats;
+import net.cnam.chateau.gui.play.finish.FinishMenu;
 import net.cnam.chateau.structure.Castle;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
@@ -217,7 +217,7 @@ public class Game extends CFrame implements DisplayableComponent {
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
                      IllegalArgumentException ignored) {
             }
-            app.getConsole().show(new InfoDialog(InfoDialog.Type.DEAD, "GAME OVER"));
+            app.getConsole().show(new FinishMenu(app, this, false));
             if (deathAudioPlayer != null) {
                 deathAudioPlayer.stop();
             }

@@ -5,7 +5,8 @@ public enum Music {
     GAME("Stranger Things 3 - The Game Soundtrack - Russian Farm Base.wav"),
     FIGHT("Final Fantasy 10 - Battle Theme.wav"),
     DEATH("Risitas, meme Original.wav"),
-    ERROR("Curb your enthusiasm - Credits + Theme Song.wav");
+    ERROR("Curb your enthusiasm - Credits + Theme Song.wav"),
+    WIN("I Will Survive.wav");
 
     private static final String basePath = "/assets/music/";
     private final String fileName;

@@ -3,11 +3,15 @@ package net.cnam.chateau.gui.play.finish;
 import net.cnam.chateau.App;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 
 public class FinishMenu extends CFrame implements DisplayableComponent {
+    private final CChoices buttons;
+
+    private boolean display = true;
 
     // afficher message de fin "Vous avez réussi à sortir du château !"
     // afficher les scores
@@ -16,6 +20,7 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
     public FinishMenu(App app, Game game, boolean won) {
         super(0, 0, "Fin de la partie");
 
+        // Texte
         CLabel result;
         if (won) {
             result = new CLabel("Bravo !\n \nVous avez réussi à sortir du château !");
@@ -27,16 +32,31 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
         result.getColors().add(CColor.BOLD);
         this.getContentPane().getComponents().add(result);
 
+        // Statistiques
         this.getContentPane().getComponents().add(game.getStatistic());
+
+        // Boutons
+        buttons = new CChoices(app, 1);
+        buttons.add(new SaveStatsButton(app, this));
+        buttons.add(new QuitButton(app, this));
+        this.getContentPane().getComponents().add(buttons);
     }
 
     @Override
     public boolean isInLoopingMode() {
-        return false;
+        return display;
     }
 
     @Override
     public boolean isInFullScreenMode() {
-        return false;
+        return true;
+    }
+
+    public void stopDisplaying() {
+        display = false;
+    }
+
+    public CChoices getButtons() {
+        return buttons;
     }
 }

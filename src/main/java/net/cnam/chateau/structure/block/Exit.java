@@ -1,11 +1,17 @@
 package net.cnam.chateau.structure.block;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.play.finish.FinishMenu;
+import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 
 public class Exit extends Block implements BlockListener {
     private final App app;
@@ -32,8 +38,19 @@ public class Exit extends Block implements BlockListener {
 
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            //app.getConsole().show(new FinishMenu(app, player, this));
+        if (event.getEntity() == app.getCurrentGame().getPlayer()) {
+            SimpleAudioPlayer winAudioPlayer = null;
+            try {
+                winAudioPlayer = app.createAudioPlayer(Music.WIN);
+                winAudioPlayer.setVolume(app.getSettings().getMusicVolume());
+                winAudioPlayer.play();
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
+                     IllegalArgumentException ignored) {
+            }
+            app.getConsole().show(new FinishMenu(app, app.getCurrentGame(), true));
+            if (winAudioPlayer != null) {
+                winAudioPlayer.stop();
+            }
         }
     }
 
