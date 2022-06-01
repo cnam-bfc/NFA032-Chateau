@@ -10,8 +10,8 @@ public class Babe extends Pet {
      * 
      * @param app L'application
      */
-    public Babe(App app) {
-        super(app, "Babe");
+    public Babe(App app, int health, int strength, int accuracy, int speed) {
+        super(app, "Babe", health, strength, accuracy, speed);
     }
 
     /**

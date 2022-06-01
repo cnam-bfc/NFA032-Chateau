@@ -10,8 +10,8 @@ public class Ouini extends Pet {
      * 
      * @param app L'application
      */
-    public Ouini(App app) {
-        super(app, "Ouini");
+    public Ouini(App app, int health, int strength, int accuracy, int speed) {
+        super(app, "Ouini", health, strength, accuracy, speed);
     }
 
     /**
