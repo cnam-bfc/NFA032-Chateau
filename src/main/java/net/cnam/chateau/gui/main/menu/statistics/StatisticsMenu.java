@@ -23,7 +23,7 @@ public class StatisticsMenu extends CFrame implements DisplayableComponent {
         CChoices choices = new CChoices(app, 1);
 
         for (int i = 0; i < stats.size(); i++) {
-            choices.add(new ShowStatButton(app, stats.get(i), this, i+1));
+            choices.add(new ShowStatButton(app, stats.get(i), i+1));
         }
 
         choices.add(new BackButton(app, this));
