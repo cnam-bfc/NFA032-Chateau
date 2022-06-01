@@ -112,7 +112,7 @@ public class Game extends CFrame implements DisplayableComponent {
         answersInit.add(new Couple<>("42", true));
         answersInit.add(new Couple<>("98", false));
         answersInit.add(new Couple<>("11", false));
-        puzzles.add(new Puzzle("Combien ?", answersInit));
+        puzzles.add(new Puzzle("Le chiffre de la vie ?", answersInit));
 
         answersInit = new ArrayList<>();
         answersInit.add(new Couple<>("3,141592", true));
@@ -122,11 +122,12 @@ public class Game extends CFrame implements DisplayableComponent {
         puzzles.add(new Puzzle("Je suis la constante d'Archimède, qui suis-je ?", answersInit));
 
         answersInit = new ArrayList<>();
-        answersInit.add(new Couple<>("Cnam", true));
-        answersInit.add(new Couple<>("Cman", false));
-        answersInit.add(new Couple<>("Manc", false));
-        answersInit.add(new Couple<>("Canm", false));
-        puzzles.add(new Puzzle("Ou êtes vous ?", answersInit));
+        answersInit.add(new Couple<>("Java", true));
+        answersInit.add(new Couple<>("C", false));
+        answersInit.add(new Couple<>("Python", false));
+        answersInit.add(new Couple<>("Caml", false));
+        answersInit.add(new Couple<>("html", false));
+        puzzles.add(new Puzzle("En quel langage est produit ce jeu ?", answersInit));
 
         answersInit = new ArrayList<>();
         answersInit.add(new Couple<>("Harry Potter", true));
@@ -136,25 +137,23 @@ public class Game extends CFrame implements DisplayableComponent {
         puzzles.add(new Puzzle("Quel nom du héro principal dans Harry Potter", answersInit));
 
         answersInit = new ArrayList<>();
-        answersInit.add(new Couple<>("5 fruits et légumes par jour", true));
-        answersInit.add(new Couple<>("ses morts", false));
-        answersInit.add(new Couple<>("3 fruits et légumes par jour", false));
-        answersInit.add(new Couple<>("Le fiak de victor", false));
-        puzzles.add(new Puzzle("il faut manger", answersInit));
+        answersInit.add(new Couple<>("Pauvre", true));
+        answersInit.add(new Couple<>("Fortuné", false));
+        puzzles.add(new Puzzle("Quel est l'antonyme de riche ?", answersInit));
 
         answersInit = new ArrayList<>();
         answersInit.add(new Couple<>("Une casserole avec de l'eau", true));
         answersInit.add(new Couple<>("Un casserole avec du beurre", false));
-        answersInit.add(new Couple<>("Une poêle", false));
+        answersInit.add(new Couple<>("Une poêle à l'envers", false));
         answersInit.add(new Couple<>("Une chaussure", false));
         puzzles.add(new Puzzle("Dans quoi cuit-on les pâtes ?", answersInit));
 
         answersInit = new ArrayList<>();
-        answersInit.add(new Couple<>("7", true));
-        answersInit.add(new Couple<>("10", false));
-        answersInit.add(new Couple<>("5", false));
-        answersInit.add(new Couple<>("3", false));
-        puzzles.add(new Puzzle("Combien de coup de fouet pour dresser Victor", answersInit));
+        answersInit.add(new Couple<>("Herbivore", true));
+        answersInit.add(new Couple<>("Omnivore", false));
+        answersInit.add(new Couple<>("Carnivore", false));
+        answersInit.add(new Couple<>("Végétalovore", false));
+        puzzles.add(new Puzzle("Comment s'appellent les animaux qui se nourrissent uniquement de végétaux et de plantes ?", answersInit));
 
         answersInit = new ArrayList<>();
         answersInit.add(new Couple<>("VS code", true));
@@ -165,6 +164,7 @@ public class Game extends CFrame implements DisplayableComponent {
         answersInit = new ArrayList<>();
         answersInit.add(new Couple<>("9", true));
         answersInit.add(new Couple<>("12", false));
+        answersInit.add(new Couple<>("trop compliqué pour moi", false));
         puzzles.add(new Puzzle("1+2(4)", answersInit));
 
         answersInit = new ArrayList<>();
@@ -172,6 +172,36 @@ public class Game extends CFrame implements DisplayableComponent {
         answersInit.add(new Couple<>("Melvin/Célian/Ismail", false));
         answersInit.add(new Couple<>("Célian/Melvin/Ismail", false));
         puzzles.add(new Puzzle("Dans quel ordre sont parties les candidats de Cnam-Lanta", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Dans les Alpes", true));
+        answersInit.add(new Couple<>("Dans les Pyrénées", false));
+        answersInit.add(new Couple<>("Dans le Jura", false));
+        answersInit.add(new Couple<>("C'est pas un yaourt ?", false));
+        puzzles.add(new Puzzle("Où se trouve le Mont Blanc ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Est", true));
+        answersInit.add(new Couple<>("Ouest", false));
+        answersInit.add(new Couple<>("Nord", false));
+        answersInit.add(new Couple<>("Sud", false));
+        answersInit.add(new Couple<>("Plein milieu", false));
+        puzzles.add(new Puzzle("D'où se lève le soleil ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Paris", true));
+        answersInit.add(new Couple<>("Marseille", false));
+        answersInit.add(new Couple<>("Saussay-la-Campagne", false));
+        answersInit.add(new Couple<>("New-York", false));
+        answersInit.add(new Couple<>("Chalon", false));
+        puzzles.add(new Puzzle("Où se trouve la Tour Eiffel ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("1914-1918", true));
+        answersInit.add(new Couple<>("1939-1945", false));
+        answersInit.add(new Couple<>("1814-1818", false));
+        answersInit.add(new Couple<>("1839-1845", false));
+        puzzles.add(new Puzzle("Quelles sont les dates de la Première Guerre mondiale ?", answersInit));
     }
 
     @Override

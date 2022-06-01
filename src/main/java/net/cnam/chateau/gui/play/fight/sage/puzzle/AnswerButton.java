@@ -30,7 +30,7 @@ public class AnswerButton extends CButton {
             door.setSage(null);
         } else {
             try {
-                player.damage(new Random().nextInt(5, 11));
+                player.damage(new Random().nextInt(5, 21));
                 door.getSage().affectRandomPuzzle();
             } catch (EntityDeadException ignored) {
             }
