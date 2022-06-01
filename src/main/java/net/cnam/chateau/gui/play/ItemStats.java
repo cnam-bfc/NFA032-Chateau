@@ -4,6 +4,8 @@ import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.HorizontalAlignment;
 import net.cnam.chateau.item.Item;
+import net.cnam.chateau.item.consumable.AttackPotion;
+import net.cnam.chateau.item.consumable.HealPotion;
 import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.utils.direction.Orientation;
 
@@ -66,6 +68,24 @@ public class ItemStats extends CPanel {
             speedPanel.getComponents().add(speedValue);
             speedPanel.autoResize();
             this.getComponents().add(speedPanel);
+        } else if (item instanceof AttackPotion attackPotion) {
+            // Dégâts
+            CPanel damagePanel = new CPanel(HorizontalAlignment.CENTER, Orientation.VERTICAL, 0);
+            CLabel damageLabel = new CLabel("Dégâts");
+            CLabel damageValue = new CLabel(String.valueOf(attackPotion.getDamage()));
+            damagePanel.getComponents().add(damageLabel);
+            damagePanel.getComponents().add(damageValue);
+            damagePanel.autoResize();
+            this.getComponents().add(damagePanel);
+        } else if (item instanceof HealPotion healPotion) {
+            // Soins
+            CPanel healPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.VERTICAL, 0);
+            CLabel healLabel = new CLabel("Soins");
+            CLabel healValue = new CLabel(String.valueOf(healPotion.getHeal()));
+            healPanel.getComponents().add(healLabel);
+            healPanel.getComponents().add(healValue);
+            healPanel.autoResize();
+            this.getComponents().add(healPanel);
         }
 
         this.autoResize();
