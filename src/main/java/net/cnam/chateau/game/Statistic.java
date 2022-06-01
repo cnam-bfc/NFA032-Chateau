@@ -86,7 +86,7 @@ public class Statistic implements Comparable<Statistic> {
      * Méthode pour simuler un calcul de score non exhaustif.
      */
     public void calculScore(){
-        this.score = (nbRoomsVisited / nbRoomsCastle) * 1000;
+        this.score = (int) ((double)nbRoomsVisited / nbRoomsCastle * 1000);
         this.score += this.nbEnemyKilled * 150;
         if (this.bossDefeated){
             this.score += 2000;

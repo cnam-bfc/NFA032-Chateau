@@ -1,6 +1,7 @@
 package net.cnam.chateau.game;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.GeneratorSettings;
 import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.entity.Player;
@@ -53,7 +54,9 @@ public class Game extends CFrame implements DisplayableComponent {
 
         initPuzzles();
 
-        Generator generator = new Generator(app, this, seed);
+        GeneratorSettings settings = new GeneratorSettings();
+
+        Generator generator = new Generator(app, this, seed, settings);
         this.castle = generator.generateCastle();
         Stage firstStage = this.castle.getStages()[0];
         this.player = new Player(app, firstStage, new Location(castle.getPlayerStartLocation().getX(), castle.getPlayerStartLocation().getY()), playerName);

@@ -1,6 +1,7 @@
 package net.cnam.chateau.generator;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.GeneratorSettings;
 import net.cnam.chateau.entity.Sage;
 import net.cnam.chateau.entity.enemy.*;
 import net.cnam.chateau.entity.enemy.boss.BossMartinez;
@@ -35,21 +36,8 @@ import java.util.*;
  * Classe pour la génération de la map
  */
 public class Generator {
-    private static final int MIN_SIZE_STAGE = 25; //taille mini d'un étage
-    private static final int MAX_SIZE_STAGE = 35; //taille maxi d'un étage
-    private static final int MIN_STAGE = 2; //nombre mini d'étage
-    private static final int MAX_STAGE = 2; //nombre maxi d'étage
-    private static final int MIN_SIZE_ROOM = 6; //taille mini d'une pièce
-    private static final int MAX_SIZE_ROOM = MIN_SIZE_ROOM * 2 + 2; //taille max d'une pièce
-    private static final int NB_ITERATION_MIN = 3; //nombre de division minimum des étages
-    private static final int NB_ITERATION_MAX = 5; //nombre de division maximum supplémentaire des étages
-    private static final int POURCENT_DIVIDE = 10; //ajusteur pour savoir si une pièce se re divise dans la deuxième phase de division
-    private static final int MIN_BLOCKS = 1; // nombre de bloc décoratifs minimum par pièce
-    private static final int MAX_BLOCKS = 3; // nombre de bloc maximum par pièce
-    private static final int MIN_ENEMIES_STAGE = 1; // nombre d'ennemis minimum par étage
-    private static final int MAX_ENEMIES_STAGE = 3; // nombre d'ennemis maximum par étage
-    private static final int LUCK_BLOCK = 80; // chance d'avoir un blocks rare dans la pièce
-    private static final int LUCK_SPECIAL_ENNEMY = 80; // entier à dépasser sur un random entre 1 et 100
+
+    private final GeneratorSettings settings;
 
     private final App app;
     private final long seed;
@@ -70,10 +58,11 @@ public class Generator {
      * @param game La partie
      * @param seed long qui permet de générer la carte de façon procédurale
      */
-    public Generator(App app, Game game, long seed) {
+    public Generator(App app, Game game, long seed, GeneratorSettings settings) {
         this.app = app;
         this.seed = seed;
         this.random = new Random(seed);
+        this.settings = settings;
 
         // Initialisation des pets
         pets.add(new Babe(app));
@@ -131,7 +120,7 @@ public class Generator {
      * comprise)
      */
     public Stage[] generateStages() {
-        Stage[] stages = new Stage[this.random.nextInt(MIN_STAGE, MAX_STAGE + 1)];
+        Stage[] stages = new Stage[this.random.nextInt(settings.getMinStage(), settings.getMaxStage() + 1)];
 
         //On génère chaque étage
         for (int i = 0; i < stages.length; i++) {
@@ -223,8 +212,8 @@ public class Generator {
      */
     public Stage generateStage() {
         // On défini la taille que fera l'étage entre 2 bornes (constantes) 
-        int stageLength = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE + 1);
-        int stageHeight = this.random.nextInt(MIN_SIZE_STAGE, MAX_SIZE_STAGE + 1);
+        int stageLength = this.random.nextInt(settings.getMinSizeStage(), settings.getMaxSizeStage() + 1);
+        int stageHeight = this.random.nextInt(settings.getMinSizeStage(), settings.getMaxSizeStage() + 1);
 
         // On créer un tableau contenant la room de base permettant la découpe de l'étage
         Room[] rooms = new Room[1];
@@ -242,11 +231,11 @@ public class Generator {
 
         // On procède à la découpe des pièces avec un minimum et un maximum d'itération (constantes)
         int pourcentage = 0;
-        for (int i = 0; i < NB_ITERATION_MAX; i++) {
+        for (int i = 0; i < settings.getNbIterationMax(); i++) {
             // A chaque tour de boucle, si on a fait le nombre d'itération minimum, on ajoute un pourcentage de division
             // Le pourcentage sert à définir si oui ou non on tente de diviser la pièce
-            if (i >= NB_ITERATION_MIN) {
-                pourcentage += POURCENT_DIVIDE;
+            if (i >= settings.getNbIterationMin()) {
+                pourcentage += settings.getPourcentDivide();
             }
             int nbRooms = rooms.length;
             for (int j = 0; j < nbRooms; j++) {
@@ -266,7 +255,7 @@ public class Generator {
 
         Stage stage = new Stage(rooms, stageLength, stageHeight);
 
-        int nbEntities = this.random.nextInt(MIN_ENEMIES_STAGE, MAX_ENEMIES_STAGE + 1);
+        int nbEntities = this.random.nextInt(settings.getMinEnemiesStage(), settings.getMaxEnemiesStage() + 1);
         // On génère les entités
         for (int i = 0; i < nbEntities; i++) {
             Room room = stage.getRooms()[this.random.nextInt(stage.getRooms().length)];
@@ -286,7 +275,7 @@ public class Generator {
      */
     public Room[] verifyRoomSize(Room[] rooms) {
         for (int i = 0; i < rooms.length; i++) {
-            while (rooms[i].getLength() > MAX_SIZE_ROOM || rooms[i].getHeight() > MAX_SIZE_ROOM) {
+            while (rooms[i].getLength() > settings.getMaxSizeRoom() || rooms[i].getHeight() > settings.getMaxSizeRoom()) {
                 Room roomDivided = divideRoom(rooms[i]);
                 if (roomDivided == null) {
                     continue;
@@ -326,10 +315,10 @@ public class Generator {
      * @return roomRight la pièce pièce de droite
      */
     public Room divideRoomLength(Room roomLeft) {
-        if (roomLeft.getLength() / 2 <= MIN_SIZE_ROOM) {
+        if (roomLeft.getLength() / 2 <= settings.getMinSizeRoom()) {
             return null;
         }
-        int cut = random.nextInt(MIN_SIZE_ROOM, roomLeft.getLength() - MIN_SIZE_ROOM + 1);
+        int cut = random.nextInt(settings.getMinSizeRoom(), roomLeft.getLength() - settings.getMinSizeRoom() + 1);
 
         Block[][] oldBlocks = roomLeft.getBlocks();
 
@@ -369,10 +358,10 @@ public class Generator {
      * paramètre
      */
     public Room divideRoomWidth(Room roomTop) {
-        if (roomTop.getHeight() / 2 <= MIN_SIZE_ROOM) {
+        if (roomTop.getHeight() / 2 <= settings.getMinSizeRoom()) {
             return null;
         }
-        int cut = random.nextInt(MIN_SIZE_ROOM, roomTop.getHeight() - MIN_SIZE_ROOM + 1);
+        int cut = random.nextInt(settings.getMinSizeRoom(), roomTop.getHeight() - settings.getMinSizeRoom() + 1);
 
         Block[][] oldBlocks = roomTop.getBlocks();
 
@@ -409,7 +398,7 @@ public class Generator {
      * @param room la pièce à remplir
      */
     public void generateRoom(Room room) {
-        int numberBlocks = random.nextInt(MIN_BLOCKS, MAX_BLOCKS + 1);
+        int numberBlocks = random.nextInt(settings.getMinBlocks(), settings.getMaxBlocks() + 1);
         // On ajoute dans la pièce le nombre de blocs défini au-dessus
         for (int i = 0; i < numberBlocks; i++) {
             Location location = GUtils.findPosition(this.random, room);
@@ -537,7 +526,7 @@ public class Generator {
      * @return renvoie un block aléatoire
      */
     public Block pickRandomBlock() {
-        if (random.nextInt(1, 101) > LUCK_BLOCK) {
+        if (random.nextInt(1, 101) < settings.getLuckBlock()) {
             switch (random.nextInt(1, 6)) {
                 case 1 -> {
                     Chest chest = new Chest(app);
@@ -601,7 +590,7 @@ public class Generator {
     }
 
     public Enemy getRandomEnemy(Stage stage, Location location) {
-        if (random.nextInt(1, 101) > LUCK_SPECIAL_ENNEMY && !specialEnemies.isEmpty()) {
+        if (random.nextInt(1, 101) < settings.getLuckSpecialEnnemy() && !specialEnemies.isEmpty()) {
             return getSpecialEnemy();
         } else {
             return getRandomisedEnemy(stage, location);
