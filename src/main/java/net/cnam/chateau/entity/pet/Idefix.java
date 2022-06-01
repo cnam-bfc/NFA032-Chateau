@@ -11,7 +11,7 @@ public class Idefix extends Pet {
      * @param app L'application
      */
     public Idefix(App app, int health, int strength, int accuracy, int speed) {
-        super(app, "Idefix", health, strength, accuracy, speed);
+        super(app, "Idéfix", health, strength, accuracy, speed);
     }
 
     /**

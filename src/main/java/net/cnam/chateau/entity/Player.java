@@ -1,6 +1,7 @@
 package net.cnam.chateau.entity;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.entity.pet.Idefix;
 import net.cnam.chateau.entity.pet.PepeLoiseau;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.CColor;
@@ -36,18 +37,15 @@ public class Player extends Entity {
 
         /*this.setItem(new HealPotion(new Random())); // TODO à delete
         this.setWeapon(new Weapon("Eppenis", "l'épée nis", 10000, 10, 10000)); // TODO à delete
-        Pet pet = new PepeLoiseau(app); // TODO à delete
+        Pet pet = new Idefix(app,10,10,10,10); // TODO à delete
         pet.setPlayer(this);
         this.setPet(pet);
         try {
             pet.teleport(stage, location);
         } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ignored) {
         }
-        if (!stage.getEntities().contains(pet)) {
-            stage.getEntities().add(pet);
-        }*/
 
-        this.setRenderPriority(0);
+        this.setRenderPriority(0); */
     }
 
     /**
