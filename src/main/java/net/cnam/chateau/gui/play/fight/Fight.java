@@ -9,6 +9,7 @@ import net.cnam.chateau.entity.enemy.boss.Boss;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.*;
+import net.cnam.chateau.gui.play.EntityStats;
 import net.cnam.chateau.gui.play.fight.loot.LootMenu;
 import net.cnam.chateau.item.consumable.Consumable;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
