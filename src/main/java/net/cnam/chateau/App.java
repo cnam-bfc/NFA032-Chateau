@@ -19,9 +19,9 @@ import java.util.List;
 public class App {
     private final AppSettings settings;
     private final Console console;
+    private final Statistics statistics;
     private final List<SimpleAudioPlayer> audioPlayers = new LinkedList<>();
     private Game currentGame;
-    private Statistics statistics;
 
     /**
      * Constructeur
@@ -37,8 +37,6 @@ public class App {
         }
         this.console = new Console(settings);
         this.statistics = new Statistics();
-        //initStats(); //TODO Delete
-        //statistics.writeStatistics(); //TODO Delete
     }
 
     /**
@@ -46,10 +44,9 @@ public class App {
      */
     public void start() {
         try {
-            this.statistics.loadStatistics();
+            statistics.loadStatistics();
             MainMenu mainMenu = new MainMenu(this);
             console.show(mainMenu);
-            statistics.writeStatistics();
             console.finalClear(true);
         } catch (Exception ex) {
             StackTraceElement[] trace = ex.getStackTrace();
@@ -109,12 +106,4 @@ public class App {
     public Statistics getStatistics() {
         return statistics;
     }
-
-    //TODO Delete
-    /*public void initStats(){
-        this.statistics.addStatistic(new Statistic("efs",8958,true,9874,987947,177L));
-        this.statistics.addStatistic(new Statistic("fdsfsf",895618,true,9874,987947,89484L));
-        this.statistics.addStatistic(new Statistic("sdfsfds",8298,true,9874,987947,4984984984L));
-        this.statistics.addStatistic(new Statistic("efssdfdsfsfd",898518,true,98714,987947,177L));
-    }*/
 }

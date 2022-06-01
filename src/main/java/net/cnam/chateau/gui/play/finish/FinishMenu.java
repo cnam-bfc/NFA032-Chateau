@@ -3,13 +3,11 @@ package net.cnam.chateau.gui.play.finish;
 import net.cnam.chateau.App;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.component.CChoices;
-import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.component.CLabel;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.component.*;
 
 public class FinishMenu extends CFrame implements DisplayableComponent {
     private final CChoices buttons;
+    private final CTextField nameField;
     private final QuitButton quitButton;
 
     private boolean display = true;
@@ -36,9 +34,15 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
         // Statistiques
         this.getContentPane().getComponents().add(game.getStatistic());
 
+        // Label pseudo
+        CLabel pseudo = new CLabel("Entrez un pseudo:");
+        this.getContentPane().getComponents().add(pseudo);
+
         // Boutons
         buttons = new CChoices(app, 1);
-        buttons.add(new SaveStatsButton(app, this));
+        this.nameField = new CTextField("Pseudo pour enregistrer les statistiques", app.getSettings().getConsoleLength() - 10);
+        buttons.add(nameField);
+        buttons.add(new SaveStatsButton(app, game, this));
         this.quitButton = new QuitButton(app, this);
         buttons.add(quitButton);
         this.getContentPane().getComponents().add(buttons);
@@ -60,6 +64,10 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
 
     public CChoices getButtons() {
         return buttons;
+    }
+
+    public CTextField getNameField() {
+        return nameField;
     }
 
     public QuitButton getQuitButton() {

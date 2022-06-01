@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 public class Statistics {
 
-    private List<Statistic> statistics = new ArrayList<>();
+    private final List<Statistic> statistics = new ArrayList<>();
 
     /**
      * Méthode permettant de récupérer les meilleurs stats (si elles existent).
@@ -61,12 +61,6 @@ public class Statistics {
      * de la forme : nomJoueur/score/bossVaincu(bool)/nbEnnemieTué/nbPiecesVisité/seed
      */
     public void writeStatistics() {
-        // On tri et on remet la liste à la bonne taille pour écrire seulement les 10 meilleurs scores
-        Collections.sort(this.statistics);
-        while (statistics.size() > 10) {
-            this.statistics.remove(this.statistics.size() - 1);
-        }
-
         try {
             // instanciation des objets permettant le flux d'écriture
             FileWriter fichierTexteEcrit = new FileWriter("stats.csv");
@@ -103,6 +97,9 @@ public class Statistics {
         while (statistics.size() > 10) {
             this.statistics.remove(this.statistics.size() - 1);
         }
+
+        // On sauvegarde les statistiques sur le csv
+        writeStatistics();
     }
 
     public List<Statistic> getStatistics() {

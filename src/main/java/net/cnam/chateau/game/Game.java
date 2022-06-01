@@ -262,24 +262,6 @@ public class Game extends CFrame implements DisplayableComponent {
     }
 
     public void stop() {
-        // TODO voir si ça reste ici
-        int nbRoomsVisited = 0;
-        int nbRoomsCastle = 0;
-        Stage[] stages = this.castle.getStages();
-        for (Stage stage : stages) {
-            Room[] rooms = stage.getRooms();
-            for (Room room : rooms) {
-                nbRoomsCastle += 1;
-                if (room.isVisible()) {
-                    nbRoomsVisited += 1;
-                }
-            }
-        }
-        statistic.setNbRoomsVisited(nbRoomsVisited);
-        statistic.setNbRoomsCastle(nbRoomsCastle);
-        statistic.calculScore();
-        app.getStatistics().addStatistic(statistic);
-
         display = false;
         if (audioPlayer != null) {
             audioPlayer.stop();
