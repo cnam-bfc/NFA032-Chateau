@@ -45,6 +45,7 @@ public class SaveStatsButton extends CButton {
         app.getStatistics().addStatistic(statistic);
 
         // On enlève les boutons
+        finishMenu.getContentPane().getComponents().remove(finishMenu.getNameLabel());
         finishMenu.getButtons().remove(nameField);
         finishMenu.getButtons().remove(this);
         finishMenu.getQuitButton().setSelected(true);

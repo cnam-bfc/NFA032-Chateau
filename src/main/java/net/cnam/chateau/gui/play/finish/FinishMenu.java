@@ -7,6 +7,7 @@ import net.cnam.chateau.gui.component.*;
 
 public class FinishMenu extends CFrame implements DisplayableComponent {
     private final CChoices buttons;
+    private final CLabel nameLabel;
     private final CTextField nameField;
     private final QuitButton quitButton;
 
@@ -35,12 +36,12 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
         this.getContentPane().getComponents().add(game.getStatistic());
 
         // Label pseudo
-        CLabel pseudo = new CLabel("Entrez un pseudo:");
-        this.getContentPane().getComponents().add(pseudo);
+        this.nameLabel = new CLabel("Entrez un pseudo:");
+        this.getContentPane().getComponents().add(nameLabel);
 
         // Boutons
         buttons = new CChoices(app, 1);
-        this.nameField = new CTextField("Pseudo pour enregistrer les statistiques", app.getSettings().getConsoleLength() - 10);
+        this.nameField = new CTextField("Pseudo pour enregistrer les statistiques", app.getSettings().getConsoleLength() - 10, game.getPlayer().getName());
         buttons.add(nameField);
         buttons.add(new SaveStatsButton(app, game, this));
         this.quitButton = new QuitButton(app, this);
@@ -64,6 +65,10 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
 
     public CChoices getButtons() {
         return buttons;
+    }
+
+    public CLabel getNameLabel() {
+        return nameLabel;
     }
 
     public CTextField getNameField() {
