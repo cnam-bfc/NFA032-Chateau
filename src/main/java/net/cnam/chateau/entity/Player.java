@@ -32,7 +32,7 @@ public class Player extends Entity {
      * @param name     Le nom de l'entité
      */
     public Player(App app, Stage stage, Location location, String name) {
-        super(app, stage, location, name, 100, 50, 10, 10, 10);
+        super(app, stage, location, name, 100, 10, 10, 10);
 
         this.setItem(new HealPotion(new Random())); // TODO à delete
         this.setWeapon(new Weapon("Eppenis", "l'épée nis", 10000, 10, 10000)); // TODO à delete

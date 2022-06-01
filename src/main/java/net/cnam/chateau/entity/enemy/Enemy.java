@@ -24,16 +24,15 @@ public abstract class Enemy extends Entity implements EntityListener {
      * @param location   Coordonnées où il se situe
      * @param name       Le nom
      * @param health     La santé
-     * @param resistance La résistance
      * @param strength   La force
      * @param accuracy   La précision
      * @param speed      La rapidité
      * @param character  Le caractère d'affichage
      */
-    public Enemy(App app, Stage stage, Location location, String name, int health, int resistance, int strength,
+    public Enemy(App app, Stage stage, Location location, String name, int health, int strength,
                  int accuracy,
                  int speed, String character) {
-        super(app, stage, location, name, health, resistance, strength, accuracy, speed);
+        super(app, stage, location, name, health, strength, accuracy, speed);
 
         this.character = character;
     }

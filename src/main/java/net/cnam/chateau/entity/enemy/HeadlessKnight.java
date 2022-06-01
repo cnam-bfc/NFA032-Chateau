@@ -10,8 +10,6 @@ public class HeadlessKnight extends Enemy {
     private static final String CHARACTER = "K";
     private static final int MIN_HEALTH = 20;
     private static final int MAX_HEALTH = 40;
-    private static final int MIN_RESISTANCE = 2;
-    private static final int MAX_RESISTANCE = 5;
     private static final int MIN_STRENGTH = 5;
     private static final int MAX_STRENGTH = 10;
     private static final int MIN_ACCURACY = 5;
@@ -30,7 +28,6 @@ public class HeadlessKnight extends Enemy {
     public HeadlessKnight(App app, Stage stage, Location location, Random random) {
         super(app, stage, location, "Chevalier sans tête",
                 random.nextInt(MIN_HEALTH, MAX_HEALTH),
-                random.nextInt(MIN_RESISTANCE, MAX_RESISTANCE),
                 random.nextInt(MIN_STRENGTH, MAX_STRENGTH),
                 random.nextInt(MIN_ACCURACY, MAX_ACCURACY),
                 random.nextInt(MIN_SPEED, MAX_SPEED),
@@ -45,13 +42,12 @@ public class HeadlessKnight extends Enemy {
      * @param location   Les coordonnées où il se situe
      * @param name       Le nom
      * @param health     La vie
-     * @param resistance La résistance
      * @param strength   La force
      * @param accuracy   La précision
      * @param speed      La rapidité
      */
-    public HeadlessKnight(App app, Stage stage, Location location, String name, int health, int resistance,
+    public HeadlessKnight(App app, Stage stage, Location location, String name, int health,
                           int strength, int accuracy, int speed) {
-        super(app, stage, location, name, health, resistance, strength, accuracy, speed, CHARACTER);
+        super(app, stage, location, name, health, strength, accuracy, speed, CHARACTER);
     }
 }

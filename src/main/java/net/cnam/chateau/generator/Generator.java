@@ -73,13 +73,13 @@ public class Generator {
         pets.add(new PepeLoiseau(app));
 
         // Initialisation des ennemis
-        specialEnemies.add(new Demogorgon(app, null, null, "Chef demogorgon : Demo-Bob", 100, 100, 100, 100, 100));
-        specialEnemies.add(new Harpy(app, null, null, "Cheffe harpie : Senga-Eiram", 100, 100, 100, 100, 100));
-        specialEnemies.add(new HeadlessKnight(app, null, null, "Chef chevalier sans tete : 720-headshot", 100, 100, 100, 100, 100));
-        specialEnemies.add(new Morbol(app, null, null, "Chef morbol : Gilou", 100, 100, 100, 100, 100));
-        specialEnemies.add(new Spider(app, null, null, "Chef araignée : Aragog", 100, 100, 100, 100, 100));
-        specialEnemies.add(new Werewolf(app, null, null, "Cheffe loup-garou : Aela", 100, 100, 100, 100, 100));
-        specialEnemies.add(new Zombie(app, null, null, "Chef zombie : Maxime", 100, 100, 100, 100, 100));
+        specialEnemies.add(new Demogorgon(app, null, null, "Chef demogorgon : Demo-Bob", 100, 100, 100, 100));
+        specialEnemies.add(new Harpy(app, null, null, "Cheffe harpie : Senga-Eiram", 100, 100, 100, 100));
+        specialEnemies.add(new HeadlessKnight(app, null, null, "Chef chevalier sans tete : 720-headshot", 100,100, 100, 100));
+        specialEnemies.add(new Morbol(app, null, null, "Chef morbol : Gilou", 100, 100, 100, 100));
+        specialEnemies.add(new Spider(app, null, null, "Chef araignée : Aragog", 100, 100, 100, 100));
+        specialEnemies.add(new Werewolf(app, null, null, "Cheffe loup-garou : Aela", 100, 100, 100, 100));
+        specialEnemies.add(new Zombie(app, null, null, "Chef zombie : Maxime", 100, 100, 100, 100));
 
         // Initialisation des sages
         sages.add(new Sage(app, "Dumbledore", game.getRandomPuzzle()));
