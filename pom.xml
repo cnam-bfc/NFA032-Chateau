@@ -17,7 +17,7 @@
   </properties>
 
   <dependencies>
-    <!-- Bibliothèque pour lire la console nativament sous Windows et Linux -->
+    <!-- Bibliothèque pour lire la console nativement sous Windows et Linux -->
     <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
     <dependency>
       <groupId>net.java.dev.jna</groupId>
