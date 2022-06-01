@@ -3,7 +3,6 @@ package net.cnam.chateau;
 import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.game.Game;
-import net.cnam.chateau.game.Statistic;
 import net.cnam.chateau.game.Statistics;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.dialog.ErrorDialog;

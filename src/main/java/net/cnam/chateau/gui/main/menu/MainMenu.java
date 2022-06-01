@@ -5,6 +5,7 @@ import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.information.InfoButton;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -31,6 +32,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
 
         choices.add(new PlayButton(app, this));
         choices.add(new StatisticsButton(app, this));
+        choices.add(new InfoButton(app));
         choices.add(new SettingsButton(app, audioPlayer));
         choices.add(new QuitButton(app, this));
 
