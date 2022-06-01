@@ -232,16 +232,15 @@ public class Game extends CFrame implements DisplayableComponent {
     }
 
     public void stop() {
-
         // TODO voir si ça reste ici
         int nbRoomsVisited = 0;
         int nbRoomsCastle = 0;
         Stage[] stages = this.castle.getStages();
-        for (int i = 0; i < stages.length; i++) {
-            Room[] rooms = stages[i].getRooms();
-            for (int y = 0; y < rooms.length; y++) {
+        for (Stage stage : stages) {
+            Room[] rooms = stage.getRooms();
+            for (Room room : rooms) {
                 nbRoomsCastle += 1;
-                if (rooms[i].isVisible()) {
+                if (room.isVisible()) {
                     nbRoomsVisited += 1;
                 }
             }
