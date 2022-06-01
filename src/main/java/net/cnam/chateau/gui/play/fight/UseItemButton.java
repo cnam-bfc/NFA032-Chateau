@@ -26,6 +26,6 @@ public class UseItemButton extends CButton {
     @Override
     public void execute() {
         app.getConsole().show(new ConsumableItemMenu(app, item, entities));
-        fight.updateButtons();
+        fight.updateMenuButtons();
     }
 }

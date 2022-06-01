@@ -42,7 +42,12 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
             return;
         }
 
-        super.onKeyPressed(event);
+        for (SelectableComponent selectableComponent : selectableComponents) {
+            if (selectableComponent.isSelected() && selectableComponent instanceof KeyListener keyListener) {
+                keyListener.onKeyPressed(event);
+                break;
+            }
+        }
 
         if (selectableComponents.size() < 2) {
             return;

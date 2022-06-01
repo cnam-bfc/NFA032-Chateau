@@ -29,10 +29,10 @@ public class Fight extends CFrame implements DisplayableComponent {
     private final Player player;
     private final Entity enemy;
     private final Random random;
+    private State state = State.FIGHTING;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
     private boolean over = false;
-    private boolean updateButtons = false;
 
     private final CPanel leftPanel;
     private final EntityStats playerStats;
@@ -101,21 +101,54 @@ public class Fight extends CFrame implements DisplayableComponent {
 
     @Override
     public boolean isInLoopingMode() {
+        if (state.equals(State.FINISHED)) {
+            stop();
+        } else
+            // On vérifie si le combat est terminé
+            if (state.equals(State.FIGHTING) && (player.isDead() || enemy.isDead())) {
+                over = true;
+                // Si l'ennemi est mort
+                if (enemy.isDead()) {
+                    // On actualise les stats du joueur
+                    if (enemy instanceof Boss) {
+                        app.getCurrentGame().getStatistic().setBossDefeated(true);
+                    } else if (enemy instanceof Enemy) {
+                        app.getCurrentGame().getStatistic().addAEnemyKill();
+                    }
+
+                    // On affiche le menu de butin
+                    if (enemy.hasWeapon() || enemy.hasItem()) {
+                        menu.getComponents().clear();
+                        menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour le pilier..."));
+                        state = State.LOOTING;
+                    } else {
+                        // Quitter le combat
+                        menu.getComponents().clear();
+                        menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
+                        state = State.FINISHED;
+                    }
+                } else {
+                    // Quitter le combat
+                    menu.getComponents().clear();
+                    menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
+                    state = State.FINISHED;
+                }
+            } else if (state.equals(State.LOOTING)) {
+                app.getConsole().show(new LootMenu(app, player, enemy));
+                playerStats.update();
+                enemyStats.update();
+                // Quitter le combat
+                menu.getComponents().clear();
+                menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
+                state = State.FINISHED;
+            }
+
         return display;
     }
 
     @Override
     public boolean isInFullScreenMode() {
         return true;
-    }
-
-    @Override
-    public String[] render() {
-        if (updateButtons) {
-            updateMenuButtons();
-        }
-
-        return super.render();
     }
 
     public boolean isOver() {
@@ -129,12 +162,7 @@ public class Fight extends CFrame implements DisplayableComponent {
         }
     }
 
-    public void updateButtons() {
-        this.updateButtons = true;
-    }
-
-    private void updateMenuButtons() {
-        this.updateButtons = false;
+    public void updateMenuButtons() {
         menu.removeAll();
         menu.add(new AttackButton(app, this));
         if (player.hasItem() && player.getItem() instanceof Consumable) {
@@ -201,38 +229,6 @@ public class Fight extends CFrame implements DisplayableComponent {
         enemyStats.update();
         if (petStats != null) {
             petStats.update();
-        }
-
-        // On vérifie si le combat est terminé
-        if (player.isDead() || enemy.isDead()) {
-            over = true;
-            display = false;
-
-            // Si l'ennemi est mort
-            if (enemy.isDead()) {
-                // On actualise les stats du joueur
-                if (enemy instanceof Boss) {
-                    app.getCurrentGame().getStatistic().setBossDefeated(true);
-                } else if (enemy instanceof Enemy) {
-                    app.getCurrentGame().getStatistic().addAEnemyKill();
-                }
-
-                // On affiche le menu de butin
-                if (enemy.hasWeapon() || enemy.hasItem()) {
-                    menu.getComponents().clear();
-                    menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour le pilier..."));
-                    app.getConsole().show(this);
-                    app.getConsole().show(new LootMenu(app, player, enemy));
-                    playerStats.update();
-                    enemyStats.update();
-                }
-            }
-
-            // Quitter le combat
-            menu.getComponents().clear();
-            menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
-            app.getConsole().show(this);
-            stop();
         }
     }
 
@@ -405,5 +401,11 @@ public class Fight extends CFrame implements DisplayableComponent {
 
     private boolean canAttack(Entity entity) {
         return random.nextInt(0, ACCURACY) < entity.getAccuracy();
+    }
+
+    private enum State {
+        FIGHTING,
+        LOOTING,
+        FINISHED
     }
 }
