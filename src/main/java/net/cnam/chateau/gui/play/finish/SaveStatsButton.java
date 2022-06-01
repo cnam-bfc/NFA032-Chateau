@@ -15,5 +15,6 @@ public class SaveStatsButton extends CButton {
     @Override
     public void execute() {
         finishMenu.getButtons().remove(this);
+        finishMenu.getQuitButton().setSelected(true);
     }
 }
