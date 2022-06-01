@@ -6,6 +6,7 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.entity.enemy.boss.Boss;
+import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.fight.loot.LootMenu;
@@ -235,9 +236,11 @@ public class Fight extends CFrame implements DisplayableComponent {
     }
 
     private void attackWithPet(List<String> logs) {
+        Pet pet = player.getPet();
+
         int playerSpeed = player.getSpeed();
         int enemySpeed = enemy.getSpeed();
-        int petSpeed = player.getPet().getSpeed();
+        int petSpeed = pet.getSpeed();
 
         // Si le joueur est le premier à attaquer
         if (playerSpeed > enemySpeed && playerSpeed > petSpeed) {
@@ -252,16 +255,16 @@ public class Fight extends CFrame implements DisplayableComponent {
                     if (attack(logs, enemy, player)) return;
                 } else {
                     // L'ennemi attaque le pet
-                    if (attack(logs, enemy, player.getPet())) return;
+                    if (attack(logs, enemy, pet)) return;
                 }
 
                 // Le pet attaque l'ennemi
-                attack(logs, player.getPet(), enemy);
+                attack(logs, pet, enemy);
 
                 // Sinon si le pet est plus rapide que l'ennemi
             } else {
                 // Le pet attaque l'ennemi
-                if (attack(logs, player.getPet(), enemy)) return;
+                if (attack(logs, pet, enemy)) return;
 
                 // L'ennemi attaque
                 if (random.nextBoolean()) {
@@ -269,7 +272,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                     attack(logs, enemy, player);
                 } else {
                     // L'ennemi attaque le pet
-                    attack(logs, enemy, player.getPet());
+                    attack(logs, enemy, pet);
                 }
             }
 
@@ -281,7 +284,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                 if (attack(logs, enemy, player)) return;
             } else {
                 // L'ennemi attaque le pet
-                if (attack(logs, enemy, player.getPet())) return;
+                if (attack(logs, enemy, pet)) return;
             }
 
             // Si le joueur est plus rapide que le pet
@@ -290,12 +293,12 @@ public class Fight extends CFrame implements DisplayableComponent {
                 if (attack(logs, player, enemy)) return;
 
                 // Le pet attaque l'ennemi
-                attack(logs, player.getPet(), enemy);
+                attack(logs, pet, enemy);
 
                 // Sinon si le pet est plus rapide que le joueur
             } else {
                 // Le pet attaque l'ennemi
-                if (attack(logs, player.getPet(), enemy)) return;
+                if (attack(logs, pet, enemy)) return;
 
                 // Le joueur attaque l'ennemi
                 attack(logs, player, enemy);
@@ -304,7 +307,7 @@ public class Fight extends CFrame implements DisplayableComponent {
             // Sinon si le pet est le premier à attaquer
         } else if (petSpeed > enemySpeed && petSpeed > playerSpeed) {
             // Le pet attaque l'ennemi
-            if (attack(logs, player.getPet(), enemy)) return;
+            if (attack(logs, pet, enemy)) return;
 
             // Si le joueur est plus rapide que l'ennemi
             if (playerSpeed > enemySpeed) {
@@ -317,7 +320,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                     attack(logs, enemy, player);
                 } else {
                     // L'ennemi attaque le pet
-                    attack(logs, enemy, player.getPet());
+                    attack(logs, enemy, pet);
                 }
 
                 // Sinon si l'ennemi est plus rapide que le joueur
@@ -328,7 +331,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                     if (attack(logs, enemy, player)) return;
                 } else {
                     // L'ennemi attaque le pet
-                    if (attack(logs, enemy, player.getPet())) return;
+                    if (attack(logs, enemy, pet)) return;
                 }
 
                 // Le joueur attaque l'ennemi
@@ -365,6 +368,9 @@ public class Fight extends CFrame implements DisplayableComponent {
      * @return true si le combat est fini, false sinon
      */
     private boolean attack(List<String> logs, Entity attacker, Entity attacked) {
+        if (attacked.isDead() || attacker.isDead()) {
+            return attacked == player || attacked == enemy;
+        }
         if (canAttack(attacker)) {
             if (attacker == player) {
                 logs.add("Vous avez infligé " + attacker.getStrength() + " dégâts à " + attacked.getName() + ".");
