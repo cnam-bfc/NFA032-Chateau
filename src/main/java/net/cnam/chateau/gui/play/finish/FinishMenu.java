@@ -1,6 +1,7 @@
 package net.cnam.chateau.gui.play.finish;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.*;
@@ -41,7 +42,7 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
 
         // Boutons
         buttons = new CChoices(app, 1);
-        this.nameField = new CTextField("Pseudo pour enregistrer les statistiques", app.getSettings().getConsoleLength() - 10, game.getPlayer().getName());
+        this.nameField = new CTextField("Pseudo pour enregistrer les statistiques", AppSettings.CONSOLE_MIN_LENGTH - 10, game.getPlayer().getName());
         buttons.add(nameField);
         buttons.add(new SaveStatsButton(app, game, this));
         this.quitButton = new QuitButton(app, this);
