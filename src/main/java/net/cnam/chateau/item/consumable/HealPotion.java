@@ -23,6 +23,10 @@ public class HealPotion extends Item implements Consumable {
         this.setName(generateName());
     }
 
+    public int getHeal() {
+        return heal;
+    }
+
     // Méthode permettant de générer un nom à la potion en fonction son champ heal
     private String generateName() {
         int mediumPotion = (MIN_HEAL + MAX_HEAL - 3) / 2;

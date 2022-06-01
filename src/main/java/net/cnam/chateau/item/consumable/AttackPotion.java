@@ -24,6 +24,10 @@ public class AttackPotion extends Item implements Consumable {
         this.setName(generateName());
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
     // Méthode permettant de générer un nom à la potion en fonction son champ heal
     private String generateName() {
         int mediumPotion = (MIN_ATTACK + MAX_ATTACK - 3) / 2;
