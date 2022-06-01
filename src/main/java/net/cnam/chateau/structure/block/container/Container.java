@@ -76,7 +76,7 @@ public abstract class Container extends Block implements BlockListener {
     public String getCharacter(String string) {
         if (this.opened) {
             if (this.hasItem()) {
-                return CColor.BRIGHT_RED + string + CColor.BRIGHT_RED.getForegroundReset();
+                return CColor.MAGENTA + string + CColor.MAGENTA.getForegroundReset();
             } else {
                 return CColor.GREEN + string + CColor.GREEN.getForegroundReset();
             }
