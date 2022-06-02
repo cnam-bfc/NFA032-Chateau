@@ -47,6 +47,8 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
         // Bouton quitter
         this.leaveButton = new LeaveContainerButton(app, this);
 
+        updateButtons();
+
         centerPanel.getComponents().add(buttons);
     }
 
