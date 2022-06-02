@@ -5,8 +5,8 @@ import java.io.*;
 public class AppSettings {
     public static final int CONSOLE_MIN_LENGTH = 80;
     public static final int CONSOLE_MIN_HEIGHT = 25;
-    public static final int MUSIC_VOLUME = 100;
-    public static final int SOUND_VOLUME = 50;
+    public static final int MUSIC_VOLUME = 50;
+    public static final int SOUND_VOLUME = 25;
     public static final String DEFAULT_FILE_PATH = "settings.dat";
 
     private int consoleLength = CONSOLE_MIN_LENGTH;
