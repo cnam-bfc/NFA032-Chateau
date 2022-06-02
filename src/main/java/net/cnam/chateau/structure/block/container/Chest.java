@@ -14,7 +14,7 @@ public class Chest extends Container {
      * @param app   L'application
      */
     public Chest(App app) {
-        this(app, null);
+        super(app, "Coffre", null);
     }
 
     /**

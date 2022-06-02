@@ -20,6 +20,8 @@ public class Door extends Block implements BlockListener {
     private final Room roomTwo;
 
     public Door(Stage stage, Room roomOne, Room roomTwo) {
+        super("Porte");
+
         this.stage = stage;
         this.roomOne = roomOne;
         this.roomTwo = roomTwo;

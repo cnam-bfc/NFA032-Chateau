@@ -11,7 +11,7 @@ public class Wardrobe extends Container {
      * @param app l'application
      */
     public Wardrobe(App app) {
-        this(app, null);
+        super(app, "armoire", null);
     }
 
     /**

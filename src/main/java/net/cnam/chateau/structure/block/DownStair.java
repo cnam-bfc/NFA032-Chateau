@@ -4,6 +4,10 @@ import net.cnam.chateau.gui.CColor;
 
 public class DownStair extends Stair {
 
+    public DownStair() {
+        super("Escalier descendant");
+    }
+
     /**
      * Redéfinition de la méthode permettant d'afficher un caractère sur la carte.
      * 
