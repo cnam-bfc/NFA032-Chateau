@@ -14,7 +14,7 @@ public class Sage extends Entity {
      * @param puzzle Le puzzle
      */
     public Sage(App app, String name, Puzzle puzzle, int health, int strength, int accuracy, int speed) {
-        super(app, null, null, name,health,strength,accuracy,speed);
+        super(app, null, null, name, health, strength, accuracy, speed);
 
         this.app = app;
         this.puzzle = puzzle;
@@ -22,7 +22,7 @@ public class Sage extends Entity {
 
     /**
      * Méthode permettant de vérifier si le Sage possède une énigme.
-     * 
+     *
      * @return un boolean, vrai s'il possède une énigme, sinon faux
      */
     public boolean hasPuzzle() {
@@ -31,7 +31,7 @@ public class Sage extends Entity {
 
     /**
      * Getter permettant de récupérer l'énigme que possède un Sage.
-     * 
+     *
      * @return l'énigme du Sage.
      */
     public Puzzle getPuzzle() {
@@ -40,7 +40,6 @@ public class Sage extends Entity {
 
     /**
      * Méthode permettant au Sage de récupérer une énigme si la liste n'est pas vide.
-     * 
      */
     public void affectRandomPuzzle() {
         if (app.getCurrentGame().hasPuzzles()) {
@@ -52,7 +51,7 @@ public class Sage extends Entity {
 
     /**
      * Redéfinition de la méthode pour afficher l'entité sur la carte.
-     * 
+     *
      * @return un String : "S" pour représenter le Sage
      */
     @Override

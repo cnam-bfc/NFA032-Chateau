@@ -35,7 +35,7 @@ public class LockedDoor extends Door {
 
     public boolean tryDestroy() {
         this.tryDestroyDoor = true;
-        return (Math.random() * 100 > 75);
+        return (Math.random() * 100 > 80);
     }
 
     public Key getKey() {
