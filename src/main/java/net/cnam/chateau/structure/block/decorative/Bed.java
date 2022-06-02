@@ -1,14 +1,12 @@
 package net.cnam.chateau.structure.block.decorative;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.event.block.BlockListener;
-import net.cnam.chateau.event.block.EntityEnterBlockEvent;
-import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
+import net.cnam.chateau.event.player.PlayerInteractEvent;
+import net.cnam.chateau.event.player.PlayerInteractListener;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.play.bed.BedMenu;
 
-public class Bed extends DecorativeBlock implements BlockListener {
+public class Bed extends DecorativeBlock implements PlayerInteractListener {
     private final App app;
     private boolean used = false;
 
@@ -36,15 +34,9 @@ public class Bed extends DecorativeBlock implements BlockListener {
     }
 
     @Override
-    public void onEntityEnterBlock(EntityEnterBlockEvent event) {
+    public void onPlayerInteract(PlayerInteractEvent event) {
         if (!isUsed()) {
-            if (event.getEntity() instanceof Player player) {
-                app.getConsole().show(new BedMenu(app, player, this));
-            }
+            app.getConsole().show(new BedMenu(app, event.getPlayer(), this));
         }
-    }
-
-    @Override
-    public void onEntityLeaveBlock(EntityLeaveBlockEvent event) {
     }
 }
