@@ -8,17 +8,18 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.Puzzle;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.generator.Generator;
+import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.play.escape.EscapeMenu;
 import net.cnam.chateau.gui.play.EntityStats;
+import net.cnam.chateau.gui.play.escape.EscapeMenu;
 import net.cnam.chateau.gui.play.finish.FinishMenu;
 import net.cnam.chateau.structure.Castle;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
-import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
+import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.utils.Couple;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
@@ -40,6 +41,8 @@ public class Game extends CFrame implements DisplayableComponent {
     private final Castle castle;
     private final Map map;
     private final Player player;
+    private final CLabel stageLevelLabel;
+    private final CLabel blockNameLabel;
     private final EntityStats playerStats;
     private final CPanel otherInfos;
     private final String infos;
@@ -68,9 +71,14 @@ public class Game extends CFrame implements DisplayableComponent {
 
         this.getContentPane().getComponents().add(map);
 
+        CPanel header = new CPanel(0, 0);
+        this.stageLevelLabel = new CLabel("Étage 1");
+        header.getComponents().add(stageLevelLabel);
         CLabel title = new CLabel("Partie");
-        CPanel header = new CPanel(0, title.getHeight());
         header.getComponents().add(title);
+        this.blockNameLabel = new CLabel("");
+        blockNameLabel.getColors().add(CColor.BRIGHT_MAGENTA);
+        header.getComponents().add(blockNameLabel);
         this.setHeader(header);
 
         CPanel footer = new CPanel(0, 4, Orientation.HORIZONTAL, false);
@@ -302,6 +310,25 @@ public class Game extends CFrame implements DisplayableComponent {
 
     @Override
     public String[] render() {
+        // Actualisation du header
+        int stageNB = 1;
+        for (Stage stage : castle.getStages()) {
+            if (stage == player.getStage()) {
+                break;
+            }
+            stageNB++;
+        }
+        this.stageLevelLabel.setText("Étage " + stageNB);
+        this.stageLevelLabel.setLength(this.stageLevelLabel.getText().length());
+
+        try {
+            Block playerBlock = player.getStage().getBlock(player.getLocation());
+            this.blockNameLabel.setText(playerBlock.getName());
+            this.blockNameLabel.setLength(this.blockNameLabel.getText().length());
+        } catch (CoordinatesOutOfBoundsException ignored) {
+        }
+
+        // Actualisation du footer
         int length = this.getContentPane().getLength();
 
         this.getFooter().getComponents().clear();
