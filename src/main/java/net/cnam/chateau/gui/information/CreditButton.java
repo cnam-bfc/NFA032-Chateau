@@ -6,7 +6,7 @@ import net.cnam.chateau.gui.information.credits.CreditsMenu;
 
 public class CreditButton extends CButton {
 
-    private App app;
+    private final App app;
 
     public CreditButton(App app) {
         super(app, "Crédits");
