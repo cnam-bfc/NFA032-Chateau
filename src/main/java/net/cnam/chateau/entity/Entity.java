@@ -1,16 +1,17 @@
 package net.cnam.chateau.entity;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.gui.DisplayableObject;
 import net.cnam.chateau.event.block.BlockListener;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
 import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
 import net.cnam.chateau.event.entity.EntityApproachEvent;
 import net.cnam.chateau.event.entity.EntityListener;
 import net.cnam.chateau.game.EntityDeadException;
+import net.cnam.chateau.gui.DisplayableObject;
 import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.item.Item;
 import net.cnam.chateau.item.Key;
+import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.item.wearable.Wearable;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Stage;
@@ -18,7 +19,6 @@ import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.structure.block.Stair;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
-import net.cnam.chateau.item.weapon.Weapon;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -55,14 +55,14 @@ public abstract class Entity implements DisplayableObject {
     /**
      * Constructeur
      *
-     * @param app        L'application
-     * @param stage      L'étage où elle se situe
-     * @param location   Coordonnées où elle se situe
-     * @param name       Le nom
-     * @param health     La santé
-     * @param strength   La force
-     * @param accuracy   La précision
-     * @param speed      La rapidité
+     * @param app      L'application
+     * @param stage    L'étage où elle se situe
+     * @param location Coordonnées où elle se situe
+     * @param name     Le nom
+     * @param health   La santé
+     * @param strength La force
+     * @param accuracy La précision
+     * @param speed    La rapidité
      */
     public Entity(App app, Stage stage, Location location, String name, int health, int strength, int accuracy,
                   int speed) {
@@ -237,6 +237,10 @@ public abstract class Entity implements DisplayableObject {
      * Méthode permettant de tuer l'entité.
      */
     public void kill() {
+        // S'il reste de la vie à l'entité, on la met à 0
+        if (this.health > 0) {
+            this.health = 0;
+        }
         // On enlève cette entité de l'étage
         if (this.stage != null) {
             this.stage.getEntities().remove(this);
@@ -361,7 +365,7 @@ public abstract class Entity implements DisplayableObject {
      * @param item un Item
      */
     public void setItem(Item item) {
-        if (!(item instanceof Key)){
+        if (!(item instanceof Key)) {
             this.item = item;
         }
     }
@@ -386,10 +390,10 @@ public abstract class Entity implements DisplayableObject {
         if (this.hasWeapon()) {
             totalStrength += this.getWeapon().getStrength();
         }
-        if (this.item instanceof Wearable wearable){
+        if (this.item instanceof Wearable wearable) {
             totalStrength += wearable.getStrength();
         }
-        if (totalStrength < 0){
+        if (totalStrength < 0) {
             return 0;
         }
         return totalStrength;
@@ -406,10 +410,10 @@ public abstract class Entity implements DisplayableObject {
         if (this.hasWeapon()) {
             totalAccuracy += this.getWeapon().getAccuracy();
         }
-        if (this.item instanceof Wearable wearable){
+        if (this.item instanceof Wearable wearable) {
             totalAccuracy += wearable.getAccuracy();
         }
-        if (totalAccuracy < 0 ){
+        if (totalAccuracy < 0) {
             return 0;
         }
         return totalAccuracy;
@@ -426,10 +430,10 @@ public abstract class Entity implements DisplayableObject {
         if (this.hasWeapon()) {
             totalSpeed += this.getWeapon().getSpeed();
         }
-        if (this.item instanceof Wearable wearable){
+        if (this.item instanceof Wearable wearable) {
             totalSpeed += wearable.getSpeed();
         }
-        if (totalSpeed < 0){
+        if (totalSpeed < 0) {
             return 0;
         }
         return totalSpeed;
