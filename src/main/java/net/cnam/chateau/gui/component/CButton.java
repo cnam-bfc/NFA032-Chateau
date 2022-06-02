@@ -64,8 +64,8 @@ public abstract class CButton extends CLabel implements SelectableComponent, Key
     public void onKeyPressed(KeyPressedEvent event) {
         int key = event.getKey();
 
-        // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal
-        if (this.isSelected() && (key == 10 || key == 13)) {
+        // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal ; 32 = Espace
+        if (this.isSelected() && (key == 10 || key == 13 || key == 32)) {
             try {
                 SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.SELECT);
                 audioPlayer.setVolume(app.getSettings().getSoundEffectsVolume());
