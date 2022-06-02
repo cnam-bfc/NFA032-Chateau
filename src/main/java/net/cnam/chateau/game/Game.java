@@ -348,6 +348,11 @@ public class Game extends CFrame implements DisplayableComponent {
                     }
                     infosTable = ArrayUtils.addOnTopOfArray(infosTable, "Espace - Interagir");
                     infos = StringUtils.convertStringArrayToString(infosTable);
+                } else {
+                    String[] infosTable = StringUtils.convertStringToStringArray(infos);
+                    if (infosTable.length > 1) {
+                        infos = infosTable[infosTable.length - 1];
+                    }
                 }
             } else {
                 this.blockNameLabel.setText(" ");
