@@ -173,7 +173,7 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
         this.setFooter(new CPanel(HorizontalAlignment.CENTER,0,1, Orientation.HORIZONTAL, 1));
 
         CPanel rightTextPanel = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
-        rightTextPanel.getComponents().add(new CLabel(HorizontalAlignment.LEFT, "← Appuyez flèche gauche"));
+        rightTextPanel.getComponents().add(new CLabel(HorizontalAlignment.LEFT, "Appuyez flèche gauche"));
         rightTextPanel.autoResize();
 
         CPanel leaveButtonPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
@@ -181,7 +181,7 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
         leaveButtonPanel.autoResize();
 
         CPanel leftTextPanel = new CPanel(HorizontalAlignment.RIGHT, Orientation.HORIZONTAL, 1);
-        leftTextPanel.getComponents().add(new CLabel(HorizontalAlignment.RIGHT, "Appuyez flèche droite →"));
+        leftTextPanel.getComponents().add(new CLabel(HorizontalAlignment.RIGHT, "Appuyez flèche droite"));
         leftTextPanel.autoResize();
 
         this.getFooter().getComponents().add(rightTextPanel);
