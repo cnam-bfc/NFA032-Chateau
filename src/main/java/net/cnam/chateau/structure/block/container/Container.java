@@ -2,15 +2,14 @@ package net.cnam.chateau.structure.block.container;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.event.block.BlockListener;
-import net.cnam.chateau.event.block.EntityEnterBlockEvent;
-import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
+import net.cnam.chateau.event.player.PlayerInteractEvent;
+import net.cnam.chateau.event.player.PlayerInteractListener;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.play.container.ContainerMenu;
 import net.cnam.chateau.item.Item;
 import net.cnam.chateau.structure.block.Block;
 
-public abstract class Container extends Block implements BlockListener {
+public abstract class Container extends Block implements PlayerInteractListener {
     private final App app;
     private Item hiddenItem;
     private boolean opened = false;
@@ -77,17 +76,14 @@ public abstract class Container extends Block implements BlockListener {
     /**
      * Redéfinition de la méthode permettant de savoir quand une entité entre en contact avec le bloc.
      *
-     * @param event //TODO victor
+     * @param event l'évènement quand un joueur interagit avec le bloc
      */
     @Override
-    public void onEntityEnterBlock(EntityEnterBlockEvent event) {
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
         this.opened = true;
-        if (event.getEntity() instanceof Player player && (this.hasItem() || player.hasItem() || player.hasWeapon())) {
+        if (this.hasItem() || player.hasItem() || player.hasWeapon()) {
             app.getConsole().show(new ContainerMenu(app, player, this));
         }
-    }
-
-    @Override
-    public void onEntityLeaveBlock(EntityLeaveBlockEvent event) {
     }
 }

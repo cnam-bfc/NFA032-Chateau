@@ -3,7 +3,6 @@ package net.cnam.chateau.structure.block;
 import net.cnam.chateau.gui.CColor;
 
 public class UpStair extends Stair {
-
     public UpStair() {
         super("Escalier montant");
     }

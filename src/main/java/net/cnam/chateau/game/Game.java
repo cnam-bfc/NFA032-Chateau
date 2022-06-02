@@ -7,6 +7,8 @@ import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.Puzzle;
 import net.cnam.chateau.event.key.KeyPressedEvent;
+import net.cnam.chateau.event.player.PlayerInteractEvent;
+import net.cnam.chateau.event.player.PlayerInteractListener;
 import net.cnam.chateau.generator.Generator;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.EntityStats;
@@ -18,6 +20,8 @@ import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.utils.Couple;
 import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.utils.StringUtils;
+import net.cnam.chateau.utils.array.ArrayUtils;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
@@ -41,7 +45,7 @@ public class Game extends CFrame implements DisplayableComponent {
     private final CLabel blockNameLabel;
     private final EntityStats playerStats;
     private final CPanel otherInfos;
-    private final String infos;
+    private String infos;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
     private final Statistic statistic;
@@ -265,6 +269,18 @@ public class Game extends CFrame implements DisplayableComponent {
         } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException |
                  EntityAlreadyTeleportedException ignored) {
         }
+
+        // Touche espace = on interagit avec le block
+        if (event.getKey() == 32) {
+            try {
+                Block block = player.getStage().getBlock(player.getLocation());
+                if (block instanceof PlayerInteractListener playerInteractListener) {
+                    PlayerInteractEvent playerInteractEvent = new PlayerInteractEvent(player);
+                    playerInteractListener.onPlayerInteract(playerInteractEvent);
+                }
+            } catch (CoordinatesOutOfBoundsException ignored) {
+            }
+        }
     }
 
     @Override
@@ -324,8 +340,21 @@ public class Game extends CFrame implements DisplayableComponent {
             Block playerBlock = player.getStage().getBlock(player.getLocation());
             if (playerBlock != null) {
                 this.blockNameLabel.setText(playerBlock.getName() + " ");
+                if (playerBlock instanceof PlayerInteractListener) {
+                    String[] infosTable = StringUtils.convertStringToStringArray(infos);
+                    if (infosTable.length > 1) {
+                        infos = infosTable[infosTable.length - 1];
+                        infosTable = StringUtils.convertStringToStringArray(infos);
+                    }
+                    infosTable = ArrayUtils.addOnTopOfArray(infosTable, "Espace - Interagir");
+                    infos = StringUtils.convertStringArrayToString(infosTable);
+                }
             } else {
                 this.blockNameLabel.setText(" ");
+                String[] infosTable = StringUtils.convertStringToStringArray(infos);
+                if (infosTable.length > 1) {
+                    infos = infosTable[infosTable.length - 1];
+                }
             }
         } catch (CoordinatesOutOfBoundsException ignored) {
         }
