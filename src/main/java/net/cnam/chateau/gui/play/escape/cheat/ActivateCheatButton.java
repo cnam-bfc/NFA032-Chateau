@@ -9,6 +9,7 @@ import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.dialog.InfoDialog;
+import net.cnam.chateau.gui.play.escape.EscapeMenu;
 import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.utils.Location;
@@ -23,13 +24,15 @@ public class ActivateCheatButton extends CButton {
     private App app;
     private CheatMenu menu;
     private Game game;
+    private EscapeMenu escapeMenu;
 
-    public ActivateCheatButton(App app, CheatMenu menu, Game game) {
+    public ActivateCheatButton(App app, CheatMenu menu, Game game, EscapeMenu escapeMenu) {
         super(app, "Activer le code de triche");
 
         this.app = app;
         this.menu = menu;
         this.game = game;
+        this.escapeMenu = escapeMenu;
     }
 
     @Override
@@ -74,6 +77,11 @@ public class ActivateCheatButton extends CButton {
                 if (!player.getStage().getEntities().contains(newPet))
                     player.getStage().getEntities().add(newPet);
                 app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Vous avez reçu le familier Super Ludo !"));
+            }
+            case ("666") -> {
+                player.kill();
+                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Il y a parfois des courageux!\n \nMais le reste du temps des lâches."));
+                escapeMenu.stopDisplaying();
             }
             default -> {
                 app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Code de triche invalide !"));

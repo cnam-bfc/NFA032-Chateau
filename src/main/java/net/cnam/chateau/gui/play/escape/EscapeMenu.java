@@ -20,7 +20,7 @@ public class EscapeMenu extends CFrame implements DisplayableComponent {
             choices.add(new UseItemButton(app, this, game.getPlayer()));
         }
         choices.add(new InfoButton(app));
-        choices.add(new CheatButton(app, game));
+        choices.add(new CheatButton(app, game, this));
         choices.add(new SettingsButton(app, game));
         choices.add(new QuitGameButton(app, this));
 
