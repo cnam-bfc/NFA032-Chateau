@@ -5,12 +5,14 @@ import java.io.*;
 public class AppSettings {
     public static final int CONSOLE_MIN_LENGTH = 80;
     public static final int CONSOLE_MIN_HEIGHT = 25;
+    public static final int MUSIC_VOLUME = 100;
+    public static final int SOUND_VOLUME = 50;
     public static final String DEFAULT_FILE_PATH = "settings.dat";
 
     private int consoleLength = CONSOLE_MIN_LENGTH;
     private int consoleHeight = CONSOLE_MIN_HEIGHT;
-    private float musicVolume = 0.15f;
-    private float soundEffectsVolume = 0.05f;
+    private float musicVolume = (float) MUSIC_VOLUME / 100;
+    private float soundEffectsVolume = (float) SOUND_VOLUME / 100;
 
     /**
      * Méthode permettant de définir les paramètres de l'application.
@@ -34,7 +36,7 @@ public class AppSettings {
 
     /**
      * Méthode permettant de sauvegarder dans un fichier les paramètres de l'utilisateur.
-     * 
+     *
      * @param file Le fichier où doivent être sauvegardés les paramètres
      * @throws IOException Levé d'une exception si un problème lors de la sauvegarde
      */
@@ -53,7 +55,7 @@ public class AppSettings {
 
     /**
      * Méthode permettant de récupérer les paramètres de l'utilisateur si ceux-ci existent.
-     * 
+     *
      * @param file Le fichier où doivent être sauvegardés les paramètres
      * @throws IOException Levé d'une exception si un problème lors de la sauvegarde
      */
@@ -77,7 +79,7 @@ public class AppSettings {
 
     /**
      * Getter permettant de récupérer la longueur de la console.
-     * 
+     *
      * @return La longueur de la console
      */
     public int getConsoleLength() {
@@ -87,7 +89,7 @@ public class AppSettings {
     /**
      * Setter permettant de définir la longueur de la console.
      * Si la longueur est inférieur à CONSOLE_MIN_LENGTH, ne change pas la taille
-     * 
+     *
      * @param consoleLength La longueur de la console
      */
     public void setConsoleLength(int consoleLength) {
@@ -99,7 +101,7 @@ public class AppSettings {
 
     /**
      * Getter permettant de récupérer la hauteur de la console.
-     * 
+     *
      * @return La hauteur de la console
      */
     public int getConsoleHeight() {
@@ -109,7 +111,7 @@ public class AppSettings {
     /**
      * Setter permettant de définir la hauteur de la console.
      * Si la hauteur est inférieur à CONSOLE_MIN_HEIGHT, ne change pas la taille
-     * 
+     *
      * @param consoleHeight La hauteur de la console
      */
     public void setConsoleHeight(int consoleHeight) {
@@ -121,7 +123,7 @@ public class AppSettings {
 
     /**
      * Getter permettant de récupérer le volume de la musique.
-     * 
+     *
      * @return le volume de la musique compris entre 0 et 1 (float)
      */
     public float getMusicVolume() {
@@ -130,7 +132,7 @@ public class AppSettings {
 
     /**
      * Setter permettant de définir le volume de la musique.
-     * 
+     *
      * @param musicVolume le volume de la musique entre 0 et 1 (float)
      */
     public void setMusicVolume(float musicVolume) {
@@ -139,7 +141,7 @@ public class AppSettings {
 
     /**
      * Getter permettant de récupérer le volume des effets sonores.
-     * 
+     *
      * @return le volume des effets sonores compris entre 0 et 1 (float)
      */
     public float getSoundEffectsVolume() {
@@ -148,7 +150,7 @@ public class AppSettings {
 
     /**
      * Setter permettant de définir le volume des effets sonores.
-     * 
+     *
      * @param soundEffectsVolume le volume des effets sonores entre 0 et 1 (float)
      */
     public void setSoundEffectsVolume(float soundEffectsVolume) {
