@@ -3,7 +3,6 @@ package net.cnam.chateau.gui.information;
 import net.cnam.chateau.App;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.component.*;
-import net.cnam.chateau.game.Game;
 
 public class InfoMenu extends CFrame implements DisplayableComponent {
     private boolean display = true;
@@ -15,7 +14,7 @@ public class InfoMenu extends CFrame implements DisplayableComponent {
 
         choices.add(new EntityButton(app));
         choices.add(new BlocksButton(app));
-        choices.add(new TouchButton(app));
+        choices.add(new CommandButton(app));
         choices.add(new CreditButton(app));
         choices.add(new BackButton(app, this));
 
