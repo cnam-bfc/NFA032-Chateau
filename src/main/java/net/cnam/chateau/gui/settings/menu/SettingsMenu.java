@@ -20,7 +20,7 @@ public class SettingsMenu extends CFrame implements DisplayableComponent {
         choices.add(new ConfigureMusicButton(app, menuPlayer));
         choices.add(new ConfigureSoundEffectsButton(app));
         choices.add(saveButton);
-        choices.add(new DebugKeysButton(app));
+        //choices.add(new DebugKeysButton(app));
         choices.select(saveButton);
 
         this.getContentPane().getComponents().add(choices);
