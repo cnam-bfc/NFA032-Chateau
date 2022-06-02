@@ -71,7 +71,7 @@ public abstract class Enemy extends Entity implements EntityListener {
     @Override
     public void onEntityApproachEvent(EntityApproachEvent event) {
         if (event.getEntity() instanceof Player player) {
-            Fight fight = this.fight(player, false);
+            Fight fight = this.fight(player, true);
             if (!fight.isOver()) {
                 event.setCanceled(true);
             }
