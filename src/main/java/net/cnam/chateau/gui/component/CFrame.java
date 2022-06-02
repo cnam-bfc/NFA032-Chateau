@@ -74,7 +74,13 @@ public class CFrame extends CComponent implements KeyListener {
 
     @Override
     public void onKeyPressed(KeyPressedEvent event) {
+        if (this.header != null) {
+            this.header.onKeyPressed(event);
+        }
         this.contentPane.onKeyPressed(event);
+        if (this.footer != null) {
+            this.footer.onKeyPressed(event);
+        }
     }
 
     public CPanel getHeader() {
