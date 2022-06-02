@@ -202,6 +202,38 @@ public class Game extends CFrame implements DisplayableComponent {
         answersInit.add(new Couple<>("1814-1818", false));
         answersInit.add(new Couple<>("1839-1845", false));
         puzzles.add(new Puzzle("Quelles sont les dates de la Première Guerre mondiale ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Ananas", true));
+        answersInit.add(new Couple<>("Chien", false));
+        answersInit.add(new Couple<>("Castor", false));
+        answersInit.add(new Couple<>("Victor", false));
+        puzzles.add(new Puzzle("Trouver l'intrus", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Un petit carré blanc", true));
+        answersInit.add(new Couple<>("Un rond blanc", false));
+        puzzles.add(new Puzzle("Qu'est ce qui est petit, carré et blanc ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Le Big Bang", true));
+        answersInit.add(new Couple<>("L'énorme Paf !", false));
+        answersInit.add(new Couple<>("Le Grand Boom", false));
+        answersInit.add(new Couple<>("Le plat d'Alban dans la piscine", false));
+        puzzles.add(new Puzzle("L'explosion à l'origine de l'univers est : ", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Le genou", true));
+        answersInit.add(new Couple<>("Le coude", false));
+        answersInit.add(new Couple<>("Le bassin", false));
+        answersInit.add(new Couple<>("Le pied", false));
+        puzzles.add(new Puzzle("Où se situe la rotule dans le corps humain ?", answersInit));
+
+        answersInit = new ArrayList<>();
+        answersInit.add(new Couple<>("Maxime", true));
+        answersInit.add(new Couple<>("Le chiot", false));
+        answersInit.add(new Couple<>("Le chaton", false));
+        puzzles.add(new Puzzle("Comment appelle-t-on le petit de la brebis ?", answersInit));
     }
 
     @Override
@@ -328,6 +360,9 @@ public class Game extends CFrame implements DisplayableComponent {
     }
 
     public Puzzle getRandomPuzzle() {
+        if (puzzles.isEmpty()) {
+            return null;
+        }
         return puzzles.remove(new Random().nextInt(0, puzzles.size()));
     }
 

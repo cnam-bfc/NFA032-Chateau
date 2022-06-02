@@ -19,10 +19,20 @@ public class Puzzle {
         this.answers = answers;
     }
 
+    /**
+     * Getter permettant de récupérer la question de l'énigme
+     *
+     * @return String : la question de l'énigme
+     */
     public String getQuestion() {
         return question;
     }
 
+    /**
+     * Getter permettant de récupérer la liste des réponses de l'énigme
+     *
+     * @return List de couple String,Boolean permettant de définir les différentes réponses et si elles sont corrects/incorrects
+     */
     public List<Couple<String, Boolean>> getAnswers() {
         return answers;
     }

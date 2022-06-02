@@ -76,7 +76,7 @@ public class Generator {
         // Initialisation des ennemis
         specialEnemies.add(new Demogorgon(app, null, null, "Chef demogorgon : Demo-Bob", 100, 20, 17, 10));
         specialEnemies.add(new Harpy(app, null, null, "Cheffe harpie : Senga-Eiram", 100, 10, 25, 25));
-        specialEnemies.add(new HeadlessKnight(app, null, null, "Chef chevalier sans tete : 720-headshot", 100,15, 20, 15));
+        specialEnemies.add(new HeadlessKnight(app, null, null, "Chef chevalier sans tete : 720-headshot", 100, 15, 20, 15));
         specialEnemies.add(new Morbol(app, null, null, "Chef morbol : Gilou", 100, 25, 10, 5));
         specialEnemies.add(new Spider(app, null, null, "Chef araignée : Aragog", 100, 7, 30, 25));
         specialEnemies.add(new Werewolf(app, null, null, "Cheffe loup-garou : Aela", 100, 20, 15, 10));
@@ -554,7 +554,7 @@ public class Generator {
                     return new Bed(app);
                 }
                 case 4 -> {
-                    if (random.nextInt(0,4) < 3) {
+                    if (random.nextInt(0, 4) < 3) {
                         return new Cage(app, getRandomPet());
                     } else {
                         return new Cage(app);
