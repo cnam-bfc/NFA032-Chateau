@@ -17,7 +17,7 @@ public class DoorMenu extends CFrame implements DisplayableComponent {
         CChoices choices = new CChoices(app, 1);
 
         if (player.hasKey(door.getKey())) {
-            choices.add(new UseObjectButton(app, player, door, this));
+            choices.add(new OpenDoorButton(app, door, this));
         } else {
             getContentPane().getComponents().add(new CLabel("Vous n'avez pas la bonne clé, cherchez la !"));
         }
