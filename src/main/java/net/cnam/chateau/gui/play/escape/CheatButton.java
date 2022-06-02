@@ -21,7 +21,9 @@ public class CheatButton extends CButton {
 
     @Override
     public void execute() {
-        app.getConsole().show(new InfoDialog(InfoDialog.Type.WARNING, "Une fois la triche activée, vos statistiques ne seront pas sauvegardées."));
+        if (!game.getStatistic().isCheatModeActivated()) {
+            app.getConsole().show(new InfoDialog(InfoDialog.Type.WARNING, "Une fois la triche activée, vos statistiques ne seront pas sauvegardées."));
+        }
         app.getConsole().show(new CheatMenu(app, game, escapeMenu));
     }
 }

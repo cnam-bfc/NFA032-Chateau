@@ -13,6 +13,10 @@ import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.gui.play.escape.EscapeMenu;
 import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
+import net.cnam.chateau.structure.Room;
+import net.cnam.chateau.structure.Stage;
+import net.cnam.chateau.structure.block.Block;
+import net.cnam.chateau.structure.block.UpStair;
 import net.cnam.chateau.utils.Location;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
@@ -80,8 +84,26 @@ public class ActivateCheatButton extends CButton {
             }
             case ("666") -> {
                 player.kill();
-                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Il y a parfois des courageux!\n \nMais le reste du temps des lâches."));
+                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Il y a parfois des courageux!\n \nMais il faut croire que vous n'en n'êtes pas un."));
                 escapeMenu.stopDisplaying();
+            }
+            case ("BOSS") -> {
+                Stage stage = game.getCastle().getStages()[game.getCastle().getStages().length - 1];
+                firstLoop:
+                for (Room room : stage.getRooms()) {
+                    for (Block[] blocks : room.getBlocks()) {
+                        for (Block block : blocks) {
+                            if (block instanceof UpStair upstair) {
+                                try {
+                                    player.teleport(upstair.getOtherStair().getStage(), upstair.getOtherStair().getLocation());
+                                } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ignored) {
+                                }
+                                break firstLoop;
+                            }
+                        }
+                    }
+                }
+
             }
             default -> {
                 app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "Code de triche invalide !"));

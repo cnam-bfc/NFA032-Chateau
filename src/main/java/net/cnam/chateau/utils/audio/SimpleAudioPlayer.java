@@ -95,7 +95,7 @@ public class SimpleAudioPlayer {
     // Method to set volume 0.0 is 0% and 1.0 is 100%
     public void setVolume(float volume) {
         this.volume = volume;
-        float db = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
+        float db = (float) (Math.log(volume) / Math.log(10.0) * 40.0);
         FloatControl c = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         c.setValue(db);
     }
