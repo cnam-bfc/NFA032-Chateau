@@ -128,6 +128,15 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
         }
     }
 
+    public SelectableComponent getSelectedComponent() {
+        for (SelectableComponent component : selectableComponents) {
+            if (component.isSelected()) {
+                return component;
+            }
+        }
+        return null;
+    }
+
     public void select(SelectableComponent selectableComponent) {
         if (!selectableComponents.contains(selectableComponent)) {
             return;

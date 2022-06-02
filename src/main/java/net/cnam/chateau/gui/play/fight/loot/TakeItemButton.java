@@ -11,7 +11,7 @@ public class TakeItemButton extends CButton {
     private final LootMenu lootMenu;
 
     public TakeItemButton(App app, Player player, Entity enemy, LootMenu lootMenu) {
-        super(app, "Prendre " + enemy.getItem().getName());
+        super(app, "Prendre l'objet");
 
         this.player = player;
         this.enemy = enemy;
@@ -22,7 +22,11 @@ public class TakeItemButton extends CButton {
     public void execute() {
         player.setItem(enemy.getItem());
         enemy.setItem(null);
-        lootMenu.getChoices().remove(this);
+        lootMenu.getButtons().remove(this);
         lootMenu.getLeaveButton().setSelected(true);
+    }
+
+    public Entity getEnemy() {
+        return enemy;
     }
 }
