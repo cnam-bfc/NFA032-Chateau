@@ -250,11 +250,12 @@ public abstract class Entity implements DisplayableObject {
     /**
      * Permet de déclencher un combat avec un joueur
      *
-     * @param player Le joueur
+     * @param player  Le joueur
+     * @param runAway Si le joueur peut fuir le combat
      * @return Le combat terminé
      */
-    public Fight fight(Player player) {
-        Fight fight = new Fight(app, player, this);
+    public Fight fight(Player player, boolean runAway) {
+        Fight fight = new Fight(app, player, this, runAway);
         SimpleAudioPlayer gamePlayer = app.getCurrentGame().getAudioPlayer();
         if (gamePlayer != null) {
             gamePlayer.stop();

@@ -28,6 +28,7 @@ public class Fight extends CFrame implements DisplayableComponent {
     private final App app;
     private final Player player;
     private final Entity enemy;
+    private final boolean runAway;
     private final Random random;
     private State state = State.FIGHTING;
     private SimpleAudioPlayer audioPlayer;
@@ -45,12 +46,13 @@ public class Fight extends CFrame implements DisplayableComponent {
     private EntityStats petStats;
 
     // TODO Message quand perd, et à la fin du combat
-    public Fight(App app, Player player, Entity enemy) {
+    public Fight(App app, Player player, Entity enemy, boolean runAway) {
         super(0, 0, "Combat");
 
         this.app = app;
         this.player = player;
         this.enemy = enemy;
+        this.runAway = runAway;
         this.random = new Random();
 
         this.getContentPane().setRenderingMainPadding(false);
@@ -178,7 +180,9 @@ public class Fight extends CFrame implements DisplayableComponent {
             }
             menu.add(new UseItemButton(app, this, consumable, fightEntities));
         }
-        menu.add(new RunAwayButton(app, this));
+        if (runAway) {
+            menu.add(new RunAwayButton(app, this));
+        }
         menu.setLength(20);
     }
 

@@ -36,7 +36,7 @@ public class EnemyDoor extends Door {
         this.visited = true;
         if (event.getEntity() instanceof Player player) {
             if (this.enemy != null) {
-                Fight fight = enemy.fight(player);
+                Fight fight = enemy.fight(player, false);
                 if (!fight.isOver()) {
                     event.setCanceled(true);
                 } else {
