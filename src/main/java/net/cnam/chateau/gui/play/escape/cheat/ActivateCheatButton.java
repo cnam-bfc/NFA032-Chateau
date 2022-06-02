@@ -8,6 +8,7 @@ import net.cnam.chateau.entity.pet.Ludo;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.component.CButton;
+import net.cnam.chateau.gui.dialog.ErrorDialog;
 import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.gui.play.escape.EscapeMenu;
 import net.cnam.chateau.item.weapon.Weapon;
@@ -49,16 +50,16 @@ public class ActivateCheatButton extends CButton {
                 } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
                          IllegalArgumentException ignored) {
                 }
-                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Vous avez activé une exception !"));
+                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez activé une exception !"));
                 throw new RuntimeException("Oups!");
             }
             case ("777") -> {
-                player.setWeapon(new Weapon("Damoclès", "L'épée ultime pour tricheur !", 35,20,20));
-                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Vous avez reçu l'épée de Damoclès !"));
+                player.setWeapon(new Weapon("Damoclès", "L'épée ultime pour tricheur !", 35, 20, 20));
+                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez reçu l'épée de Damoclès !"));
             }
             case ("42") -> {
                 player.heal(player.getMaxHealth());
-                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Vous avez activé le cheat de récupération de vie !"));
+                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez activé le cheat de récupération de vie !"));
             }
             case ("LUDO!") -> {
                 if (player.hasPet()) {
@@ -75,15 +76,15 @@ public class ActivateCheatButton extends CButton {
                 }
                 if (!player.getStage().getEntities().contains(newPet))
                     player.getStage().getEntities().add(newPet);
-                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Vous avez reçu le familier Super Ludo !"));
+                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez reçu le familier Super Ludo !"));
             }
             case ("666") -> {
                 player.kill();
-                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Il y a parfois des courageux!\n \nMais le reste du temps des lâches."));
+                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Il y a parfois des courageux!\n \nMais le reste du temps des lâches."));
                 escapeMenu.stopDisplaying();
             }
             default -> {
-                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Code de triche invalide !"));
+                app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "Code de triche invalide !"));
                 return;
             }
         }
