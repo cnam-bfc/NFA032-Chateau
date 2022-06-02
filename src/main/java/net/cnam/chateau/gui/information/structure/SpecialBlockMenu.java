@@ -57,13 +57,13 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
         }
 
         CLabel upStairLetterLabel = new CLabel(HorizontalAlignment.RIGHT, "U");
-        upStairLetterLabel.getColors().add(CColor.YELLOW);
+        upStairLetterLabel.getColors().add(CColor.BRIGHT_YELLOW);
         if (upStairLetterLabel.getLength() > labelLength) {
             labelLength = upStairLetterLabel.getLength();
         }
 
         CLabel downStairLetterLabel = new CLabel(HorizontalAlignment.RIGHT, "D");
-        downStairLetterLabel.getColors().add(CColor.YELLOW);
+        downStairLetterLabel.getColors().add(CColor.BRIGHT_YELLOW);
         if (downStairLetterLabel.getLength() > labelLength) {
             labelLength = downStairLetterLabel.getLength();
         }
@@ -102,13 +102,13 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
         }
 
         CLabel upStairDescLabel = new CLabel(HorizontalAlignment.LEFT, "Escalier montant");
-        upStairDescLabel.getColors().add(CColor.BRIGHT_YELLOW);
+        upStairDescLabel.getColors().add(CColor.YELLOW);
         if (upStairDescLabel.getLength() > valueLength) {
             valueLength = upStairDescLabel.getLength();
         }
 
         CLabel downStairDescLabel = new CLabel(HorizontalAlignment.LEFT, "Escalier descendant");
-        downStairDescLabel.getColors().add(CColor.BRIGHT_YELLOW);
+        downStairDescLabel.getColors().add(CColor.YELLOW);
         if (downStairDescLabel.getLength() > valueLength) {
             valueLength = downStairDescLabel.getLength();
         }
