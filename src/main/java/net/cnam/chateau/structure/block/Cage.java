@@ -70,7 +70,7 @@ public class Cage extends Block implements PlayerInteractListener {
     public String getCharacter() {
         if (this.visited) {
             if (this.hasPet()) {
-                return CColor.BRIGHT_RED + "P" + CColor.BRIGHT_RED.getForegroundReset();
+                return CColor.MAGENTA + "P" + CColor.MAGENTA.getForegroundReset();
             } else {
                 return CColor.GREEN + "P" + CColor.GREEN.getForegroundReset();
             }

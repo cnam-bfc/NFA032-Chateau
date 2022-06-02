@@ -46,7 +46,7 @@ public class CreditsMenu extends CFrame implements DisplayableComponent {
             valueLength = creatorOneRole.getLength();
         }
 
-        CLabel creatorTwoRole = new CLabel(HorizontalAlignment.LEFT, "L'apprentie développeur !");
+        CLabel creatorTwoRole = new CLabel(HorizontalAlignment.LEFT, "L'apprenti développeur !");
         creatorTwoRole.getColors().add(CColor.YELLOW);
         if (creatorTwoRole.getLength() > valueLength) {
             valueLength = creatorTwoRole.getLength();

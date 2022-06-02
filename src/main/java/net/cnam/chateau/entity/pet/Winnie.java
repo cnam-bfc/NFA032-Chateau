@@ -2,7 +2,7 @@ package net.cnam.chateau.entity.pet;
 
 import net.cnam.chateau.App;
 
-public class Ouini extends Pet {
+public class Winnie extends Pet {
     private boolean power = true;
 
     /**
@@ -10,8 +10,8 @@ public class Ouini extends Pet {
      * 
      * @param app L'application
      */
-    public Ouini(App app, int health, int strength, int accuracy, int speed) {
-        super(app, "Ouini", health, strength, accuracy, speed);
+    public Winnie(App app, int health, int strength, int accuracy, int speed) {
+        super(app, "Winnie", health, strength, accuracy, speed);
     }
 
     /**
