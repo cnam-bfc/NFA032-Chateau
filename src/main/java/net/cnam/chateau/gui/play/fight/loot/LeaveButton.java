@@ -14,6 +14,6 @@ public class LeaveButton extends CButton {
 
     @Override
     public void execute() {
-        lootMenu.stop();
+        lootMenu.stopDisplaying();
     }
 }

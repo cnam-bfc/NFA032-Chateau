@@ -150,7 +150,7 @@ public class LootMenu extends CFrame implements DisplayableComponent {
         }
     }
 
-    public void stop() {
+    public void stopDisplaying() {
         display = false;
     }
 
