@@ -71,13 +71,12 @@ public class Game extends CFrame implements DisplayableComponent {
 
         this.getContentPane().getComponents().add(map);
 
-        CPanel header = new CPanel(0, 0);
+        CPanel header = new CPanel(0, 1, Orientation.HORIZONTAL, false);
         this.stageLevelLabel = new CLabel("Étage 1");
         header.getComponents().add(stageLevelLabel);
         CLabel title = new CLabel("Partie");
         header.getComponents().add(title);
-        this.blockNameLabel = new CLabel("");
-        blockNameLabel.getColors().add(CColor.BRIGHT_MAGENTA);
+        this.blockNameLabel = new CLabel(" ");
         header.getComponents().add(blockNameLabel);
         this.setHeader(header);
 
@@ -318,13 +317,18 @@ public class Game extends CFrame implements DisplayableComponent {
             }
             stageNB++;
         }
-        this.stageLevelLabel.setText("Étage " + stageNB);
+        this.stageLevelLabel.setText(" Étage " + stageNB);
         this.stageLevelLabel.setLength(this.stageLevelLabel.getText().length());
 
         try {
             Block playerBlock = player.getStage().getBlock(player.getLocation());
-            this.blockNameLabel.setText(playerBlock.getName());
-            this.blockNameLabel.setLength(this.blockNameLabel.getText().length());
+            if (playerBlock != null) {
+                this.blockNameLabel.setText(playerBlock.getName() + " ");
+                this.blockNameLabel.setLength(this.blockNameLabel.getText().length());
+            } else {
+                this.blockNameLabel.setText(" ");
+                this.blockNameLabel.setLength(this.stageLevelLabel.getLength());
+            }
         } catch (CoordinatesOutOfBoundsException ignored) {
         }
 

@@ -15,9 +15,8 @@ import net.cnam.chateau.structure.block.trap.Trap;
 import java.util.Random;
 
 public class TrappedDoor extends Door implements BlockListener {
-
-    App app;
-    Trap trap;
+    private final App app;
+    private final Trap trap;
 
     public TrappedDoor(App app, Stage stage, Room roomOne, Room roomTwo, Random random) {
         super(stage, roomOne, roomTwo);
@@ -51,6 +50,6 @@ public class TrappedDoor extends Door implements BlockListener {
 
     @Override
     public String getCharacter() {
-            return CColor.GREEN + "D" + CColor.GREEN.getForegroundReset();
+        return CColor.GREEN + "D" + CColor.GREEN.getForegroundReset();
     }
 }

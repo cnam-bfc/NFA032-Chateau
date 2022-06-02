@@ -13,7 +13,7 @@ public class Bed extends DecorativeBlock implements BlockListener {
     private boolean used = false;
 
     public Bed(App app) {
-        super("Bed");
+        super("Lit");
 
         this.app = app;
     }

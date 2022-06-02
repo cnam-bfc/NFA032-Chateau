@@ -4,21 +4,20 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.item.Item;
 
 public class Wardrobe extends Container {
-
     /**
      * Constructeur
      *
      * @param app l'application
      */
     public Wardrobe(App app) {
-        super(app, "armoire", null);
+        super(app, "Armoire", null);
     }
 
     /**
      * Constructeur
      *
-     * @param app           L'application
-     * @param hiddenItem    L'objet à placer dans l'armoire
+     * @param app        L'application
+     * @param hiddenItem L'objet à placer dans l'armoire
      */
     public Wardrobe(App app, Item hiddenItem) {
         super(app, "Armoire", hiddenItem);

@@ -11,7 +11,6 @@ import net.cnam.chateau.item.Item;
 import net.cnam.chateau.structure.block.Block;
 
 public abstract class Container extends Block implements BlockListener {
-
     private final App app;
     private Item hiddenItem;
     private boolean opened = false;
@@ -19,8 +18,8 @@ public abstract class Container extends Block implements BlockListener {
     /**
      * Constructeur
      *
-     * @param app           L'application
-     * @param hiddenItem    Objet dans le container
+     * @param app        L'application
+     * @param hiddenItem Objet dans le container
      */
     public Container(App app, String name, Item hiddenItem) {
         super(name);

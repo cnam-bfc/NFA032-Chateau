@@ -10,7 +10,6 @@ import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 
 public class LockedDoor extends Door {
-
     private final App app;
     private boolean lock = true;
     private boolean tryDestroyDoor = false;

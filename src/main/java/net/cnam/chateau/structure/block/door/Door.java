@@ -14,7 +14,6 @@ import net.cnam.chateau.structure.block.Block;
  * Class permettant de créer un block Porte (Door) pour la map.
  */
 public class Door extends Block implements BlockListener {
-
     private final Stage stage;
     private final Room roomOne;
     private final Room roomTwo;
