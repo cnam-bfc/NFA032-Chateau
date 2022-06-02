@@ -57,14 +57,18 @@ public class CommandsMenu extends CFrame implements DisplayableComponent {
         CLabel upDescThree = new CLabel(HorizontalAlignment.LEFT, "Z");
         upDescThree.getColors().add(CColor.RED);
 
-        CPanel upValue = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
-        upValue.getComponents().add(upDescOne);
-        upValue.getComponents().add(upDescTwo);
-        upValue.getComponents().add(upDescThree);
-        upValue.autoResize();
-        if(upValue.getLength() > valueLength) {
-            valueLength = upValue.getLength();
+        CPanel upDescription = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
+        upDescription.getComponents().add(upDescOne);
+        upDescription.getComponents().add(upDescTwo);
+        upDescription.getComponents().add(upDescThree);
+        upDescription.autoResize();
+        if(upDescription.getLength() > valueLength) {
+            valueLength = upDescription.getLength();
         }
+
+        CPanel upValue = new CPanel(HorizontalAlignment.LEFT, 0,0,Orientation.HORIZONTAL, false);
+        upValue.getComponents().add(upDescription);
+        upValue.autoResize();
 
         // deuxième commande (bas)
         CLabel downDescOne = new CLabel(HorizontalAlignment.LEFT, "Flèche bas");
@@ -76,14 +80,18 @@ public class CommandsMenu extends CFrame implements DisplayableComponent {
         CLabel downDescThree = new CLabel(HorizontalAlignment.LEFT, "S");
         downDescThree.getColors().add(CColor.RED);
 
-        CPanel downValue = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
-        downValue.getComponents().add(downDescOne);
-        downValue.getComponents().add(downDescTwo);
-        downValue.getComponents().add(downDescThree);
-        downValue.autoResize();
-        if(downValue.getLength() > valueLength) {
-            valueLength = downValue.getLength();
+        CPanel downDescription = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
+        downDescription.getComponents().add(downDescOne);
+        downDescription.getComponents().add(downDescTwo);
+        downDescription.getComponents().add(downDescThree);
+        downDescription.autoResize();
+        if(downDescription.getLength() > valueLength) {
+            valueLength = downDescription.getLength();
         }
+
+        CPanel downValue = new CPanel(HorizontalAlignment.LEFT, 0,0,Orientation.HORIZONTAL, false);
+        downValue.getComponents().add(downDescription);
+        downValue.autoResize();
 
         // troisième commande (gauche)
         CLabel leftDescOne = new CLabel(HorizontalAlignment.LEFT, "Flèche gauche");
@@ -95,14 +103,18 @@ public class CommandsMenu extends CFrame implements DisplayableComponent {
         CLabel leftDescThree = new CLabel(HorizontalAlignment.LEFT, "Q");
         leftDescThree.getColors().add(CColor.RED);
 
-        CPanel leftValue = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
-        leftValue.getComponents().add(leftDescOne);
-        leftValue.getComponents().add(leftDescTwo);
-        leftValue.getComponents().add(leftDescThree);
-        leftValue.autoResize();
-        if(leftValue.getLength() > valueLength) {
-            valueLength = leftValue.getLength();
+        CPanel leftDescription = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
+        leftDescription.getComponents().add(leftDescOne);
+        leftDescription.getComponents().add(leftDescTwo);
+        leftDescription.getComponents().add(leftDescThree);
+        leftDescription.autoResize();
+        if(leftDescription.getLength() > valueLength) {
+            valueLength = leftDescription.getLength();
         }
+
+        CPanel leftValue = new CPanel(HorizontalAlignment.LEFT, 0,0,Orientation.HORIZONTAL, false);
+        leftValue.getComponents().add(leftDescription);
+        leftValue.autoResize();
 
         // quatrième commande (droite)
         CLabel rightDescOne = new CLabel(HorizontalAlignment.LEFT, "Flèche droite");
@@ -114,14 +126,18 @@ public class CommandsMenu extends CFrame implements DisplayableComponent {
         CLabel rightDescThree = new CLabel(HorizontalAlignment.LEFT, "D");
         rightDescThree.getColors().add(CColor.RED);
 
-        CPanel rightValue = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
-        rightValue.getComponents().add(rightDescOne);
-        rightValue.getComponents().add(rightDescTwo);
-        rightValue.getComponents().add(rightDescThree);
-        rightValue.autoResize();
-        if(rightValue.getLength() > valueLength) {
-            valueLength = rightValue.getLength();
+        CPanel rightDescription = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
+        rightDescription.getComponents().add(rightDescOne);
+        rightDescription.getComponents().add(rightDescTwo);
+        rightDescription.getComponents().add(rightDescThree);
+        rightDescription.autoResize();
+        if(rightDescription.getLength() > valueLength) {
+            valueLength = rightDescription.getLength();
         }
+
+        CPanel rightValue = new CPanel(HorizontalAlignment.LEFT, 0,0,Orientation.HORIZONTAL, false);
+        rightValue.getComponents().add(rightDescription);
+        rightValue.autoResize();
 
         // ajustement des textes à droite
         upValue.setLength(valueLength);
