@@ -41,6 +41,10 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
         this.getContentPane().getComponents().add(this.rightPanel);
 
         // Panneau du centre
+        // Label quand le coffre et le joueur ne possèdent rien
+        if (!block.hasItem() && !player.hasItem() && !player.hasWeapon()) {
+            this.centerPanel.getComponents().add(new CLabel("Ce coffre est vide et vous n'avez rien à déposer !"));
+        }
         // Boutons
         this.buttons = new CChoices(app, 1);
 
