@@ -7,20 +7,21 @@ import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.Puzzle;
 import net.cnam.chateau.event.key.KeyPressedEvent;
+import net.cnam.chateau.event.player.PlayerInteractEvent;
+import net.cnam.chateau.event.player.PlayerInteractListener;
 import net.cnam.chateau.generator.Generator;
-import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.component.CLabel;
-import net.cnam.chateau.gui.component.CPanel;
-import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.play.escape.EscapeMenu;
+import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.EntityStats;
+import net.cnam.chateau.gui.play.escape.EscapeMenu;
 import net.cnam.chateau.gui.play.finish.FinishMenu;
 import net.cnam.chateau.structure.Castle;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
-import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
+import net.cnam.chateau.structure.block.Block;
 import net.cnam.chateau.utils.Couple;
 import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.utils.StringUtils;
+import net.cnam.chateau.utils.array.ArrayUtils;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
@@ -40,9 +41,11 @@ public class Game extends CFrame implements DisplayableComponent {
     private final Castle castle;
     private final Map map;
     private final Player player;
+    private final CLabel stageLevelLabel;
+    private final CLabel blockNameLabel;
     private final EntityStats playerStats;
     private final CPanel otherInfos;
-    private final String infos;
+    private String infos;
     private SimpleAudioPlayer audioPlayer;
     private boolean display = true;
     private final Statistic statistic;
@@ -68,9 +71,13 @@ public class Game extends CFrame implements DisplayableComponent {
 
         this.getContentPane().getComponents().add(map);
 
+        CPanel header = new CPanel(0, 1, Orientation.HORIZONTAL, false);
+        this.stageLevelLabel = new CLabel(HorizontalAlignment.LEFT, "Étage 1");
+        header.getComponents().add(stageLevelLabel);
         CLabel title = new CLabel("Partie");
-        CPanel header = new CPanel(0, title.getHeight());
         header.getComponents().add(title);
+        this.blockNameLabel = new CLabel(HorizontalAlignment.RIGHT, " ");
+        header.getComponents().add(blockNameLabel);
         this.setHeader(header);
 
         CPanel footer = new CPanel(0, 4, Orientation.HORIZONTAL, false);
@@ -262,6 +269,18 @@ public class Game extends CFrame implements DisplayableComponent {
         } catch (DirectionNotFoundException | CoordinatesOutOfBoundsException |
                  EntityAlreadyTeleportedException ignored) {
         }
+
+        // Touche espace = on interagit avec le block
+        if (event.getKey() == 32) {
+            try {
+                Block block = player.getStage().getBlock(player.getLocation());
+                if (block instanceof PlayerInteractListener playerInteractListener) {
+                    PlayerInteractEvent playerInteractEvent = new PlayerInteractEvent(player);
+                    playerInteractListener.onPlayerInteract(playerInteractEvent);
+                }
+            } catch (CoordinatesOutOfBoundsException ignored) {
+            }
+        }
     }
 
     @Override
@@ -302,24 +321,63 @@ public class Game extends CFrame implements DisplayableComponent {
 
     @Override
     public String[] render() {
-        int length = this.getContentPane().getLength();
+        // Actualisation du header
+        int stageNB = 1;
+        for (Stage stage : castle.getStages()) {
+            if (stage == player.getStage()) {
+                break;
+            }
+            stageNB++;
+        }
+
+        int headerFreeLength = this.getLength() - "Partie".length() - 2;
+        this.stageLevelLabel.setLength(headerFreeLength / 2);
+        this.blockNameLabel.setLength(headerFreeLength / 2 + headerFreeLength % 2);
+
+        this.stageLevelLabel.setText(" Étage " + stageNB);
+
+        try {
+            Block playerBlock = player.getStage().getBlock(player.getLocation());
+            if (playerBlock != null) {
+                this.blockNameLabel.setText(playerBlock.getName() + " ");
+                if (playerBlock instanceof PlayerInteractListener) {
+                    String[] infosTable = StringUtils.convertStringToStringArray(infos);
+                    if (infosTable.length > 1) {
+                        infos = infosTable[infosTable.length - 1];
+                        infosTable = StringUtils.convertStringToStringArray(infos);
+                    }
+                    infosTable = ArrayUtils.addOnTopOfArray(infosTable, "Espace - Interagir");
+                    infos = StringUtils.convertStringArrayToString(infosTable);
+                }
+            } else {
+                this.blockNameLabel.setText(" ");
+                String[] infosTable = StringUtils.convertStringToStringArray(infos);
+                if (infosTable.length > 1) {
+                    infos = infosTable[infosTable.length - 1];
+                }
+            }
+        } catch (CoordinatesOutOfBoundsException ignored) {
+        }
+
+        // Actualisation du footer
+        int footerStatsLength = this.getContentPane().getLength();
 
         this.getFooter().getComponents().clear();
-        this.playerStats.setLength(length / 2);
+        this.playerStats.setLength(footerStatsLength / 2);
         this.getFooter().getComponents().add(this.playerStats);
 
         this.otherInfos.getComponents().clear();
         if (this.player.hasPet()) {
             EntityStats petStats = new EntityStats(this.player.getPet(), Orientation.VERTICAL);
             petStats.setHeight(2);
-            petStats.setLength(length / 2);
+            petStats.setLength(footerStatsLength / 2);
             this.otherInfos.getComponents().add(petStats);
         } else {
             this.otherInfos.getComponents().add(new CLabel(""));
         }
 
-        this.otherInfos.getComponents().add(new CLabel(infos, length / 2));
-        this.otherInfos.setLength(length / 2);
+        this.otherInfos.getComponents().add(new CLabel(infos, footerStatsLength / 2));
+        this.otherInfos.setLength(footerStatsLength / 2);
         this.getFooter().getComponents().add(this.otherInfos);
 
         return super.render();

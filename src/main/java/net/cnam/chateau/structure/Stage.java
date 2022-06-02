@@ -10,7 +10,6 @@ import net.cnam.chateau.structure.block.Block;
  * Classe d'un étage
  */
 public class Stage {
-
     private final List<Entity> entities = new LinkedList<>();
     private final Room[] rooms;
     private final int length;

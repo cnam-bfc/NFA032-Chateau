@@ -19,15 +19,15 @@ public abstract class Enemy extends Entity implements EntityListener {
     /**
      * Constructeur
      *
-     * @param app        L'application
-     * @param stage      L'étage où il se situe
-     * @param location   Coordonnées où il se situe
-     * @param name       Le nom
-     * @param health     La santé
-     * @param strength   La force
-     * @param accuracy   La précision
-     * @param speed      La rapidité
-     * @param character  Le caractère d'affichage
+     * @param app       L'application
+     * @param stage     L'étage où il se situe
+     * @param location  Coordonnées où il se situe
+     * @param name      Le nom
+     * @param health    La santé
+     * @param strength  La force
+     * @param accuracy  La précision
+     * @param speed     La rapidité
+     * @param character Le caractère d'affichage
      */
     public Enemy(App app, Stage stage, Location location, String name, int health, int strength,
                  int accuracy,
@@ -71,7 +71,7 @@ public abstract class Enemy extends Entity implements EntityListener {
     @Override
     public void onEntityApproachEvent(EntityApproachEvent event) {
         if (event.getEntity() instanceof Player player) {
-            Fight fight = this.fight(player);
+            Fight fight = this.fight(player, true);
             if (!fight.isOver()) {
                 event.setCanceled(true);
             }

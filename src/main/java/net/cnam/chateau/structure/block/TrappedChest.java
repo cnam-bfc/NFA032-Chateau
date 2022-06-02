@@ -4,15 +4,14 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.entity.enemy.Mimic;
-import net.cnam.chateau.event.block.BlockListener;
-import net.cnam.chateau.event.block.EntityEnterBlockEvent;
-import net.cnam.chateau.event.block.EntityLeaveBlockEvent;
+import net.cnam.chateau.event.player.PlayerInteractEvent;
+import net.cnam.chateau.event.player.PlayerInteractListener;
 import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 
 import java.util.Random;
 
-public class TrappedChest extends Block implements BlockListener {
+public class TrappedChest extends Block implements PlayerInteractListener {
     private Enemy enemy;
 
 
@@ -27,25 +26,16 @@ public class TrappedChest extends Block implements BlockListener {
     }
 
     @Override
-    public void onEntityEnterBlock(EntityEnterBlockEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (this.enemy != null) {
-                Fight fight = enemy.fight(player);
-                if (!fight.isOver()) {
-                    event.setCanceled(true);
-                } else {
-                    this.enemy = null;
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        if (this.enemy != null) {
+            Fight fight = enemy.fight(player, false);
+            if (fight.isOver()) {
+                this.enemy = null;
+                try {
+                    player.getStage().setBlock(player.getLocation(), null);
+                } catch (CoordinatesOutOfBoundsException ignored) {
                 }
-            }
-        }
-    }
-
-    @Override
-    public void onEntityLeaveBlock(EntityLeaveBlockEvent event) {
-        if (event.getEntity() instanceof Player player && this.enemy == null) {
-            try {
-                player.getStage().setBlock(player.getLocation(), null);
-            } catch (CoordinatesOutOfBoundsException ignored) {
             }
         }
     }

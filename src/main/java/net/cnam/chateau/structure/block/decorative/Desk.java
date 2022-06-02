@@ -1,9 +1,8 @@
 package net.cnam.chateau.structure.block.decorative;
 
 public class Desk extends DecorativeBlock {
-
     public Desk() {
-        super("Desk");
+        super("Bureau");
     }
 
     @Override

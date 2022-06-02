@@ -1,6 +1,5 @@
 package net.cnam.chateau.structure.block.door;
 
-import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.event.block.EntityEnterBlockEvent;
@@ -37,7 +36,7 @@ public class EnemyDoor extends Door {
         this.visited = true;
         if (event.getEntity() instanceof Player player) {
             if (this.enemy != null) {
-                Fight fight = enemy.fight(player);
+                Fight fight = enemy.fight(player, true);
                 if (!fight.isOver()) {
                     event.setCanceled(true);
                 } else {

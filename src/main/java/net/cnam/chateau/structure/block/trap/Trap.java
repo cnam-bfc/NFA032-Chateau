@@ -5,12 +5,11 @@ import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.structure.block.Block;
 
 abstract public class Trap extends Block {
-
-    private String description ="";
+    private String description = "";
     private boolean activate = true;
 
-    public Trap(String name) {
-        super(name);
+    public Trap() {
+        super("Piège");
     }
 
     public String getDescription() {
@@ -25,7 +24,7 @@ abstract public class Trap extends Block {
         this.activate = bool;
     }
 
-    public boolean isUsed(){
+    public boolean isUsed() {
         return !activate;
     }
 
@@ -33,6 +32,6 @@ abstract public class Trap extends Block {
 
     @Override
     public String getCharacter() {
-        return CColor.RED +  "T" + CColor.RED.getForegroundReset();
+        return CColor.RED + "T" + CColor.RED.getForegroundReset();
     }
 }
