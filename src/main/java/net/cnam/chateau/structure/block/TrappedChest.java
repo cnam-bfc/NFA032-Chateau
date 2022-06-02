@@ -14,9 +14,8 @@ import java.util.Random;
 public class TrappedChest extends Block implements PlayerInteractListener {
     private Enemy enemy;
 
-
     public TrappedChest(App app, Random random) {
-        super("Coffre piégé");
+        super("Coffre");
 
         this.enemy = new Mimic(app, random);
     }
