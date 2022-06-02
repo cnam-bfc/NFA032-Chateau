@@ -8,11 +8,7 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.Puzzle;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.generator.Generator;
-import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.component.CLabel;
-import net.cnam.chateau.gui.component.CPanel;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.EntityStats;
 import net.cnam.chateau.gui.play.escape.EscapeMenu;
 import net.cnam.chateau.gui.play.finish.FinishMenu;
@@ -72,11 +68,11 @@ public class Game extends CFrame implements DisplayableComponent {
         this.getContentPane().getComponents().add(map);
 
         CPanel header = new CPanel(0, 1, Orientation.HORIZONTAL, false);
-        this.stageLevelLabel = new CLabel("Étage 1");
+        this.stageLevelLabel = new CLabel(HorizontalAlignment.LEFT, "Étage 1");
         header.getComponents().add(stageLevelLabel);
         CLabel title = new CLabel("Partie");
         header.getComponents().add(title);
-        this.blockNameLabel = new CLabel(" ");
+        this.blockNameLabel = new CLabel(HorizontalAlignment.RIGHT, " ");
         header.getComponents().add(blockNameLabel);
         this.setHeader(header);
 
@@ -317,40 +313,42 @@ public class Game extends CFrame implements DisplayableComponent {
             }
             stageNB++;
         }
+
+        int headerFreeLength = this.getLength() - "Partie".length() - 2;
+        this.stageLevelLabel.setLength(headerFreeLength / 2);
+        this.blockNameLabel.setLength(headerFreeLength / 2 + headerFreeLength % 2);
+
         this.stageLevelLabel.setText(" Étage " + stageNB);
-        this.stageLevelLabel.setLength(this.stageLevelLabel.getText().length());
 
         try {
             Block playerBlock = player.getStage().getBlock(player.getLocation());
             if (playerBlock != null) {
                 this.blockNameLabel.setText(playerBlock.getName() + " ");
-                this.blockNameLabel.setLength(this.blockNameLabel.getText().length());
             } else {
                 this.blockNameLabel.setText(" ");
-                this.blockNameLabel.setLength(this.stageLevelLabel.getLength());
             }
         } catch (CoordinatesOutOfBoundsException ignored) {
         }
 
         // Actualisation du footer
-        int length = this.getContentPane().getLength();
+        int footerStatsLength = this.getContentPane().getLength();
 
         this.getFooter().getComponents().clear();
-        this.playerStats.setLength(length / 2);
+        this.playerStats.setLength(footerStatsLength / 2);
         this.getFooter().getComponents().add(this.playerStats);
 
         this.otherInfos.getComponents().clear();
         if (this.player.hasPet()) {
             EntityStats petStats = new EntityStats(this.player.getPet(), Orientation.VERTICAL);
             petStats.setHeight(2);
-            petStats.setLength(length / 2);
+            petStats.setLength(footerStatsLength / 2);
             this.otherInfos.getComponents().add(petStats);
         } else {
             this.otherInfos.getComponents().add(new CLabel(""));
         }
 
-        this.otherInfos.getComponents().add(new CLabel(infos, length / 2));
-        this.otherInfos.setLength(length / 2);
+        this.otherInfos.getComponents().add(new CLabel(infos, footerStatsLength / 2));
+        this.otherInfos.setLength(footerStatsLength / 2);
         this.getFooter().getComponents().add(this.otherInfos);
 
         return super.render();
