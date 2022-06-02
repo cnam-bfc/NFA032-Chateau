@@ -5,21 +5,16 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.item.Item;
-import net.cnam.chateau.utils.StringUtils;
 
 public class ReplaceItemButton extends CButton {
     private final Player player;
     private final Entity enemy;
-    private final LootMenu lootMenu;
 
-    public ReplaceItemButton(App app, Player player, Entity enemy, LootMenu lootMenu) {
-        super(app, "");
+    public ReplaceItemButton(App app, Player player, Entity enemy) {
+        super(app, "Échanger les objets");
 
         this.player = player;
         this.enemy = enemy;
-        this.lootMenu = lootMenu;
-
-        update();
     }
 
     @Override
@@ -27,18 +22,13 @@ public class ReplaceItemButton extends CButton {
         Item playerItem = player.getItem();
         player.setItem(enemy.getItem());
         enemy.setItem(playerItem);
-
-        update();
     }
 
-    private void update() {
-        String[] text = new String[]{
-                "Remplacer " + player.getItem().getName(),
-                "par " + enemy.getItem().getName()
-        };
-        this.setText(text);
-        this.setHeight(text.length);
-        this.setLength(StringUtils.getMaximumLength(text));
-        lootMenu.getChoices().autoResize();
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Entity getEnemy() {
+        return enemy;
     }
 }
