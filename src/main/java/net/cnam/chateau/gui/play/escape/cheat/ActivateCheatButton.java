@@ -103,7 +103,8 @@ public class ActivateCheatButton extends CButton {
                         }
                     }
                 }
-
+                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez été téléporté dans la salle du boss !"));
+                escapeMenu.stopDisplaying();
             }
             default -> {
                 app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "Code de triche invalide !"));
