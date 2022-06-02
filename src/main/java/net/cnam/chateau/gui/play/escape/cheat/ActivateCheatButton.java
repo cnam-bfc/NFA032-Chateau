@@ -20,11 +20,10 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 public class ActivateCheatButton extends CButton {
-
-    private App app;
-    private CheatMenu menu;
-    private Game game;
-    private EscapeMenu escapeMenu;
+    private final App app;
+    private final CheatMenu menu;
+    private final Game game;
+    private final EscapeMenu escapeMenu;
 
     public ActivateCheatButton(App app, CheatMenu menu, Game game, EscapeMenu escapeMenu) {
         super(app, "Activer le code de triche");
@@ -37,7 +36,7 @@ public class ActivateCheatButton extends CButton {
 
     @Override
     public void execute() {
-        String cheatCode = menu.getLeTexteQueLeMecEcritDansLeCadre().getText();
+        String cheatCode = menu.getCheatCodeField().getText();
         Player player = game.getPlayer();
 
         switch (cheatCode) {

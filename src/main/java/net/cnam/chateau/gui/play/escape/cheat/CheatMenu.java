@@ -10,15 +10,15 @@ import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.play.escape.EscapeMenu;
 
 public class CheatMenu extends CFrame implements DisplayableComponent {
-
     private boolean display = true;
-    private CTextField leTexteQueLeMecEcritDansLeCadre;
+    private final CTextField cheatCodeField;
 
     public CheatMenu(App app, Game game, EscapeMenu escapeMenu) {
         super(0, 0, "Menu de triche");
 
         CChoices choices = new CChoices(app, 1);
-        choices.add(leTexteQueLeMecEcritDansLeCadre = new CTextField("Entrez le code de triche", AppSettings.CONSOLE_MIN_LENGTH - 10,""));
+        this.cheatCodeField = new CTextField("Entrez le code de triche", AppSettings.CONSOLE_MIN_LENGTH - 10, "");
+        choices.add(cheatCodeField);
         choices.add(new ActivateCheatButton(app, this, game, escapeMenu));
         choices.add(new BackButton(app, this));
 
@@ -40,7 +40,7 @@ public class CheatMenu extends CFrame implements DisplayableComponent {
         display = false;
     }
 
-    public CTextField getLeTexteQueLeMecEcritDansLeCadre() {
-        return this.leTexteQueLeMecEcritDansLeCadre;
+    public CTextField getCheatCodeField() {
+        return this.cheatCodeField;
     }
 }

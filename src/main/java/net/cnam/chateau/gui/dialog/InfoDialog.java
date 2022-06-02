@@ -49,7 +49,8 @@ public class InfoDialog extends CFrame implements DisplayableComponent {
     }
 
     public enum Type {
-        INFO("\u24D8 Information \u24D8", "Appuyez sur une touche pour continuer...");
+        INFO("\u24D8 Information \u24D8", "Appuyez sur une touche pour continuer..."),
+        WARNING("\u26A0 Attention \u26A0", "Appuyez sur une touche pour continuer...");
 
         private final String title;
         private final String footer;
