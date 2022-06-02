@@ -122,17 +122,20 @@ public class Fight extends CFrame implements DisplayableComponent {
                     if (enemy.hasWeapon() || enemy.hasItem()) {
                         menu.getComponents().clear();
                         menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour le pilier..."));
+                        menu.setHeight(3);
                         state = State.LOOTING;
                     } else {
                         // Quitter le combat
                         menu.getComponents().clear();
                         menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
+                        menu.setHeight(3);
                         state = State.FINISHED;
                     }
                 } else {
                     // Quitter le combat
                     menu.getComponents().clear();
                     menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
+                    menu.setHeight(3);
                     state = State.FINISHED;
                 }
             } else if (state.equals(State.LOOTING)) {
@@ -142,6 +145,7 @@ public class Fight extends CFrame implements DisplayableComponent {
                 // Quitter le combat
                 menu.getComponents().clear();
                 menu.getComponents().add(new CLabel("Appuyez sur\nune touche\npour continuer..."));
+                menu.setHeight(3);
                 state = State.FINISHED;
             }
 
