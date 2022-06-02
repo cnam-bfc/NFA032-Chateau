@@ -36,7 +36,7 @@ public class ContainerBlockMenu extends CFrame implements DisplayableComponent {
         }
 
         CLabel fullChestLetterLabel = new CLabel(HorizontalAlignment.RIGHT, "C");
-        fullChestLetterLabel.getColors().add(CColor.BRIGHT_RED);
+        fullChestLetterLabel.getColors().add(CColor.MAGENTA);
         if (fullChestLetterLabel.getLength() > labelLength) {
             labelLength = fullChestLetterLabel.getLength();
         }
@@ -53,7 +53,7 @@ public class ContainerBlockMenu extends CFrame implements DisplayableComponent {
         }
 
         CLabel fullWardrobeLetterLabel = new CLabel(HorizontalAlignment.RIGHT, "W");
-        fullWardrobeLetterLabel.getColors().add(CColor.BRIGHT_RED);
+        fullWardrobeLetterLabel.getColors().add(CColor.MAGENTA);
         if (fullWardrobeLetterLabel.getLength() > labelLength) {
             labelLength = fullWardrobeLetterLabel.getLength();
         }
@@ -70,7 +70,7 @@ public class ContainerBlockMenu extends CFrame implements DisplayableComponent {
         }
 
         CLabel fullCageLetterLabel = new CLabel(HorizontalAlignment.RIGHT, "P");
-        fullCageLetterLabel.getColors().add(CColor.BRIGHT_RED);
+        fullCageLetterLabel.getColors().add(CColor.MAGENTA);
         if (fullCageLetterLabel.getLength() > labelLength) {
             labelLength = fullCageLetterLabel.getLength();
         }

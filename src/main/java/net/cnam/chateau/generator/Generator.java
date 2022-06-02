@@ -69,7 +69,7 @@ public class Generator {
         pets.add(new Babe(app, 75, 20, 15, 10));
         pets.add(new ChatPotte(app, 50, 15, 25, 25));
         pets.add(new Idefix(app, 60, 15, 10, 10));
-        pets.add(new Ouini(app, 75, 20, 15, 10));
+        pets.add(new Winnie(app, 75, 20, 15, 10));
         pets.add(new PanPan(app, 50, 10, 20, 20));
         pets.add(new PepeLoiseau(app, 50, 10, 20, 20));
 
