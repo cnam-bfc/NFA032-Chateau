@@ -10,14 +10,12 @@ import net.cnam.chateau.structure.block.Cage;
 import net.cnam.chateau.utils.Location;
 
 public class ReplacePetButton extends CButton {
-    private final CageMenu menu;
     private final Player player;
     private final Cage cage;
 
-    public ReplacePetButton(App app, CageMenu menu, Player player, Cage cage) {
-        super(app, "Remplacer " + player.getPet().getName() + " avec " + cage.getPet().getName());
+    public ReplacePetButton(App app, Player player, Cage cage) {
+        super(app, "Échanger les familiers");
 
-        this.menu = menu;
         this.player = player;
         this.cage = cage;
     }
@@ -36,7 +34,13 @@ public class ReplacePetButton extends CButton {
             pet.teleport(player.getStage(), new Location(player.getLocation().getX(), player.getLocation().getY()));
         } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ignored) {
         }
+    }
 
-        this.menu.stopDisplay();
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Cage getCage() {
+        return cage;
     }
 }

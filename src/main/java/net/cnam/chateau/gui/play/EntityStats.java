@@ -125,8 +125,8 @@ public class EntityStats extends CPanel {
             }
         }
 
-        for (int i = 0; i < emptySpace; i++) {
-            if (orientation == Orientation.VERTICAL) {
+        if (orientation == Orientation.VERTICAL) {
+            for (int i = 0; i < emptySpace; i++) {
                 this.getComponents().add(new CLabel(" \n "));
             }
         }

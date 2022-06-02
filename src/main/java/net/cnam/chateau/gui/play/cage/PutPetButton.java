@@ -6,14 +6,16 @@ import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.structure.block.Cage;
 
-public class DropPetButton extends CButton {
+public class PutPetButton extends CButton {
+    private final App app;
     private final CageMenu menu;
     private final Player player;
     private final Cage cage;
 
-    public DropPetButton(App app, CageMenu menu, Player player, Cage cage) {
-        super(app, "Déposer " + player.getPet().getName());
+    public PutPetButton(App app, CageMenu menu, Player player, Cage cage) {
+        super(app, "Déposer le familier");
 
+        this.app = app;
         this.menu = menu;
         this.player = player;
         this.cage = cage;
@@ -27,6 +29,12 @@ public class DropPetButton extends CButton {
         player.setPet(null);
         pet.getStage().getEntities().remove(pet);
 
-        this.menu.stopDisplay();
+        TakePetButton takePetButton = new TakePetButton(app, menu, player, cage);
+        takePetButton.setSelected(true);
+        menu.getButtons().replace(this, takePetButton);
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
