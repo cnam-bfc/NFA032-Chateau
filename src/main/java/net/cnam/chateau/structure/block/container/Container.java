@@ -1,7 +1,6 @@
 package net.cnam.chateau.structure.block.container;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.event.player.PlayerInteractEvent;
 import net.cnam.chateau.event.player.PlayerInteractListener;
 import net.cnam.chateau.gui.CColor;
@@ -80,10 +79,7 @@ public abstract class Container extends Block implements PlayerInteractListener 
      */
     @Override
     public void onPlayerInteract(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
         this.opened = true;
-        if (this.hasItem() || player.hasItem() || player.hasWeapon()) {
-            app.getConsole().show(new ContainerMenu(app, player, this));
-        }
+        app.getConsole().show(new ContainerMenu(app, event.getPlayer(), this));
     }
 }
