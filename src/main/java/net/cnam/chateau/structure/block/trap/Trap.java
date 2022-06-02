@@ -6,16 +6,11 @@ import net.cnam.chateau.structure.block.Block;
 
 abstract public class Trap extends Block {
 
-    private String name;
     private String description ="";
     private boolean activate = true;
 
     public Trap(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+        super(name);
     }
 
     public String getDescription() {

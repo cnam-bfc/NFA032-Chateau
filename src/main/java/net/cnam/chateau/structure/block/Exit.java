@@ -22,6 +22,8 @@ public class Exit extends Block implements BlockListener {
      * @param app L'application
      */
     public Exit(App app) {
+        super("Sortie");
+
         this.app = app;
     }
 

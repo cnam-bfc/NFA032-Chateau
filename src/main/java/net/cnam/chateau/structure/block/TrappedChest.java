@@ -17,6 +17,8 @@ public class TrappedChest extends Block implements BlockListener {
 
 
     public TrappedChest(App app, Random random) {
+        super("Coffre piégé");
+
         this.enemy = new Mimic(app, random);
     }
 

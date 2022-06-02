@@ -13,7 +13,6 @@ import net.cnam.chateau.structure.block.Block;
 public abstract class Container extends Block implements BlockListener {
 
     private final App app;
-    private final String name;
     private Item hiddenItem;
     private boolean opened = false;
 
@@ -21,12 +20,12 @@ public abstract class Container extends Block implements BlockListener {
      * Constructeur
      *
      * @param app           L'application
-     * @param name          Nom de l'objet
      * @param hiddenItem    Objet dans le container
      */
     public Container(App app, String name, Item hiddenItem) {
+        super(name);
+
         this.app = app;
-        this.name = name;
         this.hiddenItem = hiddenItem;
     }
 
@@ -57,14 +56,6 @@ public abstract class Container extends Block implements BlockListener {
         this.hiddenItem = hiddenItem;
     }
 
-    /**
-     * Getter permettant de récupérer le nom du container.
-     *
-     * @return le nom du container
-     */
-    public String getName() {
-        return this.name;
-    }
 
     /**
      * Méthode permettant d'afficher un caractère sur la carte.

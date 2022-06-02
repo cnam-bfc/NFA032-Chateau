@@ -29,6 +29,8 @@ public class Cage extends Block implements BlockListener {
      * @param pet   Le familier dans la cage
      */
     public Cage(App app, Pet pet) {
+        super("Cage");
+
         this.app = app;
         this.pet = pet;
     }

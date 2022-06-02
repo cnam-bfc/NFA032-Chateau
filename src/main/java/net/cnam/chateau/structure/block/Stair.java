@@ -17,6 +17,10 @@ public abstract class Stair extends Block implements BlockListener {
     private Location location;
     private Stair otherStair;
 
+    public Stair(String name) {
+        super(name);
+    }
+
     /**
      * TODO Victor
      * 
