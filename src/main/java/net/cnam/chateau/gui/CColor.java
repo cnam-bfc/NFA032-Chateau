@@ -24,7 +24,7 @@ public enum CColor {
     WHITE(37),
     BRIGHT_BLACK(90),
     BRIGHT_RED(91),
-    BRIGHT_GREEN(91),
+    BRIGHT_GREEN(92),
     BRIGHT_YELLOW(93),
     BRIGHT_BLUE(94),
     BRIGHT_MAGENTA(95),
