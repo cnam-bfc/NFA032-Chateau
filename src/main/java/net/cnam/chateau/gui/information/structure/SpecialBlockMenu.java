@@ -1,13 +1,22 @@
 package net.cnam.chateau.gui.information.structure;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.*;
+import net.cnam.chateau.utils.direction.Direction;
+import net.cnam.chateau.utils.direction.DirectionNotFoundException;
+import net.cnam.chateau.utils.direction.DirectionUtils;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
+    private final App app;
+    private boolean display = true;
+
     public SpecialBlockMenu(App app) {
         super(0, 0, "Les blocs spéciaux");
+
+        this.app = app;
 
         // variables pour re définir proprement l'ajustement du texte
         int labelLength = 0;
@@ -160,11 +169,29 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
         panel.autoResize();
 
         this.getContentPane().getComponents().add(panel);
+
+        this.setFooter(new CPanel(HorizontalAlignment.CENTER,0,1, Orientation.HORIZONTAL, 1));
+
+        CPanel rightTextPanel = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
+        rightTextPanel.getComponents().add(new CLabel(HorizontalAlignment.LEFT, "← Appuyez flèche gauche"));
+        rightTextPanel.autoResize();
+
+        CPanel leaveButtonPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
+        leaveButtonPanel.getComponents().add(new BackButtonSpecialBlockMenu(app, this));
+        leaveButtonPanel.autoResize();
+
+        CPanel leftTextPanel = new CPanel(HorizontalAlignment.RIGHT, Orientation.HORIZONTAL, 1);
+        leftTextPanel.getComponents().add(new CLabel(HorizontalAlignment.RIGHT, "Appuyez flèche droite →"));
+        leftTextPanel.autoResize();
+
+        this.getFooter().getComponents().add(rightTextPanel);
+        this.getFooter().getComponents().add(leaveButtonPanel);
+        this.getFooter().getComponents().add(leftTextPanel);
     }
 
     @Override
     public boolean isInLoopingMode() {
-        return false;
+        return display;
     }
 
     @Override
@@ -172,5 +199,26 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
         return true;
     }
 
+    public void stopDisplaying() {
+        display = false;
+    }
 
+    @Override
+    public void onKeyPressed(KeyPressedEvent event) {
+        super.onKeyPressed(event);
+
+        try {
+            Direction direction = DirectionUtils.parseDirection(event.getKey(),false);
+            switch (direction){
+                case RIGHT, TOP -> {
+                    app.getConsole().show(new ContainerBlockMenu(app));
+                }
+                case LEFT, BOTTOM -> {
+                    app.getConsole().show(new DecorativeBlockMenu(app));
+                }
+            }
+            stopDisplaying();
+        } catch (DirectionNotFoundException ignored) {
+        }
+    }
 }
