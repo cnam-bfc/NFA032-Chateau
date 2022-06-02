@@ -96,6 +96,4 @@ public class CreditsMenu extends CFrame implements DisplayableComponent {
     public boolean isInFullScreenMode() {
         return true;
     }
-
-
 }
