@@ -5,6 +5,7 @@ import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.information.InfoButton;
+import net.cnam.chateau.gui.play.escape.cheat.CheatButton;
 import net.cnam.chateau.item.consumable.Consumable;
 
 public class EscapeMenu extends CFrame implements DisplayableComponent {
@@ -19,6 +20,7 @@ public class EscapeMenu extends CFrame implements DisplayableComponent {
             choices.add(new UseItemButton(app, this, game.getPlayer()));
         }
         choices.add(new InfoButton(app));
+        choices.add(new CheatButton(app, game));
         choices.add(new SettingsButton(app, game));
         choices.add(new QuitGameButton(app, this));
 
