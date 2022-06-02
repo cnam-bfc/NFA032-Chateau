@@ -3,8 +3,11 @@ package net.cnam.chateau.gui.play.finish;
 import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.game.Game;
+import net.cnam.chateau.game.Statistic;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.*;
+import net.cnam.chateau.structure.Room;
+import net.cnam.chateau.structure.Stage;
 
 public class FinishMenu extends CFrame implements DisplayableComponent {
     private final CChoices buttons;
@@ -34,6 +37,23 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
         this.getContentPane().getComponents().add(result);
 
         // Statistiques
+        // On actualise les statistiques
+        int nbRoomsVisited = 0;
+        int nbRoomsCastle = 0;
+        Stage[] stages = game.getCastle().getStages();
+        for (Stage stage : stages) {
+            Room[] rooms = stage.getRooms();
+            for (Room room : rooms) {
+                nbRoomsCastle += 1;
+                if (room.isVisible()) {
+                    nbRoomsVisited += 1;
+                }
+            }
+        }
+        Statistic statistic = game.getStatistic();
+        statistic.setNbRoomsVisited(nbRoomsVisited);
+        statistic.setNbRoomsCastle(nbRoomsCastle);
+        statistic.calculScore();
         this.getContentPane().getComponents().add(game.getStatistic());
 
         // Label pseudo

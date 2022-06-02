@@ -104,7 +104,7 @@ public class Statistic extends CPanel implements Comparable<Statistic> {
         if (nbEnemyKilledValue.getLength() > valueLength) {
             valueLength = nbEnemyKilledValue.getLength();
         }
-        CLabel nbRoomsVisitedValue = new CLabel(HorizontalAlignment.LEFT, String.valueOf(this.nbRoomsVisited));
+        CLabel nbRoomsVisitedValue = new CLabel(HorizontalAlignment.LEFT, this.nbRoomsVisited + "/" + this.nbRoomsCastle);
         nbRoomsVisitedValue.getColors().add(CColor.YELLOW);
         if (nbRoomsVisitedValue.getLength() > valueLength) {
             valueLength = nbRoomsVisitedValue.getLength();

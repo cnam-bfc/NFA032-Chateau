@@ -80,8 +80,6 @@ public class EntityStats extends CPanel {
             weapon.getComponents().add(weaponLabel);
             weapon.getComponents().add(weaponName);
             this.getComponents().add(weapon);
-        } else {
-            emptySpace++;
         }
 
         if (entity instanceof Player) {
@@ -113,7 +111,7 @@ public class EntityStats extends CPanel {
             item.getComponents().add(itemLabel);
             item.getComponents().add(itemName);
             this.getComponents().add(item);
-        } else {
+        } else if (!(entity instanceof Pet)) {
             emptySpace++;
         }
 

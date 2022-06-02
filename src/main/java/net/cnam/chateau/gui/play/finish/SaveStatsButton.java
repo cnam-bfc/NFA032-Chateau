@@ -5,8 +5,6 @@ import net.cnam.chateau.game.Game;
 import net.cnam.chateau.game.Statistic;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.component.CTextField;
-import net.cnam.chateau.structure.Room;
-import net.cnam.chateau.structure.Stage;
 
 public class SaveStatsButton extends CButton {
     private final App app;
@@ -24,24 +22,10 @@ public class SaveStatsButton extends CButton {
     @Override
     public void execute() {
         CTextField nameField = finishMenu.getNameField();
+
         // Sauvegarde des statistiques
-        int nbRoomsVisited = 0;
-        int nbRoomsCastle = 0;
-        Stage[] stages = game.getCastle().getStages();
-        for (Stage stage : stages) {
-            Room[] rooms = stage.getRooms();
-            for (Room room : rooms) {
-                nbRoomsCastle += 1;
-                if (room.isVisible()) {
-                    nbRoomsVisited += 1;
-                }
-            }
-        }
         Statistic statistic = game.getStatistic();
         statistic.setPlayerName(nameField.getText());
-        statistic.setNbRoomsVisited(nbRoomsVisited);
-        statistic.setNbRoomsCastle(nbRoomsCastle);
-        statistic.calculScore();
         app.getStatistics().addStatistic(statistic);
 
         // On enlève les boutons
