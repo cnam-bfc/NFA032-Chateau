@@ -10,13 +10,15 @@ import net.cnam.chateau.structure.block.Cage;
 import net.cnam.chateau.utils.Location;
 
 public class TakePetButton extends CButton {
+    private final App app;
     private final CageMenu menu;
     private final Player player;
     private final Cage cage;
 
     public TakePetButton(App app, CageMenu menu, Player player, Cage cage) {
-        super(app, "Prendre " + cage.getPet().getName() + " en tant que compagnon !");
+        super(app, "Prendre le familier");
 
+        this.app = app;
         this.menu = menu;
         this.player = player;
         this.cage = cage;
@@ -39,6 +41,12 @@ public class TakePetButton extends CButton {
         if (!player.getStage().getEntities().contains(pet))
             player.getStage().getEntities().add(pet);
 
-        this.menu.stopDisplay();
+        PutPetButton putPetButton = new PutPetButton(app, menu, player, cage);
+        putPetButton.setSelected(true);
+        menu.getButtons().replace(this, putPetButton);
+    }
+
+    public Cage getCage() {
+        return cage;
     }
 }
