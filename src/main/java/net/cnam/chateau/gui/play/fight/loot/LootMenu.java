@@ -55,8 +55,6 @@ public class LootMenu extends CFrame implements DisplayableComponent {
         buttons.add(leaveButton);
 
         centerPanel.getComponents().add(buttons);
-        centerPanel.autoResize();
-        centerPanel.setLength(20);
     }
 
     @Override
@@ -79,7 +77,8 @@ public class LootMenu extends CFrame implements DisplayableComponent {
     @Override
     public void setLength(int length) {
         super.setLength(length);
-        int statsLength = this.getContentPane().getLength() - this.buttons.getLength() - 2;
+        this.centerPanel.setLength(20);
+        int statsLength = this.getContentPane().getLength() - this.centerPanel.getLength() - 2;
         this.leftPanel.setLength(statsLength / 2);
         this.rightPanel.setLength(statsLength / 2);
         for (CComponent component : this.leftPanel.getComponents()) {
@@ -150,7 +149,7 @@ public class LootMenu extends CFrame implements DisplayableComponent {
         }
     }
 
-    public void stop() {
+    public void stopDisplaying() {
         display = false;
     }
 

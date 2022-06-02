@@ -12,7 +12,7 @@ public class TakeKeyButton extends CButton {
     private final Container block;
 
     public TakeKeyButton(App app, ContainerMenu menu, Player player, Container block) {
-        super(app, "Prendre " + block.getHiddenItem().getName());
+        super(app, "Prendre la clé");
 
         this.menu = menu;
         this.player = player;
@@ -21,8 +21,13 @@ public class TakeKeyButton extends CButton {
 
     @Override
     public void execute() {
-        player.addKey((Key)block.getHiddenItem());
+        player.addKey((Key) block.getHiddenItem());
         block.setHiddenItem(null);
-        this.menu.stopDisplay();
+        menu.getButtons().remove(this);
+        menu.getLeaveButton().setSelected(true);
+    }
+
+    public Container getBlock() {
+        return block;
     }
 }

@@ -8,14 +8,12 @@ import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.block.container.Container;
 
 public class ReplaceWeaponButton extends CButton {
-    private final ContainerMenu menu;
     private final Player player;
     private final Container block;
 
-    public ReplaceWeaponButton(App app, ContainerMenu menu, Player player, Container block) {
-        super(app, "Remplacer " + player.getWeapon().getName() + " par " + block.getHiddenItem().getName());
+    public ReplaceWeaponButton(App app, Player player, Container block) {
+        super(app, "Échanger les armes");
 
-        this.menu = menu;
         this.player = player;
         this.block = block;
     }
@@ -23,8 +21,15 @@ public class ReplaceWeaponButton extends CButton {
     @Override
     public void execute() {
         Item item = player.getWeapon();
-        player.setWeapon((Weapon)block.getHiddenItem());
+        player.setWeapon((Weapon) block.getHiddenItem());
         block.setHiddenItem(item);
-        this.menu.stopDisplay();
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Container getBlock() {
+        return block;
     }
 }
