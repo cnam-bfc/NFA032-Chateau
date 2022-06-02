@@ -11,9 +11,9 @@ import net.cnam.chateau.structure.Stage;
 
 public class FinishMenu extends CFrame implements DisplayableComponent {
     private final CChoices buttons;
-    private final CLabel nameLabel;
-    private final CTextField nameField;
     private final QuitButton quitButton;
+    private CLabel nameLabel;
+    private CTextField nameField;
 
     private boolean display = true;
 
@@ -56,15 +56,19 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
         statistic.calculScore();
         this.getContentPane().getComponents().add(game.getStatistic());
 
-        // Label pseudo
-        this.nameLabel = new CLabel("Entrez un pseudo:");
-        this.getContentPane().getComponents().add(nameLabel);
-
         // Boutons
-        buttons = new CChoices(app, 1);
-        this.nameField = new CTextField("Pseudo pour enregistrer les statistiques", AppSettings.CONSOLE_MIN_LENGTH - 10, game.getPlayer().getName());
-        buttons.add(nameField);
-        buttons.add(new SaveStatsButton(app, game, this));
+        this.buttons = new CChoices(app, 1);
+
+        // On propose de changer de nom seulement si les cheats sont désactivés
+        if (!game.getStatistic().isCheatModeActivated()) {
+            // Label pseudo
+            this.nameLabel = new CLabel("Entrez un pseudo:");
+            this.getContentPane().getComponents().add(nameLabel);
+
+            this.nameField = new CTextField("Pseudo pour enregistrer les statistiques", AppSettings.CONSOLE_MIN_LENGTH - 10, game.getPlayer().getName());
+            buttons.add(nameField);
+            buttons.add(new SaveStatsButton(app, game, this));
+        }
         this.quitButton = new QuitButton(app, this);
         buttons.add(quitButton);
         this.getContentPane().getComponents().add(buttons);
