@@ -24,9 +24,10 @@ public class PutWeaponButton extends CButton {
     public void execute() {
         block.setHiddenItem(player.getWeapon());
         player.setWeapon(null);
-        TakeWeaponButton takeWeaponButton = new TakeWeaponButton(app, menu, player, block);
+        /*TakeWeaponButton takeWeaponButton = new TakeWeaponButton(app, menu, player, block);
         takeWeaponButton.setSelected(true);
-        menu.getButtons().replace(this, takeWeaponButton);
+        menu.getButtons().replace(this, takeWeaponButton);*/
+        menu.updateButtons();
     }
 
     public Player getPlayer() {

@@ -24,9 +24,10 @@ public class PutItemButton extends CButton {
     public void execute() {
         block.setHiddenItem(player.getItem());
         player.setItem(null);
-        TakeItemButton takeItemButton = new TakeItemButton(app, menu, player, block);
+        /* TakeItemButton takeItemButton = new TakeItemButton(app, menu, player, block);
         takeItemButton.setSelected(true);
-        menu.getButtons().replace(this, takeItemButton);
+        menu.getButtons().replace(this, takeItemButton);*/
+        menu.updateButtons();
     }
 
     public Player getPlayer() {

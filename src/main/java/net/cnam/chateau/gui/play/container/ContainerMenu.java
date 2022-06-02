@@ -10,6 +10,9 @@ import net.cnam.chateau.structure.block.container.Container;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class ContainerMenu extends CFrame implements DisplayableComponent {
+    private final App app;
+    private final Player player;
+    private final Container block;
     private final CPanel leftPanel;
     private final CPanel centerPanel;
     private final CPanel rightPanel;
@@ -20,6 +23,10 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
 
     public ContainerMenu(App app, Player player, Container block) {
         super(0, 0, "Contenu de " + block.getName());
+
+        this.app = app;
+        this.player = player;
+        this.block = block;
 
         // Contenu de la fenêtre
         this.getContentPane().setRenderingOrientation(Orientation.HORIZONTAL);
@@ -37,44 +44,8 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
         // Boutons
         this.buttons = new CChoices(app, 1);
 
-        // Bouton échanger objet
-        if (player.hasItem() && block.hasItem() && !(block.getHiddenItem() instanceof Weapon || block.getHiddenItem() instanceof Key)) {
-            buttons.add(new ReplaceItemButton(app, player, block));
-        }
-
-        // Bouton échanger arme
-        if (player.hasWeapon() && block.hasItem() && (block.getHiddenItem() instanceof Weapon)) {
-            buttons.add(new ReplaceWeaponButton(app, player, block));
-        }
-
-        // Bouton ranger objet
-        if (player.hasItem() && !block.hasItem()) {
-            buttons.add(new PutItemButton(app, this, player, block));
-        }
-
-        // Bouton ranger arme
-        if (player.hasWeapon() && !block.hasItem()) {
-            buttons.add(new PutWeaponButton(app, this, player, block));
-        }
-
-        // Bouton prendre objet
-        if (!player.hasItem() && block.hasItem() && !(block.getHiddenItem() instanceof Weapon || block.getHiddenItem() instanceof Key)) {
-            buttons.add(new TakeItemButton(app, this, player, block));
-        }
-
-        // Bouton prendre arme
-        if (!player.hasWeapon() && block.hasItem() && (block.getHiddenItem() instanceof Weapon)) {
-            buttons.add(new TakeWeaponButton(app, this, player, block));
-        }
-
-        // Bouton prendre clé
-        if (block.getHiddenItem() instanceof Key) {
-            buttons.add(new TakeKeyButton(app, this, player, block));
-        }
-
         // Bouton quitter
         this.leaveButton = new LeaveContainerButton(app, this);
-        buttons.add(leaveButton);
 
         centerPanel.getComponents().add(buttons);
     }
@@ -123,6 +94,48 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
         this.leftPanel.setHeight(this.getContentPane().getHeight());
         this.centerPanel.setHeight(this.getContentPane().getHeight());
         this.rightPanel.setHeight(this.getContentPane().getHeight());
+    }
+
+    public void updateButtons() {
+        this.buttons.removeAll();
+
+        // Bouton échanger objet
+        if (player.hasItem() && block.hasItem() && !(block.getHiddenItem() instanceof Weapon || block.getHiddenItem() instanceof Key)) {
+            buttons.add(new ReplaceItemButton(app, player, block));
+        }
+
+        // Bouton échanger arme
+        if (player.hasWeapon() && block.hasItem() && (block.getHiddenItem() instanceof Weapon)) {
+            buttons.add(new ReplaceWeaponButton(app, player, block));
+        }
+
+        // Bouton ranger objet
+        if (player.hasItem() && !block.hasItem()) {
+            buttons.add(new PutItemButton(app, this, player, block));
+        }
+
+        // Bouton ranger arme
+        if (player.hasWeapon() && !block.hasItem()) {
+            buttons.add(new PutWeaponButton(app, this, player, block));
+        }
+
+        // Bouton prendre objet
+        if (!player.hasItem() && block.hasItem() && !(block.getHiddenItem() instanceof Weapon || block.getHiddenItem() instanceof Key)) {
+            buttons.add(new TakeItemButton(app, this, player, block));
+        }
+
+        // Bouton prendre arme
+        if (!player.hasWeapon() && block.hasItem() && (block.getHiddenItem() instanceof Weapon)) {
+            buttons.add(new TakeWeaponButton(app, this, player, block));
+        }
+
+        // Bouton prendre clé
+        if (block.getHiddenItem() instanceof Key) {
+            buttons.add(new TakeKeyButton(app, this, player, block));
+        }
+
+        // Bouton quitter
+        buttons.add(leaveButton);
     }
 
     @SuppressWarnings("ConstantConditions")
