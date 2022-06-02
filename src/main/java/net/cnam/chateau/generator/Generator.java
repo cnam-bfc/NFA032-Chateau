@@ -494,7 +494,7 @@ public class Generator {
         }
 
         // On fait des trous dans des murs au hasard
-        for (int i = 0; i < random.nextInt(wallsUnbreaked.size() / 6, wallsUnbreaked.size() / 3); i++) {
+        for (int i = 0; i < random.nextInt(wallsUnbreaked.size() / 6, wallsUnbreaked.size() / 3 + 1); i++) {
             breakWall(generatedStage, wallsUnbreaked.remove(random.nextInt(wallsUnbreaked.size())));
         }
         return rooms;
