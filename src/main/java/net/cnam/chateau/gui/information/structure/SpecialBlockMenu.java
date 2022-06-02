@@ -102,13 +102,13 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
         }
 
         CLabel upStairDescLabel = new CLabel(HorizontalAlignment.LEFT, "Escalier montant");
-        upStairDescLabel.getColors().add(CColor.YELLOW);
+        upStairDescLabel.getColors().add(CColor.BRIGHT_YELLOW);
         if (upStairDescLabel.getLength() > valueLength) {
             valueLength = upStairDescLabel.getLength();
         }
 
         CLabel downStairDescLabel = new CLabel(HorizontalAlignment.LEFT, "Escalier descendant");
-        downStairDescLabel.getColors().add(CColor.YELLOW);
+        downStairDescLabel.getColors().add(CColor.BRIGHT_YELLOW);
         if (downStairDescLabel.getLength() > valueLength) {
             valueLength = downStairDescLabel.getLength();
         }
