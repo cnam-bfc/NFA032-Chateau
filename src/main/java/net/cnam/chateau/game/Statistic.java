@@ -24,10 +24,10 @@ public class Statistic extends CPanel implements Comparable<Statistic> {
      * @param playerName le nom du joueur de la partie
      */
     public Statistic(long seed, String playerName) {
-        this(playerName, 0, false, 0, 0, seed);
+        this(playerName, 0, false, 0, 0,0, seed);
     }
 
-    public Statistic(String playerName, int score, boolean bossDefeated, int nbEnemyKilled, int nbRoomsVisited, long seed) {
+    public Statistic(String playerName, int score, boolean bossDefeated, int nbEnemyKilled, int nbRoomsVisited, int nbRoomsCastle, long seed) {
         super(HorizontalAlignment.CENTER, Orientation.VERTICAL, 0);
 
         this.seed = seed;
@@ -35,6 +35,7 @@ public class Statistic extends CPanel implements Comparable<Statistic> {
         this.bossDefeated = bossDefeated;
         this.nbEnemyKilled = nbEnemyKilled;
         this.nbRoomsVisited = nbRoomsVisited;
+        this.nbRoomsCastle = nbRoomsCastle;
         this.score = score;
 
         this.update();
@@ -177,6 +178,10 @@ public class Statistic extends CPanel implements Comparable<Statistic> {
         this.update();
     }
 
+    public boolean isCheatModeActivated() {
+        return this.cheatModeActivate;
+    }
+
     /**
      * Setter permettant de définir le nombre de pièces visitées par le joueur.
      *
@@ -272,6 +277,10 @@ public class Statistic extends CPanel implements Comparable<Statistic> {
      */
     public int getNbRoomsVisited() {
         return nbRoomsVisited;
+    }
+
+    public int getNbRoomsCastle() {
+        return nbRoomsCastle;
     }
 
     /**

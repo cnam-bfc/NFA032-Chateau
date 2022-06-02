@@ -53,14 +53,12 @@ public class ActivateCheatButton extends CButton {
             case ("777") -> {
                 player.setWeapon(new Weapon("Damoclès", "L'épée ultime pour tricheur !", 35,20,20));
                 app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Vous avez reçu l'épée de Damoclès !"));
-                menu.stopDisplaying();
             }
             case ("42") -> {
                 player.heal(player.getMaxHealth());
                 app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Vous avez activé le cheat de récupération de vie !"));
-                menu.stopDisplaying();
             }
-            case ("71") -> {
+            case ("LUDO!") -> {
                 if (player.hasPet()) {
                     Pet oldPet = player.getPet();
                     oldPet.setPlayer(null);
@@ -76,8 +74,13 @@ public class ActivateCheatButton extends CButton {
                 if (!player.getStage().getEntities().contains(newPet))
                     player.getStage().getEntities().add(newPet);
                 app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Vous avez reçu le familier Super Ludo !"));
-                menu.stopDisplaying();
+            }
+            default -> {
+                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO,"Code de triche invalide !"));
+                return;
             }
         }
+        game.getStatistic().activeCheat();
+        menu.stopDisplaying();
     }
 }

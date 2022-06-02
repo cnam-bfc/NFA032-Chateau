@@ -34,7 +34,7 @@ public class Statistics {
                 StringTokenizer token = new StringTokenizer(ligne, ";");
 
                 // on vérifie qu'il y a bien le bon nombre d'éléments
-                if (token.countTokens() != 6) {
+                if (token.countTokens() != 7) {
                     continue;
                 }
 
@@ -43,6 +43,7 @@ public class Statistics {
                         token.nextToken(),
                         Integer.parseInt(token.nextToken()),
                         Boolean.parseBoolean(token.nextToken()),
+                        Integer.parseInt(token.nextToken()),
                         Integer.parseInt(token.nextToken()),
                         Integer.parseInt(token.nextToken()),
                         Long.parseLong(token.nextToken())));
@@ -76,6 +77,7 @@ public class Statistics {
                         stat.isBossDefeated() + ";" +
                         stat.getNbEnemyKilled() + ";" +
                         stat.getNbRoomsVisited() + ";" +
+                        stat.getNbRoomsCastle() + ";" +
                         stat.getSeed());
                 compteur++;
             } while (compteur < this.statistics.size());
@@ -91,6 +93,9 @@ public class Statistics {
      * @param stat la statistique à ajouter
      */
     public void addStatistic(Statistic stat) {
+        if (stat.isCheatModeActivated()){
+            return;
+        }
         this.statistics.add(stat);
         // On tri et on remet la liste à la bonne taille pour écrire seulement les 10 meilleurs scores
         Collections.sort(this.statistics);
