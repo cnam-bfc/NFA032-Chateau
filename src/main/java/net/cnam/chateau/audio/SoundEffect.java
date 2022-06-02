@@ -2,8 +2,7 @@ package net.cnam.chateau.audio;
 
 public enum SoundEffect {
     HOVER("button_hover.wav"),
-    SELECT("Undertale - select.wav"),
-    CHEAT("Microsoft Windows XP Shutdown Sound.wav");
+    SELECT("Undertale - select.wav");
 
     private static final String basePath = "/assets/sound/";
     private final String fileName;

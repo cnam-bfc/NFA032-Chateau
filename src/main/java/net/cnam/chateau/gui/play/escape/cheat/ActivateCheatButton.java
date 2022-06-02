@@ -1,7 +1,7 @@
 package net.cnam.chateau.gui.play.escape.cheat;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.audio.SoundEffect;
+import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.pet.Ludo;
@@ -48,8 +48,8 @@ public class ActivateCheatButton extends CButton {
             case ("404") -> {
                 app.stopAllPlayers();
                 try {
-                    SimpleAudioPlayer audioPlayer = app.createAudioPlayer(SoundEffect.CHEAT);
-                    audioPlayer.setVolume(app.getSettings().getSoundEffectsVolume());
+                    SimpleAudioPlayer audioPlayer = app.createAudioPlayer(Music.CHEAT);
+                    audioPlayer.setVolume(app.getSettings().getMusicVolume());
                     audioPlayer.play();
                 } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
                          IllegalArgumentException ignored) {
