@@ -165,7 +165,7 @@ public class Fight extends CFrame implements DisplayableComponent {
     public void updateMenuButtons() {
         menu.removeAll();
         menu.add(new AttackButton(app, this));
-        if (player.hasItem() && player.getItem() instanceof Consumable) {
+        if (player.hasItem() && player.getItem() instanceof Consumable consumable) {
             List<Entity> fightEntities = new LinkedList<>();
             if (!enemy.isDead()) {
                 fightEntities.add(enemy);
@@ -176,7 +176,7 @@ public class Fight extends CFrame implements DisplayableComponent {
             if (player.hasPet() && !player.getPet().isDead()) {
                 fightEntities.add(player.getPet());
             }
-            menu.add(new UseItemButton(app, this, player.getItem(), fightEntities));
+            menu.add(new UseItemButton(app, this, consumable, fightEntities));
         }
         menu.add(new RunAwayButton(app, this));
         menu.setLength(20);

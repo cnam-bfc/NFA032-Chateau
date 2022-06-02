@@ -8,6 +8,7 @@ import net.cnam.chateau.item.Item;
 import net.cnam.chateau.item.consumable.AttackPotion;
 import net.cnam.chateau.item.consumable.HealPotion;
 import net.cnam.chateau.item.weapon.Weapon;
+import net.cnam.chateau.item.wearable.Wearable;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class ItemStats extends CPanel {
@@ -105,6 +106,52 @@ public class ItemStats extends CPanel {
             CLabel speedLabel = new CLabel("Rapidité");
             speedLabel.getColors().add(CColor.BOLD);
             CLabel speedValue = new CLabel(String.valueOf(weapon.getSpeed()));
+            speedValue.getColors().add(CColor.GREEN);
+            speedPanel.getComponents().add(speedLabel);
+            speedPanel.getComponents().add(speedValue);
+            speedPanel.autoResize();
+            if (speedPanel.getLength() > panelMaxLength) {
+                panelMaxLength = speedPanel.getLength();
+            }
+            this.getComponents().add(speedPanel);
+
+            strengthPanel.setLength(panelMaxLength);
+            accuracyPanel.setLength(panelMaxLength);
+            speedPanel.setLength(panelMaxLength);
+        } else if (item instanceof Wearable wearable) {
+            // Force
+            CPanel strengthPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.VERTICAL, 0);
+            CLabel strengthLabel = new CLabel("Force");
+            strengthLabel.getColors().add(CColor.BOLD);
+            CLabel strengthValue = new CLabel(String.valueOf(wearable.getStrength()));
+            strengthValue.getColors().add(CColor.GREEN);
+            strengthPanel.getComponents().add(strengthLabel);
+            strengthPanel.getComponents().add(strengthValue);
+            strengthPanel.autoResize();
+            if (strengthPanel.getLength() > panelMaxLength) {
+                panelMaxLength = strengthPanel.getLength();
+            }
+            this.getComponents().add(strengthPanel);
+
+            // Précision
+            CPanel accuracyPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.VERTICAL, 0);
+            CLabel accuracyLabel = new CLabel("Précision");
+            accuracyLabel.getColors().add(CColor.BOLD);
+            CLabel accuracyValue = new CLabel(String.valueOf(wearable.getAccuracy()));
+            accuracyValue.getColors().add(CColor.GREEN);
+            accuracyPanel.getComponents().add(accuracyLabel);
+            accuracyPanel.getComponents().add(accuracyValue);
+            accuracyPanel.autoResize();
+            if (accuracyPanel.getLength() > panelMaxLength) {
+                panelMaxLength = accuracyPanel.getLength();
+            }
+            this.getComponents().add(accuracyPanel);
+
+            // Rapidité
+            CPanel speedPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.VERTICAL, 0);
+            CLabel speedLabel = new CLabel("Rapidité");
+            speedLabel.getColors().add(CColor.BOLD);
+            CLabel speedValue = new CLabel(String.valueOf(wearable.getSpeed()));
             speedValue.getColors().add(CColor.GREEN);
             speedPanel.getComponents().add(speedLabel);
             speedPanel.getComponents().add(speedValue);

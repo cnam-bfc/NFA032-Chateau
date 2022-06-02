@@ -7,14 +7,17 @@ import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.item.Item;
+import net.cnam.chateau.item.consumable.Consumable;
 
 import java.util.List;
 
 public class ConsumableItemMenu extends CFrame implements DisplayableComponent {
     private boolean display = true;
 
-    public ConsumableItemMenu(App app, Item item, List<Entity> entities) {
-        super(0, 0, "Utiliser " + item.getName());
+    public ConsumableItemMenu(App app, Consumable consumable, List<Entity> entities) {
+        super(0, 0, "Utiliser " + ((Item) consumable).getName());
+
+        Item item = (Item) consumable;
 
         CLabel label = new CLabel("Sur quelle entité voulez-vous utiliser " + item.getName() + " ?");
         this.getContentPane().getComponents().add(label);

@@ -5,9 +5,15 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.ItemStats;
+import net.cnam.chateau.item.consumable.Consumable;
 import net.cnam.chateau.utils.direction.Orientation;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class LootMenu extends CFrame implements DisplayableComponent {
+    private final Player player;
+    private final Entity entity;
     private final CPanel leftPanel;
     private final CPanel centerPanel;
     private final CPanel rightPanel;
@@ -18,6 +24,9 @@ public class LootMenu extends CFrame implements DisplayableComponent {
 
     public LootMenu(App app, Player player, Entity enemy) {
         super(0, 0, "Butin de " + enemy.getName());
+
+        this.player = player;
+        this.entity = enemy;
 
         // Contenu de la fenêtre
         this.getContentPane().setRenderingOrientation(Orientation.HORIZONTAL);
@@ -45,10 +54,19 @@ public class LootMenu extends CFrame implements DisplayableComponent {
         // Bouton item
         if (enemy.hasItem()) {
             if (player.hasItem()) {
-                buttons.add(new ReplaceItemButton(app, player, enemy));
+                buttons.add(new ReplaceItemButton(app, this, player, enemy));
             } else {
                 buttons.add(new TakeItemButton(app, player, enemy, this));
             }
+        }
+        // Bouton utiliser item
+        if (player.hasItem() && player.getItem() instanceof Consumable consumable) {
+            List<Entity> entities = new LinkedList<>();
+            entities.add(player);
+            if (player.hasPet()) {
+                entities.add(player.getPet());
+            }
+            buttons.add(new UseItemButton(app, this, consumable, entities));
         }
         // Bouton quitter
         this.leaveButton = new LeaveButton(app, this);
@@ -159,5 +177,13 @@ public class LootMenu extends CFrame implements DisplayableComponent {
 
     public LeaveButton getLeaveButton() {
         return leaveButton;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Entity getEntity() {
+        return entity;
     }
 }
