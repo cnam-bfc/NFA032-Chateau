@@ -1,4 +1,4 @@
-package net.cnam.chateau.entity.pet;
+package net.cnam.chateau.entity;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Entity;

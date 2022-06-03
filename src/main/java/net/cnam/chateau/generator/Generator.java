@@ -2,10 +2,10 @@ package net.cnam.chateau.generator;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.GeneratorSettings;
+import net.cnam.chateau.entity.Pet;
 import net.cnam.chateau.entity.Sage;
 import net.cnam.chateau.entity.enemy.*;
 import net.cnam.chateau.entity.enemy.boss.BossMartinez;
-import net.cnam.chateau.entity.pet.*;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.item.Item;
 import net.cnam.chateau.item.consumable.AttackPotion;

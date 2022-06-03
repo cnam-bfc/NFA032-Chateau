@@ -6,7 +6,7 @@ import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.entity.enemy.boss.Boss;
-import net.cnam.chateau.entity.pet.Pet;
+import net.cnam.chateau.entity.Pet;
 import net.cnam.chateau.game.EntityDeadException;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;

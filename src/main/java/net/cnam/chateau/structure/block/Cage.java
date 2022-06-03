@@ -2,7 +2,7 @@ package net.cnam.chateau.structure.block;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.entity.pet.Pet;
+import net.cnam.chateau.entity.Pet;
 import net.cnam.chateau.event.player.PlayerInteractEvent;
 import net.cnam.chateau.event.player.PlayerInteractListener;
 import net.cnam.chateau.gui.CColor;

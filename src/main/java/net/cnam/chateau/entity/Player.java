@@ -1,7 +1,6 @@
 package net.cnam.chateau.entity;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.item.Key;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;

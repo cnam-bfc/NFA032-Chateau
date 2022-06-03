@@ -5,7 +5,7 @@ import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.pet.Ludo;
-import net.cnam.chateau.entity.pet.Pet;
+import net.cnam.chateau.entity.Pet;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
