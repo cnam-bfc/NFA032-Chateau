@@ -36,7 +36,12 @@ public class CProgressBar extends CComponent {
     public String[] render() {
         String[] result = new String[this.getHeight()];
 
-        int progressed = (int) ((float) (value - minValue) / (maxValue - minValue) * this.getLength());
+        int progressed;
+        if (minValue == maxValue) {
+            progressed = this.getLength();
+        } else {
+            progressed = (int) ((float) (value - minValue) / (maxValue - minValue) * this.getLength());
+        }
 
         String[] textLines = text.split("\n");
 
