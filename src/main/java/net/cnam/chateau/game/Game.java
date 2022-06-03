@@ -287,7 +287,7 @@ public class Game extends CFrame implements DisplayableComponent {
     public boolean isInLoopingMode() {
         // Si le joueur est mort, on arrête le jeu
         if (player.isDead()) {
-            stop();
+            stopLoopingMode();
 
             SimpleAudioPlayer deathAudioPlayer = null;
             try {
@@ -312,7 +312,8 @@ public class Game extends CFrame implements DisplayableComponent {
         return true;
     }
 
-    public void stop() {
+    @Override
+    public void stopLoopingMode() {
         display = false;
         if (audioPlayer != null) {
             audioPlayer.stop();

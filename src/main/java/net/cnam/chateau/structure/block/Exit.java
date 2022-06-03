@@ -41,7 +41,7 @@ public class Exit extends Block implements BlockListener {
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         if (event.getEntity() == app.getCurrentGame().getPlayer()) {
-            app.getCurrentGame().stop();
+            app.getCurrentGame().stopLoopingMode();
 
             SimpleAudioPlayer winAudioPlayer = null;
             try {

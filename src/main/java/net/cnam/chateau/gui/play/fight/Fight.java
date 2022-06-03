@@ -104,7 +104,7 @@ public class Fight extends CFrame implements DisplayableComponent {
     @Override
     public boolean isInLoopingMode() {
         if (state.equals(State.FINISHED)) {
-            stop();
+            stopLoopingMode();
         } else
             // On vérifie si le combat est terminé
             if (state.equals(State.FIGHTING) && (player.isDead() || enemy.isDead())) {
@@ -161,7 +161,8 @@ public class Fight extends CFrame implements DisplayableComponent {
         return over;
     }
 
-    public void stop() {
+    @Override
+    public void stopLoopingMode() {
         display = false;
         if (audioPlayer != null) {
             audioPlayer.stop();

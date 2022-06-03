@@ -17,6 +17,6 @@ public class CreditButton extends CButton {
 
     @Override
     public void execute() {
-        app.getConsole().show(new CreditsMenu(app));
+        app.getConsole().show(new CreditsMenu());
     }
 }

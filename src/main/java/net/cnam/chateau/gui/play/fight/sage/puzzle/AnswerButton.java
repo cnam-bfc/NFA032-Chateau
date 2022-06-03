@@ -35,6 +35,6 @@ public class AnswerButton extends CButton {
             } catch (EntityDeadException ignored) {
             }
         }
-        this.menu.stopDisplay();
+        this.menu.stopLoopingMode();
     }
 }

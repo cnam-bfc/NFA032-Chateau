@@ -14,6 +14,6 @@ public class RunAwayButton extends CButton {
 
     @Override
     public void execute() {
-        fight.stop();
+        fight.stopLoopingMode();
     }
 }

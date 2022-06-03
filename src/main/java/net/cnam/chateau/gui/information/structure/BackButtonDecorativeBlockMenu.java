@@ -15,6 +15,6 @@ public class BackButtonDecorativeBlockMenu extends CButton {
 
     @Override
     public void execute() {
-        menu.stopDisplaying();
+        menu.stopLoopingMode();
     }
 }

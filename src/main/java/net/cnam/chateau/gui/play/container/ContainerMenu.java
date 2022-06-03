@@ -2,6 +2,7 @@ package net.cnam.chateau.gui.play.container;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.ItemStats;
 import net.cnam.chateau.item.Key;
@@ -205,7 +206,7 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
         }
     }
 
-    public void stopDisplaying() {
+    public void stopLoopingMode() {
         this.display = false;
     }
 

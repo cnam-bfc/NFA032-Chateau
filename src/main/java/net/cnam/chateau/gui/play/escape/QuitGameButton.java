@@ -16,7 +16,7 @@ public class QuitGameButton extends CButton {
 
     @Override
     public void execute() {
-        escapeMenu.stopDisplaying();
-        app.getCurrentGame().stop();
+        escapeMenu.stopLoopingMode();
+        app.getCurrentGame().stopLoopingMode();
     }
 }

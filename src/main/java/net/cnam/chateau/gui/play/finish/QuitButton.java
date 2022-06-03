@@ -14,6 +14,6 @@ public class QuitButton extends CButton {
 
     @Override
     public void execute() {
-        finishMenu.stopDisplaying();
+        finishMenu.stopLoopingMode();
     }
 }

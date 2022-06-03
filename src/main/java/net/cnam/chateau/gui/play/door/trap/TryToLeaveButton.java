@@ -41,6 +41,6 @@ public class TryToLeaveButton extends CButton {
             }
             door.getTrap().useEffect(player);
         }
-        this.menu.stopDisplay();
+        this.menu.stopLoopingMode();
     }
 }

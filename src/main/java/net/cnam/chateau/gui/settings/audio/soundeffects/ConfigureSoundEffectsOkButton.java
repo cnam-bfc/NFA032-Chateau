@@ -20,7 +20,7 @@ public class ConfigureSoundEffectsOkButton extends CButton {
 
     @Override
     public void execute() {
-        configureSoundEffectsFrame.stopDisplaying();
+        configureSoundEffectsFrame.stopLoopingMode();
         settings.setSoundEffectsVolume((float) gauge.getValue() / gauge.getMaxValue());
     }
 }

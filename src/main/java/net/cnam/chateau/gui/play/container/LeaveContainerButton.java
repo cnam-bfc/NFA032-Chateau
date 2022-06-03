@@ -14,6 +14,6 @@ public class LeaveContainerButton extends CButton {
 
     @Override
     public void execute() {
-        this.menu.stopDisplaying();
+        this.menu.stopLoopingMode();
     }
 }

@@ -32,7 +32,7 @@ public class UseItemButton extends CButton {
                 entities.add(player.getPet());
             }
             app.getConsole().show(new ConsumableItemMenu(app, consumable, entities));
-            escapeMenu.stopDisplaying();
+            escapeMenu.stopLoopingMode();
         }
     }
 }

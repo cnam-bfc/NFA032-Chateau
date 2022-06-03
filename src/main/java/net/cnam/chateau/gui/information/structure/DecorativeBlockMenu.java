@@ -11,13 +11,15 @@ import net.cnam.chateau.utils.direction.Orientation;
 
 public class DecorativeBlockMenu extends CFrame implements DisplayableComponent {
     private final App app;
+
     private boolean display = true;
+
     public DecorativeBlockMenu(App app) {
         super(0, 0, "Les blocs décoratifs");
 
         this.app = app;
 
-        // variables pour re définir proprement l'ajustement du texte
+        // variables pour redéfinir proprement l'ajustement du texte
         int labelLength = 0;
         int valueLength = 0;
 
@@ -68,23 +70,23 @@ public class DecorativeBlockMenu extends CFrame implements DisplayableComponent 
         tableDescLabel.setLength(valueLength);
         seatDescLabel.setLength(valueLength);
 
-        CLabel seperatorLabel = new CLabel(HorizontalAlignment.LEFT, "-");
+        CLabel separatorLabel = new CLabel(HorizontalAlignment.LEFT, "-");
 
         CPanel deskPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         deskPanel.getComponents().add(deskLetterLabel);
-        deskPanel.getComponents().add(seperatorLabel);
+        deskPanel.getComponents().add(separatorLabel);
         deskPanel.getComponents().add(deskDescLabel);
         deskPanel.autoResize();
 
         CPanel tablePanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         tablePanel.getComponents().add(tableLetterLabel);
-        tablePanel.getComponents().add(seperatorLabel);
+        tablePanel.getComponents().add(separatorLabel);
         tablePanel.getComponents().add(tableDescLabel);
         tablePanel.autoResize();
 
         CPanel seatPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         seatPanel.getComponents().add(seatLetterLabel);
-        seatPanel.getComponents().add(seperatorLabel);
+        seatPanel.getComponents().add(separatorLabel);
         seatPanel.getComponents().add(seatDescLabel);
         seatPanel.autoResize();
 
@@ -96,7 +98,7 @@ public class DecorativeBlockMenu extends CFrame implements DisplayableComponent 
 
         this.getContentPane().getComponents().add(panel);
 
-        this.setFooter(new CPanel(HorizontalAlignment.CENTER,0,1, Orientation.HORIZONTAL, 1));
+        this.setFooter(new CPanel(HorizontalAlignment.CENTER, 0, 1, Orientation.HORIZONTAL, 1));
 
         CPanel rightTextPanel = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
         rightTextPanel.getComponents().add(new CLabel(HorizontalAlignment.LEFT, "Appuyez flèche gauche"));
@@ -116,16 +118,16 @@ public class DecorativeBlockMenu extends CFrame implements DisplayableComponent 
     }
 
     @Override
-    public boolean isInLoopingMode() {
-        return display;
-    }
-
-    @Override
     public boolean isInFullScreenMode() {
         return true;
     }
 
-    public void stopDisplaying() {
+    @Override
+    public boolean isInLoopingMode() {
+        return display;
+    }
+
+    public void stopLoopingMode() {
         display = false;
     }
 
@@ -134,16 +136,12 @@ public class DecorativeBlockMenu extends CFrame implements DisplayableComponent 
         super.onKeyPressed(event);
 
         try {
-            Direction direction = DirectionUtils.parseDirection(event.getKey(),false);
-            switch (direction){
-                case RIGHT, TOP -> {
-                    app.getConsole().show(new SpecialBlockMenu(app));
-                }
-                case LEFT, BOTTOM -> {
-                    app.getConsole().show(new ContainerBlockMenu(app));
-                }
+            Direction direction = DirectionUtils.parseDirection(event.getKey(), false);
+            switch (direction) {
+                case RIGHT, TOP -> app.getConsole().show(new SpecialBlockMenu(app));
+                case LEFT, BOTTOM -> app.getConsole().show(new ContainerBlockMenu(app));
             }
-            stopDisplaying();
+            stopLoopingMode();
         } catch (DirectionNotFoundException ignored) {
         }
     }

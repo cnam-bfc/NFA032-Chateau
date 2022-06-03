@@ -48,7 +48,7 @@ public class OkButton extends CButton {
                 }
             }
         }
-        playMenu.stopDisplaying();
+        playMenu.stopLoopingMode();
         SimpleAudioPlayer audioPlayer = mainMenu.getAudioPlayer();
         if (audioPlayer != null) {
             audioPlayer.stop();

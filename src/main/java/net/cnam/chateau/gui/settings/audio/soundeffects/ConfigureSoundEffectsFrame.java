@@ -31,7 +31,7 @@ public class ConfigureSoundEffectsFrame extends CFrame implements DisplayableCom
         return display;
     }
 
-    public void stopDisplaying() {
+    public void stopLoopingMode() {
         display = false;
     }
 

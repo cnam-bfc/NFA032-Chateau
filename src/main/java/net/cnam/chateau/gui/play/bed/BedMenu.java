@@ -21,16 +21,17 @@ public class BedMenu extends CFrame implements DisplayableComponent {
     }
 
     @Override
+    public boolean isInFullScreenMode() {
+        return true;
+    }
+
+    @Override
     public boolean isInLoopingMode() {
         return display;
     }
 
     @Override
-    public boolean isInFullScreenMode() {
-        return true;
-    }
-
-    public void stopDisplay() {
+    public void stopLoopingMode() {
         this.display = false;
     }
 }

@@ -138,7 +138,8 @@ public class CageMenu extends CFrame implements DisplayableComponent {
         }
     }
 
-    public void stopDisplay() {
+    @Override
+    public void stopLoopingMode() {
         this.display = false;
     }
 

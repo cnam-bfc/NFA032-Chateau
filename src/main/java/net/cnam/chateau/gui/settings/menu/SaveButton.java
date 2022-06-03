@@ -21,7 +21,7 @@ public class SaveButton extends CButton {
 
     @Override
     public void execute() {
-        settingsMenu.stopDisplaying();
+        settingsMenu.stopLoopingMode();
         File settingsFile = new File(AppSettings.DEFAULT_FILE_PATH);
         try {
             app.getSettings().save(settingsFile);

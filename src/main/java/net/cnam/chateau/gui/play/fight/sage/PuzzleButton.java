@@ -25,6 +25,6 @@ public class PuzzleButton extends CButton {
     @Override
     public void execute() {
         app.getConsole().show(new PuzzleMenu(app, player, door));
-        this.menu.stopDisplay();
+        this.menu.stopLoopingMode();
     }
 }

@@ -20,7 +20,7 @@ public class ConfigureMusicCancelButton extends CButton {
 
     @Override
     public void execute() {
-        configureMusicFrame.stopDisplaying();
+        configureMusicFrame.stopLoopingMode();
 
         try {
             menuPlayer.setVolume(settings.getMusicVolume());

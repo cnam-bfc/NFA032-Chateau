@@ -18,6 +18,6 @@ public class OpenDoorButton extends CButton {
     @Override
     public void execute() {
         door.setLock(false);
-        this.menu.stopDisplay();
+        this.menu.stopLoopingMode();
     }
 }

@@ -14,6 +14,6 @@ public class LeavePuzzleButton extends CButton {
 
     @Override
     public void execute() {
-        this.menu.stopDisplay();
+        this.menu.stopLoopingMode();
     }
 }

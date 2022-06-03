@@ -36,7 +36,7 @@ public class StatisticsMenu extends CFrame implements DisplayableComponent {
         return display;
     }
 
-    public void stopDisplaying() {
+    public void stopLoopingMode() {
         display = false;
     }
 

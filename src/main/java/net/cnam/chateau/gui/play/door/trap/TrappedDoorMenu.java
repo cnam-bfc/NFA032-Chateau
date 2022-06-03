@@ -30,7 +30,8 @@ public class TrappedDoorMenu extends CFrame implements DisplayableComponent {
         return true;
     }
 
-    public void stopDisplay() {
+    @Override
+    public void stopLoopingMode() {
         this.display = false;
     }
 }

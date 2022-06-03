@@ -11,13 +11,15 @@ import net.cnam.chateau.utils.direction.Orientation;
 
 public class ContainerBlockMenu extends CFrame implements DisplayableComponent {
     private final App app;
+
     private boolean display = true;
+
     public ContainerBlockMenu(App app) {
         super(0, 0, "Les blocs conteneur");
 
         this.app = app;
 
-        // variables pour re définir proprement l'ajustement du texte
+        // variables pour redéfinir proprement l'ajustement du texte
         int labelLength = 0;
         int valueLength = 0;
 
@@ -152,59 +154,59 @@ public class ContainerBlockMenu extends CFrame implements DisplayableComponent {
         emptyCageDescLabel.setLength(valueLength);
         fullCageDescLabel.setLength(valueLength);
 
-        CLabel seperatorLabel = new CLabel(HorizontalAlignment.LEFT, "-");
+        CLabel separatorLabel = new CLabel(HorizontalAlignment.LEFT, "-");
 
         CPanel unVisitedChestPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         unVisitedChestPanel.getComponents().add(unVisitedChestLetterLabel);
-        unVisitedChestPanel.getComponents().add(seperatorLabel);
+        unVisitedChestPanel.getComponents().add(separatorLabel);
         unVisitedChestPanel.getComponents().add(unVisitedChestDescLabel);
         unVisitedChestPanel.autoResize();
 
         CPanel emptyChestPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         emptyChestPanel.getComponents().add(emptyChestLetterLabel);
-        emptyChestPanel.getComponents().add(seperatorLabel);
+        emptyChestPanel.getComponents().add(separatorLabel);
         emptyChestPanel.getComponents().add(emptyChestDescLabel);
         emptyChestPanel.autoResize();
 
         CPanel fullChestPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         fullChestPanel.getComponents().add(fullChestLetterLabel);
-        fullChestPanel.getComponents().add(seperatorLabel);
+        fullChestPanel.getComponents().add(separatorLabel);
         fullChestPanel.getComponents().add(fullChestDescLabel);
         fullChestPanel.autoResize();
 
         CPanel unVisitedWardrobePanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         unVisitedWardrobePanel.getComponents().add(unVisitedWardrobeLetterLabel);
-        unVisitedWardrobePanel.getComponents().add(seperatorLabel);
+        unVisitedWardrobePanel.getComponents().add(separatorLabel);
         unVisitedWardrobePanel.getComponents().add(unVisitedWardrobeDescLabel);
         unVisitedWardrobePanel.autoResize();
 
         CPanel emptyWardrobePanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         emptyWardrobePanel.getComponents().add(emptyWardrobeLetterLabel);
-        emptyWardrobePanel.getComponents().add(seperatorLabel);
+        emptyWardrobePanel.getComponents().add(separatorLabel);
         emptyWardrobePanel.getComponents().add(emptyWardrobeDescLabel);
         emptyWardrobePanel.autoResize();
 
         CPanel fullWardrobePanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         fullWardrobePanel.getComponents().add(fullWardrobeLetterLabel);
-        fullWardrobePanel.getComponents().add(seperatorLabel);
+        fullWardrobePanel.getComponents().add(separatorLabel);
         fullWardrobePanel.getComponents().add(fullWardrobeDescLabel);
         fullWardrobePanel.autoResize();
 
         CPanel unVisitedCagePanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         unVisitedCagePanel.getComponents().add(unVisitedCageLetterLabel);
-        unVisitedCagePanel.getComponents().add(seperatorLabel);
+        unVisitedCagePanel.getComponents().add(separatorLabel);
         unVisitedCagePanel.getComponents().add(unVisitedCageDescLabel);
         unVisitedCagePanel.autoResize();
 
         CPanel emptyCagePanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         emptyCagePanel.getComponents().add(emptyCageLetterLabel);
-        emptyCagePanel.getComponents().add(seperatorLabel);
+        emptyCagePanel.getComponents().add(separatorLabel);
         emptyCagePanel.getComponents().add(emptyCageDescLabel);
         emptyCagePanel.autoResize();
 
         CPanel fullCagePanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         fullCagePanel.getComponents().add(fullCageLetterLabel);
-        fullCagePanel.getComponents().add(seperatorLabel);
+        fullCagePanel.getComponents().add(separatorLabel);
         fullCagePanel.getComponents().add(fullCageDescLabel);
         fullCagePanel.autoResize();
 
@@ -222,7 +224,7 @@ public class ContainerBlockMenu extends CFrame implements DisplayableComponent {
 
         this.getContentPane().getComponents().add(panel);
 
-        this.setFooter(new CPanel(HorizontalAlignment.CENTER,0,1, Orientation.HORIZONTAL, 1));
+        this.setFooter(new CPanel(HorizontalAlignment.CENTER, 0, 1, Orientation.HORIZONTAL, 1));
 
         CPanel rightTextPanel = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
         rightTextPanel.getComponents().add(new CLabel(HorizontalAlignment.LEFT, "Appuyez flèche gauche"));
@@ -242,16 +244,16 @@ public class ContainerBlockMenu extends CFrame implements DisplayableComponent {
     }
 
     @Override
-    public boolean isInLoopingMode() {
-        return display;
-    }
-
-    @Override
     public boolean isInFullScreenMode() {
         return true;
     }
 
-    public void stopDisplaying() {
+    @Override
+    public boolean isInLoopingMode() {
+        return display;
+    }
+
+    public void stopLoopingMode() {
         display = false;
     }
 
@@ -260,16 +262,12 @@ public class ContainerBlockMenu extends CFrame implements DisplayableComponent {
         super.onKeyPressed(event);
 
         try {
-            Direction direction = DirectionUtils.parseDirection(event.getKey(),false);
-            switch (direction){
-                case RIGHT, TOP -> {
-                    app.getConsole().show(new DecorativeBlockMenu(app));
-                }
-                case LEFT, BOTTOM -> {
-                    app.getConsole().show(new SpecialBlockMenu(app));
-                }
+            Direction direction = DirectionUtils.parseDirection(event.getKey(), false);
+            switch (direction) {
+                case RIGHT, TOP -> app.getConsole().show(new DecorativeBlockMenu(app));
+                case LEFT, BOTTOM -> app.getConsole().show(new SpecialBlockMenu(app));
             }
-            stopDisplaying();
+            stopLoopingMode();
         } catch (DirectionNotFoundException ignored) {
         }
     }

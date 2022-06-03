@@ -5,8 +5,7 @@ import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.gui.information.commands.CommandsMenu;
 
 public class CommandButton extends CButton {
-
-    private App app;
+    private final App app;
 
     public CommandButton(App app) {
         super(app, "Afficher les commandes");
@@ -14,9 +13,8 @@ public class CommandButton extends CButton {
         this.app = app;
     }
 
-
     @Override
     public void execute() {
-        app.getConsole().show(new CommandsMenu(app));
+        app.getConsole().show(new CommandsMenu());
     }
 }

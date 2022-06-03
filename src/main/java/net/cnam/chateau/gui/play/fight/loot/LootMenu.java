@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.play.fight.loot;
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.ItemStats;
 import net.cnam.chateau.item.consumable.Consumable;
@@ -167,7 +168,7 @@ public class LootMenu extends CFrame implements DisplayableComponent {
         }
     }
 
-    public void stopDisplaying() {
+    public void stopLoopingMode() {
         display = false;
     }
 

@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.play.escape;
 import net.cnam.chateau.App;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.game.Game;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.information.InfoButton;
 import net.cnam.chateau.item.consumable.Consumable;
@@ -44,14 +45,14 @@ public class EscapeMenu extends CFrame implements DisplayableComponent {
     @Override
     public void onKeyPressed(KeyPressedEvent event) {
         if (event.getKey() == 27) {
-            stopDisplaying();
+            stopLoopingMode();
             return;
         }
 
         super.onKeyPressed(event);
     }
 
-    public void stopDisplaying() {
+    public void stopLoopingMode() {
         display = false;
     }
 }

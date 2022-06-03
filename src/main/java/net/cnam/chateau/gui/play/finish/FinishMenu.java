@@ -5,6 +5,7 @@ import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.game.Statistic;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
@@ -84,7 +85,7 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
         return true;
     }
 
-    public void stopDisplaying() {
+    public void stopLoopingMode() {
         display = false;
     }
 

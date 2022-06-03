@@ -26,6 +26,6 @@ public class AttackButton extends CButton {
         if (fight.isOver()) {
             door.setSage(null);
         }
-        this.menu.stopDisplay();
+        this.menu.stopLoopingMode();
     }
 }

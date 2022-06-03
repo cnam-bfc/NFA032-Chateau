@@ -15,12 +15,16 @@ public class ViewStatisticMenu extends CFrame implements DisplayableComponent {
     }
 
     @Override
+    public boolean isInFullScreenMode() {
+        return true;
+    }
+
+    @Override
     public boolean isInLoopingMode() {
         return false;
     }
 
     @Override
-    public boolean isInFullScreenMode() {
-        return true;
+    public void stopLoopingMode() {
     }
 }

@@ -33,6 +33,6 @@ public class DestroyDoorButton extends CButton {
             }
             // TODO Message : la porte est trop solide vous vous êtes blessé
         }
-        this.menu.stopDisplay();
+        this.menu.stopLoopingMode();
     }
 }

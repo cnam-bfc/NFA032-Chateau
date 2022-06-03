@@ -14,6 +14,6 @@ public class ConfigureSoundEffectsCancelButton extends CButton {
 
     @Override
     public void execute() {
-        configureSoundEffectsFrame.stopDisplaying();
+        configureSoundEffectsFrame.stopLoopingMode();
     }
 }

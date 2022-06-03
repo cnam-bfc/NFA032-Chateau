@@ -14,6 +14,6 @@ public class ResumeGameButton extends CButton {
 
     @Override
     public void execute() {
-        escapeMenu.stopDisplaying();
+        escapeMenu.stopLoopingMode();
     }
 }

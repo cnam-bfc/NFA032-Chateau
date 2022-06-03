@@ -32,7 +32,7 @@ public class ConfigureMusicFrame extends CFrame implements DisplayableComponent 
         return display;
     }
 
-    public void stopDisplaying() {
+    public void stopLoopingMode() {
         display = false;
     }
 

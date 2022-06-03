@@ -30,6 +30,6 @@ public class UseBedButton extends CButton {
     public void execute() {
         bed.setUsed(true);
         player.heal(new Random().nextInt(10, 31));
-        this.menu.stopDisplay();
+        this.menu.stopLoopingMode();
     }
 }

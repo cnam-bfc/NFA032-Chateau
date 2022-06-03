@@ -85,7 +85,7 @@ public class ActivateCheatButton extends CButton {
             case ("666") -> {
                 player.kill();
                 app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Il y a parfois des courageux!\n \nMais il faut croire que vous n'en n'êtes pas un."));
-                escapeMenu.stopDisplaying();
+                escapeMenu.stopLoopingMode();
             }
             case ("BOSS") -> {
                 Stage stage = game.getCastle().getStages()[game.getCastle().getStages().length - 1];
@@ -104,7 +104,7 @@ public class ActivateCheatButton extends CButton {
                     }
                 }
                 app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez été téléporté dans la salle du boss !"));
-                escapeMenu.stopDisplaying();
+                escapeMenu.stopLoopingMode();
             }
             default -> {
                 app.getConsole().show(new ErrorDialog(ErrorDialog.Type.WARNING, "Code de triche invalide !"));
@@ -112,6 +112,6 @@ public class ActivateCheatButton extends CButton {
             }
         }
         game.getStatistic().activeCheat();
-        menu.stopDisplaying();
+        menu.stopLoopingMode();
     }
 }

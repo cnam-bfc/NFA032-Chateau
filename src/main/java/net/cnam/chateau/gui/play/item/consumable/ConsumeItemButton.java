@@ -24,7 +24,7 @@ public class ConsumeItemButton extends CButton {
     @Override
     public void execute() {
         ((Consumable) item).consume(entity);
-        consumableItemMenu.stopDisplaying();
+        consumableItemMenu.stopLoopingMode();
         app.getCurrentGame().getPlayer().setItem(null);
     }
 }

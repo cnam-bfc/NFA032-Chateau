@@ -2,6 +2,7 @@ package net.cnam.chateau.gui.information;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.event.key.KeyPressedEvent;
+import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.gui.component.*;
 
 public class InfoMenu extends CFrame implements DisplayableComponent {
@@ -34,14 +35,14 @@ public class InfoMenu extends CFrame implements DisplayableComponent {
     @Override
     public void onKeyPressed(KeyPressedEvent event) {
         if (event.getKey() == 27) {
-            stopDisplaying();
+            stopLoopingMode();
             return;
         }
 
         super.onKeyPressed(event);
     }
 
-    public void stopDisplaying() {
+    public void stopLoopingMode() {
         display = false;
     }
 }

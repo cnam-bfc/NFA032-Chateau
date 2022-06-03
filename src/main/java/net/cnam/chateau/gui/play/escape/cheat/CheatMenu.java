@@ -36,7 +36,7 @@ public class CheatMenu extends CFrame implements DisplayableComponent {
         return true;
     }
 
-    public void stopDisplaying() {
+    public void stopLoopingMode() {
         display = false;
     }
 

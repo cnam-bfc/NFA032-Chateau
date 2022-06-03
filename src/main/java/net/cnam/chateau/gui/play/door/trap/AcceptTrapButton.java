@@ -37,6 +37,6 @@ public class AcceptTrapButton extends CButton {
                     trap.getDescription() + "\nCela vous a restauré : " + trap.getHealth() + " points de vies !"));
         }
         door.getTrap().useEffect(player);
-        this.menu.stopDisplay();
+        this.menu.stopLoopingMode();
     }
 }

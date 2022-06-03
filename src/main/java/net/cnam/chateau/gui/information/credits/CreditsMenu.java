@@ -1,15 +1,14 @@
 package net.cnam.chateau.gui.information.credits;
 
-import net.cnam.chateau.App;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class CreditsMenu extends CFrame implements DisplayableComponent {
-    public CreditsMenu(App app) {
+    public CreditsMenu() {
         super(0, 0, "Crédits");
 
-        // variables pour re définir proprement l'ajustement du texte
+        // Variables pour redéfinir proprement l'ajustement du texte
         int labelLength = 0;
         int valueLength = 0;
 
@@ -88,12 +87,16 @@ public class CreditsMenu extends CFrame implements DisplayableComponent {
     }
 
     @Override
+    public boolean isInFullScreenMode() {
+        return true;
+    }
+
+    @Override
     public boolean isInLoopingMode() {
         return false;
     }
 
     @Override
-    public boolean isInFullScreenMode() {
-        return true;
+    public void stopLoopingMode() {
     }
 }

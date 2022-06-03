@@ -11,6 +11,7 @@ import net.cnam.chateau.utils.direction.Orientation;
 
 public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
     private final App app;
+
     private boolean display = true;
 
     public SpecialBlockMenu(App app) {
@@ -18,14 +19,14 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
 
         this.app = app;
 
-        // variables pour re définir proprement l'ajustement du texte
+        // variables pour redéfinir proprement l'ajustement du texte
         int labelLength = 0;
         int valueLength = 0;
 
         CPanel panel = new CPanel(HorizontalAlignment.CENTER, Orientation.VERTICAL, 1);
 
         // Ajout des textes qui seront sur la partie gauche de l'écran
-        /*CLabel wallLetterLabel = new CLabel(HorizontalAlignment.RIGHT, " ");
+        /* CLabel wallLetterLabel = new CLabel(HorizontalAlignment.RIGHT, " ");
         wallLetterLabel.getColors().add(CColor.REVERSE);
         wallLetterLabel.getColors().add(CColor.BRIGHT_BLACK);
         if (wallLetterLabel.getLength() > labelLength) {
@@ -44,16 +45,16 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
             labelLength = lockedDoorLetterLabel.getLength();
         }
 
-        CLabel unUsedBedLetterlabel = new CLabel(HorizontalAlignment.RIGHT, "B");
-        unUsedBedLetterlabel.getColors().add(CColor.WHITE);
-        if (unUsedBedLetterlabel.getLength() > labelLength) {
-            labelLength = unUsedBedLetterlabel.getLength();
+        CLabel unUsedBedLetterLabel = new CLabel(HorizontalAlignment.RIGHT, "B");
+        unUsedBedLetterLabel.getColors().add(CColor.WHITE);
+        if (unUsedBedLetterLabel.getLength() > labelLength) {
+            labelLength = unUsedBedLetterLabel.getLength();
         }
 
-        CLabel usedBedLetterlabel = new CLabel(HorizontalAlignment.RIGHT, "B");
-        usedBedLetterlabel.getColors().add(CColor.MAGENTA);
-        if (usedBedLetterlabel.getLength() > labelLength) {
-            labelLength = usedBedLetterlabel.getLength();
+        CLabel usedBedLetterLabel = new CLabel(HorizontalAlignment.RIGHT, "B");
+        usedBedLetterLabel.getColors().add(CColor.MAGENTA);
+        if (usedBedLetterLabel.getLength() > labelLength) {
+            labelLength = usedBedLetterLabel.getLength();
         }
 
         CLabel upStairLetterLabel = new CLabel(HorizontalAlignment.RIGHT, "U");
@@ -71,8 +72,8 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
         // ajustement des textes à gauche
         doorLetterLabel.setLength(labelLength);
         lockedDoorLetterLabel.setLength(labelLength);
-        unUsedBedLetterlabel.setLength(labelLength);
-        usedBedLetterlabel.setLength(labelLength);
+        unUsedBedLetterLabel.setLength(labelLength);
+        usedBedLetterLabel.setLength(labelLength);
         upStairLetterLabel.setLength(labelLength);
         downStairLetterLabel.setLength(labelLength);
 
@@ -121,41 +122,41 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
         upStairDescLabel.setLength(valueLength);
         downStairDescLabel.setLength(valueLength);
 
-        CLabel seperatorLabel = new CLabel(HorizontalAlignment.LEFT, "-");
+        CLabel separatorLabel = new CLabel(HorizontalAlignment.LEFT, "-");
 
         CPanel doorPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         doorPanel.getComponents().add(doorLetterLabel);
-        doorPanel.getComponents().add(seperatorLabel);
+        doorPanel.getComponents().add(separatorLabel);
         doorPanel.getComponents().add(doorDescLabel);
         doorPanel.autoResize();
 
         CPanel lockedDoorPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         lockedDoorPanel.getComponents().add(lockedDoorLetterLabel);
-        lockedDoorPanel.getComponents().add(seperatorLabel);
+        lockedDoorPanel.getComponents().add(separatorLabel);
         lockedDoorPanel.getComponents().add(lockedDoorDescLabel);
         lockedDoorPanel.autoResize();
 
         CPanel unUsedBedPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
-        unUsedBedPanel.getComponents().add(unUsedBedLetterlabel);
-        unUsedBedPanel.getComponents().add(seperatorLabel);
+        unUsedBedPanel.getComponents().add(unUsedBedLetterLabel);
+        unUsedBedPanel.getComponents().add(separatorLabel);
         unUsedBedPanel.getComponents().add(unUsedBedDescLabel);
         unUsedBedPanel.autoResize();
 
         CPanel usedBedPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
-        usedBedPanel.getComponents().add(usedBedLetterlabel);
-        usedBedPanel.getComponents().add(seperatorLabel);
+        usedBedPanel.getComponents().add(usedBedLetterLabel);
+        usedBedPanel.getComponents().add(separatorLabel);
         usedBedPanel.getComponents().add(usedBedDescLabel);
         usedBedPanel.autoResize();
 
         CPanel upStairPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         upStairPanel.getComponents().add(upStairLetterLabel);
-        upStairPanel.getComponents().add(seperatorLabel);
+        upStairPanel.getComponents().add(separatorLabel);
         upStairPanel.getComponents().add(upStairDescLabel);
         upStairPanel.autoResize();
 
         CPanel downStairPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         downStairPanel.getComponents().add(downStairLetterLabel);
-        downStairPanel.getComponents().add(seperatorLabel);
+        downStairPanel.getComponents().add(separatorLabel);
         downStairPanel.getComponents().add(downStairDescLabel);
         downStairPanel.autoResize();
 
@@ -170,7 +171,7 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
 
         this.getContentPane().getComponents().add(panel);
 
-        this.setFooter(new CPanel(HorizontalAlignment.CENTER,0,1, Orientation.HORIZONTAL, 1));
+        this.setFooter(new CPanel(HorizontalAlignment.CENTER, 0, 1, Orientation.HORIZONTAL, 1));
 
         CPanel rightTextPanel = new CPanel(HorizontalAlignment.LEFT, Orientation.HORIZONTAL, 1);
         rightTextPanel.getComponents().add(new CLabel(HorizontalAlignment.LEFT, "Appuyez flèche gauche"));
@@ -190,16 +191,16 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
     }
 
     @Override
-    public boolean isInLoopingMode() {
-        return display;
-    }
-
-    @Override
     public boolean isInFullScreenMode() {
         return true;
     }
 
-    public void stopDisplaying() {
+    @Override
+    public boolean isInLoopingMode() {
+        return display;
+    }
+
+    public void stopLoopingMode() {
         display = false;
     }
 
@@ -208,16 +209,12 @@ public class SpecialBlockMenu extends CFrame implements DisplayableComponent {
         super.onKeyPressed(event);
 
         try {
-            Direction direction = DirectionUtils.parseDirection(event.getKey(),false);
-            switch (direction){
-                case RIGHT, TOP -> {
-                    app.getConsole().show(new ContainerBlockMenu(app));
-                }
-                case LEFT, BOTTOM -> {
-                    app.getConsole().show(new DecorativeBlockMenu(app));
-                }
+            Direction direction = DirectionUtils.parseDirection(event.getKey(), false);
+            switch (direction) {
+                case RIGHT, TOP -> app.getConsole().show(new ContainerBlockMenu(app));
+                case LEFT, BOTTOM -> app.getConsole().show(new DecorativeBlockMenu(app));
             }
-            stopDisplaying();
+            stopLoopingMode();
         } catch (DirectionNotFoundException ignored) {
         }
     }

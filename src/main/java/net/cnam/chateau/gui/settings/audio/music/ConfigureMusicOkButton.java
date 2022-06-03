@@ -20,7 +20,7 @@ public class ConfigureMusicOkButton extends CButton {
 
     @Override
     public void execute() {
-        configureMusicFrame.stopDisplaying();
+        configureMusicFrame.stopLoopingMode();
         settings.setMusicVolume((float) gauge.getValue() / gauge.getMaxValue());
     }
 }

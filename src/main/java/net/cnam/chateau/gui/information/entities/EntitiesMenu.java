@@ -9,7 +9,7 @@ public class EntitiesMenu extends CFrame implements DisplayableComponent {
     public EntitiesMenu(App app) {
         super(0, 0, "Les entités");
 
-        // variables pour re définir proprement l'ajustement du texte
+        // variables pour redéfinir proprement l'ajustement du texte
         int labelLength = 0;
         int valueLength = 0;
 
@@ -228,5 +228,7 @@ public class EntitiesMenu extends CFrame implements DisplayableComponent {
         return true;
     }
 
-
+    @Override
+    public void stopLoopingMode() {
+    }
 }

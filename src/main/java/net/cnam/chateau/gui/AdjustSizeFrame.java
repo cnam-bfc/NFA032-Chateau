@@ -11,7 +11,8 @@ import net.cnam.chateau.utils.direction.DirectionUtils;
 
 public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
     private final AppSettings settings;
-    private boolean sizeAdjusted = false;
+
+    private boolean display = true;
 
     public AdjustSizeFrame(AppSettings settings) {
         super(0, 0, "Réglage des dimensions de la console");
@@ -34,7 +35,7 @@ public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
 
         // 10 = Entrée dans netbeans ; 13 = Entrée dans un terminal
         if (key == 10 || key == 13) {
-            sizeAdjusted = true;
+            stopLoopingMode();
             return;
         }
 
@@ -50,17 +51,18 @@ public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
         }
     }
 
-    public boolean isSizeAdjusted() {
-        return sizeAdjusted;
+    @Override
+    public boolean isInFullScreenMode() {
+        return true;
     }
 
     @Override
     public boolean isInLoopingMode() {
-        return !sizeAdjusted;
+        return display;
     }
 
     @Override
-    public boolean isInFullScreenMode() {
-        return true;
+    public void stopLoopingMode() {
+        this.display = false;
     }
 }

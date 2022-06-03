@@ -39,13 +39,17 @@ public class InfoDialog extends CFrame implements DisplayableComponent {
     }
 
     @Override
+    public boolean isInFullScreenMode() {
+        return false;
+    }
+
+    @Override
     public boolean isInLoopingMode() {
         return false;
     }
 
     @Override
-    public boolean isInFullScreenMode() {
-        return false;
+    public void stopLoopingMode() {
     }
 
     public enum Type {

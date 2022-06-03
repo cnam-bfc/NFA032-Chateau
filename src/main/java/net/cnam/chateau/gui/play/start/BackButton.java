@@ -14,6 +14,6 @@ public class BackButton extends CButton {
 
     @Override
     public void execute() {
-        playMenu.stopDisplaying();
+        playMenu.stopLoopingMode();
     }
 }

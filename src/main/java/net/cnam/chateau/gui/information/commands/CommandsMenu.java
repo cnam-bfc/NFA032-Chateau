@@ -1,15 +1,14 @@
 package net.cnam.chateau.gui.information.commands;
 
-import net.cnam.chateau.App;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class CommandsMenu extends CFrame implements DisplayableComponent {
-    public CommandsMenu(App app) {
+    public CommandsMenu() {
         super(0, 0, "Les commandes");
 
-        // variables pour re définir proprement l'ajustement du texte
+        // variables pour redéfinir proprement l'ajustement du texte
         int labelLength = 0;
         int valueLength = 0;
 
@@ -62,11 +61,11 @@ public class CommandsMenu extends CFrame implements DisplayableComponent {
         upDescription.getComponents().add(upDescTwo);
         upDescription.getComponents().add(upDescThree);
         upDescription.autoResize();
-        if(upDescription.getLength() > valueLength) {
+        if (upDescription.getLength() > valueLength) {
             valueLength = upDescription.getLength();
         }
 
-        CPanel upValue = new CPanel(HorizontalAlignment.LEFT, 0,0,Orientation.HORIZONTAL, false);
+        CPanel upValue = new CPanel(HorizontalAlignment.LEFT, 0, 0, Orientation.HORIZONTAL, false);
         upValue.getComponents().add(upDescription);
         upValue.autoResize();
 
@@ -85,11 +84,11 @@ public class CommandsMenu extends CFrame implements DisplayableComponent {
         downDescription.getComponents().add(downDescTwo);
         downDescription.getComponents().add(downDescThree);
         downDescription.autoResize();
-        if(downDescription.getLength() > valueLength) {
+        if (downDescription.getLength() > valueLength) {
             valueLength = downDescription.getLength();
         }
 
-        CPanel downValue = new CPanel(HorizontalAlignment.LEFT, 0,0,Orientation.HORIZONTAL, false);
+        CPanel downValue = new CPanel(HorizontalAlignment.LEFT, 0, 0, Orientation.HORIZONTAL, false);
         downValue.getComponents().add(downDescription);
         downValue.autoResize();
 
@@ -108,11 +107,11 @@ public class CommandsMenu extends CFrame implements DisplayableComponent {
         leftDescription.getComponents().add(leftDescTwo);
         leftDescription.getComponents().add(leftDescThree);
         leftDescription.autoResize();
-        if(leftDescription.getLength() > valueLength) {
+        if (leftDescription.getLength() > valueLength) {
             valueLength = leftDescription.getLength();
         }
 
-        CPanel leftValue = new CPanel(HorizontalAlignment.LEFT, 0,0,Orientation.HORIZONTAL, false);
+        CPanel leftValue = new CPanel(HorizontalAlignment.LEFT, 0, 0, Orientation.HORIZONTAL, false);
         leftValue.getComponents().add(leftDescription);
         leftValue.autoResize();
 
@@ -131,11 +130,11 @@ public class CommandsMenu extends CFrame implements DisplayableComponent {
         rightDescription.getComponents().add(rightDescTwo);
         rightDescription.getComponents().add(rightDescThree);
         rightDescription.autoResize();
-        if(rightDescription.getLength() > valueLength) {
+        if (rightDescription.getLength() > valueLength) {
             valueLength = rightDescription.getLength();
         }
 
-        CPanel rightValue = new CPanel(HorizontalAlignment.LEFT, 0,0,Orientation.HORIZONTAL, false);
+        CPanel rightValue = new CPanel(HorizontalAlignment.LEFT, 0, 0, Orientation.HORIZONTAL, false);
         rightValue.getComponents().add(rightDescription);
         rightValue.autoResize();
 
@@ -177,14 +176,16 @@ public class CommandsMenu extends CFrame implements DisplayableComponent {
     }
 
     @Override
+    public boolean isInFullScreenMode() {
+        return true;
+    }
+
+    @Override
     public boolean isInLoopingMode() {
         return false;
     }
 
     @Override
-    public boolean isInFullScreenMode() {
-        return true;
+    public void stopLoopingMode() {
     }
-
-
 }
