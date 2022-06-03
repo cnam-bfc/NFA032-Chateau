@@ -3,13 +3,12 @@ package net.cnam.chateau.item.weapon;
 import java.util.Random;
 
 public class Epee extends Weapon {
-
-    private final int MIN_POWER = 1; // min inclus
-    private final int MAX_POWER = 11; // max exlcu
-    private final int MIN_SPEED = 1; // min inclus
-    private final int MAX_SPEED = 11; // max exlcu
-    private final int MIN_ACCURACY = 5; // min inclus
-    private final int MAX_ACCURACY = 16; // max exlcu
+    private static final int MIN_POWER = 1; // min inclus
+    private static final int MAX_POWER = 11; // max exclus
+    private static final int MIN_SPEED = 1; // min inclus
+    private static final int MAX_SPEED = 11; // max exclus
+    private static final int MIN_ACCURACY = 5; // min inclus
+    private static final int MAX_ACCURACY = 16; // max exclus
 
     /**
      * Constructeur
@@ -25,7 +24,7 @@ public class Epee extends Weapon {
         this.setDescription(generateDescription());
     }
 
-    // Méthode permettant de gérer la description de l'arme en fonction de ses statitistiques.
+    // Méthode permettant de gérer la description de l'arme en fonction de ses statistiques.
     private String generateDescription() {
         int total = super.getStrength() + super.getSpeed() + super.getAccuracy();
         int mediumWeapon = (MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 2;

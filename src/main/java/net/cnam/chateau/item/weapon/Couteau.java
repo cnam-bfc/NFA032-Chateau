@@ -3,17 +3,16 @@ package net.cnam.chateau.item.weapon;
 import java.util.Random;
 
 public class Couteau extends Weapon {
-
-    private final int MIN_POWER = 1; // min inclus
-    private final int MAX_POWER = 6; // max exlcu
-    private final int MIN_SPEED = 5; // min inclus
-    private final int MAX_SPEED = 16; // max exlcu
-    private final int MIN_ACCURACY = 1; // min inclus
-    private final int MAX_ACCURACY = 11; // max exlcu
+    private static final int MIN_POWER = 1; // min inclus
+    private static final int MAX_POWER = 6; // max exclus
+    private static final int MIN_SPEED = 5; // min inclus
+    private static final int MAX_SPEED = 16; // max exclus
+    private static final int MIN_ACCURACY = 1; // min inclus
+    private static final int MAX_ACCURACY = 11; // max exclus
 
     /**
      * Constructeur
-     * 
+     *
      * @param random objet Random permettant de gérer l'aléatoire de l'objet crée.
      */
     public Couteau(Random random) {
@@ -25,7 +24,7 @@ public class Couteau extends Weapon {
         this.setDescription(generateDescription());
     }
 
-    // Méthode permettant de gérer la description de l'arme en fonction de ses statitistiques.
+    // Méthode permettant de gérer la description de l'arme en fonction de ses statistiques.
     private String generateDescription() {
         int total = super.getStrength() + super.getSpeed() + super.getAccuracy();
         int mediumWeapon = (MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 2;
