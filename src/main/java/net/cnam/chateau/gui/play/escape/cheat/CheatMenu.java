@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.play.escape.cheat;
 import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.game.Game;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CTextField;
@@ -20,7 +21,7 @@ public class CheatMenu extends CFrame implements DisplayableComponent {
         this.cheatCodeField = new CTextField("Entrez le code de triche", AppSettings.CONSOLE_MIN_LENGTH - 10, "");
         choices.add(cheatCodeField);
         choices.add(new ActivateCheatButton(app, this, game, escapeMenu));
-        choices.add(new BackButton(app, this));
+        choices.add(new QuitComponentButton(app, this, "Retour"));
 
         this.getContentPane().getComponents().add(choices);
 

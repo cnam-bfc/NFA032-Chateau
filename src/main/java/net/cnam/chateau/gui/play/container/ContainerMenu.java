@@ -2,7 +2,7 @@ package net.cnam.chateau.gui.play.container;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.ItemStats;
 import net.cnam.chateau.item.Key;
@@ -18,7 +18,7 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
     private final CPanel centerPanel;
     private final CPanel rightPanel;
     private final CChoices buttons;
-    private final LeaveContainerButton leaveButton;
+    private final QuitComponentButton leaveButton;
 
     private boolean display = true;
 
@@ -50,7 +50,7 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
         this.buttons = new CChoices(app, 1);
 
         // Bouton quitter
-        this.leaveButton = new LeaveContainerButton(app, this);
+        this.leaveButton = new QuitComponentButton(app, this, "Quitter");
 
         updateButtons();
 
@@ -214,7 +214,7 @@ public class ContainerMenu extends CFrame implements DisplayableComponent {
         return buttons;
     }
 
-    public LeaveContainerButton getLeaveButton() {
+    public QuitComponentButton getLeaveButton() {
         return leaveButton;
     }
 }

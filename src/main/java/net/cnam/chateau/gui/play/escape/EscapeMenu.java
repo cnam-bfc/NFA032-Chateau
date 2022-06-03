@@ -3,7 +3,7 @@ package net.cnam.chateau.gui.play.escape;
 import net.cnam.chateau.App;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.game.Game;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.information.InfoButton;
 import net.cnam.chateau.item.consumable.Consumable;
@@ -15,7 +15,7 @@ public class EscapeMenu extends CFrame implements DisplayableComponent {
         super(0, 0, "Pause");
 
         CChoices choices = new CChoices(app, 1);
-        choices.add(new ResumeGameButton(app, this));
+        choices.add(new QuitComponentButton(app, this, "Reprendre la partie"));
         if (game.getPlayer().hasItem() && game.getPlayer().getItem() instanceof Consumable) {
             choices.add(new UseItemButton(app, this, game.getPlayer()));
         }

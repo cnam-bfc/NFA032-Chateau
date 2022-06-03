@@ -2,26 +2,25 @@ package net.cnam.chateau.gui.settings.menu;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
-import net.cnam.chateau.gui.component.CButton;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 
 import java.io.File;
 import java.io.IOException;
 
-public class SaveButton extends CButton {
+public class SaveButton extends QuitComponentButton {
     private final App app;
-    private final SettingsMenu settingsMenu;
 
     public SaveButton(App app, SettingsMenu settingsMenu) {
-        super(app, "Sauvegarder");
+        super(app, settingsMenu, "Sauvegarder");
 
         this.app = app;
-        this.settingsMenu = settingsMenu;
     }
 
     @Override
     public void execute() {
-        settingsMenu.stopLoopingMode();
+        super.execute();
+
         File settingsFile = new File(AppSettings.DEFAULT_FILE_PATH);
         try {
             app.getSettings().save(settingsFile);

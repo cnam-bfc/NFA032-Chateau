@@ -2,8 +2,10 @@ package net.cnam.chateau.gui.information;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.event.key.KeyPressedEvent;
+import net.cnam.chateau.gui.common.QuitComponentButton;
+import net.cnam.chateau.gui.component.CChoices;
+import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.component.*;
 
 public class InfoMenu extends CFrame implements DisplayableComponent {
     private boolean display = true;
@@ -17,7 +19,7 @@ public class InfoMenu extends CFrame implements DisplayableComponent {
         choices.add(new BlocksButton(app));
         choices.add(new CommandButton(app));
         choices.add(new CreditButton(app));
-        choices.add(new BackButton(app, this));
+        choices.add(new QuitComponentButton(app, this, "Retour"));
 
         this.getContentPane().getComponents().add(choices);
     }

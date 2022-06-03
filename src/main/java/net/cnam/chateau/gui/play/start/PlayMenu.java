@@ -2,7 +2,7 @@ package net.cnam.chateau.gui.play.start;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.direction.Orientation;
@@ -18,7 +18,7 @@ public class PlayMenu extends CFrame implements DisplayableComponent {
         this.playerNameField = new CTextField("Nom du joueur (aléatoire si vide)", AppSettings.CONSOLE_MIN_LENGTH - 10);
         this.seedField = new CTextField("Graine de la carte à générer (aléatoire si vide)", AppSettings.CONSOLE_MIN_LENGTH - 10);
         CButton okButton = new OkButton(app, mainMenu, this);
-        CButton backButton = new BackButton(app, this);
+        QuitComponentButton backButton = new QuitComponentButton(app, this, "Retour");
         CChoices actions = new CChoices(app, Orientation.HORIZONTAL, 10);
         actions.add(okButton);
         actions.add(backButton);

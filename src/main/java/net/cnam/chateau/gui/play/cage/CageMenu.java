@@ -2,6 +2,7 @@ package net.cnam.chateau.gui.play.cage;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.PetStats;
 import net.cnam.chateau.structure.block.Cage;
@@ -50,7 +51,7 @@ public class CageMenu extends CFrame implements DisplayableComponent {
         }
 
         // Bouton quitter
-        buttons.add(new LeaveCageButton(app, this));
+        buttons.add(new QuitComponentButton(app, this, "Quitter"));
 
         centerPanel.getComponents().add(buttons);
     }

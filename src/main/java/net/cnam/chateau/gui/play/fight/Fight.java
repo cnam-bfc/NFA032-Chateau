@@ -8,6 +8,7 @@ import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.entity.enemy.boss.Boss;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.game.EntityDeadException;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.EntityStats;
 import net.cnam.chateau.gui.play.fight.loot.LootMenu;
@@ -186,7 +187,7 @@ public class Fight extends CFrame implements DisplayableComponent {
             menu.add(new UseItemButton(app, this, consumable, fightEntities));
         }
         if (runAway) {
-            menu.add(new RunAwayButton(app, this));
+            menu.add(new QuitComponentButton(app, this, "Fuir"));
         }
         menu.setLength(20);
     }

@@ -2,6 +2,7 @@ package net.cnam.chateau.gui.main.menu;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.audio.Music;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.DisplayableComponent;
@@ -34,7 +35,7 @@ public class MainMenu extends CFrame implements DisplayableComponent {
         choices.add(new StatisticsButton(app, this));
         choices.add(new InfoButton(app));
         choices.add(new SettingsButton(app, audioPlayer));
-        choices.add(new QuitButton(app, this));
+        choices.add(new QuitComponentButton(app, this, "Quitter"));
 
         this.getContentPane().getComponents().add(choices);
     }

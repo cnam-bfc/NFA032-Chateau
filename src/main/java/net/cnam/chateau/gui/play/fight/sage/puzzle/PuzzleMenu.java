@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.play.fight.sage.puzzle;
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
@@ -28,7 +29,7 @@ public class PuzzleMenu extends CFrame implements DisplayableComponent {
             choices.add(new AnswerButton(app, player, door, door.getSage().getPuzzle().getAnswers().get(i), this));
         }
 
-        choices.add(new LeavePuzzleButton(app, this));
+        choices.add(new QuitComponentButton(app, this, "Répondre plus tard"));
 
         this.getContentPane().getComponents().add(choices);
     }

@@ -2,6 +2,7 @@ package net.cnam.chateau.gui.play.fight.sage;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.DisplayableComponent;
@@ -21,7 +22,7 @@ public class SageDoorMenu extends CFrame implements DisplayableComponent {
             choices.add(new PuzzleButton(app, player, door, this));
         }
 
-        choices.add(new LeaveButton(app, this));
+        choices.add(new QuitComponentButton(app, this, "Partir"));
 
         this.getContentPane().getComponents().add(choices);
     }

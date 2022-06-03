@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.information.structure;
 import net.cnam.chateau.App;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
@@ -231,7 +232,9 @@ public class ContainerBlockMenu extends CFrame implements DisplayableComponent {
         rightTextPanel.autoResize();
 
         CPanel leaveButtonPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
-        leaveButtonPanel.getComponents().add(new BackButtonContainerBlockMenu(app, this));
+        QuitComponentButton backButton = new QuitComponentButton(app, this, "Retour");
+        backButton.setSelected(true);
+        leaveButtonPanel.getComponents().add(backButton);
         leaveButtonPanel.autoResize();
 
         CPanel leftTextPanel = new CPanel(HorizontalAlignment.RIGHT, Orientation.HORIZONTAL, 1);

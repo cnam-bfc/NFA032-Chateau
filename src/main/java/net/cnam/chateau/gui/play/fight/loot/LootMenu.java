@@ -3,7 +3,7 @@ package net.cnam.chateau.gui.play.fight.loot;
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.ItemStats;
 import net.cnam.chateau.item.consumable.Consumable;
@@ -19,7 +19,7 @@ public class LootMenu extends CFrame implements DisplayableComponent {
     private final CPanel centerPanel;
     private final CPanel rightPanel;
     private final CChoices buttons;
-    private final LeaveButton leaveButton;
+    private final QuitComponentButton leaveButton;
 
     private boolean display = true;
 
@@ -70,7 +70,7 @@ public class LootMenu extends CFrame implements DisplayableComponent {
             buttons.add(new UseItemButton(app, this, consumable, entities));
         }
         // Bouton quitter
-        this.leaveButton = new LeaveButton(app, this);
+        this.leaveButton = new QuitComponentButton(app, this, "Quitter");
         buttons.add(leaveButton);
 
         centerPanel.getComponents().add(buttons);
@@ -176,7 +176,7 @@ public class LootMenu extends CFrame implements DisplayableComponent {
         return buttons;
     }
 
-    public LeaveButton getLeaveButton() {
+    public QuitComponentButton getLeaveButton() {
         return leaveButton;
     }
 

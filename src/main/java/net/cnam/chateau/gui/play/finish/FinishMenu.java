@@ -5,14 +5,14 @@ import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.game.Statistic;
 import net.cnam.chateau.gui.CColor;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 
 public class FinishMenu extends CFrame implements DisplayableComponent {
     private final CChoices buttons;
-    private final QuitButton quitButton;
+    private final QuitComponentButton quitButton;
     private CLabel nameLabel;
     private CTextField nameField;
 
@@ -70,7 +70,7 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
             buttons.add(nameField);
             buttons.add(new SaveStatsButton(app, game, this));
         }
-        this.quitButton = new QuitButton(app, this);
+        this.quitButton = new QuitComponentButton(app, this, "Quitter la partie");
         buttons.add(quitButton);
         this.getContentPane().getComponents().add(buttons);
     }
@@ -101,7 +101,7 @@ public class FinishMenu extends CFrame implements DisplayableComponent {
         return nameField;
     }
 
-    public QuitButton getQuitButton() {
+    public QuitComponentButton getQuitButton() {
         return quitButton;
     }
 }

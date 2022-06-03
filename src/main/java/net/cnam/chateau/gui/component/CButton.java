@@ -13,6 +13,7 @@ import java.io.IOException;
 
 public abstract class CButton extends CLabel implements SelectableComponent, KeyListener {
     private final App app;
+
     private boolean selected = false;
 
     public CButton(App app, String text) {
@@ -73,6 +74,7 @@ public abstract class CButton extends CLabel implements SelectableComponent, Key
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException |
                      IllegalArgumentException ignored) {
             }
+
             this.execute();
         }
     }
