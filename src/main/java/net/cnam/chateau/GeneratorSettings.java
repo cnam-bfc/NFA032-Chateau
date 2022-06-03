@@ -113,8 +113,8 @@ public class GeneratorSettings {
         this.minSizeStage = minSizeStage;
     }
 
-    public int verifyMinSizeStage() {
-        return 25;
+    public Couple<Integer,Integer> verifyMinSizeStage() {
+        return new Couple<>(25,this.maxSizeStage);
     }
 
     public int getMaxSizeStage() {
@@ -125,8 +125,9 @@ public class GeneratorSettings {
         this.maxSizeStage = maxSizeStage;
     }
 
-    public int verifyMaxSizeStage() {
-        return 100;
+    public Couple<Integer,Integer> verifyMaxSizeStage() {
+
+        return new Couple<>(this.minSizeStage,100);
     }
 
     public int getMinStage() {
@@ -137,8 +138,8 @@ public class GeneratorSettings {
         this.minStage = minStage;
     }
 
-    public int verifyMinStage() {
-        return 2;
+    public Couple<Integer,Integer> verifyMinStage() {
+        return new Couple<>(2,this.maxStage);
     }
 
     public int getMaxStage() {
@@ -149,8 +150,8 @@ public class GeneratorSettings {
         this.maxStage = maxStage;
     }
 
-    public int verifyMaxStage() {
-        return 5;
+    public Couple<Integer,Integer> verifyMaxStage() {
+        return new Couple<>(this.minStage,8);
     }
 
     public int getMinSizeRoom() {
@@ -185,8 +186,8 @@ public class GeneratorSettings {
         this.nbIterationMin = nbIterationMin;
     }
 
-    public int verifyNbIterationMin() {
-        return 3;
+    public Couple<Integer, Integer> verifyNbIterationMin() {
+        return new Couple<>(3, 5);
     }
 
     public int getNbIterationMax() {
@@ -197,8 +198,8 @@ public class GeneratorSettings {
         this.nbIterationMax = nbIterationMax;
     }
 
-    public int verifyNbIterationMax() {
-        return 7;
+    public Couple<Integer, Integer> verifyNbIterationMax() {
+        return new Couple<>(this.nbIterationMin, 8);
     }
 
     public int getPourcentDivide() {
@@ -210,7 +211,7 @@ public class GeneratorSettings {
     }
 
     public Couple<Integer, Integer> verifyPourcentDivide() {
-        return new Couple<>(10, 20);
+        return new Couple<>(10, 25);
     }
 
     public int getMinBlocks() {
@@ -221,8 +222,8 @@ public class GeneratorSettings {
         this.minBlocks = minBlocks;
     }
 
-    public int verifyMinBlocks() {
-        return 1;
+    public Couple<Integer, Integer> verifyMinBlocks() {
+        return new Couple<>(1, this.maxBlocks);
     }
 
     public int getMaxBlocks() {
@@ -233,8 +234,8 @@ public class GeneratorSettings {
         this.maxBlocks = maxBlocks;
     }
 
-    public int verifyMaxBlocks() {
-        return (int) Math.pow(this.minSizeRoom - 2, 2) / 3;
+    public Couple<Integer, Integer> verifyMaxBlocks() {
+        return new Couple<>(this.minBlocks, (int) Math.pow(this.minSizeRoom - 2, 2) / 3);
     }
 
     public int getMinEnemiesStage() {
@@ -245,8 +246,8 @@ public class GeneratorSettings {
         this.minEnemiesStage = minEnemiesStage;
     }
 
-    public int verifyMinEnemiesStage() {
-        return 0;
+    public Couple<Integer, Integer> verifyMinEnemiesStage() {
+        return new Couple<>(0, this.maxEnemiesStage);
     }
 
     public int getMaxEnemiesStage() {
@@ -257,8 +258,8 @@ public class GeneratorSettings {
         this.maxEnemiesStage = maxEnemiesStage;
     }
 
-    public int verifyMaxEnemiesStage() {
-        return 5;
+    public Couple<Integer, Integer> verifyMaxEnemiesStage() {
+        return new Couple<>(this.minEnemiesStage,10);
     }
 
     public int getLuckBlock() {

@@ -66,12 +66,12 @@ public class Generator {
 
         // TODO Revérifier les noms
         // Initialisation des pets
-        pets.add(new Babe(app, 75, 20, 15, 10));
-        pets.add(new ChatPotte(app, 50, 15, 25, 25));
-        pets.add(new Idefix(app, 60, 15, 10, 10));
-        pets.add(new Winnie(app, 75, 20, 15, 10));
-        pets.add(new PanPan(app, 50, 10, 20, 20));
-        pets.add(new PepeLoiseau(app, 50, 10, 20, 20));
+        pets.add(new Pet(app,"Babe", 75, 20, 15, 10));
+        pets.add(new Pet(app, "Chat Potté", 50, 15, 25, 25));
+        pets.add(new Pet(app, "Idéfix", 60, 15, 10, 10));
+        pets.add(new Pet(app, "Winnie", 75, 20, 15, 10));
+        pets.add(new Pet(app, "Panpan", 50, 10, 20, 20));
+        pets.add(new Pet(app, "Pépé L'oiseau", 50, 10, 20, 20));
 
         // Initialisation des ennemis
         specialEnemies.add(new Demogorgon(app, null, null, "Chef demogorgon : Demo-Bob", 100, 20, 17, 10));

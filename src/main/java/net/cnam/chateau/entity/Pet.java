@@ -8,7 +8,7 @@ import net.cnam.chateau.gui.CColor;
 /**
  * Classe d'un pet
  */
-public abstract class Pet extends Entity {
+public class Pet extends Entity {
     private Player player;
     private boolean follow = true;
 
@@ -46,11 +46,6 @@ public abstract class Pet extends Entity {
             player.setPet(null);
         }
     }
-
-    /**
-     * Méthode abstraite pour permettre aux familiers d'avoir un pouvoir
-     */
-    public abstract void power();
 
     /**
      * Méthode permettant de savoir si le familier possédé actuellement par le joueur le suit ou non.

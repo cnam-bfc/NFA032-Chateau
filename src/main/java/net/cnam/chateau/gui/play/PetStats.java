@@ -1,6 +1,6 @@
 package net.cnam.chateau.gui.play;
 
-import net.cnam.chateau.entity.pet.Pet;
+import net.cnam.chateau.entity.Pet;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.CPanel;
