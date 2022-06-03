@@ -50,16 +50,14 @@ public class Game extends CFrame implements DisplayableComponent {
     private boolean display = true;
     private final Statistic statistic;
 
-    public Game(App app, long seed, String playerName) {
+    public Game(App app, GeneratorSettings generatorSettings, long seed, String playerName) {
         super(0, 0);
 
         this.app = app;
 
         initPuzzles();
 
-        GeneratorSettings settings = new GeneratorSettings();
-
-        Generator generator = new Generator(app, this, seed, settings);
+        Generator generator = new Generator(app, this, seed, generatorSettings);
         this.castle = generator.generateCastle();
         Stage firstStage = this.castle.getStages()[0];
         this.player = new Player(app, firstStage, new Location(castle.getPlayerStartLocation().getX(), castle.getPlayerStartLocation().getY()), playerName);
