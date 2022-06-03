@@ -1,6 +1,7 @@
 package net.cnam.chateau.gui.settings.menu;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.gui.AdjustSizeFrame;
 import net.cnam.chateau.gui.component.CButton;
 
 public class ConfigureScreenButton extends CButton {
@@ -14,6 +15,6 @@ public class ConfigureScreenButton extends CButton {
 
     @Override
     public void execute() {
-        app.getConsole().adjustSize();
+        app.getConsole().show(new AdjustSizeFrame(app.getSettings()));
     }
 }
