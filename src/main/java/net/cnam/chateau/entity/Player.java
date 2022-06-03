@@ -28,18 +28,6 @@ public class Player extends Entity {
      */
     public Player(App app, Stage stage, Location location, String name) {
         super(app, stage, location, name, 150, 20, 15, 15);
-
-        /* this.setItem(new HealPotion(new Random())); // TODO à delete
-        this.setWeapon(new Weapon("Eppenis", "l'épée nis", 10000, 10, 10000)); // TODO à delete
-        Pet pet = new Idefix(app,10,10,10,10); // TODO à delete
-        pet.setPlayer(this);
-        this.setPet(pet);
-        try {
-            pet.teleport(stage, location);
-        } catch (CoordinatesOutOfBoundsException | EntityAlreadyTeleportedException ignored) {
-        }
-
-        this.setRenderPriority(0); */
     }
 
     /**

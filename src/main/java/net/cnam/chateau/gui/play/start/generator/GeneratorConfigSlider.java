@@ -14,6 +14,9 @@ public class GeneratorConfigSlider extends CSlider {
 
     public void forceValue(int value) {
         super.setValue(value);
+
+        // Fix le bug d'actualisation
+        super.render();
     }
 
     @Override

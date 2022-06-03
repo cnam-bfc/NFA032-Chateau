@@ -11,6 +11,7 @@ import net.cnam.chateau.utils.Couple;
 
 public class GeneratorConfigMenu extends CFrame implements DisplayableComponent {
     private final GeneratorSettings generatorSettings;
+    private final CChoices choices;
     private final GeneratorConfigSlider minStageSlider;
     private final GeneratorConfigSlider maxStageSlider;
     private final GeneratorConfigSlider minSizeStageSlider;
@@ -34,7 +35,7 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
 
         this.generatorSettings = generatorSettings;
 
-        CChoices choices = new CChoices(app, 1);
+        this.choices = new CChoices(app, 1);
 
         // minStage
         this.minStageSlider = new GeneratorConfigSlider(this, "Nombre d'étages minimum");
@@ -120,6 +121,13 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
     @Override
     public void stopLoopingMode() {
         this.display = false;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        super.setHeight(height);
+
+        this.choices.setHeight(this.getContentPane().getHeight());
     }
 
     public void update(GeneratorConfigSlider updatedSlider) {

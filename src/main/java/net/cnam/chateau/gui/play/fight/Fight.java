@@ -46,7 +46,6 @@ public class Fight extends CFrame implements DisplayableComponent {
 
     private EntityStats petStats;
 
-    // TODO Message quand perd, et à la fin du combat
     public Fight(App app, Player player, Entity enemy, boolean runAway) {
         super(0, 0, "Combat");
 
