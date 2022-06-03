@@ -3,7 +3,7 @@ package net.cnam.chateau.gui.play.fight.loot;
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Entity;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.gui.component.CButton;
+import net.cnam.chateau.gui.common.OpenComponentButton;
 import net.cnam.chateau.gui.component.CComponent;
 import net.cnam.chateau.gui.play.item.consumable.ConsumableItemMenu;
 import net.cnam.chateau.item.Item;
@@ -11,24 +11,23 @@ import net.cnam.chateau.item.consumable.Consumable;
 
 import java.util.List;
 
-public class UseItemButton extends CButton {
+public class UseItemButton extends OpenComponentButton {
     private final App app;
     private final LootMenu lootMenu;
-    private final Consumable item;
     private final List<Entity> entities;
 
     public UseItemButton(App app, LootMenu lootMenu, Consumable item, List<Entity> fightEntities) {
-        super(app, "Utiliser\n" + ((Item) item).getName());
+        super(app, new ConsumableItemMenu(app, item, fightEntities), "Utiliser\n" + ((Item) item).getName());
 
         this.app = app;
         this.lootMenu = lootMenu;
-        this.item = item;
         this.entities = fightEntities;
     }
 
     @Override
     public void execute() {
-        app.getConsole().show(new ConsumableItemMenu(app, item, entities));
+        super.execute();
+
         Player player = lootMenu.getPlayer();
         // Si le joueur à consommé l'item
         if (!player.hasItem()) {
