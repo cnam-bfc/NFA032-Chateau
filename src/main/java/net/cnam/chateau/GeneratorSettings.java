@@ -223,7 +223,7 @@ public class GeneratorSettings {
     }
 
     public Couple<Integer, Integer> verifyMinBlocks() {
-        return new Couple<>(1, this.maxBlocks);
+        return new Couple<>(1, (int) Math.pow(this.minSizeRoom - 2, 2) / 3);
     }
 
     public int getMaxBlocks() {
