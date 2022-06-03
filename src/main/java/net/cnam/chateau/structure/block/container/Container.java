@@ -29,7 +29,7 @@ public abstract class Container extends Block implements PlayerInteractListener 
     /**
      * Méthode pour savoir si le container contient un objet.
      *
-     * @return true si un objest est dans le coffre / false si aucun objet est dans le coffre
+     * @return true si un objet est dans le coffre / false si aucun objet est dans le coffre
      */
     public boolean hasItem() {
         return this.hiddenItem != null;

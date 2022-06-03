@@ -118,7 +118,7 @@ public class Generator {
     }
 
     /**
-     * Méthode qui génère des étages fini.
+     * Méthode qui génère des étages finis.
      *
      * @return un tableau d'étage qui composera le chateau (salle de boss non
      * comprise)
@@ -174,12 +174,12 @@ public class Generator {
                     firstRoom = stageEntry.getRooms()[0];
                 }
 
-                // On regarde ou on peut placer l'escalier d'entrée de l'étage et on récupère les coordoonnées
+                // On regarde ou on peut placer l'escalier d'entrée de l'étage et on récupère les coordonnées
                 Location location = GUtils.findPosition(this.random, firstRoom);
                 int x = location.getX();
                 int y = location.getY();
 
-                //on ajoute l'escalier d'entrée dans la pièce du nouvelle étage
+                //on ajoute l'escalier d'entrée dans la pièce du nouvel étage
                 firstRoom.getBlocks()[x][y] = entryStair;
                 //on récupère la location dans la pièce de l'escalier et on lui ajoute dans ses champs
                 entryStair.setLocation(new Location(firstRoom.getLocation().getX() + x, firstRoom.getLocation().getY() + y));
@@ -215,11 +215,11 @@ public class Generator {
      * @return un étage
      */
     public Stage generateStage() {
-        // On défini la taille que fera l'étage entre 2 bornes (constantes) 
+        // On défini la taille que fera l'étage entre 2 bornes (constantes)
         int stageLength = this.random.nextInt(settings.getMinSizeStage(), settings.getMaxSizeStage() + 1);
         int stageHeight = this.random.nextInt(settings.getMinSizeStage(), settings.getMaxSizeStage() + 1);
 
-        // On créer un tableau contenant la room de base permettant la découpe de l'étage
+        // On crée un tableau contenant la room de base permettant la découpe de l'étage
         Room[] rooms = new Room[1];
         rooms[0] = new Room(new Location(0, 0), new Block[stageLength][stageHeight]);
         Block[][] blocksMainRoom = rooms[0].getBlocks();
@@ -236,7 +236,7 @@ public class Generator {
         // On procède à la découpe des pièces avec un minimum et un maximum d'itération (constantes)
         int pourcentage = 0;
         for (int i = 0; i < settings.getNbIterationMax(); i++) {
-            // A chaque tour de boucle, si on a fait le nombre d'itération minimum, on ajoute un pourcentage de division
+            // À chaque tour de boucle, si on a fait le nombre d'itérations minimum, on ajoute un pourcentage de division
             // Le pourcentage sert à définir si oui ou non on tente de diviser la pièce
             if (i >= settings.getNbIterationMin()) {
                 pourcentage += settings.getPourcentDivide();
@@ -251,7 +251,7 @@ public class Generator {
                 if (roomDivided == null) {
                     continue;
                 }
-                // Si la pièce a été divisé, on ajoute la nouvelle pièce au tableau
+                // Si la pièce a été divisée, on ajoute la nouvelle pièce au tableau
                 rooms = ArrayUtils.addOnBottomOfArray(rooms, roomDivided);
             }
         }
@@ -316,7 +316,7 @@ public class Generator {
      * être divisé
      *
      * @param roomLeft la pièce à diviser, qui va devenir la pièce de gauche
-     * @return roomRight la pièce pièce de droite
+     * @return roomRight la pièce de droite
      */
     public Room divideRoomLength(Room roomLeft) {
         if (roomLeft.getLength() / 2 <= settings.getMinSizeRoom()) {
@@ -424,7 +424,7 @@ public class Generator {
     private List<GRoom> generateStageWalls(Stage generatedStage) {
         // Génération des murs
         List<GRoom> rooms = new LinkedList<>();
-        List<GRoomWall> roomsWalls = new LinkedList<>(); // Contient tout les murs de toutes les pièces
+        List<GRoomWall> roomsWalls = new LinkedList<>(); // Contient tous les murs de toutes les pièces
         // On génère les murs des pièces
         int nb = 0;
         for (Room room : generatedStage.getRooms()) {
@@ -433,12 +433,12 @@ public class Generator {
             roomsWalls.addAll(genRoom.getWalls());
         }
 
-        // On vérifie pour tout les murs lesquels se superposent
+        // On vérifie pour tous les murs lesquels se superposent
         // Pour toutes les pièces
         for (GRoom room : rooms) {
-            // On boucles sur tout lees murs de la pièce (room)
+            // On boucle sur tout lees murs de la pièce (room)
             for (GRoomWall wall : room.getWalls()) {
-                // On regarde dans la liste qui contient tous les murs si il y a un mur qui se superpose avec ce mur (wall)
+                // On regarde dans la liste qui contient tous les murs s'il y a un mur qui se superpose avec ce mur (wall)
                 for (GRoomWall tempWall : roomsWalls) {
                     // On vérifie aussi que le mur (wall) n'est pas celui qui resort de la liste totale des murs
                     if (wall != tempWall && wall.overlapWall(tempWall)) {
@@ -449,13 +449,13 @@ public class Generator {
             }
         }
 
-        // On créer les murs individuels
-        List<GWall> walls = new ArrayList<>(); // Contient tout les murs
+        // On crée les murs individuels
+        List<GWall> walls = new ArrayList<>(); // Contient tous les murs
         // Pour toutes les pièces
         for (GRoom room : rooms) {
-            // On boucles sur tout les murs de la pièce (room)
+            // On boucle sur tous les murs de la pièce (room)
             for (GRoomWall wall : room.getWalls()) {
-                // On regarde dans la liste qui contient tous les murs si il y a un mur qui se superpose avec ce mur (wall)
+                // On regarde dans la liste qui contient tous les murs s'il y a un mur qui se superpose avec ce mur (wall)
                 for (GRoomWall tempWall : wall.getSideWalls()) {
                     GWall gWall = wall.createWall(tempWall, random);
                     if (!walls.contains(gWall)) {
@@ -486,16 +486,16 @@ public class Generator {
         }
 
         // On fait la liste des murs qui ne sont pas cassés
-        List<GWall> wallsUnbreaked = new ArrayList<>();
+        List<GWall> wallsUnBroken = new ArrayList<>();
         for (GWall wall : walls) {
-            if (!wall.isBreaked()) {
-                wallsUnbreaked.add(wall);
+            if (!wall.isBroken()) {
+                wallsUnBroken.add(wall);
             }
         }
 
         // On fait des trous dans des murs au hasard
-        for (int i = 0; i < random.nextInt(wallsUnbreaked.size() / 6, wallsUnbreaked.size() / 3 + 1); i++) {
-            breakWall(generatedStage, wallsUnbreaked.remove(random.nextInt(wallsUnbreaked.size())));
+        for (int i = 0; i < random.nextInt(wallsUnBroken.size() / 6, wallsUnBroken.size() / 3 + 1); i++) {
+            breakWall(generatedStage, wallsUnBroken.remove(random.nextInt(wallsUnBroken.size())));
         }
         return rooms;
     }
@@ -594,7 +594,7 @@ public class Generator {
     }
 
     public Enemy getRandomEnemy(Stage stage, Location location) {
-        if (random.nextInt(1, 101) < settings.getLuckSpecialEnnemy() && !specialEnemies.isEmpty()) {
+        if (random.nextInt(1, 101) < settings.getLuckSpecialEnemy() && !specialEnemies.isEmpty()) {
             return getSpecialEnemy();
         } else {
             return getRandomisedEnemy(stage, location);

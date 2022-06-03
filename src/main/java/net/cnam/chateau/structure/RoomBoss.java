@@ -7,19 +7,17 @@ import net.cnam.chateau.structure.block.Exit;
 import net.cnam.chateau.structure.block.Wall;
 import net.cnam.chateau.utils.Location;
 
-// TODO mettre dans le générateur à la fin 
+// TODO mettre dans le générateur à la fin
 public class RoomBoss extends Room {
-
     private final DownStair entry;
-    private Block[][] blocks;
-
+    private final Block[][] blocks;
 
     public RoomBoss() {
         super(new Location(0, 0), null);
         this.blocks = new Block[13][17];
         super.setBlocks(this.blocks);
 
-// On génère les murs de Est, Ouest, et nord de 3 d'epaisseurs
+        // On génère les murs Nord, Sud, Est et Ouest de 3 d'épaisseurs
         // nord 3 blocs
         for (int x = 0; x < this.blocks.length; x++) {
             for (int y = 0; y < 3; y++) {
@@ -48,14 +46,14 @@ public class RoomBoss extends Room {
             }
         }
 
-        //génère 2 d'épaisseur supplémentaie pour faire un "couloir" sur le côté ouest 
+        //génère 2 d'épaisseur supplémentaire pour faire un "couloir" sur le côté ouest
         for (int x = 3; x < 5; x++) {
             for (int y = this.blocks[0].length - 10; y < this.blocks[0].length - 3; y++) {
                 this.blocks[x][y] = new Wall();
             }
         }
 
-        //génère 2 d'épaisseur supplémentaie pour faire un "couloir" sur le côté est
+        //génère 2 d'épaisseur supplémentaire pour faire un "couloir" sur le côté est
         for (int x = this.blocks.length - 5; x < this.blocks.length - 3; x++) {
             for (int y = this.blocks[0].length - 10; y < this.blocks[0].length - 3; y++) {
                 this.blocks[x][y] = new Wall();
@@ -73,7 +71,7 @@ public class RoomBoss extends Room {
 
     /**
      * Getter permettant de récupérer l'entrée de la pièce du boss.
-     * 
+     *
      * @return L'escalier de l'entrée (DownStair)
      */
     public DownStair getEntry() {
@@ -85,7 +83,7 @@ public class RoomBoss extends Room {
      *
      * @param app l'application
      */
-    public void openBossRoom(App app){
+    public void openBossRoom(App app) {
         this.blocks[5][2] = null;
         this.blocks[5][1] = null;
         this.blocks[5][0] = new Exit(app);

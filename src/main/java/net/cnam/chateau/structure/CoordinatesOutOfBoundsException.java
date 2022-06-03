@@ -1,7 +1,7 @@
 package net.cnam.chateau.structure;
 
 /**
- * Exception levée lorsque les corrdonnées sont hors champs.
+ * Exception levée lorsque les cordonnées sont hors champs.
  */
 public class CoordinatesOutOfBoundsException extends Exception {
 

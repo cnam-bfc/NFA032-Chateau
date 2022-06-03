@@ -6,7 +6,6 @@ import net.cnam.chateau.gui.component.CButton;
 import net.cnam.chateau.structure.block.container.Container;
 
 public class PutItemButton extends CButton {
-    private final App app;
     private final ContainerMenu menu;
     private final Player player;
     private final Container block;
@@ -14,7 +13,6 @@ public class PutItemButton extends CButton {
     public PutItemButton(App app, ContainerMenu menu, Player player, Container block) {
         super(app, "Déposer l'objet");
 
-        this.app = app;
         this.menu = menu;
         this.player = player;
         this.block = block;

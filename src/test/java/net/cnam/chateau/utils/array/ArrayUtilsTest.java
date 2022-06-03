@@ -1,7 +1,8 @@
 package net.cnam.chateau.utils.array;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Classe de test de ArrayUtils
@@ -215,8 +216,7 @@ public class ArrayUtilsTest {
      * Une classe Personne avec des getters pour le nom et l'âge et des méthodes
      * equals.
      */
-    class Personne {
-
+    static class Personne {
         private final String nom;
         private final int age;
 
@@ -230,10 +230,9 @@ public class ArrayUtilsTest {
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof Personne)) {
+            if (!(obj instanceof Personne person)) {
                 return false;
             }
-            Personne person = (Personne) obj;
             return person.nom.equals(nom) && person.age == age;
         }
     }

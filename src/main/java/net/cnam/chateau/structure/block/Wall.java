@@ -21,7 +21,7 @@ public class Wall extends Block implements BlockListener {
 
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
-        // On enpêche l'entité de rentrer dans le mur
+        // On empêche l'entité de rentrer dans le mur
         event.setCanceled(true);
     }
 

@@ -1,10 +1,11 @@
 package net.cnam.chateau.generator;
 
+import net.cnam.chateau.utils.Location;
+import net.cnam.chateau.utils.direction.Orientation;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import net.cnam.chateau.utils.Location;
-import net.cnam.chateau.utils.direction.Orientation;
 
 public class GWall {
 
@@ -37,7 +38,7 @@ public class GWall {
         }
     }
 
-    public boolean isBreaked() {
+    public boolean isBroken() {
         return wallsLocations.size() != length;
     }
 

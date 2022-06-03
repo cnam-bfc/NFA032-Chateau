@@ -1,7 +1,7 @@
 package net.cnam.chateau.utils.direction;
 
 /**
- * Exception levé lorsqu'une direction ne peux pas être trouvée
+ * Exception levée lorsqu'une direction ne peux pas être trouvée
  */
 public class DirectionNotFoundException extends Exception {
     /**

@@ -32,7 +32,7 @@ public class Stage {
      * Méthode pour récupérer le newBlock aux coordonnées passé en paramètres.
      *
      * @param location Coordonnées du block
-     * @return Le bloc aux coordonnées spécifiés
+     * @return Le bloc aux coordonnées spécifié
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
@@ -46,7 +46,7 @@ public class Stage {
      *
      * @param x Coordonnée x
      * @param y Coordonnée y
-     * @return Le bloc aux coordonnées spécifiés
+     * @return Le bloc aux coordonnées spécifié
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
@@ -79,10 +79,10 @@ public class Stage {
     }
 
     /**
-     * Méthode pour récupérer la room aux coordonnées passé en paramètres.
+     * Méthode pour récupérer la room aux coordonnées passée en paramètres.
      *
      * @param location Coordonnées
-     * @return La pièce aux coordonnées spécifiés
+     * @return La pièce aux coordonnées spécifiée
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
@@ -92,11 +92,11 @@ public class Stage {
     }
 
     /**
-     * Méthode pour récupérer la room aux coordonnées passé en paramètres.
+     * Méthode pour récupérer la room aux coordonnées passée en paramètres.
      *
      * @param x Coordonnée x
      * @param y Coordonnée y
-     * @return La pièce aux coordonnées spécifiés
+     * @return La pièce aux coordonnées spécifiée
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
@@ -128,10 +128,10 @@ public class Stage {
     }
 
     /**
-     * Méthode pour récupérer les room aux coordonnées passé en paramètres.
+     * Méthode pour récupérer les room aux coordonnées passée en paramètres.
      *
      * @param location Coordonnées
-     * @return Les pièce aux coordonnées spécifiés
+     * @return Les pièces aux coordonnées spécifiées
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
@@ -141,11 +141,11 @@ public class Stage {
     }
 
     /**
-     * Méthode pour récupérer la room aux coordonnées passé en paramètres.
+     * Méthode pour récupérer la room aux coordonnées passée en paramètres.
      *
      * @param x Coordonnée x
      * @param y Coordonnée y
-     * @return Les pièces aux coordonnées spécifiés
+     * @return Les pièces aux coordonnées spécifiées
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
@@ -182,7 +182,7 @@ public class Stage {
      * Méthode pour définir un newBlock aux coordonnées passé en paramètres.
      *
      * @param location Coordonnées du block
-     * @param block Le bloc aux coordonnées spécifiés
+     * @param block Le bloc aux coordonnées spécifié
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
@@ -196,7 +196,7 @@ public class Stage {
      *
      * @param x Coordonnée x
      * @param y Coordonnée y
-     * @param block Le bloc aux coordonnées spécifiés
+     * @param block Le bloc aux coordonnées spécifié
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
@@ -220,17 +220,17 @@ public class Stage {
             // Si les coordonnées sont dans la pièce
             if (x >= roomLocation.getX() && x < roomLocation.getX() + room.getLength()
                     && y >= roomLocation.getY() && y < roomLocation.getY() + room.getHeight()) {
-                // On défini le bloc en calculant ses coordonnées relatives par rapport à la pièce
+                // On définit le bloc en calculant ses coordonnées relatives par rapport à la pièce
                 room.getBlocks()[x - roomLocation.getX()][y - roomLocation.getY()] = block;
             }
         }
     }
 
     /**
-     * Méthode pour récupérer l'entité aux coordonnées passé en paramètres.
+     * Méthode pour récupérer l'entité aux coordonnées passée en paramètres.
      *
      * @param location Coordonnées dans l'étage
-     * @return L'entité aux coordonnées spécifiés
+     * @return L'entité aux coordonnées spécifiée
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage
@@ -240,11 +240,11 @@ public class Stage {
     }
 
     /**
-     * Méthode pour récupérer l'entité aux coordonnées passé en paramètres.
+     * Méthode pour récupérer l'entité aux coordonnées passée en paramètres.
      *
      * @param x Coordonnée x
      * @param y Coordonnée y
-     * @return L'entité aux coordonnées spécifiés
+     * @return L'entité aux coordonnées spécifiée
      * @throws net.cnam.chateau.structure.CoordinatesOutOfBoundsException
      * Exception lorsque les coordonnées ne sont pas contenu dans la taille de
      * l'étage

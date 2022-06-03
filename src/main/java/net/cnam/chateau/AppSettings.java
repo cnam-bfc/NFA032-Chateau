@@ -88,7 +88,7 @@ public class AppSettings {
 
     /**
      * Setter permettant de définir la longueur de la console.
-     * Si la longueur est inférieur à CONSOLE_MIN_LENGTH, ne change pas la taille
+     * Si la longueur est inférieure à CONSOLE_MIN_LENGTH, ne change pas la taille
      *
      * @param consoleLength La longueur de la console
      */
@@ -110,7 +110,7 @@ public class AppSettings {
 
     /**
      * Setter permettant de définir la hauteur de la console.
-     * Si la hauteur est inférieur à CONSOLE_MIN_HEIGHT, ne change pas la taille
+     * Si la hauteur est inférieure à CONSOLE_MIN_HEIGHT, ne change pas la taille
      *
      * @param consoleHeight La hauteur de la console
      */

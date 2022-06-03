@@ -147,59 +147,59 @@ public class EntitiesMenu extends CFrame implements DisplayableComponent {
         petDescLabel.setLength(valueLength);
         sageDescLabel.setLength(valueLength);
 
-        CLabel seperatorLabel = new CLabel(HorizontalAlignment.LEFT, "-");
+        CLabel separatorLabel = new CLabel(HorizontalAlignment.LEFT, "-");
 
         CPanel demogorgonPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         demogorgonPanel.getComponents().add(demogorgonLetterLabel);
-        demogorgonPanel.getComponents().add(seperatorLabel);
+        demogorgonPanel.getComponents().add(separatorLabel);
         demogorgonPanel.getComponents().add(demogorgonDescLabel);
         demogorgonPanel.autoResize();
 
         CPanel harpyPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         harpyPanel.getComponents().add(harpyLetterLabel);
-        harpyPanel.getComponents().add(seperatorLabel);
+        harpyPanel.getComponents().add(separatorLabel);
         harpyPanel.getComponents().add(harpyDescLabel);
         harpyPanel.autoResize();
 
         CPanel headlessKnightPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         headlessKnightPanel.getComponents().add(headlessKnightLetterLabel);
-        headlessKnightPanel.getComponents().add(seperatorLabel);
+        headlessKnightPanel.getComponents().add(separatorLabel);
         headlessKnightPanel.getComponents().add(headlessKnightDescLabel);
         headlessKnightPanel.autoResize();
 
         CPanel morbolPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         morbolPanel.getComponents().add(morbolLetterLabel);
-        morbolPanel.getComponents().add(seperatorLabel);
+        morbolPanel.getComponents().add(separatorLabel);
         morbolPanel.getComponents().add(morbolDescLabel);
         morbolPanel.autoResize();
 
         CPanel spiderPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         spiderPanel.getComponents().add(spiderLetterLabel);
-        spiderPanel.getComponents().add(seperatorLabel);
+        spiderPanel.getComponents().add(separatorLabel);
         spiderPanel.getComponents().add(spiderDescLabel);
         spiderPanel.autoResize();
 
         CPanel werewolfPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         werewolfPanel.getComponents().add(werewolfLetterLabel);
-        werewolfPanel.getComponents().add(seperatorLabel);
+        werewolfPanel.getComponents().add(separatorLabel);
         werewolfPanel.getComponents().add(werewolfDescLabel);
         werewolfPanel.autoResize();
 
         CPanel zombiePanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         zombiePanel.getComponents().add(zombieLetterLabel);
-        zombiePanel.getComponents().add(seperatorLabel);
+        zombiePanel.getComponents().add(separatorLabel);
         zombiePanel.getComponents().add(zombieDescLabel);
         zombiePanel.autoResize();
 
         CPanel petPanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         petPanel.getComponents().add(petLetterLabel);
-        petPanel.getComponents().add(seperatorLabel);
+        petPanel.getComponents().add(separatorLabel);
         petPanel.getComponents().add(petDescLabel);
         petPanel.autoResize();
 
         CPanel sagePanel = new CPanel(HorizontalAlignment.CENTER, Orientation.HORIZONTAL, 1);
         sagePanel.getComponents().add(sageLetterLabel);
-        sagePanel.getComponents().add(seperatorLabel);
+        sagePanel.getComponents().add(separatorLabel);
         sagePanel.getComponents().add(sageDescLabel);
         sagePanel.autoResize();
 

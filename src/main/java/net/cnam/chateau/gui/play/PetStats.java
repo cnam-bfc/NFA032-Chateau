@@ -75,7 +75,7 @@ public class PetStats extends CPanel {
         healthLabel.getColors().add(CColor.BOLD);
         CProgressBar healthValue = new CProgressBar(this.getLength() - 2, 1, pet.getHealth(), pet.getMaxHealth(), "%VALUE%/%MAX_VALUE% pv");
         healthValue.getProgressedColors().add(CColor.RED);
-        healthValue.getUnprogressedColors().add(CColor.BRIGHT_BLACK);
+        healthValue.getUnProgressedColors().add(CColor.BRIGHT_BLACK);
         healthPanel.getComponents().add(healthLabel);
         healthPanel.getComponents().add(healthValue);
         healthPanel.autoResize();

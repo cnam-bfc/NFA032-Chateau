@@ -33,7 +33,7 @@ public abstract class Stair extends Block implements PlayerInteractListener {
     }
 
     /**
-     * Getter permettant de récupéré l'étage ou se situe l'escalier.
+     * Getter permettant de récupérer l'étage ou se situe l'escalier.
      *
      * @return l'étage de l'escalier.
      */
@@ -60,7 +60,7 @@ public abstract class Stair extends Block implements PlayerInteractListener {
     }
 
     /**
-     * Setter permetant de définir la location de l'escalier.
+     * Setter permettant de définir la location de l'escalier.
      *
      * @param location La location (coordonnées) à mettre à l'escalier
      */
@@ -69,7 +69,7 @@ public abstract class Stair extends Block implements PlayerInteractListener {
     }
 
     /**
-     * Getter permettant de retourner l'ecalier relier à celui-ci.
+     * Getter permettant de retourner l'escalier relier à celui-ci.
      *
      * @return l'escalier lier à celui-ci
      */

@@ -95,7 +95,7 @@ public class GRoom {
     public ArrayList<GRoom> roomAdjacent(){
         ArrayList<GRoom> result = new ArrayList<>();
         for(GWall c : this.gWalls ){ 
-            if (c.isBreaked()){
+            if (c.isBroken()){
                 if (c.getRoomOne() != this) result.add(c.getRoomOne());
                 if (c.getRoomTwo() != this) result.add(c.getRoomTwo());
             }

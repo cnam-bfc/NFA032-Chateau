@@ -1,13 +1,9 @@
 package net.cnam.chateau.entity;
 
 import net.cnam.chateau.App;
-import net.cnam.chateau.entity.pet.Idefix;
-import net.cnam.chateau.entity.pet.PepeLoiseau;
 import net.cnam.chateau.entity.pet.Pet;
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.item.Key;
-import net.cnam.chateau.item.consumable.HealPotion;
-import net.cnam.chateau.item.weapon.Weapon;
 import net.cnam.chateau.structure.CoordinatesOutOfBoundsException;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
@@ -15,7 +11,6 @@ import net.cnam.chateau.utils.Location;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Classe d'un joueur
@@ -35,7 +30,7 @@ public class Player extends Entity {
     public Player(App app, Stage stage, Location location, String name) {
         super(app, stage, location, name, 150, 20, 15, 15);
 
-        /*this.setItem(new HealPotion(new Random())); // TODO à delete
+        /* this.setItem(new HealPotion(new Random())); // TODO à delete
         this.setWeapon(new Weapon("Eppenis", "l'épée nis", 10000, 10, 10000)); // TODO à delete
         Pet pet = new Idefix(app,10,10,10,10); // TODO à delete
         pet.setPlayer(this);
@@ -52,7 +47,7 @@ public class Player extends Entity {
      * Redéfinition de la méthode pour téléporter une entité.
      * Permet de téléporter le joueur dans un étage à des coordonnées précise.
      *
-     * @param stage    Etage de la téléportation
+     * @param stage    Étage de la téléportation
      * @param location Coordonnées de la téléportation
      * @throws CoordinatesOutOfBoundsException  Exception levée si l'entité veut être téléporté hors de l'étage
      * @throws EntityAlreadyTeleportedException Exception levée si l'entité a déjà été téléporté
@@ -65,7 +60,7 @@ public class Player extends Entity {
 
         super.teleport(stage, location);
 
-        // Si le joueur à changé d'étage
+        // Si le joueur a changé d'étage
         if (oldPlayerStage != stage) {
             // On rend la pièce de destination visible
             Room destinationRoom = stage.getRoom(location);
@@ -117,11 +112,11 @@ public class Player extends Entity {
     }
 
     /**
-     * Getter permettant de récupérer la clé que possède le joueur.
+     * Getter permettant de récupérer les clés possédé par le joueur.
      *
-     * @return la Clé que le joueur possède
+     * @return Les Clés que le joueur possède
      */
-    public List<Key> getlistKey() {
+    public List<Key> getKeys() {
         return keys;
     }
 
@@ -132,10 +127,6 @@ public class Player extends Entity {
      */
     public void addKey(Key key) {
         this.keys.add(key);
-    }
-
-    public List<Key> getKeys() {
-        return keys;
     }
 
     /**

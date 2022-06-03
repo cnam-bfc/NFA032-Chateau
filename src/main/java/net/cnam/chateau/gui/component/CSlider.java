@@ -15,7 +15,7 @@ public class CSlider extends CProgressBar implements SelectableComponent, KeyLis
 
         this.getTextColors().add(CColor.BLACK);
         this.getProgressedColors().add(CColor.BRIGHT_BLACK);
-        this.getUnprogressedColors().add(CColor.WHITE);
+        this.getUnProgressedColors().add(CColor.WHITE);
     }
 
     @Override

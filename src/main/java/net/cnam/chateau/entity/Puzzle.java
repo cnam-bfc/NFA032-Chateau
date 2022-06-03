@@ -12,7 +12,7 @@ public class Puzzle {
      * Constructeur
      * 
      * @param question String : la question de l'énigme
-     * @param answers List de couple String,Boolean permettant de définir les différentes réponses et si elles sont corrects/incorrects
+     * @param answers List de couple String, Boolean permettant de définir les différentes réponses et si elles sont corrects/incorrects
      */
     public Puzzle(String question, List<Couple<String, Boolean>> answers) {
         this.question = question;
@@ -31,7 +31,7 @@ public class Puzzle {
     /**
      * Getter permettant de récupérer la liste des réponses de l'énigme
      *
-     * @return List de couple String,Boolean permettant de définir les différentes réponses et si elles sont corrects/incorrects
+     * @return List de couple String, Boolean permettant de définir les différentes réponses et si elles sont corrects/incorrects
      */
     public List<Couple<String, Boolean>> getAnswers() {
         return answers;

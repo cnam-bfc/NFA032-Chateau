@@ -20,7 +20,7 @@ public class GeneratorSettings {
     private static final int MIN_ENEMIES_STAGE = 1;
     private static final int MAX_ENEMIES_STAGE = 3;
     private static final int LUCK_BLOCK = 35;
-    private static final int LUCK_SPECIAL_ENNEMY = 30;
+    private static final int LUCK_SPECIAL_ENEMY = 30;
 
     public static final String DEFAULT_FILE_PATH = "generator-settings.dat";
 
@@ -38,10 +38,7 @@ public class GeneratorSettings {
     private int minEnemiesStage = MIN_ENEMIES_STAGE;        // Nombre minimum d'ennemie par étage
     private int maxEnemiesStage = MAX_ENEMIES_STAGE;        // Nombre maximum d'ennemie par étage
     private int luckBlock = LUCK_BLOCK;                     // Chance d'avoir des blocks rare dans les pièces
-    private int luckSpecialEnnemy = LUCK_SPECIAL_ENNEMY;    // Chance de faire apparaître un ennemi special à la génération
-
-
-
+    private int luckSpecialEnemy = LUCK_SPECIAL_ENEMY;    // Chance de faire apparaître un ennemi special à la génération
 
     /**
      * Méthode permettant de sauvegarder dans un fichier les paramètres de l'utilisateur.
@@ -68,7 +65,7 @@ public class GeneratorSettings {
         out.writeInt(this.minEnemiesStage);
         out.writeInt(this.maxEnemiesStage);
         out.writeInt(this.luckBlock);
-        out.writeInt(this.luckSpecialEnnemy);
+        out.writeInt(this.luckSpecialEnemy);
 
         out.close();
     }
@@ -103,7 +100,7 @@ public class GeneratorSettings {
         setMinEnemiesStage(in.readInt());
         setMaxEnemiesStage(in.readInt());
         setLuckBlock(in.readInt());
-        setLuckSpecialEnnemy(in.readInt());
+        setLuckSpecialEnemy(in.readInt());
 
         in.close();
     }
@@ -116,7 +113,7 @@ public class GeneratorSettings {
         this.minSizeStage = minSizeStage;
     }
 
-    public int verifyMinSizeStage(){
+    public int verifyMinSizeStage() {
         return 25;
     }
 
@@ -128,7 +125,7 @@ public class GeneratorSettings {
         this.maxSizeStage = maxSizeStage;
     }
 
-    public int verifyMaxSizeStage(){
+    public int verifyMaxSizeStage() {
         return 100;
     }
 
@@ -140,7 +137,7 @@ public class GeneratorSettings {
         this.minStage = minStage;
     }
 
-    public int verifyMinStage(){
+    public int verifyMinStage() {
         return 2;
     }
 
@@ -152,7 +149,7 @@ public class GeneratorSettings {
         this.maxStage = maxStage;
     }
 
-    public int verifyMaxStage(){
+    public int verifyMaxStage() {
         return 5;
     }
 
@@ -164,8 +161,8 @@ public class GeneratorSettings {
         this.minSizeRoom = minSizeRoom;
     }
 
-    public Couple<Integer, Integer> verifyMinSizeRoom(){
-        return new Couple<>(3,5);
+    public Couple<Integer, Integer> verifyMinSizeRoom() {
+        return new Couple<>(3, 5);
     }
 
     public int getMaxSizeRoom() {
@@ -176,7 +173,7 @@ public class GeneratorSettings {
         this.maxSizeRoom = maxSizeRoom;
     }
 
-    public Couple<Integer,Integer> verifyMaxSizeRoom(){
+    public Couple<Integer, Integer> verifyMaxSizeRoom() {
         return new Couple<>(this.minSizeRoom * 2 + 1, this.minSizeRoom * 3);
     }
 
@@ -188,7 +185,7 @@ public class GeneratorSettings {
         this.nbIterationMin = nbIterationMin;
     }
 
-    public int verifynbIterationMin(){
+    public int verifyNbIterationMin() {
         return 3;
     }
 
@@ -200,7 +197,7 @@ public class GeneratorSettings {
         this.nbIterationMax = nbIterationMax;
     }
 
-    public int verifynbIterationMax(){
+    public int verifyNbIterationMax() {
         return 7;
     }
 
@@ -212,8 +209,8 @@ public class GeneratorSettings {
         this.pourcentDivide = pourcentDivide;
     }
 
-    public Couple<Integer, Integer> verifyPourcentDivide(){
-        return new Couple<>(10,20);
+    public Couple<Integer, Integer> verifyPourcentDivide() {
+        return new Couple<>(10, 20);
     }
 
     public int getMinBlocks() {
@@ -224,8 +221,8 @@ public class GeneratorSettings {
         this.minBlocks = minBlocks;
     }
 
-    public int verifyMinBlocks(){
-        return 1 ;
+    public int verifyMinBlocks() {
+        return 1;
     }
 
     public int getMaxBlocks() {
@@ -236,8 +233,8 @@ public class GeneratorSettings {
         this.maxBlocks = maxBlocks;
     }
 
-    public int verifyMaxBlocks(){
-        return (int) Math.pow(this.minSizeRoom - 2 , 2) / 3 ;
+    public int verifyMaxBlocks() {
+        return (int) Math.pow(this.minSizeRoom - 2, 2) / 3;
     }
 
     public int getMinEnemiesStage() {
@@ -248,8 +245,8 @@ public class GeneratorSettings {
         this.minEnemiesStage = minEnemiesStage;
     }
 
-    public int verifyMinEnemiesStage(){
-        return 0 ;
+    public int verifyMinEnemiesStage() {
+        return 0;
     }
 
     public int getMaxEnemiesStage() {
@@ -260,7 +257,7 @@ public class GeneratorSettings {
         this.maxEnemiesStage = maxEnemiesStage;
     }
 
-    public int verifyMaxEnemiesStage(){
+    public int verifyMaxEnemiesStage() {
         return 5;
     }
 
@@ -272,19 +269,19 @@ public class GeneratorSettings {
         this.luckBlock = luckBlock;
     }
 
-    public Couple<Integer, Integer> verifyLuckBlock(){
-        return new Couple<>(10,30);
+    public Couple<Integer, Integer> verifyLuckBlock() {
+        return new Couple<>(10, 30);
     }
 
-    public int getLuckSpecialEnnemy() {
-        return luckSpecialEnnemy;
+    public int getLuckSpecialEnemy() {
+        return luckSpecialEnemy;
     }
 
-    public void setLuckSpecialEnnemy(int luckSpecialEnnemy) {
-        this.luckSpecialEnnemy = luckSpecialEnnemy;
+    public void setLuckSpecialEnemy(int luckSpecialEnemy) {
+        this.luckSpecialEnemy = luckSpecialEnemy;
     }
 
-    public Couple<Integer, Integer> verifySpecialEnnemy(){
-        return new Couple<>(10,30);
+    public Couple<Integer, Integer> verifySpecialEnemy() {
+        return new Couple<>(10, 30);
     }
 }

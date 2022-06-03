@@ -44,7 +44,7 @@ public class Room {
     /**
      * Setter permettant de définir le nouveau tableau de block représentant la pièce.
      * 
-     * @param blocks tableau à deux dimensions des différents blocks de la pièces
+     * @param blocks tableau à deux dimensions des différents blocks de la pièce
      */
     public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;

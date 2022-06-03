@@ -35,7 +35,7 @@ public abstract class Pet extends Entity {
     }
 
     /**
-     * Redéfinition de la méthode pemettant de tuer une entité.
+     * Redéfinition de la méthode permettant de tuer une entité.
      * Ici pour tuer le familier
      */
     @Override

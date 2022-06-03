@@ -22,7 +22,7 @@ public class PanPan extends Pet {
         if (!power) {
             return;
         }
-        // TODO détere un objet aléatoire rare
+        // TODO Déterre un objet aléatoire rare
         power = false;
     }
 }

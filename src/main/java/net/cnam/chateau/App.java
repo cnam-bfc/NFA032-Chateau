@@ -40,7 +40,7 @@ public class App {
     }
 
     /**
-     * Méthode permettant de démarer l'application.
+     * Méthode permettant de démarrer l'application.
      */
     public void start() {
         try {

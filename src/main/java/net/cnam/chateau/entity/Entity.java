@@ -136,7 +136,7 @@ public abstract class Entity implements DisplayableObject {
             }
         }
 
-        // On notifie les entités aux alentours que l'entité a été déplacé
+        // On notifie les entités aux alentours que l'entité a été déplacés
         EntityApproachEvent entityApproachEvent = new EntityApproachEvent(this);
         for (Entity entity : nearbyEntities) {
             if (entity instanceof EntityListener listener) {
@@ -382,7 +382,7 @@ public abstract class Entity implements DisplayableObject {
 
     /**
      * Méthode permettant de récupérer la force.
-     * return 0 si le résultat est inférieur à 0
+     * Retourne 0 si le résultat est inférieur à 0
      *
      * @return la force
      */
@@ -402,7 +402,7 @@ public abstract class Entity implements DisplayableObject {
 
     /**
      * Méthode permettant de récupérer la précision.
-     * return 0 si le résultat est inférieur à 0
+     * Retourne 0 si le résultat est inférieur à 0
      *
      * @return la précision
      */
@@ -422,7 +422,7 @@ public abstract class Entity implements DisplayableObject {
 
     /**
      * Méthode permettant de récupérer la rapidité.
-     * return 0 si le résultat est inférieur à 0
+     * Retourne 0 si le résultat est inférieur à 0
      *
      * @return la rapidité
      */

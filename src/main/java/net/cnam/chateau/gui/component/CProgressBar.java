@@ -9,7 +9,7 @@ import java.util.ListIterator;
 public class CProgressBar extends CComponent {
     private final List<CColor> textColors = new LinkedList<>();
     private final List<CColor> progressedColors = new LinkedList<>();
-    private final List<CColor> unprogressedColors = new LinkedList<>();
+    private final List<CColor> unProgressedColors = new LinkedList<>();
     private final String text;
     private int value;
     private int maxValue;
@@ -61,13 +61,13 @@ public class CProgressBar extends CComponent {
             line.append(progressedColorIterator.previous().getBackgroundReset());
         }
 
-        ListIterator<CColor> unprogressedColorIterator = unprogressedColors.listIterator();
-        while (unprogressedColorIterator.hasNext()) {
-            line.append(unprogressedColorIterator.next().getBackground());
+        ListIterator<CColor> unProgressedColorIterator = unProgressedColors.listIterator();
+        while (unProgressedColorIterator.hasNext()) {
+            line.append(unProgressedColorIterator.next().getBackground());
         }
         line.append(textLine.substring(progressed));
-        while (unprogressedColorIterator.hasPrevious()) {
-            line.append(unprogressedColorIterator.previous().getBackgroundReset());
+        while (unProgressedColorIterator.hasPrevious()) {
+            line.append(unProgressedColorIterator.previous().getBackgroundReset());
         }
 
         while (textColorsIterator.hasPrevious()) {
@@ -89,8 +89,8 @@ public class CProgressBar extends CComponent {
         return progressedColors;
     }
 
-    public List<CColor> getUnprogressedColors() {
-        return unprogressedColors;
+    public List<CColor> getUnProgressedColors() {
+        return unProgressedColors;
     }
 
     public int getValue() {

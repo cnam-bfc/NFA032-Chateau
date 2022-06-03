@@ -24,13 +24,13 @@ public class GRoomWall {
     }
 
     public boolean overlapWall(GRoomWall wall) {
-        // Si ils n'ont pas la même orientation, ils ne se chevauchent pas
+        // S'ils n'ont pas la même orientation, ils ne se chevauchent pas
         if (this.orientation != wall.orientation) {
             return false;
         }
         switch (this.orientation) {
             case HORIZONTAL -> {
-                // Si ils ne sont pas au même niveau (sur la même ligne ou sur la même colonne suivant l'orientation), ils ne se chevauchent pas
+                // S'ils ne sont pas au même niveau (sur la même ligne ou sur la même colonne suivant l'orientation), ils ne se chevauchent pas
                 if (this.location.getY() != wall.location.getY()) {
                     return false;
                 }
@@ -40,7 +40,7 @@ public class GRoomWall {
                 }
             }
             case VERTICAL -> {
-                // Si ils ne sont pas au même niveau (sur la même ligne ou sur la même colonne suivant l'orientation), ils ne se chevauchent pas
+                // S'ils ne sont pas au même niveau (sur la même ligne ou sur la même colonne suivant l'orientation), ils ne se chevauchent pas
                 if (this.location.getX() != wall.location.getX()) {
                     return false;
                 }

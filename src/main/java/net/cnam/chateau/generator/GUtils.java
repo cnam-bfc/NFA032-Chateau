@@ -63,43 +63,43 @@ public class GUtils {
     public static UpStair triTopo(App app, Room room, List<GRoom> gRooms, Random random) {
 
         List<List<GRoom>> decompositionNiveau = new ArrayList<>();
-        Map<GRoom, Boolean> verifDecomposition = new HashMap<>();
+        Map<GRoom, Boolean> verifyDecomposition = new HashMap<>();
 
         List<GRoom> transition = new ArrayList<>();
         GRoom actualGRoom = findGRoom(room, gRooms);
         transition.add(actualGRoom);
         decompositionNiveau.add(transition);
 
-        //On prépare la liste pour le tri topoligue
+        //On prépare la liste pour le tri topologique
         //True = déjà traité (ici uniquement la room de départ)
         //False = non traité
         for (GRoom newRoom : gRooms) {
             if (newRoom == actualGRoom) {
-                verifDecomposition.put(newRoom, true);
+                verifyDecomposition.put(newRoom, true);
             }
-            verifDecomposition.put(newRoom, false);
+            verifyDecomposition.put(newRoom, false);
         }
 
-        //boucle sur la liste contenant les listes représentant les différents niveau topolique
+        //boucle sur la liste contenant les listes représentant les différents niveaux topologiques
         for (int i = 0; i < decompositionNiveau.size(); i++) {
 
-            if (!verifDecomposition.containsValue(false)) {
+            if (!verifyDecomposition.containsValue(false)) {
                 break;
             }
 
             List<GRoom> actualLevel = decompositionNiveau.get(i);
             List<GRoom> newLevel = new ArrayList<>();
 
-            //On boucle sur toutes les GRoom du niveau actuelle et on récupère pour chacune les pièces adjacentes
-            for (int j = 0; j < actualLevel.size(); j++) {
-                List<GRoom> gRoomsAdja = actualLevel.get(j).roomAdjacent();
+            //On boucle sur toutes les GRoom du niveau actuel et on récupère pour chacune les pièces adjacentes
+            for (GRoom gRoom : actualLevel) {
+                List<GRoom> gRoomsAdjacente = gRoom.roomAdjacent();
 
-                //on boucle sur tout les Gwall de la Groom, et on vérifie si les pièces accessible sont déjà "visité"
+                //on boucle sur tout les GWall de la GRoom, et on vérifie si les pièces accessibles sont déjà "visité"
                 //si Oui, on continue
                 //Si non, on passe dans le hashset, le boolean en true et on l'ajoute à la nouvelle liste
-                for (GRoom c : gRoomsAdja) {
-                    if (!verifDecomposition.get(c)) {
-                        verifDecomposition.replace(c, true);
+                for (GRoom c : gRoomsAdjacente) {
+                    if (!verifyDecomposition.get(c)) {
+                        verifyDecomposition.replace(c, true);
                         newLevel.add(c);
                     }
                 }
@@ -134,7 +134,7 @@ public class GUtils {
     }
 
     /**
-     * Méthode qui permet de fermet la salle de l'escalier et caché une clé dans une autre salle.
+     * Méthode qui permet de fermer la salle de l'escalier et caché une clé dans une autre salle.
      *
      * @param app                 l'application
      * @param room                la room de sortie de l'étage
@@ -144,7 +144,7 @@ public class GUtils {
     private static void hideKey(App app, Room room, List<List<GRoom>> decompositionNiveau, Random random) {
         Key key = new Key();
 
-        // on vérifie toutes les portes et on les locks
+        // on vérifie toutes les portes et on les verrouille
         for (int x = 0; x < room.getLength(); x++) {
             for (int y = 0; y < room.getHeight(); y++) {
                 if (room.getBlocks()[x][y] instanceof Door transition) {
@@ -157,7 +157,7 @@ public class GUtils {
             }
         }
 
-        // on choisit une pièce au hasard entre celle du début et celle du tri topo, différent de celle déjà selectionnée
+        // on choisit une pièce au hasard entre celle du début et celle du tri topo, différent de celle déjà sélectionnée
         Room keyRoom;
         do {
             List<GRoom> rooms = decompositionNiveau.get(random.nextInt(0, decompositionNiveau.size()));

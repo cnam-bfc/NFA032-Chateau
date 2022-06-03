@@ -14,15 +14,14 @@ public class Statistics {
      * Méthode permettant de récupérer les meilleurs stats (si elles existent).
      */
     public void loadStatistics() {
-
         try {
             //On démarre le flux en instanciant les objets nécessaires
-            FileReader fichierTexte = new FileReader("stats.csv");
-            BufferedReader entree = new BufferedReader(fichierTexte);
+            FileReader fileReader = new FileReader("stats.csv");
+            BufferedReader in = new BufferedReader(fileReader);
 
             int noLine = 0;
 
-            String ligne = entree.readLine();
+            String ligne = in.readLine();
             while (ligne != null) {
                 noLine++;
 
@@ -48,9 +47,9 @@ public class Statistics {
                         Integer.parseInt(token.nextToken()),
                         Long.parseLong(token.nextToken())));
 
-                ligne = entree.readLine();
+                ligne = in.readLine();
             }
-            entree.close();
+            in.close();
 
         } catch (IOException ignored) {
         }
@@ -59,19 +58,19 @@ public class Statistics {
 
     /**
      * Méthode permettant l'écriture des statistiques sur le csv.
-     * de la forme : nomJoueur/score/bossVaincu(bool)/nbEnnemieTué/nbPiecesVisité/seed
+     * De la forme : nomJoueur/score/bossVaincu(bool)/nbEnnemieTué/nbPiecesVisité/seed
      */
     public void writeStatistics() {
         try {
             // instanciation des objets permettant le flux d'écriture
-            FileWriter fichierTexteEcrit = new FileWriter("stats.csv");
-            PrintWriter sortie = new PrintWriter(fichierTexteEcrit);
+            FileWriter fileWriter = new FileWriter("stats.csv");
+            PrintWriter out = new PrintWriter(fileWriter);
 
             Statistic stat;
             int compteur = 0;
             do {
                 stat = statistics.get(compteur);
-                sortie.println("" +
+                out.println("" +
                         stat.getPlayerName() + ";" +
                         stat.getScore() + ";" +
                         stat.isBossDefeated() + ";" +
@@ -82,7 +81,7 @@ public class Statistics {
                 compteur++;
             } while (compteur < this.statistics.size());
 
-            sortie.close();
+            out.close();
         } catch (IOException ignored) {
         }
     }
@@ -93,11 +92,11 @@ public class Statistics {
      * @param stat la statistique à ajouter
      */
     public void addStatistic(Statistic stat) {
-        if (stat.isCheatModeActivated()){
+        if (stat.isCheatModeActivated()) {
             return;
         }
         this.statistics.add(stat);
-        // On tri et on remet la liste à la bonne taille pour écrire seulement les 10 meilleurs scores
+        // On trie et on remet la liste à la bonne taille pour écrire seulement les 10 meilleurs scores
         Collections.sort(this.statistics);
         while (statistics.size() > 10) {
             this.statistics.remove(this.statistics.size() - 1);

@@ -47,10 +47,10 @@ public class SageDoor extends Door {
 
     /**
      * Retourne le caractère qui sera défini sur la map.
-     * Si un sage est vivant, présent et l'énigme non résolu affiche un "S" rouge
-     * Si le sage est mort, ou énigme résolu, affiche un " " pour montrer l'accessibilité
+     * Si un sage est vivant, présent et l'énigme non résolue affiche un "S" rouge
+     * Si le sage est mort, ou énigme résolue, affiche un " " pour montrer l'accessibilité
      *
-     * @return le cractère associé au passage
+     * @return le caractère associé au passage
      */
     @Override
     public String getCharacter() {
