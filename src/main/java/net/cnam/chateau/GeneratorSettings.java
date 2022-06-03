@@ -163,7 +163,7 @@ public class GeneratorSettings {
     }
 
     public Couple<Integer, Integer> verifyMinSizeRoom() {
-        return new Couple<>(3, 5);
+        return new Couple<>(5, 7);
     }
 
     public int getMaxSizeRoom() {
