@@ -6,7 +6,7 @@ import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.information.InfoButton;
+import net.cnam.chateau.gui.main.menu.information.InfoButton;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 import javax.sound.sampled.LineUnavailableException;

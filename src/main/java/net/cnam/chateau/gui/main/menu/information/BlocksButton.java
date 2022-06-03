@@ -1,8 +1,8 @@
-package net.cnam.chateau.gui.information;
+package net.cnam.chateau.gui.main.menu.information;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.information.structure.SpecialBlockMenu;
+import net.cnam.chateau.gui.main.menu.information.structure.SpecialBlockMenu;
 
 public class BlocksButton extends CButton {
     private final App app;

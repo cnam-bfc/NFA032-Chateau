@@ -5,7 +5,7 @@ import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
-import net.cnam.chateau.gui.information.InfoButton;
+import net.cnam.chateau.gui.main.menu.information.InfoButton;
 import net.cnam.chateau.item.consumable.Consumable;
 
 public class EscapeMenu extends CFrame implements DisplayableComponent {

@@ -1,8 +1,8 @@
-package net.cnam.chateau.gui.information;
+package net.cnam.chateau.gui.main.menu.information;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.information.entities.EntitiesMenu;
+import net.cnam.chateau.gui.main.menu.information.entities.EntitiesMenu;
 
 public class EntityButton extends CButton {
 

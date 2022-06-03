@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.information;
+package net.cnam.chateau.gui.main.menu.information;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.event.key.KeyPressedEvent;
