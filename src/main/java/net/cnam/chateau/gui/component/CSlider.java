@@ -8,10 +8,14 @@ import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;
 
 public class CSlider extends CProgressBar implements SelectableComponent, KeyListener {
-    private boolean selected = true;
+    private boolean selected = false;
 
     public CSlider(int length, int height, int value, int maxValue, String text) {
-        super(length, height, value, maxValue, text);
+        this(length, height, value, 0, maxValue, text);
+    }
+
+    public CSlider(int length, int height, int value, int minValue, int maxValue, String text) {
+        super(length, height, value, minValue, maxValue, text);
 
         this.getTextColors().add(CColor.BLACK);
         this.getProgressedColors().add(CColor.BRIGHT_BLACK);
@@ -29,8 +33,9 @@ public class CSlider extends CProgressBar implements SelectableComponent, KeyLis
             int value = getValue();
             switch (direction) {
                 case LEFT -> {
+                    int minValue = getMinValue();
                     value--;
-                    if (value < 0) {
+                    if (value < minValue) {
                         return;
                     }
                     setValue(value);

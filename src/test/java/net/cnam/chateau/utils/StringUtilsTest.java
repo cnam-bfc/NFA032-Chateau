@@ -154,18 +154,4 @@ public class StringUtilsTest {
         System.out.println("OK");
     }
 
-    /**
-     * Test of countOccurrences method, of class StringUtils.
-     */
-    @Test
-    public void testCountOccurrences() {
-        System.out.println("testCountOccurrences");
-        String string = "ab\na\nabcdef\nabc";
-        String search = "ab";
-        int expResult = 3;
-        int result = StringUtils.countOccurrences(string, search);
-        assertEquals(expResult, result);
-        System.out.println("OK");
-    }
-
 }
