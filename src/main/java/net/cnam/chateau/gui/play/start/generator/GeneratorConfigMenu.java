@@ -9,8 +9,12 @@ import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.utils.Couple;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GeneratorConfigMenu extends CFrame implements DisplayableComponent {
     private final GeneratorSettings generatorSettings;
+    private final List<GeneratorConfigSlider> sliders = new ArrayList<>();
     private final CChoices choices;
     private final GeneratorConfigSlider minStageSlider;
     private final GeneratorConfigSlider maxStageSlider;
@@ -39,63 +43,63 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
 
         // minStage
         this.minStageSlider = new GeneratorConfigSlider(this, "Nombre d'étages minimum");
-        choices.add(this.minStageSlider);
+        this.sliders.add(minStageSlider);
 
         // maxStage
         this.maxStageSlider = new GeneratorConfigSlider(this, "Nombre d'étages maximum");
-        choices.add(this.maxStageSlider);
+        this.sliders.add(maxStageSlider);
 
         // minSizeStage
         this.minSizeStageSlider = new GeneratorConfigSlider(this, "Taille minimale des étages");
-        choices.add(this.minSizeStageSlider);
+        this.sliders.add(minSizeStageSlider);
 
         // maxSizeStage
         this.maxSizeStageSlider = new GeneratorConfigSlider(this, "Taille maximale des étages");
-        choices.add(this.maxSizeStageSlider);
+        this.sliders.add(maxSizeStageSlider);
 
         // minSizeRoom
         this.minSizeRoomSlider = new GeneratorConfigSlider(this, "Taille minimale des pièces");
-        choices.add(this.minSizeRoomSlider);
+        this.sliders.add(minSizeRoomSlider);
 
         // maxSizeRoom
         this.maxSizeRoomSlider = new GeneratorConfigSlider(this, "Taille maximale des pièces");
-        choices.add(this.maxSizeRoomSlider);
+        this.sliders.add(maxSizeRoomSlider);
 
         // nbIterationMin
         this.nbIterationMinSlider = new GeneratorConfigSlider(this, "Tentatives de divisions des pièces minimum");
-        choices.add(this.nbIterationMinSlider);
+        this.sliders.add(nbIterationMinSlider);
 
         // nbIterationMax
         this.nbIterationMaxSlider = new GeneratorConfigSlider(this, "Tentatives de divisions des pièces maximum");
-        choices.add(this.nbIterationMaxSlider);
+        this.sliders.add(nbIterationMaxSlider);
 
         // pourcentDivide
         this.pourcentDivideSlider = new GeneratorConfigSlider(this, "Chance de division des pièces");
-        choices.add(this.pourcentDivideSlider);
+        this.sliders.add(pourcentDivideSlider);
 
         // minBlocks
         this.minBlocksSlider = new GeneratorConfigSlider(this, "Nombre de structures minimum par pièce");
-        choices.add(this.minBlocksSlider);
+        this.sliders.add(minBlocksSlider);
 
         // maxBlocks
         this.maxBlocksSlider = new GeneratorConfigSlider(this, "Nombre de structures maximum par pièce");
-        choices.add(this.maxBlocksSlider);
+        this.sliders.add(maxBlocksSlider);
 
         // luckBlock
         this.luckBlockSlider = new GeneratorConfigSlider(this, "Chance de générer une structure rare");
-        choices.add(this.luckBlockSlider);
+        this.sliders.add(luckBlockSlider);
 
         // minEnemiesStage
         this.minEnemiesStageSlider = new GeneratorConfigSlider(this, "Nombre d'ennemis minimum par étage");
-        choices.add(this.minEnemiesStageSlider);
+        this.sliders.add(minEnemiesStageSlider);
 
         // maxEnemiesStage
         this.maxEnemiesStageSlider = new GeneratorConfigSlider(this, "Nombre d'ennemis maximum par étage");
-        choices.add(this.maxEnemiesStageSlider);
+        this.sliders.add(maxEnemiesStageSlider);
 
         // luckSpecialEnemy
         this.luckSpecialEnemySlider = new GeneratorConfigSlider(this, "Chance générer un ennemi spécial");
-        choices.add(this.luckSpecialEnemySlider);
+        this.sliders.add(luckSpecialEnemySlider);
 
         update();
 
@@ -128,6 +132,35 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
         super.setHeight(height);
 
         this.choices.setHeight(this.getContentPane().getHeight());
+    }
+
+    @Override
+    public String[] render() {
+        choices.removeAll();
+        int height = this.getContentPane().getHeight();
+        int nbSliders = height / 3;
+        int startIndex = 0;
+        int endIndex = nbSliders;
+        int selectedSlider = 0;
+        for (int i = 0; i < sliders.size(); i++) {
+            if (sliders.get(i).isSelected()) {
+                selectedSlider = i;
+                break;
+            }
+        }
+
+        // TODO Faire formule magique ici
+        if(endIndex > nbSliders) {
+            startIndex = endIndex - nbSliders;
+        }
+
+        // TODO Jusqua ici
+
+        for (int i = startIndex; i < endIndex; i++) {
+            choices.add(sliders.get(i));
+        }
+
+        return super.render();
     }
 
     public void update(GeneratorConfigSlider updatedSlider) {
