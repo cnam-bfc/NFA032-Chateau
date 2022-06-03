@@ -17,9 +17,9 @@ public class GeneratorSettings {
     private static final int POURCENT_DIVIDE = 10;
     private static final int MIN_BLOCKS = 1;
     private static final int MAX_BLOCKS = 3;
+    private static final int LUCK_BLOCK = 35;
     private static final int MIN_ENEMIES_STAGE = 1;
     private static final int MAX_ENEMIES_STAGE = 3;
-    private static final int LUCK_BLOCK = 35;
     private static final int LUCK_SPECIAL_ENEMY = 30;
 
     public static final String DEFAULT_FILE_PATH = "generator-settings.dat";
@@ -35,9 +35,9 @@ public class GeneratorSettings {
     private int pourcentDivide = POURCENT_DIVIDE;           // Chance de faire une division de pièce à chaque itération
     private int minBlocks = MIN_BLOCKS;                     // Nombre minimum de blocks par pièce
     private int maxBlocks = MAX_BLOCKS;                     // Nombre maximum de blocks par pièce
+    private int luckBlock = LUCK_BLOCK;                     // Chance d'avoir des blocks rare dans les pièces
     private int minEnemiesStage = MIN_ENEMIES_STAGE;        // Nombre minimum d'ennemie par étage
     private int maxEnemiesStage = MAX_ENEMIES_STAGE;        // Nombre maximum d'ennemie par étage
-    private int luckBlock = LUCK_BLOCK;                     // Chance d'avoir des blocks rare dans les pièces
     private int luckSpecialEnemy = LUCK_SPECIAL_ENEMY;    // Chance de faire apparaître un ennemi special à la génération
 
     /**
@@ -62,9 +62,9 @@ public class GeneratorSettings {
         out.writeInt(this.pourcentDivide);
         out.writeInt(this.minBlocks);
         out.writeInt(this.maxBlocks);
+        out.writeInt(this.luckBlock);
         out.writeInt(this.minEnemiesStage);
         out.writeInt(this.maxEnemiesStage);
-        out.writeInt(this.luckBlock);
         out.writeInt(this.luckSpecialEnemy);
 
         out.close();
@@ -97,9 +97,9 @@ public class GeneratorSettings {
         setPourcentDivide(in.readInt());
         setMinBlocks(in.readInt());
         setMaxBlocks(in.readInt());
+        setLuckBlock(in.readInt());
         setMinEnemiesStage(in.readInt());
         setMaxEnemiesStage(in.readInt());
-        setLuckBlock(in.readInt());
         setLuckSpecialEnemy(in.readInt());
 
         in.close();
@@ -238,6 +238,18 @@ public class GeneratorSettings {
         return new Couple<>(this.minBlocks, (int) Math.pow(this.minSizeRoom - 2, 2) / 3);
     }
 
+    public int getLuckBlock() {
+        return luckBlock;
+    }
+
+    public void setLuckBlock(int luckBlock) {
+        this.luckBlock = luckBlock;
+    }
+
+    public Couple<Integer, Integer> verifyLuckBlock() {
+        return new Couple<>(10, 30);
+    }
+
     public int getMinEnemiesStage() {
         return minEnemiesStage;
     }
@@ -260,18 +272,6 @@ public class GeneratorSettings {
 
     public Couple<Integer, Integer> verifyMaxEnemiesStage() {
         return new Couple<>(this.minEnemiesStage,10);
-    }
-
-    public int getLuckBlock() {
-        return luckBlock;
-    }
-
-    public void setLuckBlock(int luckBlock) {
-        this.luckBlock = luckBlock;
-    }
-
-    public Couple<Integer, Integer> verifyLuckBlock() {
-        return new Couple<>(10, 30);
     }
 
     public int getLuckSpecialEnemy() {
