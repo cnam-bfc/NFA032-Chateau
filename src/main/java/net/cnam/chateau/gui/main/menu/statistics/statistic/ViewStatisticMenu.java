@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.main.menu.statistics;
+package net.cnam.chateau.gui.main.menu.statistics.statistic;
 
 import net.cnam.chateau.game.Statistic;
 import net.cnam.chateau.gui.component.CFrame;

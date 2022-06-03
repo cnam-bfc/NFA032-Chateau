@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.main.menu.information.commands;
+package net.cnam.chateau.gui.information.commands;
 
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.*;

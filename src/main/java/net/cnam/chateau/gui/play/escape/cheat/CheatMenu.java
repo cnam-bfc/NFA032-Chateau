@@ -24,7 +24,6 @@ public class CheatMenu extends CFrame implements DisplayableComponent {
         choices.add(new QuitComponentButton(app, this, "Retour"));
 
         this.getContentPane().getComponents().add(choices);
-
     }
 
     @Override

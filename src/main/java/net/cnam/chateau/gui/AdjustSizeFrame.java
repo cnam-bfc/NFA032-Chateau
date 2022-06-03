@@ -1,5 +1,6 @@
 package net.cnam.chateau.gui;
 
+import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.component.CFrame;
@@ -14,10 +15,10 @@ public class AdjustSizeFrame extends CFrame implements DisplayableComponent {
 
     private boolean display = true;
 
-    public AdjustSizeFrame(AppSettings settings) {
+    public AdjustSizeFrame(App app) {
         super(0, 0, "Réglage des dimensions de la console");
 
-        this.settings = settings;
+        this.settings = app.getSettings();
 
         CLabel instructions_1 = new CLabel(new String[]{"Veuillez ajustez le cadre pour qu'il soit sur les bords de l'écran",
                 "Pour cela vous pouvez utiliser les flèches directionnelles ou les touches zqsd"});

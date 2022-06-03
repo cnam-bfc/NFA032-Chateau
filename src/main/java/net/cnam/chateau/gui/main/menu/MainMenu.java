@@ -2,11 +2,15 @@ package net.cnam.chateau.gui.main.menu;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.audio.Music;
+import net.cnam.chateau.gui.common.OpenComponentButton;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.main.menu.information.InfoButton;
+import net.cnam.chateau.gui.information.InfoMenu;
+import net.cnam.chateau.gui.main.menu.statistics.StatisticsMenu;
+import net.cnam.chateau.gui.play.start.PlayMenu;
+import net.cnam.chateau.gui.settings.menu.SettingsMenu;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -31,10 +35,10 @@ public class MainMenu extends CFrame implements DisplayableComponent {
 
         CChoices choices = new CChoices(app, 1);
 
-        choices.add(new PlayButton(app, this));
-        choices.add(new StatisticsButton(app, this));
-        choices.add(new InfoButton(app));
-        choices.add(new SettingsButton(app, audioPlayer));
+        choices.add(new OpenComponentButton(app, new PlayMenu(app, this), "Jouer"));
+        choices.add(new OpenComponentButton(app, new StatisticsMenu(app), "Statistiques"));
+        choices.add(new OpenComponentButton(app, new InfoMenu(app), "Informations"));
+        choices.add(new OpenComponentButton(app, new SettingsMenu(app, audioPlayer), "Paramètres"));
         choices.add(new QuitComponentButton(app, this, "Quitter"));
 
         this.getContentPane().getComponents().add(choices);
