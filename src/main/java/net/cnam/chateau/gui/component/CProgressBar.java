@@ -12,6 +12,7 @@ public class CProgressBar extends CComponent {
     private final List<CColor> unProgressedColors = new LinkedList<>();
     private final String text;
     private int value;
+    private int minValue;
     private int maxValue;
 
     public CProgressBar(int length, int height) {
@@ -19,31 +20,57 @@ public class CProgressBar extends CComponent {
     }
 
     public CProgressBar(int length, int height, int value, int maxValue, String text) {
+        this(length, height, value, 0, maxValue, text);
+    }
+
+    public CProgressBar(int length, int height, int value, int minValue, int maxValue, String text) {
         super(HorizontalAlignment.CENTER, length, height);
 
         this.value = value;
+        this.minValue = minValue;
         this.maxValue = maxValue;
         this.text = text;
     }
 
     @Override
     public String[] render() {
-        String textLine = text.replace("%VALUE%", value + "")
+        StringBuilder textLine = new StringBuilder(text.replace("%VALUE%", value + "")
                 .replace("%MAX_VALUE%", maxValue + "")
-                .replace("%PERCENT%", (int) ((float) value / maxValue * 100) + " %");
+                .replace("%MIN_VALUE%", minValue + "")
+                .replace("%PERCENT%", (int) ((float) (value - minValue) / (maxValue - minValue) * 100) + " %"));
+
+        String[] textSeparated = textLine.toString().split("%SEPARATOR%");
+        if (textSeparated.length > 1) {
+            int allSeparatorsLength = this.getLength() - textLine.toString().replace("%SEPARATOR%", "").length();
+            int separatorLength = allSeparatorsLength / (textSeparated.length - 1);
+            int remainder = allSeparatorsLength % (textSeparated.length - 1);
+            textLine = new StringBuilder();
+            for (int i = 0; i < textSeparated.length; i++) {
+                textLine.append(textSeparated[i]);
+                if (i < textSeparated.length - 1) {
+                    for (int j = 0; j < separatorLength; j++) {
+                        if (remainder > 0) {
+                            textLine.append(" ");
+                            remainder--;
+                        }
+                        textLine.append(" ");
+                    }
+                }
+            }
+        }
 
         if (textLine.length() > getLength()) {
-            textLine = textLine.substring(0, getLength());
+            textLine = new StringBuilder(textLine.substring(0, getLength()));
         } else if (textLine.length() < getLength()) {
             int diff = getLength() - textLine.length();
             int left = diff / 2;
             int right = diff - left;
-            textLine = " ".repeat(left) + textLine + " ".repeat(right);
+            textLine = new StringBuilder(" ".repeat(left) + textLine + " ".repeat(right));
         }
 
         String[] result = new String[this.getHeight()];
 
-        int progressed = (int) ((float) value / maxValue * this.getLength());
+        int progressed = (int) ((float) (value - minValue) / (maxValue - minValue) * this.getLength());
 
         StringBuilder line = new StringBuilder();
 
@@ -98,10 +125,15 @@ public class CProgressBar extends CComponent {
     }
 
     public void setValue(int value) {
-        if (value < 0) {
-            value = 0;
-        }
         this.value = value;
+    }
+
+    public int getMinValue() {
+        return minValue;
+    }
+
+    public void setMinValue(int minValue) {
+        this.minValue = minValue;
     }
 
     public int getMaxValue() {
@@ -109,9 +141,6 @@ public class CProgressBar extends CComponent {
     }
 
     public void setMaxValue(int maxValue) {
-        if (maxValue < 0) {
-            maxValue = 0;
-        }
         this.maxValue = maxValue;
     }
 }
