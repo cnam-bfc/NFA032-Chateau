@@ -2,13 +2,11 @@ package net.cnam.chateau.gui.main.menu.statistics;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.game.Statistic;
-import net.cnam.chateau.gui.common.OpenComponentButton;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
-import net.cnam.chateau.gui.main.menu.statistics.statistic.ViewStatisticMenu;
 
 import java.util.List;
 
@@ -26,8 +24,7 @@ public class StatisticsMenu extends CFrame implements DisplayableComponent {
         CChoices choices = new CChoices(app, 1);
 
         for (int i = 0; i < stats.size(); i++) {
-            Statistic statistic = stats.get(i);
-            choices.add(new OpenComponentButton(app, new ViewStatisticMenu(statistic), (i + 1) + " - " + statistic.getPlayerName() + " " + statistic.getScore()));
+            choices.add(new ShowStatButton(app, stats.get(i), i + 1));
         }
 
         choices.add(new QuitComponentButton(app, this, "Retour"));

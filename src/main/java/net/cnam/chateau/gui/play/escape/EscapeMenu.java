@@ -3,11 +3,9 @@ package net.cnam.chateau.gui.play.escape;
 import net.cnam.chateau.App;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.game.Game;
-import net.cnam.chateau.gui.common.OpenComponentButton;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
-import net.cnam.chateau.gui.information.InfoMenu;
-import net.cnam.chateau.gui.settings.menu.SettingsMenu;
+import net.cnam.chateau.gui.main.menu.information.InfoButton;
 import net.cnam.chateau.item.consumable.Consumable;
 
 public class EscapeMenu extends CFrame implements DisplayableComponent {
@@ -21,9 +19,9 @@ public class EscapeMenu extends CFrame implements DisplayableComponent {
         if (game.getPlayer().hasItem() && game.getPlayer().getItem() instanceof Consumable) {
             choices.add(new UseItemButton(app, this, game.getPlayer()));
         }
-        choices.add(new OpenComponentButton(app, new InfoMenu(app), "Informations"));
+        choices.add(new InfoButton(app));
         choices.add(new CheatButton(app, game, this));
-        choices.add(new OpenComponentButton(app, new SettingsMenu(app, game.getAudioPlayer()), "Paramètres"));
+        choices.add(new SettingsButton(app, game));
         choices.add(new QuitGameButton(app, this));
 
         this.getContentPane().getComponents().add(choices);

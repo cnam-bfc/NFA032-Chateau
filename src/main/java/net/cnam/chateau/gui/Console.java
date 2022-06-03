@@ -28,6 +28,11 @@ public class Console extends CPanel {
         System.out.print("\033[?25l");
     }
 
+    public void adjustSize() {
+        AdjustSizeFrame adjustSizeFrame = new AdjustSizeFrame(settings);
+        show(adjustSizeFrame);
+    }
+
     public void show(DisplayableComponent displayableComponent) {
         if (displayableComponent instanceof CComponent component) {
             List<CComponent> save = new LinkedList<>(this.getComponents());
