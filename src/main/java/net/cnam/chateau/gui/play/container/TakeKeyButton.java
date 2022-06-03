@@ -25,6 +25,7 @@ public class TakeKeyButton extends CButton {
         block.setHiddenItem(null);
         menu.getButtons().remove(this);
         menu.getLeaveButton().setSelected(true);
+        menu.updateButtons();
     }
 
     public Container getBlock() {
