@@ -116,4 +116,23 @@ public class StringUtils {
 
         return max;
     }
+
+    /**
+     * Méthode qui permet de compter le nombre d'occurrences d'une chaine de caractère dans une autre chaine de caractères
+     *
+     * @param string La chaine de caractère dans laquelle on cherche
+     * @param search La chaine de caractère à chercher
+     * @return Le nombre de fois ou la chaine de caractère est trouvée dans la chaine de caractère
+     */
+    public static int countOccurrences(String string, String search) {
+        int count = 0;
+        int index = 0;
+
+        while ((index = string.indexOf(search, index)) != -1) {
+            index++;
+            count++;
+        }
+
+        return count;
+    }
 }
