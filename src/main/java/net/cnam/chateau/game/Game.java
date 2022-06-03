@@ -338,25 +338,23 @@ public class Game extends CFrame implements DisplayableComponent {
 
         try {
             Block playerBlock = player.getStage().getBlock(player.getLocation());
+            // Actualisation du nom du block en haut à droite
             if (playerBlock != null) {
                 this.blockNameLabel.setText(playerBlock.getName() + " ");
-                if (playerBlock instanceof PlayerInteractListener) {
-                    String[] infosTable = StringUtils.convertStringToStringArray(infos);
-                    if (infosTable.length > 1) {
-                        infos = infosTable[infosTable.length - 1];
-                        infosTable = StringUtils.convertStringToStringArray(infos);
-                    }
-                    infosTable = ArrayUtils.addOnTopOfArray(infosTable, "Espace - Interagir");
-                    infos = StringUtils.convertStringArrayToString(infosTable);
-                } else {
-                    String[] infosTable = StringUtils.convertStringToStringArray(infos);
-                    if (infosTable.length > 1) {
-                        infos = infosTable[infosTable.length - 1];
-                    }
-                }
             } else {
                 this.blockNameLabel.setText(" ");
-                String[] infosTable = StringUtils.convertStringToStringArray(infos);
+            }
+
+            // Actualisation du texte d'informations en bas à droite
+            String[] infosTable = StringUtils.convertStringToStringArray(infos);
+            if (playerBlock instanceof PlayerInteractListener) {
+                if (infosTable.length > 1) {
+                    infos = infosTable[infosTable.length - 1];
+                    infosTable = StringUtils.convertStringToStringArray(infos);
+                }
+                infosTable = ArrayUtils.addOnTopOfArray(infosTable, "Espace - Interagir");
+                infos = StringUtils.convertStringArrayToString(infosTable);
+            } else {
                 if (infosTable.length > 1) {
                     infos = infosTable[infosTable.length - 1];
                 }
