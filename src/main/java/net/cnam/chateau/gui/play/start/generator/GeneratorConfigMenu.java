@@ -136,12 +136,19 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
 
     @Override
     public String[] render() {
+        // On enlève tous les sliders du menu à choix
         choices.removeAll();
+
         int height = this.getContentPane().getHeight();
+        // Nombre de sliders qui peuvent tenir sur le menu à choix
         int nbSliders = height / 3;
+        // Index du premier slider à afficher
         int startIndex = 0;
+        // Index du dernier slider à afficher
         int endIndex = nbSliders;
+        // Index du slider actuellement sélectionné
         int selectedSlider = 0;
+        // On récupère l'index du slider sélectionné
         for (int i = 0; i < sliders.size(); i++) {
             if (sliders.get(i).isSelected()) {
                 selectedSlider = i;
@@ -150,15 +157,20 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
         }
 
         // TODO Faire formule magique ici
-        if(endIndex > nbSliders) {
+        if (endIndex > nbSliders) {
             startIndex = endIndex - nbSliders;
         }
 
         // TODO Jusqua ici
 
+        // On ajoute les slider qui doivent être affichés dans le menu à choix
         for (int i = startIndex; i < endIndex; i++) {
             choices.add(sliders.get(i));
         }
+
+        // On resélectionne le bon slider
+        choices.getSelectedComponent().setSelected(false);
+        sliders.get(selectedSlider).setSelected(true);
 
         return super.render();
     }
