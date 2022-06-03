@@ -4,7 +4,6 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.audio.Music;
 import net.cnam.chateau.entity.EntityAlreadyTeleportedException;
 import net.cnam.chateau.entity.Player;
-import net.cnam.chateau.entity.pet.Ludo;
 import net.cnam.chateau.entity.Pet;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.component.CButton;
@@ -71,7 +70,7 @@ public class ActivateCheatButton extends CButton {
                     oldPet.setPlayer(null);
                     oldPet.getStage().getEntities().remove(oldPet);
                 }
-                Pet newPet = new Ludo(app);
+                Pet newPet = new Pet(app, "Super Ludo", 150,25,25,25);
                 player.setPet(newPet);
                 newPet.setPlayer(player);
                 try {
