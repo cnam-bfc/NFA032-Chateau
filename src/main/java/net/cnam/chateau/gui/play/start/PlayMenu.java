@@ -3,11 +3,9 @@ package net.cnam.chateau.gui.play.start;
 import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.GeneratorSettings;
-import net.cnam.chateau.gui.common.OpenComponentButton;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.main.menu.MainMenu;
-import net.cnam.chateau.gui.play.start.generator.GeneratorConfigMenuP1;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class PlayMenu extends CFrame implements DisplayableComponent {
@@ -30,7 +28,7 @@ public class PlayMenu extends CFrame implements DisplayableComponent {
         CChoices choices = new CChoices(app, 1);
         choices.add(playerNameField);
         choices.add(seedField);
-        choices.add(new OpenComponentButton(app, new GeneratorConfigMenuP1(app, generatorSettings), "Paramètres du générateur"));
+        choices.add(new ConfigureGeneratorButton(app, this));
         choices.add(actions);
         choices.select(actions);
 
