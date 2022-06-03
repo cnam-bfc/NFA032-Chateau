@@ -13,7 +13,7 @@ public class UseItemButton extends OpenComponentButton {
     private final Fight fight;
 
     public UseItemButton(App app, Fight fight, Consumable item, List<Entity> fightEntities) {
-        super(app, new ConsumableItemMenu(app, item, fightEntities), "Utiliser\n" + ((Item) item).getName());
+        super(app, new ConsumableItemMenu(app, item, fightEntities), "Utiliser\n" + ((Item) item).getName(), 20);
 
         this.fight = fight;
     }

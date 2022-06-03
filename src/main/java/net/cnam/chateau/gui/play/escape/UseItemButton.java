@@ -16,7 +16,7 @@ public class UseItemButton extends CButton {
     private final Player player;
 
     public UseItemButton(App app, EscapeMenu escapeMenu, Player player) {
-        super(app, "Utiliser " + player.getItem().getName());
+        super(app, "Utiliser\n" + player.getItem().getName(), 20);
 
         this.app = app;
         this.escapeMenu = escapeMenu;

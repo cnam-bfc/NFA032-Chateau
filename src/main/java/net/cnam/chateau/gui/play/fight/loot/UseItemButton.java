@@ -17,7 +17,7 @@ public class UseItemButton extends OpenComponentButton {
     private final List<Entity> entities;
 
     public UseItemButton(App app, LootMenu lootMenu, Consumable item, List<Entity> fightEntities) {
-        super(app, new ConsumableItemMenu(app, item, fightEntities), "Utiliser\n" + ((Item) item).getName());
+        super(app, new ConsumableItemMenu(app, item, fightEntities), "Utiliser\n" + ((Item) item).getName(), 20);
 
         this.app = app;
         this.lootMenu = lootMenu;
