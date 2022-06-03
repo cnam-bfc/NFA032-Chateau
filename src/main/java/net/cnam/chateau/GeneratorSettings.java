@@ -62,9 +62,9 @@ public class GeneratorSettings {
         out.writeInt(this.pourcentDivide);
         out.writeInt(this.minBlocks);
         out.writeInt(this.maxBlocks);
+        out.writeInt(this.luckBlock);
         out.writeInt(this.minEnemiesStage);
         out.writeInt(this.maxEnemiesStage);
-        out.writeInt(this.luckBlock);
         out.writeInt(this.luckSpecialEnemy);
 
         out.close();
@@ -97,9 +97,9 @@ public class GeneratorSettings {
         setPourcentDivide(in.readInt());
         setMinBlocks(in.readInt());
         setMaxBlocks(in.readInt());
+        setLuckBlock(in.readInt());
         setMinEnemiesStage(in.readInt());
         setMaxEnemiesStage(in.readInt());
-        setLuckBlock(in.readInt());
         setLuckSpecialEnemy(in.readInt());
 
         in.close();
