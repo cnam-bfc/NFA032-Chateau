@@ -18,6 +18,13 @@ public class Door extends Block implements BlockListener {
     private final Room roomOne;
     private final Room roomTwo;
 
+    /**
+     * Constructeur de la classe Door.
+     *
+     * @param stage     L'étage sur lequel se trouve la porte.
+     * @param roomOne   La première pièce reliée à la porte
+     * @param roomTwo   La seconde pièce reliée à la porte
+     */
     public Door(Stage stage, Room roomOne, Room roomTwo) {
         super("Porte");
 
@@ -26,6 +33,10 @@ public class Door extends Block implements BlockListener {
         this.roomTwo = roomTwo;
     }
 
+    /**
+     * Méthode permettant de retourner le block qui sera affiché sur la carte
+     * @return Le block qui sera affiché sur la carte
+     */
     @Override
     public String getCharacter() {
         if (isLocked()) {
@@ -35,22 +46,42 @@ public class Door extends Block implements BlockListener {
         }
     }
 
+    /**
+     * Méthode d'accès à l'étage de la porte
+     * @return L'étage de la porte
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * Méthode d'accès à la première pièce reliée à la porte
+     * @return La première pièce reliée à la porte
+     */
     public Room getRoomOne() {
         return roomOne;
     }
 
+    /**
+     * Méthode d'accès à la seconde pièce reliée à la porte
+     * @return La seconde pièce reliée à la porte
+     */
     public Room getRoomTwo() {
         return roomTwo;
     }
 
+    /**
+     * Méthode permettant de savoir si la porte est ouverte ou non
+     * @return true si la porte est ouverte, false sinon
+     */
     public boolean isLocked() {
         return false;
     }
 
+    /**
+     * // TODO Victor
+     * @param event
+     */
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         if (isLocked()) {

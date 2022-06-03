@@ -9,11 +9,22 @@ import net.cnam.chateau.gui.play.fight.sage.SageDoorMenu;
 import net.cnam.chateau.structure.Room;
 import net.cnam.chateau.structure.Stage;
 
+/**
+ * Classe permettant de créer une porte référençant un Sage qui la bloque
+ */
 public class SageDoor extends Door {
     private final App app;
     private Sage sage;
     private boolean visited = false;
 
+    /**
+     * Constructeur de la porte Sage
+     * @param app       L'application
+     * @param stage     L'Étage dans lequel se trouve la porte
+     * @param roomOne   La première salle de la porte
+     * @param roomTwo   La deuxième salle de la porte
+     * @param sage      Le Sage qui bloque la porte
+     */
     public SageDoor(App app, Stage stage, Room roomOne, Room roomTwo, Sage sage) {
         super(stage, roomOne, roomTwo);
 
@@ -21,14 +32,26 @@ public class SageDoor extends Door {
         this.sage = sage;
     }
 
+    /**
+     * Méthode d'accès au Sage qui bloque la porte
+     * @return Le Sage qui bloque la porte
+     */
     public Sage getSage() {
         return sage;
     }
 
+    /**
+     * Méthode d'altération du Sage qui bloque la porte
+     * @param sage Le Sage qui bloque la porte
+     */
     public void setSage(Sage sage) {
         this.sage = sage;
     }
 
+    /**
+     * Méthode pour savoir si la porte est bloquée
+     * @return true si la porte est bloquée, false sinon
+     */
     @Override
     public boolean isLocked() {
         return sage != null;

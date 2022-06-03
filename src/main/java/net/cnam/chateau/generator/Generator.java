@@ -19,7 +19,7 @@ import net.cnam.chateau.structure.*;
 import net.cnam.chateau.structure.block.*;
 import net.cnam.chateau.structure.block.container.Chest;
 import net.cnam.chateau.structure.block.container.Wardrobe;
-import net.cnam.chateau.structure.block.decorative.Bed;
+import net.cnam.chateau.structure.block.Bed;
 import net.cnam.chateau.structure.block.decorative.Desk;
 import net.cnam.chateau.structure.block.decorative.Seat;
 import net.cnam.chateau.structure.block.decorative.Table;

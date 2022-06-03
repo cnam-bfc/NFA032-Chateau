@@ -8,6 +8,9 @@ import net.cnam.chateau.gui.play.container.ContainerMenu;
 import net.cnam.chateau.item.Item;
 import net.cnam.chateau.structure.block.Block;
 
+/**
+ * Class permettant de créer des blocks contenants des objets
+ */
 public abstract class Container extends Block implements PlayerInteractListener {
     private final App app;
     private Item hiddenItem;

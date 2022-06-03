@@ -14,10 +14,21 @@ import net.cnam.chateau.structure.block.trap.Trap;
 
 import java.util.Random;
 
+/**
+ * Classe permettant de créer un block Porte Piégée
+ */
 public class TrappedDoor extends Door implements BlockListener {
     private final App app;
     private final Trap trap;
 
+    /**
+     * Constructeur de la classe Porte Piégée
+     * @param app       L'application
+     * @param stage     L'étage où se situe la porte
+     * @param roomOne   La première pièce de la porte
+     * @param roomTwo   La deuxième pièce de la porte
+     * @param random    Le random de la partie
+     */
     public TrappedDoor(App app, Stage stage, Room roomOne, Room roomTwo, Random random) {
         super(stage, roomOne, roomTwo);
 
@@ -29,10 +40,18 @@ public class TrappedDoor extends Door implements BlockListener {
         }
     }
 
+    /**
+     * Méthode d'accès au piège
+     * @return Le piège
+     */
     public Trap getTrap() {
         return trap;
     }
 
+    /**
+     * Méthode permettant de savoir si le porte de la piège a été activée
+     * @return True si le porte de la piège a été activée, false sinon
+     */
     @Override
     public boolean isLocked() {
         return !this.trap.isUsed();
@@ -48,6 +67,11 @@ public class TrappedDoor extends Door implements BlockListener {
         super.onEntityEnterBlock(event);
     }
 
+    /**
+     * Méthode permettant de récupérer le caractère représentant la porte.
+     * "D" vert
+     * @return Le caractère représentant la porte
+     */
     @Override
     public String getCharacter() {
         return CColor.GREEN + "D" + CColor.GREEN.getForegroundReset();

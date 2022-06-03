@@ -3,7 +3,7 @@ package net.cnam.chateau.gui.play.bed;
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.structure.block.decorative.Bed;
+import net.cnam.chateau.structure.block.Bed;
 
 import java.util.Random;
 
