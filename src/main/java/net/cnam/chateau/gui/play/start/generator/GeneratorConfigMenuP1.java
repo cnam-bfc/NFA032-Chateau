@@ -15,6 +15,8 @@ public class GeneratorConfigMenuP1 extends CFrame implements DisplayableComponen
     private final GeneratorConfigSlider maxStageSlider;
     private final GeneratorConfigSlider minSizeStageSlider;
     private final GeneratorConfigSlider maxSizeStageSlider;
+    private final GeneratorConfigSlider minSizeRoomSlider;
+    private final GeneratorConfigSlider maxSizeRoomSlider;
 
     private boolean display = true;
 
@@ -25,18 +27,30 @@ public class GeneratorConfigMenuP1 extends CFrame implements DisplayableComponen
         this.generatorSettings = generatorSettings;
 
         CChoices choices = new CChoices(app, 1);
+
         // minStage
         this.minStageSlider = new GeneratorConfigSlider(this, "Nombre d'étages minimum");
         choices.add(this.minStageSlider);
+
         // maxStage
         this.maxStageSlider = new GeneratorConfigSlider(this, "Nombre d'étages maximum");
         choices.add(this.maxStageSlider);
+
         // minSizeStage
         this.minSizeStageSlider = new GeneratorConfigSlider(this, "Taille minimale des étages");
         choices.add(this.minSizeStageSlider);
+
         // maxSizeStage
         this.maxSizeStageSlider = new GeneratorConfigSlider(this, "Taille maximale des étages");
         choices.add(this.maxSizeStageSlider);
+
+        // minSizeRoom
+        this.minSizeRoomSlider = new GeneratorConfigSlider(this, "Taille minimale des pièces");
+        choices.add(this.minSizeRoomSlider);
+
+        // maxSizeRoom
+        this.maxSizeRoomSlider = new GeneratorConfigSlider(this, "Taille maximale des pièces");
+        choices.add(this.maxSizeRoomSlider);
 
         update();
 
@@ -71,6 +85,10 @@ public class GeneratorConfigMenuP1 extends CFrame implements DisplayableComponen
             generatorSettings.setMinSizeStage(minSizeStageSlider.getValue());
         } else if (updatedSlider == maxSizeStageSlider) {
             generatorSettings.setMaxSizeStage(maxSizeStageSlider.getValue());
+        } else if (updatedSlider == minSizeRoomSlider) {
+            generatorSettings.setMinSizeRoom(minSizeRoomSlider.getValue());
+        } else if (updatedSlider == maxSizeRoomSlider) {
+            generatorSettings.setMaxSizeRoom(maxSizeRoomSlider.getValue());
         }
 
         update();
@@ -100,5 +118,17 @@ public class GeneratorConfigMenuP1 extends CFrame implements DisplayableComponen
         this.maxSizeStageSlider.setMinValue(maxSizeStage.getElemOne());
         this.maxSizeStageSlider.setMaxValue(maxSizeStage.getElemTwo());
         this.maxSizeStageSlider.forceValue(this.generatorSettings.getMaxSizeStage());
+
+        // minSizeRoom
+        Couple<Integer, Integer> minSizeRoom = this.generatorSettings.verifyMinSizeRoom();
+        this.minSizeRoomSlider.setMinValue(minSizeRoom.getElemOne());
+        this.minSizeRoomSlider.setMaxValue(minSizeRoom.getElemTwo());
+        this.minSizeRoomSlider.forceValue(this.generatorSettings.getMinSizeRoom());
+
+        // maxSizeRoom
+        Couple<Integer, Integer> maxSizeRoom = this.generatorSettings.verifyMaxSizeRoom();
+        this.maxSizeRoomSlider.setMinValue(maxSizeRoom.getElemOne());
+        this.maxSizeRoomSlider.setMaxValue(maxSizeRoom.getElemTwo());
+        this.maxSizeRoomSlider.forceValue(this.generatorSettings.getMaxSizeRoom());
     }
 }
