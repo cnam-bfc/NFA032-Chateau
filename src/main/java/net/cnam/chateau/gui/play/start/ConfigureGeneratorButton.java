@@ -2,7 +2,7 @@ package net.cnam.chateau.gui.play.start;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.play.start.generator.GeneratorConfigMenuP1;
+import net.cnam.chateau.gui.play.start.generator.GeneratorConfigMenu;
 
 public class ConfigureGeneratorButton extends CButton {
     private final App app;
@@ -17,6 +17,6 @@ public class ConfigureGeneratorButton extends CButton {
 
     @Override
     public void execute() {
-        app.getConsole().show(new GeneratorConfigMenuP1(app, playMenu.getGeneratorSettings()));
+        app.getConsole().show(new GeneratorConfigMenu(app, playMenu.getGeneratorSettings()));
     }
 }

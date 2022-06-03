@@ -282,7 +282,7 @@ public class GeneratorSettings {
         this.luckSpecialEnemy = luckSpecialEnemy;
     }
 
-    public Couple<Integer, Integer> verifySpecialEnemy() {
+    public Couple<Integer, Integer> verifyLuckSpecialEnemy() {
         return new Couple<>(10, 30);
     }
 }
