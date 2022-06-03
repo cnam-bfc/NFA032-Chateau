@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.information.credits;
+package net.cnam.chateau.gui.main.menu.information.credits;
 
 import net.cnam.chateau.gui.CColor;
 import net.cnam.chateau.gui.component.*;

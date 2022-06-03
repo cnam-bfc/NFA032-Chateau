@@ -34,74 +34,80 @@ public class CProgressBar extends CComponent {
 
     @Override
     public String[] render() {
-        StringBuilder textLine = new StringBuilder(text.replace("%VALUE%", value + "")
-                .replace("%MAX_VALUE%", maxValue + "")
-                .replace("%MIN_VALUE%", minValue + "")
-                .replace("%PERCENT%", (int) ((float) (value - minValue) / (maxValue - minValue) * 100) + " %"));
-
-        String[] textSeparated = textLine.toString().split("%SEPARATOR%");
-        if (textSeparated.length > 1) {
-            int allSeparatorsLength = this.getLength() - textLine.toString().replace("%SEPARATOR%", "").length();
-            int separatorLength = allSeparatorsLength / (textSeparated.length - 1);
-            int remainder = allSeparatorsLength % (textSeparated.length - 1);
-            textLine = new StringBuilder();
-            for (int i = 0; i < textSeparated.length; i++) {
-                textLine.append(textSeparated[i]);
-                if (i < textSeparated.length - 1) {
-                    for (int j = 0; j < separatorLength; j++) {
-                        if (remainder > 0) {
-                            textLine.append(" ");
-                            remainder--;
-                        }
-                        textLine.append(" ");
-                    }
-                }
-            }
-        }
-
-        if (textLine.length() > getLength()) {
-            textLine = new StringBuilder(textLine.substring(0, getLength()));
-        } else if (textLine.length() < getLength()) {
-            int diff = getLength() - textLine.length();
-            int left = diff / 2;
-            int right = diff - left;
-            textLine = new StringBuilder(" ".repeat(left) + textLine + " ".repeat(right));
-        }
-
         String[] result = new String[this.getHeight()];
 
         int progressed = (int) ((float) (value - minValue) / (maxValue - minValue) * this.getLength());
 
-        StringBuilder line = new StringBuilder();
-
-        ListIterator<CColor> textColorsIterator = textColors.listIterator();
-        while (textColorsIterator.hasNext()) {
-            line.append(textColorsIterator.next().getForeground());
-        }
-
-        ListIterator<CColor> progressedColorIterator = progressedColors.listIterator();
-        while (progressedColorIterator.hasNext()) {
-            line.append(progressedColorIterator.next().getBackground());
-        }
-        line.append(textLine.substring(0, progressed));
-        while (progressedColorIterator.hasPrevious()) {
-            line.append(progressedColorIterator.previous().getBackgroundReset());
-        }
-
-        ListIterator<CColor> unProgressedColorIterator = unProgressedColors.listIterator();
-        while (unProgressedColorIterator.hasNext()) {
-            line.append(unProgressedColorIterator.next().getBackground());
-        }
-        line.append(textLine.substring(progressed));
-        while (unProgressedColorIterator.hasPrevious()) {
-            line.append(unProgressedColorIterator.previous().getBackgroundReset());
-        }
-
-        while (textColorsIterator.hasPrevious()) {
-            line.append(textColorsIterator.previous().getForegroundReset());
-        }
+        String[] textLines = text.split("\n");
 
         for (int linePointer = 0; linePointer < result.length; linePointer++) {
+            StringBuilder textLine = new StringBuilder();
+
+            if (linePointer < textLines.length) {
+                textLine = new StringBuilder(textLines[linePointer].replace("%VALUE%", value + "")
+                        .replace("%MAX_VALUE%", maxValue + "")
+                        .replace("%MIN_VALUE%", minValue + "")
+                        .replace("%PERCENT%", (int) ((float) (value - minValue) / (maxValue - minValue) * 100) + " %"));
+
+                String[] textSeparated = textLine.toString().split("%SEPARATOR%");
+                if (textSeparated.length > 1) {
+                    int allSeparatorsLength = this.getLength() - textLine.toString().replace("%SEPARATOR%", "").length();
+                    int separatorLength = allSeparatorsLength / (textSeparated.length - 1);
+                    int remainder = allSeparatorsLength % (textSeparated.length - 1);
+                    textLine = new StringBuilder();
+                    for (int i = 0; i < textSeparated.length; i++) {
+                        textLine.append(textSeparated[i]);
+                        if (i < textSeparated.length - 1) {
+                            for (int j = 0; j < separatorLength; j++) {
+                                if (remainder > 0) {
+                                    textLine.append(" ");
+                                    remainder--;
+                                }
+                                textLine.append(" ");
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (textLine.length() > getLength()) {
+                textLine = new StringBuilder(textLine.substring(0, getLength()));
+            } else if (textLine.length() < getLength()) {
+                int diff = getLength() - textLine.length();
+                int left = diff / 2;
+                int right = diff - left;
+                textLine = new StringBuilder(" ".repeat(left) + textLine + " ".repeat(right));
+            }
+
+            StringBuilder line = new StringBuilder();
+
+            ListIterator<CColor> textColorsIterator = textColors.listIterator();
+            while (textColorsIterator.hasNext()) {
+                line.append(textColorsIterator.next().getForeground());
+            }
+
+            ListIterator<CColor> progressedColorIterator = progressedColors.listIterator();
+            while (progressedColorIterator.hasNext()) {
+                line.append(progressedColorIterator.next().getBackground());
+            }
+            line.append(textLine.substring(0, progressed));
+            while (progressedColorIterator.hasPrevious()) {
+                line.append(progressedColorIterator.previous().getBackgroundReset());
+            }
+
+            ListIterator<CColor> unProgressedColorIterator = unProgressedColors.listIterator();
+            while (unProgressedColorIterator.hasNext()) {
+                line.append(unProgressedColorIterator.next().getBackground());
+            }
+            line.append(textLine.substring(progressed));
+            while (unProgressedColorIterator.hasPrevious()) {
+                line.append(unProgressedColorIterator.previous().getBackgroundReset());
+            }
+
+            while (textColorsIterator.hasPrevious()) {
+                line.append(textColorsIterator.previous().getForegroundReset());
+            }
+
             result[linePointer] = line.toString();
         }
 
@@ -125,7 +131,13 @@ public class CProgressBar extends CComponent {
     }
 
     public void setValue(int value) {
-        this.value = value;
+        if (value < minValue) {
+            this.value = minValue;
+        } else if (value > maxValue) {
+            this.value = maxValue;
+        } else {
+            this.value = value;
+        }
     }
 
     public int getMinValue() {

@@ -2,12 +2,14 @@ package net.cnam.chateau.gui.play.start;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
+import net.cnam.chateau.GeneratorSettings;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class PlayMenu extends CFrame implements DisplayableComponent {
+    private final GeneratorSettings generatorSettings = new GeneratorSettings();
     private final CTextField playerNameField;
     private final CTextField seedField;
     private boolean display = true;
@@ -26,10 +28,15 @@ public class PlayMenu extends CFrame implements DisplayableComponent {
         CChoices choices = new CChoices(app, 1);
         choices.add(playerNameField);
         choices.add(seedField);
+        choices.add(new ConfigureGeneratorButton(app, this));
         choices.add(actions);
         choices.select(actions);
 
         this.getContentPane().getComponents().add(choices);
+    }
+
+    public GeneratorSettings getGeneratorSettings() {
+        return generatorSettings;
     }
 
     public CTextField getPlayerNameField() {
