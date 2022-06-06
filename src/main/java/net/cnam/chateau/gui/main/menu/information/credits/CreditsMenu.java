@@ -1,6 +1,7 @@
 package net.cnam.chateau.gui.main.menu.information.credits;
 
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.utils.direction.Orientation;
 

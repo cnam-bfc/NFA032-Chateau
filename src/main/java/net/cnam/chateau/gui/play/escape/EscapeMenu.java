@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.play.escape;
 import net.cnam.chateau.App;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.game.Game;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.main.menu.information.InfoButton;

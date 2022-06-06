@@ -4,7 +4,7 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.GeneratorSettings;
 import net.cnam.chateau.SettingsFileCorruptedException;
 import net.cnam.chateau.gui.common.QuitComponentButton;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.dialog.DialogType;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 

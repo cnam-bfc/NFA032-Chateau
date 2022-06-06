@@ -3,7 +3,7 @@ package net.cnam.chateau.gui.main.menu.statistics;
 import net.cnam.chateau.game.Statistic;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 
 public class ViewStatisticMenu extends CFrame implements DisplayableComponent {
     public ViewStatisticMenu(Statistic statistic) {

@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.main.menu.information.structure;
 import net.cnam.chateau.App;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.utils.direction.Direction;

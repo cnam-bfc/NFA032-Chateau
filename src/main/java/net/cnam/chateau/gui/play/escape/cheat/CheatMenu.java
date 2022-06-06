@@ -7,7 +7,7 @@ import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CTextField;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.play.escape.EscapeMenu;
 
 public class CheatMenu extends CFrame implements DisplayableComponent {

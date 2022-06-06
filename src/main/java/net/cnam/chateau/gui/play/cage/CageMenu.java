@@ -2,6 +2,7 @@ package net.cnam.chateau.gui.play.cage;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.PetStats;
