@@ -26,7 +26,7 @@ public class SaveButton extends QuitComponentButton {
         try {
             app.getSettings().save(settingsFile);
         } catch (IOException e) {
-            app.getConsole().show(new ErrorDialog(ErrorDialog.Type.ERROR, "Impossible de sauvegarder les paramètres\n \nErreur : " + e.getMessage()));
+            app.getConsole().show(new ErrorDialog(DialogType.ERROR, "Impossible de sauvegarder les paramètres\n \nErreur : " + e.getMessage()));
         }
     }
 }
