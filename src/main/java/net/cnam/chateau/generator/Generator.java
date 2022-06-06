@@ -19,7 +19,6 @@ import net.cnam.chateau.structure.*;
 import net.cnam.chateau.structure.block.*;
 import net.cnam.chateau.structure.block.container.Chest;
 import net.cnam.chateau.structure.block.container.Wardrobe;
-import net.cnam.chateau.structure.block.Bed;
 import net.cnam.chateau.structure.block.decorative.Desk;
 import net.cnam.chateau.structure.block.decorative.Seat;
 import net.cnam.chateau.structure.block.decorative.Table;
@@ -33,7 +32,8 @@ import net.cnam.chateau.utils.array.ArrayUtils;
 import java.util.*;
 
 /**
- * Classe pour la génération de la map
+ * Classe pour la génération de la map.
+ * Utilise un objet Random permettant d'utiliser une seed afin de retrouver le même château sur des paramètres identiques.
  */
 public class Generator {
 
@@ -52,11 +52,13 @@ public class Generator {
     private Location playerStartLocation;
 
     /**
-     * Constructeur
+     * Constructeur.
+     * On initialisera dans le constructeur les différentes listes des entités spéciales et uniques non aléatoirement crées.
      *
-     * @param app  L'application
-     * @param game La partie
-     * @param seed long qui permet de générer la carte de façon procédurale
+     * @param app      L'application
+     * @param game     La partie en cours
+     * @param seed     La seed permettant la génération aléatoire de la map
+     * @param settings Les paramètres de génération
      */
     public Generator(App app, Game game, long seed, GeneratorSettings settings) {
         this.app = app;
@@ -64,16 +66,15 @@ public class Generator {
         this.random = new Random(seed);
         this.settings = settings;
 
-        // TODO Revérifier les noms
-        // Initialisation des pets
-        pets.add(new Pet(app,"Babe", 75, 20, 15, 10));
+        // Initialisation des familiers
+        pets.add(new Pet(app, "Babe", 75, 20, 15, 10));
         pets.add(new Pet(app, "Chat Potté", 50, 15, 25, 25));
         pets.add(new Pet(app, "Idéfix", 60, 15, 10, 10));
         pets.add(new Pet(app, "Winnie", 75, 20, 15, 10));
         pets.add(new Pet(app, "Panpan", 50, 10, 20, 20));
         pets.add(new Pet(app, "Pépé L'oiseau", 50, 10, 20, 20));
 
-        // Initialisation des ennemis
+        // Initialisation des ennemis spéciaux (mini-boss)
         specialEnemies.add(new Demogorgon(app, null, null, "Chef demogorgon : Demo-Bob", 100, 20, 17, 10));
         specialEnemies.add(new Harpy(app, null, null, "Cheffe harpie : Senga-Eiram", 100, 10, 25, 25));
         specialEnemies.add(new HeadlessKnight(app, null, null, "Chef chevalier sans tete : 720-headshot", 100, 15, 20, 15));
@@ -83,14 +84,14 @@ public class Generator {
         specialEnemies.add(new Zombie(app, null, null, "Chef zombie : Maxime", 100, 15, 15, 15));
 
         // Initialisation des sages
-        sages.add(new Sage(app, "Dumbledore", game.getRandomPuzzle(), 75, 20 , 10 , 10));
-        sages.add(new Sage(app, "Merlin", game.getRandomPuzzle(), 100,15,15,10));
-        sages.add(new Sage(app, "Kristoff", game.getRandomPuzzle(), 75, 20 , 15 ,10));
-        sages.add(new Sage(app, "Sage : Ither", game.getRandomPuzzle(),75,10,20,20));
-        sages.add(new Sage(app, "Salomon", game.getRandomPuzzle(),100,10,15,15));
-        sages.add(new Sage(app, "Pressea", game.getRandomPuzzle(),75,15,15,10));
-        sages.add(new Sage(app, "Deujna", game.getRandomPuzzle(),75,10,20,20));
-        sages.add(new Sage(app, "Sardoche", game.getRandomPuzzle(),100,20,20,15));
+        sages.add(new Sage(app, "Dumbledore", game.getRandomPuzzle(), 75, 20, 10, 10));
+        sages.add(new Sage(app, "Merlin", game.getRandomPuzzle(), 100, 15, 15, 10));
+        sages.add(new Sage(app, "Kristoff", game.getRandomPuzzle(), 75, 20, 15, 10));
+        sages.add(new Sage(app, "Sage : Ither", game.getRandomPuzzle(), 75, 10, 20, 20));
+        sages.add(new Sage(app, "Salomon", game.getRandomPuzzle(), 100, 10, 15, 15));
+        sages.add(new Sage(app, "Pressea", game.getRandomPuzzle(), 75, 15, 15, 10));
+        sages.add(new Sage(app, "Deujna", game.getRandomPuzzle(), 75, 10, 20, 20));
+        sages.add(new Sage(app, "Sardoche", game.getRandomPuzzle(), 100, 20, 20, 15));
 
         // Initialisation des armes spéciales
         specialWeapons.add((new Weapon("La grosse louche", "Louche divine léchée par Etchebest lui même", 15, 10, 5)));
@@ -108,10 +109,10 @@ public class Generator {
     }
 
     /**
-     * Méthode qui génère un chateau de A à Z. Appelle la méthode qui génère des
-     * étages
+     * Méthode qui génère un chateau de A à Z.
+     * Appelle la méthode qui génère des étages
      *
-     * @return un Chateau
+     * @return un Château
      */
     public Castle generateCastle() {
         return new Castle(this.generateStages(), this.playerStartLocation, seed);
@@ -120,8 +121,7 @@ public class Generator {
     /**
      * Méthode qui génère des étages finis.
      *
-     * @return un tableau d'étage qui composera le chateau (salle de boss non
-     * comprise)
+     * @return un tableau d'étage qui composera le chateau (salle de boss non comprise)
      */
     public Stage[] generateStages() {
         Stage[] stages = new Stage[this.random.nextInt(settings.getMinStage(), settings.getMaxStage() + 1)];
@@ -210,7 +210,8 @@ public class Generator {
     }
 
     /**
-     * Méthode qui génère un étage en procédant à des découpes.
+     * Méthode qui génère un étage.
+     * On procède dans la méthode à la découpe et l'ajout d'ennemie..
      *
      * @return un étage
      */
@@ -273,7 +274,8 @@ public class Generator {
     }
 
     /**
-     * Méthode permettant de vérifier que les pièces ne sont pas trop grande, sinon division
+     * Méthode permettant de vérifier que les pièces ne sont pas trop grande.
+     * Si une pièce est trop grande, on la divise.
      *
      * @param rooms tableau de pièce d'un étage
      */
@@ -291,8 +293,9 @@ public class Generator {
     }
 
     /**
-     * Méthode permettant de définir le sens de découpe. Découpe dans le sens ou
-     * la pièce est la plus longue Si longueur = largeur : découpe random
+     * Méthode permettant de définir le sens de découpe.
+     * Découpe dans le sens où la pièce est la plus grande.
+     * Si longueur = largeur alors on procède à une découpe dans un sens aléatoire.
      *
      * @param room la pièce à découper
      * @return un couple de pièce résultant de la pièce passé en paramètre
@@ -534,19 +537,23 @@ public class Generator {
             switch (random.nextInt(1, 6)) {
                 case 1 -> {
                     Chest chest = new Chest(app);
-                    if (random.nextBoolean()) {
-                        chest.setHiddenItem(getItem());
-                    } else {
-                        chest.setHiddenItem(getWeapon());
+                    if (random.nextInt(1, 101) < 41) {
+                        if (random.nextBoolean()) {
+                            chest.setHiddenItem(getItem());
+                        } else {
+                            chest.setHiddenItem(getWeapon());
+                        }
                     }
                     return chest;
                 }
                 case 2 -> {
                     Wardrobe wardrobe = new Wardrobe(app);
-                    if (random.nextInt(0, 3) < 2) {
-                        wardrobe.setHiddenItem(getItem());
-                    } else {
-                        wardrobe.setHiddenItem(getWeapon());
+                    if (random.nextInt(1, 101) < 26) {
+                        if (random.nextInt(0, 3) < 2) {
+                            wardrobe.setHiddenItem(getItem());
+                        } else {
+                            wardrobe.setHiddenItem(getWeapon());
+                        }
                     }
                     return wardrobe;
                 }
@@ -585,6 +592,12 @@ public class Generator {
         return null;
     }
 
+    /**
+     * Méthode qui permet de piocher un familier aléatoire dans la liste initialisée.
+     * Si plus de familier dans la liste, renvoie null.
+     *
+     * @return
+     */
     private Pet getRandomPet() {
         if (pets.isEmpty()) {
             return null;
@@ -593,64 +606,112 @@ public class Generator {
         return pets.remove(random.nextInt(0, pets.size()));
     }
 
+    /**
+     * Méthode qui permet de retourner un ennemi aléatoire entre la liste d'ennemi spéciaux et des ennemis aléatoires.
+     *
+     * @param stage    L'étage
+     * @param location La position où l'ennemi doit être créé
+     * @return L'ennemi
+     */
     public Enemy getRandomEnemy(Stage stage, Location location) {
         if (random.nextInt(1, 101) < settings.getLuckSpecialEnemy() && !specialEnemies.isEmpty()) {
-            return getSpecialEnemy();
+            return getSpecialEnemy(stage, location);
         } else {
             return getRandomisedEnemy(stage, location);
         }
     }
 
+    /**
+     * Méthode qui permet de retourner un ennemi spécial aléatoire entre la liste d'ennemi spéciaux.
+     * Si la liste d'ennemi spécial est vide, renvoie un ennemi aléatoirement généré.
+     *
+     * @return L'ennemi
+     */
+    public Enemy getSpecialEnemy(Stage stage, Location location) {
+        if (specialEnemies.isEmpty()) {
+            return getRandomisedEnemy(stage, location);
+        }
+        return specialEnemies.remove(random.nextInt(0, specialEnemies.size()));
+    }
+
+    /**
+     * Méthode qui génère un ennemi aléatoire.
+     * L'ennemi peut potentiellement porter un objet ou une arme.
+     *
+     * @param stage    L'étage
+     * @param location La position où l'ennemi doit être créé
+     * @return L'ennemi
+     */
     public Enemy getRandomisedEnemy(Stage stage, Location location) {
         Enemy entity = null;
         switch (random.nextInt(0, 7)) {
             case 0 -> {
                 entity = new Demogorgon(app, stage, location, random);
-                entity.setItem(getItem());
+                if (random.nextInt(0, 3) < 1) {
+                    entity.setWeapon(getWeapon());
+                }
+                if (random.nextInt(0, 3) < 2) {
+                    entity.setItem(getItem());
+                }
             }
             case 1 -> {
                 entity = new Harpy(app, stage, location, random);
                 entity.setItem(getItem());
-                entity.setWeapon(getWeapon());
+                if (random.nextInt(0, 3) < 1) {
+                    entity.setWeapon(getWeapon());
+                }
             }
             case 2 -> {
                 entity = new HeadlessKnight(app, stage, location, random);
-                entity.setItem(getItem());
-                entity.setWeapon(getWeapon());
+                if (random.nextInt(0, 3) < 2) {
+                    entity.setItem(getItem());
+                }
+                if (random.nextInt(0, 4) < 3) {
+                    entity.setWeapon(getWeapon());
+                }
             }
             case 3 -> {
                 entity = new Morbol(app, stage, location, random);
-                entity.setItem(getItem());
+                if (random.nextInt(0, 3) < 2) {
+                    entity.setItem(getItem());
+                }
             }
             case 4 -> entity = new Spider(app, stage, location, random);
             case 5 -> {
                 entity = new Werewolf(app, stage, location, random);
-                entity.setItem(getItem());
+                if (random.nextInt(0, 3) < 2) {
+                    entity.setItem(getItem());
+                }
             }
-            case 6 -> entity = new Zombie(app, stage, location, random);
+            case 6 -> {
+                entity = new Zombie(app, stage, location, random);
+                if (random.nextInt(0, 3) < 1) {
+                    entity.setItem(getItem());
+                }
+            }
         }
         return entity;
     }
 
-    public Enemy getSpecialEnemy() {
-        if (specialEnemies.isEmpty()) {
-            return null;
-        }
-
-        return specialEnemies.remove(random.nextInt(0, specialEnemies.size()));
-    }
-
+    /**
+     * Méthode qui permet de retourner une arme soit spéciale soit aléatoire.
+     *
+     * @return L'arme
+     */
     public Weapon getWeapon() {
         int random = this.random.nextInt(1, 101);
-        if (random <= 5 && !specialWeapons.isEmpty()) {
+        if (random <= 10 && !specialWeapons.isEmpty()) {
             return getRandomSpecialWeapon();
-        }
-        if (random <= 50) {
+        } else {
             return getRandomWeapon();
         }
-        return null;
     }
 
+    /**
+     * Méthode qui permet de retourner une arme généré de façon aléatoire.
+     *
+     * @return L'arme
+     */
     public Weapon getRandomWeapon() {
         Weapon weapon = null;
         switch (random.nextInt(0, 4)) {
@@ -662,6 +723,12 @@ public class Generator {
         return weapon;
     }
 
+    /**
+     * Méthode qui permet de retourner une arme spéciale.
+     * Si la liste d'arme spéciale est vide, renvoie une arme aléatoire.
+     *
+     * @return L'arme
+     */
     public Weapon getRandomSpecialWeapon() {
         if (!specialWeapons.isEmpty()) {
             return specialWeapons.remove(random.nextInt(0, specialWeapons.size()));
@@ -669,19 +736,25 @@ public class Generator {
         return getRandomWeapon();
     }
 
+    /**
+     * Méthode qui permet de retourner un objet soit spécial soit aléatoire.
+     *
+     * @return L'objet
+     */
     public Item getItem() {
-        // TODO choisie si un item sera donné ou non, si oui le type et la rareté
         int random = this.random.nextInt(1, 101);
-        if (random <= 5 && !specialWearable.isEmpty()) {
+        if (random <= 10 && !specialWearable.isEmpty()) {
             return getRandomSpecialWearableItem();
-        }
-        if (random <= 50) {
+        } else {
             return getRandomItem();
         }
-        return null;
-
     }
 
+    /**
+     * Méthode qui permet de retourner un objet généré de façon aléatoire.
+     *
+     * @return L'objet
+     */
     public Item getRandomItem() {
         Item item = null;
         if (random.nextInt(0, 4) < 3) {
@@ -699,6 +772,11 @@ public class Generator {
         return item;
     }
 
+    /**
+     * Méthode qui permet de retourner un objet spécial.
+     *
+     * @return L'objet
+     */
     public Item getRandomSpecialWearableItem() {
         if (!specialWearable.isEmpty()) {
             return specialWearable.remove(random.nextInt(0, specialWearable.size()));
@@ -706,6 +784,12 @@ public class Generator {
         return getRandomItem();
     }
 
+    /**
+     * Méthode qui permet de retourner un sage aléatoire provenant de la liste.
+     * Retourne null si la liste est vide.
+     *
+     * @return Le sage
+     */
     private Sage getRandomSage() {
         if (sages.isEmpty()) {
             return null;
@@ -714,6 +798,15 @@ public class Generator {
         return sages.remove(random.nextInt(0, sages.size()));
     }
 
+    /**
+     * Méthode qui permet de retourner une porte aléatoire.
+     * Si la liste de sage est vide, renvoie une EnemyDoor.
+     *
+     * @param stage     L'étage
+     * @param roomOne   La première pièce
+     * @param roomTwo   La deuxième pièce
+     * @return La porte
+     */
     private Door getRandomDoor(Stage stage, Room roomOne, Room roomTwo) {
         int randomInt = random.nextInt(1, 101);
         if (randomInt < 70) {

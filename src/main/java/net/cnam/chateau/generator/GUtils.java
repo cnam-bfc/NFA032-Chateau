@@ -113,15 +113,23 @@ public class GUtils {
         return placeExit(app, decompositionNiveau, random);
     }
 
+    /**
+     * Méthode qui place l'escalier de sortie de l'étage.
+     *
+     * @param app                   L'application
+     * @param decompositionNiveau   La liste des niveaux topologiques
+     * @param random                Le random
+     * @return L'escalier de sortie
+     */
     private static UpStair placeExit(App app, List<List<GRoom>> decompositionNiveau, Random random) {
-        //ici on choisie la room
+        // On prend le dernier niveau du tri topologique et on pioche une room au hasard
         List<GRoom> rooms = decompositionNiveau.get(decompositionNiveau.size() - 1);
         Room room = rooms.get(random.nextInt(0, rooms.size())).getRoom();
 
-        //on ferme la pièce et on cache la clé dans une autre pièce
+        // On ferme la pièce et on cache la clé dans une autre pièce
         hideKey(app, room, decompositionNiveau, random);
 
-        //On récupère un emplacement ou il est possible de placer la porte de sortie de l'étage
+        // On récupère un emplacement ou il est possible de placer la porte de sortie de l'étage
         Location location = findPosition(random, room);
         int x = location.getX();
         int y = location.getY();
@@ -166,6 +174,6 @@ public class GUtils {
         Location location = findPosition(random, keyRoom);
         int x = location.getX();
         int y = location.getY();
-        keyRoom.getBlocks()[x][y] = new Chest(app, key); // TODO à modif pour faire varier block
+        keyRoom.getBlocks()[x][y] = new Chest(app, key);
     }
 }
