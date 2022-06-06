@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.play.door.trap;
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.component.CButton;
+import net.cnam.chateau.gui.dialog.DialogType;
 import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.structure.block.door.TrappedDoor;
 import net.cnam.chateau.structure.block.trap.BadTrap;
@@ -27,12 +28,12 @@ public class AcceptTrapButton extends CButton {
     public void execute() {
         door.getTrap().setActivate(false);
         if (door.getTrap() instanceof BadTrap trap) {
-            app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n" +
+            app.getConsole().show(new InfoDialog(DialogType.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n" +
                     "Malheureusement, c'était une mauvaise idée ! \nC'était " +
                     trap.getDescription() + "\nCela vous a infligé : " + trap.getDmg() + " points de dégâts !"));
         }
         if (door.getTrap() instanceof GoodTrap trap) {
-            app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n" +
+            app.getConsole().show(new InfoDialog(DialogType.INFO, "Vous avez fait le choix d'accepter votre sort !\n \n" +
                     "Par chance c'était un piège bénéfique ! \nC'était " +
                     trap.getDescription() + "\nCela vous a restauré : " + trap.getHealth() + " points de vies !"));
         }

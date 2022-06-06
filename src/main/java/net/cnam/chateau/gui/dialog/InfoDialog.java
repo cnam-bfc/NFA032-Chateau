@@ -9,11 +9,11 @@ import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.utils.StringUtils;
 
 public class InfoDialog extends CFrame implements DisplayableComponent {
-    public InfoDialog(Type type, String text) {
+    public InfoDialog(DialogType type, String text) {
         this(type, StringUtils.convertStringToStringArray(text));
     }
 
-    public InfoDialog(Type type, String[] text) {
+    public InfoDialog(DialogType type, String[] text) {
         super(AppSettings.CONSOLE_MIN_LENGTH, AppSettings.CONSOLE_MIN_HEIGHT);
 
         CLabel title = new CLabel("Message");
@@ -50,26 +50,5 @@ public class InfoDialog extends CFrame implements DisplayableComponent {
 
     @Override
     public void stopLoopingMode() {
-    }
-
-    public enum Type {
-        INFO("\u24D8 Information \u24D8", "Appuyez sur une touche pour continuer..."),
-        WARNING("\u26A0 Attention \u26A0", "Appuyez sur une touche pour continuer...");
-
-        private final String title;
-        private final String footer;
-
-        Type(String text, String footer) {
-            this.title = text;
-            this.footer = footer;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getFooter() {
-            return footer;
-        }
     }
 }

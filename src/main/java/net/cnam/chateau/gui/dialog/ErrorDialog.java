@@ -6,11 +6,11 @@ import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.utils.StringUtils;
 
 public class ErrorDialog extends CFrame implements DisplayableComponent {
-    public ErrorDialog(Type type, String text) {
+    public ErrorDialog(DialogType type, String text) {
         this(type, StringUtils.convertStringToStringArray(text));
     }
 
-    public ErrorDialog(Type type, String[] text) {
+    public ErrorDialog(DialogType type, String[] text) {
         super(AppSettings.CONSOLE_MIN_LENGTH, AppSettings.CONSOLE_MIN_HEIGHT);
 
         CLabel title = new CLabel("Erreur");
@@ -27,7 +27,7 @@ public class ErrorDialog extends CFrame implements DisplayableComponent {
         this.getContentPane().getComponents().add(introMessage);
 
         CLabel errorMessage = new CLabel(text, this.getLength() - 2);
-        if (type.equals(Type.EXCEPTION)) {
+        if (type.equals(DialogType.EXCEPTION)) {
             errorMessage.setHorizontalAlignment(HorizontalAlignment.LEFT);
         }
         errorMessage.getColors().add(CColor.RED);
@@ -50,27 +50,5 @@ public class ErrorDialog extends CFrame implements DisplayableComponent {
 
     @Override
     public void stopLoopingMode() {
-    }
-
-    public enum Type {
-        WARNING("\u26A0 Attention \u26A0", "Appuyez sur une touche pour continuer..."),
-        ERROR("\u26A0 Une erreur est survenue \u26A0", "Appuyez sur une touche pour continuer..."),
-        EXCEPTION("\u26A0 Une erreur fatale est survenue \u26A0", "Appuyez sur une touche pour quitter...");
-
-        private final String title;
-        private final String footer;
-
-        Type(String text, String footer) {
-            this.title = text;
-            this.footer = footer;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getFooter() {
-            return footer;
-        }
     }
 }

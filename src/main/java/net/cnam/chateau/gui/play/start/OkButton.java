@@ -3,6 +3,8 @@ package net.cnam.chateau.gui.play.start;
 import net.cnam.chateau.App;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.gui.component.CButton;
+import net.cnam.chateau.gui.dialog.DialogType;
+import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
@@ -34,6 +36,15 @@ public class OkButton extends CButton {
         } else {
             playerName = playMenu.getPlayerNameField().getText();
         }
+
+        app.getConsole().show(new InfoDialog(DialogType.HISTORY,
+                "Après une soirée bien arrosée dans un camping avec des inconnus " + playerName + " " +
+                        "se réveille, avec un léger mal de crâne dans un lieu totalement inconnu. \n \n " +
+                        "Il pense alors à une farse et se rend très rapidement compte qu'il ne peut\npas sortir.\n \n" +
+                        "En fouillant trouva dans la pièce un bout de papier et un stylo qui lui \npermettra de dessiner les lieux "+
+                        "au fur et à mesure de son avancée ! \n \n" +
+                        "Son talent de joueur lui permet de déduire que si une autre sortie existe,\nelle est sûrement sur le toit !"));
+
         long seed = 0;
         if (playMenu.getSeedField().getText().isBlank()) {
             seed = new Random().nextLong();

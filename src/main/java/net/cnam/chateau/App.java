@@ -5,6 +5,7 @@ import net.cnam.chateau.audio.SoundEffect;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.game.Statistics;
 import net.cnam.chateau.gui.Console;
+import net.cnam.chateau.gui.dialog.DialogType;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
@@ -63,7 +64,7 @@ public class App {
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException |
                      IllegalArgumentException ignored) {
             }
-            console.show(new ErrorDialog(ErrorDialog.Type.EXCEPTION, lines));
+            console.show(new ErrorDialog(DialogType.EXCEPTION, lines));
             console.finalClear(false);
         }
         audioPlayers.clear();

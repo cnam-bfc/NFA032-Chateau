@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.settings.menu;
 import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.gui.common.QuitComponentButton;
+import net.cnam.chateau.gui.dialog.DialogType;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 
 import java.io.File;
@@ -25,7 +26,7 @@ public class SaveButton extends QuitComponentButton {
         try {
             app.getSettings().save(settingsFile);
         } catch (IOException ex) {
-            app.getConsole().show(new ErrorDialog(ErrorDialog.Type.ERROR, "Impossible de sauvegarder les paramètres dans\n" + settingsFile.getAbsolutePath()));
+            app.getConsole().show(new ErrorDialog(DialogType.ERROR, "Impossible de sauvegarder les paramètres dans\n" + settingsFile.getAbsolutePath()));
         }
     }
 }

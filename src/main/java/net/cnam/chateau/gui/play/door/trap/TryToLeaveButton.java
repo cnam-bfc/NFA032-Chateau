@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.play.door.trap;
 import net.cnam.chateau.App;
 import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.common.QuitComponentButton;
+import net.cnam.chateau.gui.dialog.DialogType;
 import net.cnam.chateau.gui.dialog.InfoDialog;
 import net.cnam.chateau.structure.block.door.TrappedDoor;
 import net.cnam.chateau.structure.block.trap.BadTrap;
@@ -30,12 +31,12 @@ public class TryToLeaveButton extends QuitComponentButton {
         door.getTrap().setActivate(false);
         if (player.getSpeed() < new Random().nextInt(0, 50)) {
             if (door.getTrap() instanceof BadTrap trap) {
-                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez échoué votre fuite !\n \n" +
+                app.getConsole().show(new InfoDialog(DialogType.INFO, "Vous avez échoué votre fuite !\n \n" +
                         "Malgré tous vos efforts vous vous prenez le piège ! \nC'était " +
                         trap.getDescription() + "\nCela vous a infligé : " + trap.getDmg() + " points de dégâts !"));
             }
             if (door.getTrap() instanceof GoodTrap trap) {
-                app.getConsole().show(new InfoDialog(InfoDialog.Type.INFO, "Vous avez échoué votre fuite !\n \n" +
+                app.getConsole().show(new InfoDialog(DialogType.INFO, "Vous avez échoué votre fuite !\n \n" +
                         "Par chance c'était un piège bénéfique ! \nC'était " +
                         trap.getDescription() + "\nCela vous a restauré : " + trap.getHealth() + " points de vies !"));
             }
