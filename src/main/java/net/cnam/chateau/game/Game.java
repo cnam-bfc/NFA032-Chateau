@@ -106,7 +106,6 @@ public class Game extends CFrame implements DisplayableComponent {
         this.statistic = new Statistic(seed, playerName);
     }
 
-    // TODO Corriger les puzzles
     private void initPuzzles() {
         ArrayList<Couple<String, Boolean>> answersInit = new ArrayList<>();
         answersInit.add(new Couple<>("Ronde", true));

@@ -97,10 +97,6 @@ public class LockedDoor extends Door {
         }
     }
 
-    /**
-     * // TODO victor
-     * @param event
-     */
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         if (event.getEntity() instanceof Player player && this.lock) {

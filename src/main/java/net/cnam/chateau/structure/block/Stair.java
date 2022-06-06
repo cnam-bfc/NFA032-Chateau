@@ -19,11 +19,7 @@ public abstract class Stair extends Block implements PlayerInteractListener {
         super(name);
     }
 
-    /**
-     * TODO Victor
-     *
-     * @param event
-     */
+
     @Override
     public void onPlayerInteract(PlayerInteractEvent event) {
         try {

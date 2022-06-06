@@ -78,10 +78,6 @@ public class Door extends Block implements BlockListener {
         return false;
     }
 
-    /**
-     * // TODO Victor
-     * @param event
-     */
     @Override
     public void onEntityEnterBlock(EntityEnterBlockEvent event) {
         if (isLocked()) {

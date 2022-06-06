@@ -7,7 +7,6 @@ import net.cnam.chateau.structure.block.Exit;
 import net.cnam.chateau.structure.block.Wall;
 import net.cnam.chateau.utils.Location;
 
-// TODO mettre dans le générateur à la fin
 public class RoomBoss extends Room {
     private final DownStair entry;
     private final Block[][] blocks;

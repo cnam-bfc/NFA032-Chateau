@@ -78,11 +78,7 @@ public class Cage extends Block implements PlayerInteractListener {
         return "P";
     }
 
-    /**
-     * TODO victor
-     *
-     * @param event
-     */
+
     @Override
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();

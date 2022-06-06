@@ -24,14 +24,12 @@ public class DestroyDoorButton extends CButton {
     public void execute() {
         if (door.tryDestroy()) {
             door.setLock(false);
-            // TODO Message : vous avez réussi à enfoncer la porte
         } else {
             int damage = new Random().nextInt(5, 11);
             try {
                 player.damage(damage);
             } catch (EntityDeadException ignored) {
             }
-            // TODO Message : la porte est trop solide vous vous êtes blessé
         }
         this.menu.stopLoopingMode();
     }
