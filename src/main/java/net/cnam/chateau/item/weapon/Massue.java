@@ -30,7 +30,7 @@ public class Massue extends Weapon {
         int mediumWeapon = (MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 2;
         int greatWeapon = mediumWeapon + ((MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 4);
         if (total < mediumWeapon) {
-            return "Massupositoire";
+            return "Massue de mauvaise qualité";
         } else if (total < greatWeapon) {
             return "Masse mediocre";
         } else {

@@ -30,7 +30,7 @@ public class Epee extends Weapon {
         int mediumWeapon = (MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 2;
         int greatWeapon = mediumWeapon + ((MAX_POWER + MAX_SPEED + MAX_ACCURACY - 3) / 4);
         if (total < mediumWeapon) {
-            return "Epee te";
+            return "Epee de mauvaise qualité";
         } else if (total < greatWeapon) {
             return "Epee mediocre";
         } else {

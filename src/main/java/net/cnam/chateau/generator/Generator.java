@@ -90,16 +90,16 @@ public class Generator {
         sages.add(new Sage(app, "Sage : Ither", game.getRandomPuzzle(), 75, 10, 20, 20));
         sages.add(new Sage(app, "Salomon", game.getRandomPuzzle(), 100, 10, 15, 15));
         sages.add(new Sage(app, "Pressea", game.getRandomPuzzle(), 75, 15, 15, 10));
-        sages.add(new Sage(app, "Deujna", game.getRandomPuzzle(), 75, 10, 20, 20));
+        sages.add(new Sage(app, "Jamy", game.getRandomPuzzle(), 75, 10, 20, 20));
         sages.add(new Sage(app, "Sardoche", game.getRandomPuzzle(), 100, 20, 20, 15));
 
         // Initialisation des armes spéciales
         specialWeapons.add((new Weapon("La grosse louche", "Louche divine léchée par Etchebest lui même", 15, 10, 5)));
         specialWeapons.add((new Weapon("Frostmourne", "Une épée diabolique qui semble très puissante", 15, 5, 10)));
         specialWeapons.add((new Weapon("Masse de Molag Bal", "Une masse tout droit venu de Bordeciel !", 20, 5, 10)));
-        specialWeapons.add((new Weapon("Nuncha-couille", "Quoi de mieux que le mélange d'une arme et des bijoux de famille", 10, 5, 10)));
+        specialWeapons.add((new Weapon("Clavier", "C'est des touches mécaniques", 10, 5, 10)));
         specialWeapons.add((new Weapon("Mjolnir", "C'est pas le vrai mais il fait tout aussi mal", 20, 5, 10)));
-        specialWeapons.add((new Weapon("Excaliburne", "Il fallait en avoir des grosses pour la sortir de la roche !", 15, 10, 15)));
+        specialWeapons.add((new Weapon("Excalibur", "Elle est enfin sortie de la roche !", 15, 10, 15)));
         specialWeapons.add((new Weapon("Hache Leviathan", "Une hache précieuse et très aiguisée", 10, 10, 10)));
 
         // Initialisation des objets "portables" (bijoux) spéciaux
