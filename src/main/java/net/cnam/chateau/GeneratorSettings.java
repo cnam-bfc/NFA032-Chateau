@@ -41,6 +41,27 @@ public class GeneratorSettings {
     private int luckSpecialEnemy = LUCK_SPECIAL_ENEMY;    // Chance de faire apparaître un ennemi special à la génération
 
     /**
+     * Méthode permettant de remettre à zéro les paramètres du générateur
+     */
+    public void reset() {
+        this.minSizeStage = MIN_SIZE_STAGE;
+        this.maxSizeStage = MAX_SIZE_STAGE;
+        this.minStage = MIN_STAGE;
+        this.maxStage = MAX_STAGE;
+        this.minSizeRoom = MIN_SIZE_ROOM;
+        this.maxSizeRoom = MAX_SIZE_ROOM;
+        this.nbIterationMin = NB_ITERATION_MIN;
+        this.nbIterationMax = NB_ITERATION_MAX;
+        this.pourcentDivide = POURCENT_DIVIDE;
+        this.minBlocks = MIN_BLOCKS;
+        this.maxBlocks = MAX_BLOCKS;
+        this.luckBlock = LUCK_BLOCK;
+        this.minEnemiesStage = MIN_ENEMIES_STAGE;
+        this.maxEnemiesStage = MAX_ENEMIES_STAGE;
+        this.luckSpecialEnemy = LUCK_SPECIAL_ENEMY;
+    }
+
+    /**
      * Méthode permettant de sauvegarder dans un fichier les paramètres de l'utilisateur.
      *
      * @param file Le fichier où doivent être sauvegardés les paramètres
@@ -74,16 +95,17 @@ public class GeneratorSettings {
      * Méthode permettant de récupérer les paramètres de l'utilisateur si ceux-ci existent.
      *
      * @param file Le fichier où doivent être sauvegardés les paramètres
-     * @throws IOException Levé d'une exception si un problème lors de la sauvegarde
+     * @throws IOException                    Levé d'une exception si un problème lors du chargement du fichier
+     * @throws SettingsFileCorruptedException Levé d'une exception si le fichier de paramètres est corrompu
      */
-    public void load(File file) throws IOException {
+    public void load(File file) throws IOException, SettingsFileCorruptedException {
         FileInputStream fluxEntree = new FileInputStream(file);
         BufferedInputStream inTampon = new BufferedInputStream(fluxEntree);
         DataInputStream in = new DataInputStream(inTampon);
 
         if (in.available() < 15) {
             in.close();
-            return;
+            throw new SettingsFileCorruptedException(file, "Le fichier de paramètres est corrompu");
         }
 
         setMinSizeStage(in.readInt());
@@ -113,8 +135,8 @@ public class GeneratorSettings {
         this.minSizeStage = minSizeStage;
     }
 
-    public Couple<Integer,Integer> verifyMinSizeStage() {
-        return new Couple<>(25,this.maxSizeStage);
+    public Couple<Integer, Integer> verifyMinSizeStage() {
+        return new Couple<>(25, this.maxSizeStage);
     }
 
     public int getMaxSizeStage() {
@@ -125,9 +147,9 @@ public class GeneratorSettings {
         this.maxSizeStage = maxSizeStage;
     }
 
-    public Couple<Integer,Integer> verifyMaxSizeStage() {
+    public Couple<Integer, Integer> verifyMaxSizeStage() {
 
-        return new Couple<>(this.minSizeStage,100);
+        return new Couple<>(this.minSizeStage, 100);
     }
 
     public int getMinStage() {
@@ -138,8 +160,8 @@ public class GeneratorSettings {
         this.minStage = minStage;
     }
 
-    public Couple<Integer,Integer> verifyMinStage() {
-        return new Couple<>(2,this.maxStage);
+    public Couple<Integer, Integer> verifyMinStage() {
+        return new Couple<>(2, this.maxStage);
     }
 
     public int getMaxStage() {
@@ -150,8 +172,8 @@ public class GeneratorSettings {
         this.maxStage = maxStage;
     }
 
-    public Couple<Integer,Integer> verifyMaxStage() {
-        return new Couple<>(this.minStage,8);
+    public Couple<Integer, Integer> verifyMaxStage() {
+        return new Couple<>(this.minStage, 8);
     }
 
     public int getMinSizeRoom() {
@@ -271,7 +293,7 @@ public class GeneratorSettings {
     }
 
     public Couple<Integer, Integer> verifyMaxEnemiesStage() {
-        return new Couple<>(this.minEnemiesStage,10);
+        return new Couple<>(this.minEnemiesStage, 10);
     }
 
     public int getLuckSpecialEnemy() {

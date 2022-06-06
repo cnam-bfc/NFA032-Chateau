@@ -57,16 +57,17 @@ public class AppSettings {
      * Méthode permettant de récupérer les paramètres de l'utilisateur si ceux-ci existent.
      *
      * @param file Le fichier où doivent être sauvegardés les paramètres
-     * @throws IOException Levé d'une exception si un problème lors de la sauvegarde
+     * @throws IOException                    Levé d'une exception si un problème lors du chargement du fichier
+     * @throws SettingsFileCorruptedException Levé d'une exception si le fichier de paramètres est corrompu
      */
-    public void load(File file) throws IOException {
+    public void load(File file) throws IOException, SettingsFileCorruptedException {
         FileInputStream fluxEntree = new FileInputStream(file);
         BufferedInputStream inTampon = new BufferedInputStream(fluxEntree);
         DataInputStream in = new DataInputStream(inTampon);
 
         if (in.available() < 4) {
             in.close();
-            return;
+            throw new SettingsFileCorruptedException(file, "Le fichier de paramètres est corrompu");
         }
 
         setConsoleLength(in.readInt());
