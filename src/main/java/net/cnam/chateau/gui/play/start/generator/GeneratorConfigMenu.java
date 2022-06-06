@@ -2,10 +2,8 @@ package net.cnam.chateau.gui.play.start.generator;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.GeneratorSettings;
-import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.utils.Couple;
 import net.cnam.chateau.utils.direction.Orientation;
@@ -16,6 +14,7 @@ import java.util.List;
 public class GeneratorConfigMenu extends CFrame implements DisplayableComponent {
     private final GeneratorSettings generatorSettings;
     private final List<GeneratorConfigSlider> sliders = new ArrayList<>();
+    private final CChoices buttons;
     private final CChoices choices;
     private final GeneratorConfigSlider minStageSlider;
     private final GeneratorConfigSlider maxStageSlider;
@@ -40,6 +39,12 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
         super(0, 0, "Configuration du générateur");
 
         this.generatorSettings = generatorSettings;
+
+        // Boutons
+        this.buttons = new CChoices(app, Orientation.HORIZONTAL, 10);
+        buttons.add(new GeneratorConfigSaveButton(app, generatorSettings, this));
+        buttons.add(new GeneratorConfigDefaultButton(app, generatorSettings, this));
+        buttons.add(new GeneratorConfigCancelButton(app, generatorSettings, this));
 
         this.choices = new CChoices(app, Orientation.VERTICAL, 1, false);
 
@@ -105,12 +110,6 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
 
         update();
 
-        CPanel footer = new CPanel(0, 1);
-        QuitComponentButton backButton = new QuitComponentButton(app, this, "Retour");
-        backButton.setSelected(true);
-        footer.getComponents().add(backButton);
-        this.setFooter(footer);
-
         this.getContentPane().getComponents().add(choices);
     }
 
@@ -138,55 +137,59 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
 
     @Override
     public String[] render() {
-        // On enlève tous les sliders du menu à choix
-        choices.removeAll();
+        if (choices.getSelectedComponent() != buttons) {
+            // On enlève tous les sliders du menu à choix
+            choices.removeAll();
 
-        int height = this.getContentPane().getHeight();
-        // Nombre de sliders qui peuvent tenir sur le menu à choix
-        int nbSliders = height / 3;
-        // Index du slider actuellement sélectionné
-        int selectedSlider = 0;
-        // On récupère l'index du slider sélectionné
-        for (int i = 0; i < sliders.size(); i++) {
-            if (sliders.get(i).isSelected()) {
-                selectedSlider = i;
-                break;
-            }
-        }
-
-        // Déplacer les éléments en fonction de l'élément sélectionné
-        // Si l'élément sélectionné se rapproche du bord haut
-        while (origin > 0 && selectedSlider - 1 < origin) {
-            int newOrigin = origin - 1;
-            if (newOrigin > 0) {
-                origin = newOrigin;
-            } else {
-                origin = 0;
-            }
-        }
-
-        // Si l'élément sélectionné se rapproche du bord bas
-        while (selectedSlider + 2 > origin + nbSliders) {
-            // Et que l'on peut abaisser la map
-            if (origin + nbSliders + 1 <= sliders.size()) {
-                origin++;
-            } else {
-                int newOrigin = sliders.size() - nbSliders;
-                if (newOrigin >= 0) {
-                    origin = newOrigin;
+            int height = this.getContentPane().getHeight() - 2;
+            // Nombre de sliders qui peuvent tenir sur le menu à choix
+            int nbSliders = height / 3;
+            // Index du slider actuellement sélectionné
+            int selectedSlider = 0;
+            // On récupère l'index du slider sélectionné
+            for (int i = 0; i < sliders.size(); i++) {
+                if (sliders.get(i).isSelected()) {
+                    selectedSlider = i;
+                    break;
                 }
-                break;
             }
-        }
 
-        // On ajoute les slider qui doivent être affichés dans le menu à choix
-        for (int i = origin; i < origin + nbSliders; i++) {
-            choices.add(sliders.get(i));
-        }
+            // Déplacer les éléments en fonction de l'élément sélectionné
+            // Si l'élément sélectionné se rapproche du bord haut
+            while (origin > 0 && selectedSlider - 1 < origin) {
+                int newOrigin = origin - 1;
+                if (newOrigin > 0) {
+                    origin = newOrigin;
+                } else {
+                    origin = 0;
+                }
+            }
 
-        // On resélectionne le bon slider
-        choices.getSelectedComponent().setSelected(false);
-        sliders.get(selectedSlider).setSelected(true);
+            // Si l'élément sélectionné se rapproche du bord bas
+            while (selectedSlider + 2 > origin + nbSliders) {
+                // Et que l'on peut abaisser la map
+                if (origin + nbSliders + 1 <= sliders.size()) {
+                    origin++;
+                } else {
+                    int newOrigin = sliders.size() - nbSliders;
+                    if (newOrigin >= 0) {
+                        origin = newOrigin;
+                    }
+                    break;
+                }
+            }
+
+            // On ajoute les slider qui doivent être affichés dans le menu à choix
+            for (int i = origin; i < origin + nbSliders; i++) {
+                choices.add(sliders.get(i));
+            }
+
+            choices.add(buttons);
+
+            // On resélectionne le bon slider
+            choices.getSelectedComponent().setSelected(false);
+            sliders.get(selectedSlider).setSelected(true);
+        }
 
         return super.render();
     }
@@ -227,7 +230,7 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
         update();
     }
 
-    private void update() {
+    public void update() {
         // minStage
         Couple<Integer, Integer> minStage = this.generatorSettings.verifyMinStage();
         this.minStageSlider.setMinValue(minStage.getElemOne());

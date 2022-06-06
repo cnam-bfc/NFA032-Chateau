@@ -28,14 +28,15 @@ public class App {
      */
     public App() {
         this.settings = new AppSettings();
-        try {
-            File settingsFile = new File(AppSettings.DEFAULT_FILE_PATH);
-            if (settingsFile.exists()) {
-                this.settings.load(settingsFile);
-            }
-        } catch (IOException ignored) {
-        }
         this.console = new Console(settings);
+        File settingsFile = new File(AppSettings.DEFAULT_FILE_PATH);
+        if (settingsFile.exists()) {
+            try {
+                this.settings.load(settingsFile);
+            } catch (IOException | SettingsFileCorruptedException e) {
+                console.show(new ErrorDialog(ErrorDialog.Type.ERROR, "Impossible de charger les paramètres\n \nErreur : " + e.getMessage()));
+            }
+        }
         this.statistics = new Statistics();
     }
 
