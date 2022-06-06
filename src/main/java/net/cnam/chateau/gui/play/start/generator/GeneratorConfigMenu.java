@@ -8,6 +8,7 @@ import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CPanel;
 import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.utils.Couple;
+import net.cnam.chateau.utils.direction.Orientation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +34,14 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
     private final GeneratorConfigSlider luckSpecialEnemySlider;
 
     private boolean display = true;
+    private int origin = 0;
 
     public GeneratorConfigMenu(App app, GeneratorSettings generatorSettings) {
         super(0, 0, "Configuration du générateur");
 
         this.generatorSettings = generatorSettings;
 
-        this.choices = new CChoices(app, 1);
+        this.choices = new CChoices(app, Orientation.VERTICAL, 1, false);
 
         // minStage
         this.minStageSlider = new GeneratorConfigSlider(this, "Nombre d'étages minimum");
@@ -142,10 +144,6 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
         int height = this.getContentPane().getHeight();
         // Nombre de sliders qui peuvent tenir sur le menu à choix
         int nbSliders = height / 3;
-        // Index du premier slider à afficher
-        int startIndex = 0;
-        // Index du dernier slider à afficher
-        int endIndex = nbSliders;
         // Index du slider actuellement sélectionné
         int selectedSlider = 0;
         // On récupère l'index du slider sélectionné
@@ -156,15 +154,33 @@ public class GeneratorConfigMenu extends CFrame implements DisplayableComponent 
             }
         }
 
-        // TODO Faire formule magique ici
-        if (endIndex > nbSliders) {
-            startIndex = endIndex - nbSliders;
+        // Déplacer les éléments en fonction de l'élément sélectionné
+        // Si l'élément sélectionné se rapproche du bord haut
+        while (origin > 0 && selectedSlider - 1 < origin) {
+            int newOrigin = origin - 1;
+            if (newOrigin > 0) {
+                origin = newOrigin;
+            } else {
+                origin = 0;
+            }
         }
 
-        // TODO Jusqua ici
+        // Si l'élément sélectionné se rapproche du bord bas
+        while (selectedSlider + 2 > origin + nbSliders) {
+            // Et que l'on peut abaisser la map
+            if (origin + nbSliders + 1 <= sliders.size()) {
+                origin++;
+            } else {
+                int newOrigin = sliders.size() - nbSliders;
+                if (newOrigin >= 0) {
+                    origin = newOrigin;
+                }
+                break;
+            }
+        }
 
         // On ajoute les slider qui doivent être affichés dans le menu à choix
-        for (int i = startIndex; i < endIndex; i++) {
+        for (int i = origin; i < origin + nbSliders; i++) {
             choices.add(sliders.get(i));
         }
 

@@ -19,6 +19,7 @@ import java.util.List;
 public class CChoices extends CPanel implements SelectableComponent, KeyListener {
     private final App app;
     private final List<SelectableComponent> selectableComponents = new ArrayList<>();
+    private final boolean edgeJump;
 
     private boolean selected = true;
 
@@ -31,9 +32,14 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
     }
 
     public CChoices(App app, Orientation orientation, int spacing) {
+        this(app, orientation, spacing, true);
+    }
+
+    public CChoices(App app, Orientation orientation, int spacing, boolean edgeJump) {
         super(HorizontalAlignment.CENTER, orientation, spacing);
 
         this.app = app;
+        this.edgeJump = edgeJump;
     }
 
     @Override
@@ -74,7 +80,11 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
                         if (components.isSelected()) {
                             components.setSelected(false);
                             if (i == 0) {
-                                selectableComponents.get(selectableComponents.size() - 1).setSelected(true);
+                                if (edgeJump) {
+                                    selectableComponents.get(selectableComponents.size() - 1).setSelected(true);
+                                } else {
+                                    selectableComponents.get(i).setSelected(true);
+                                }
                             } else {
                                 selectableComponents.get(i - 1).setSelected(true);
                             }
@@ -88,7 +98,11 @@ public class CChoices extends CPanel implements SelectableComponent, KeyListener
                         if (components.isSelected()) {
                             components.setSelected(false);
                             if (i == selectableComponents.size() - 1) {
-                                selectableComponents.get(0).setSelected(true);
+                                if (edgeJump) {
+                                    selectableComponents.get(0).setSelected(true);
+                                } else {
+                                    selectableComponents.get(i).setSelected(true);
+                                }
                             } else {
                                 selectableComponents.get(i + 1).setSelected(true);
                             }
