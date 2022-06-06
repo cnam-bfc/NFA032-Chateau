@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.play.start.generator;
 import net.cnam.chateau.App;
 import net.cnam.chateau.GeneratorSettings;
 import net.cnam.chateau.gui.component.CButton;
+import net.cnam.chateau.gui.dialog.DialogType;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 
 import java.io.File;
@@ -27,7 +28,7 @@ public class GeneratorConfigSaveButton extends CButton {
         try {
             generatorSettings.save(generatorSettingsFile);
         } catch (IOException e) {
-            app.getConsole().show(new ErrorDialog(ErrorDialog.Type.ERROR, "Impossible de sauvegarder les paramètres\n \nErreur : " + e.getMessage()));
+            app.getConsole().show(new ErrorDialog(DialogType.ERROR, "Impossible de sauvegarder les paramètres\n \nErreur : " + e.getMessage()));
         }
         menu.stopLoopingMode();
     }

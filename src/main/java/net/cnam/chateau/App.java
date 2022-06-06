@@ -35,7 +35,7 @@ public class App {
             try {
                 this.settings.load(settingsFile);
             } catch (IOException | SettingsFileCorruptedException e) {
-                console.show(new ErrorDialog(ErrorDialog.Type.ERROR, "Impossible de charger les paramètres\n \nErreur : " + e.getMessage()));
+                console.show(new ErrorDialog(DialogType.ERROR, "Impossible de charger les paramètres\n \nErreur : " + e.getMessage()));
             }
         }
         this.statistics = new Statistics();

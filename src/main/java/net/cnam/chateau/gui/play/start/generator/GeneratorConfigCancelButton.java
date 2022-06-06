@@ -5,6 +5,7 @@ import net.cnam.chateau.GeneratorSettings;
 import net.cnam.chateau.SettingsFileCorruptedException;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.dialog.DialogType;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class GeneratorConfigCancelButton extends QuitComponentButton {
             try {
                 generatorSettings.load(generatorSettingsFile);
             } catch (IOException | SettingsFileCorruptedException e) {
-                app.getConsole().show(new ErrorDialog(ErrorDialog.Type.ERROR, "Impossible de recharger les anciens paramètres\n \nErreur : " + e.getMessage()));
+                app.getConsole().show(new ErrorDialog(DialogType.ERROR, "Impossible de recharger les anciens paramètres\n \nErreur : " + e.getMessage()));
             }
         }
     }

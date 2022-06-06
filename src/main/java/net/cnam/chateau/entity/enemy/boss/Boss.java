@@ -1,8 +1,12 @@
 package net.cnam.chateau.entity.enemy.boss;
 
 import net.cnam.chateau.App;
+import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.entity.enemy.Enemy;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.dialog.DialogType;
+import net.cnam.chateau.gui.dialog.InfoDialog;
+import net.cnam.chateau.gui.play.fight.Fight;
 import net.cnam.chateau.structure.RoomBoss;
 import net.cnam.chateau.structure.Stage;
 import net.cnam.chateau.utils.Location;
@@ -13,6 +17,7 @@ public abstract class Boss extends Enemy {
     private final App app;
     private final String character;
     private List<String> dialogue;
+    private boolean dialogPassed = false;
 
     /**
      * Constructeur
@@ -59,5 +64,17 @@ public abstract class Boss extends Enemy {
     @Override
     public String getCharacter() {
         return CColor.RED + this.character + CColor.RED.getForegroundReset();
+    }
+
+    @Override
+    public Fight fight(Player player, boolean runAway) {
+        if (!this.dialogPassed){
+            this.app.getConsole().show(new InfoDialog(DialogType.HISTORY,
+                    "Donc c'est toi l'intrus qui a pénétré dans mon château ?\n" +
+                    "Prépare toi à gouter à la colère de " + this.getName() + " !\n" +
+                    "Mon arme \" " + this.getWeapon().getName() + " \" sera la dernière que tu verras !"));
+        }
+        this.dialogPassed = true;
+        return super.fight(player, runAway);
     }
 }
