@@ -5,8 +5,7 @@ public enum DialogType {
     WARNING("\u26A0 Attention \u26A0", "Appuyez sur une touche pour continuer..."),
     ERROR("\u26A0 Erreur \u26A0", "Appuyez sur une touche pour continuer..."),
     HISTORY("\u270F Histoire \u270F", "Appuyez sur une touche pour continuer..."),
-    EXCEPTION("\u26A0 Une erreur fatale est survenue \u26A0", "Appuyez sur une touche pour quitter..."),
-    START("","Appuyez sur une touche pour quitter...");
+    EXCEPTION("\u26A0 Une erreur fatale est survenue \u26A0", "Appuyez sur une touche pour quitter...");
 
     private final String title;
     private final String footer;

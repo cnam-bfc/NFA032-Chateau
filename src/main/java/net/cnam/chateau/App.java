@@ -7,7 +7,7 @@ import net.cnam.chateau.game.Statistics;
 import net.cnam.chateau.gui.Console;
 import net.cnam.chateau.gui.dialog.DialogType;
 import net.cnam.chateau.gui.dialog.ErrorDialog;
-import net.cnam.chateau.gui.dialog.InfoDialog;
+import net.cnam.chateau.gui.main.SplashScreen;
 import net.cnam.chateau.gui.main.menu.MainMenu;
 import net.cnam.chateau.utils.audio.SimpleAudioPlayer;
 
@@ -47,21 +47,7 @@ public class App {
      */
     public void start() {
         try {
-            console.show(new InfoDialog(DialogType.START,""+
-                            " ███████╗███████╗ ██████╗███╗   ██╗ █████╗ ███╗   ███╗\n" +
-                            " ██╔════╝██╔════╝██╔════╝████╗  ██║██╔══██╗████╗ ████║\n" +
-                            " █████╗  ███████╗██║     ██╔██╗ ██║███████║██╔████╔██║\n" +
-                            " ██╔══╝  ╚════██║██║     ██║╚██╗██║██╔══██║██║╚██╔╝██║\n" +
-                            " ███████╗███████║╚██████╗██║ ╚████║██║  ██║██║ ╚═╝ ██║\n" +
-                            " ╚══════╝╚══════╝ ╚═════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝     ╚═╝\n" +
-                            "                                                     \n" +
-                            "          ██████╗  █████╗ ███╗   ███╗███████╗         \n" +
-                            "         ██╔════╝ ██╔══██╗████╗ ████║██╔════╝         \n" +
-                            "         ██║  ███╗███████║██╔████╔██║█████╗           \n" +
-                            "         ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝           \n" +
-                            "         ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗         \n" +
-                            "          ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝         \n" +
-                            "                                                    \n"));
+            console.show(new SplashScreen());
             statistics.loadStatistics();
             MainMenu mainMenu = new MainMenu(this);
             console.show(mainMenu);
