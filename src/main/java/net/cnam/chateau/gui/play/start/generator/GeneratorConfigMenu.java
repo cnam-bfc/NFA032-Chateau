@@ -4,7 +4,7 @@ import net.cnam.chateau.App;
 import net.cnam.chateau.GeneratorSettings;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.utils.Couple;
 import net.cnam.chateau.utils.direction.Orientation;
 

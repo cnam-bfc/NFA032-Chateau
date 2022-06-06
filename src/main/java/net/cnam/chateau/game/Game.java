@@ -10,6 +10,7 @@ import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.event.player.PlayerInteractEvent;
 import net.cnam.chateau.event.player.PlayerInteractListener;
 import net.cnam.chateau.generator.Generator;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.play.EntityStats;
 import net.cnam.chateau.gui.play.escape.EscapeMenu;

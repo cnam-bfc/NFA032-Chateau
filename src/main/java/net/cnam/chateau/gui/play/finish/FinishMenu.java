@@ -5,6 +5,7 @@ import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.game.Game;
 import net.cnam.chateau.game.Statistic;
 import net.cnam.chateau.gui.CColor;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.structure.Room;

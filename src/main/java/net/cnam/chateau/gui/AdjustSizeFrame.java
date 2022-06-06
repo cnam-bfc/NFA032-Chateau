@@ -4,7 +4,6 @@ import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CLabel;
-import net.cnam.chateau.gui.component.DisplayableComponent;
 import net.cnam.chateau.utils.direction.Direction;
 import net.cnam.chateau.utils.direction.DirectionNotFoundException;
 import net.cnam.chateau.utils.direction.DirectionUtils;

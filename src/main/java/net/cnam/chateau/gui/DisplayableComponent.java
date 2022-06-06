@@ -1,4 +1,4 @@
-package net.cnam.chateau.gui.component;
+package net.cnam.chateau.gui;
 
 public interface DisplayableComponent {
     boolean isInFullScreenMode();

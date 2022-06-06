@@ -5,7 +5,7 @@ import net.cnam.chateau.entity.Player;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.structure.block.Bed;
 
 public class BedMenu extends CFrame implements DisplayableComponent {

@@ -5,7 +5,7 @@ import net.cnam.chateau.event.key.KeyPressedEvent;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 
 public class InfoMenu extends CFrame implements DisplayableComponent {
     private boolean display = true;

@@ -2,7 +2,7 @@ package net.cnam.chateau.gui.common;
 
 import net.cnam.chateau.App;
 import net.cnam.chateau.gui.component.CButton;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 
 public class QuitComponentButton extends CButton {
     private final DisplayableComponent component;

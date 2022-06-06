@@ -5,7 +5,7 @@ import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.CChoices;
 import net.cnam.chateau.gui.component.CFrame;
 import net.cnam.chateau.gui.component.CSlider;
-import net.cnam.chateau.gui.component.DisplayableComponent;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.utils.direction.Orientation;
 
 public class ConfigureSoundEffectsFrame extends CFrame implements DisplayableComponent {

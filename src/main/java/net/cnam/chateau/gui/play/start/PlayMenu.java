@@ -3,6 +3,7 @@ package net.cnam.chateau.gui.play.start;
 import net.cnam.chateau.App;
 import net.cnam.chateau.AppSettings;
 import net.cnam.chateau.GeneratorSettings;
+import net.cnam.chateau.gui.DisplayableComponent;
 import net.cnam.chateau.gui.common.QuitComponentButton;
 import net.cnam.chateau.gui.component.*;
 import net.cnam.chateau.gui.main.menu.MainMenu;
